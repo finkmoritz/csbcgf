@@ -40,20 +40,23 @@
     <Compile Include="Library\Card\ICard.cs" />
     <Compile Include="Library\Deck\IDeck.cs" />
     <Compile Include="Library\Game\IGame.cs" />
-    <Compile Include="Library\Card\SpellCard.cs" />
-    <Compile Include="Library\Card\MonsterCard.cs" />
     <Compile Include="Library\Stat\IStat.cs" />
     <Compile Include="Library\Stat\Stat.cs" />
-    <Compile Include="Library\Stat\ManaStat.cs" />
-    <Compile Include="Library\Stat\AttackStat.cs" />
-    <Compile Include="Library\Stat\LifeStat.cs" />
-    <Compile Include="Library\Deck\IStackedDeck.cs" />
-    <Compile Include="Library\Deck\StackedDeck.cs" />
-    <Compile Include="Library\Deck\IHand.cs" />
-    <Compile Include="Library\Deck\Hand.cs" />
-    <Compile Include="Library\Deck\IBoard.cs" />
-    <Compile Include="Library\Deck\Board.cs" />
     <Compile Include="Library\Game\GameOptions.cs" />
+    <Compile Include="Library\Card\MonsterCard\IMonsterCard.cs" />
+    <Compile Include="Library\Card\MonsterCard\MonsterCard.cs" />
+    <Compile Include="Library\Card\SpellCard\ISpellCard.cs" />
+    <Compile Include="Library\Card\SpellCard\SpellCard.cs" />
+    <Compile Include="Library\Deck\Board\Board.cs" />
+    <Compile Include="Library\Deck\Board\IBoard.cs" />
+    <Compile Include="Library\Deck\Hand\Hand.cs" />
+    <Compile Include="Library\Deck\Hand\IHand.cs" />
+    <Compile Include="Library\Deck\StackedDeck\IStackedDeck.cs" />
+    <Compile Include="Library\Deck\StackedDeck\StackedDeck.cs" />
+    <Compile Include="Library\Stat\Implementations\AttackStat.cs" />
+    <Compile Include="Library\Stat\Implementations\LifeStat.cs" />
+    <Compile Include="Library\Stat\Implementations\ManaStat.cs" />
+    <Compile Include="Library\Exception\CsccglException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -62,6 +65,13 @@
     <Folder Include="Library\Deck\" />
     <Folder Include="Library\Player\" />
     <Folder Include="Library\Stat\" />
+    <Folder Include="Library\Card\MonsterCard\" />
+    <Folder Include="Library\Card\SpellCard\" />
+    <Folder Include="Library\Deck\Board\" />
+    <Folder Include="Library\Deck\Hand\" />
+    <Folder Include="Library\Deck\StackedDeck\" />
+    <Folder Include="Library\Stat\Implementations\" />
+    <Folder Include="Library\Exception\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

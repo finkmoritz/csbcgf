@@ -3,11 +3,23 @@
 namespace csccgl
 {
     [Serializable]
-    public class Stat : IStat
+    public abstract class Stat : IStat
     {
+        /// <summary>
+        /// Minimum value of this Stat's Value.
+        /// </summary>
         protected int MinValue;
+
+        /// <summary>
+        /// Maximum value of this Stat's Value.
+        /// </summary>
         protected int MaxValue;
 
+        /// <summary>
+        /// Represents a Card's property.
+        /// </summary>
+        /// <param name="minValue">Minimum value of this Stat's Value.</param>
+        /// <param name="maxValue">Maximum value of this Stat's Value.</param>
         public Stat(int minValue, int maxValue)
         {
             MinValue = minValue;

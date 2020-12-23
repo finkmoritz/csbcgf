@@ -6,7 +6,14 @@ namespace csccgl
     [Serializable]
     public class Hand : IHand
     {
+        /// <summary>
+        /// Maximum number of Cards that this Hand can hold.
+        /// </summary>
         public const int MaxCards = 10;
+
+        /// <summary>
+        /// Data container.
+        /// </summary>
         protected List<ICard> Cards = new List<ICard>();
 
         public Hand()
