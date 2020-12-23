@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3FF09BE9-E494-4D60-B87B-DFB4F91209A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>csccgl</RootNamespace>
+    <AssemblyName>csccgl</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MyClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Library\GameState\GameState.cs" />
+    <Compile Include="Library\Card\Card.cs" />
+    <Compile Include="Library\Deck\Deck.cs" />
+    <Compile Include="Library\Player\Player.cs" />
+    <Compile Include="Library\Player\IPlayer.cs" />
+    <Compile Include="Library\Card\ICard.cs" />
+    <Compile Include="Library\Deck\IDeck.cs" />
+    <Compile Include="Library\GameState\IGameState.cs" />
+    <Compile Include="Library\Card\SpellCard.cs" />
+    <Compile Include="Library\Card\MonsterCard.cs" />
+    <Compile Include="Library\Stat\IStat.cs" />
+    <Compile Include="Library\Stat\Stat.cs" />
+    <Compile Include="Library\Stat\ManaStat.cs" />
+    <Compile Include="Library\Stat\AttackStat.cs" />
+    <Compile Include="Library\Stat\LifeStat.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Library\" />
+    <Folder Include="Library\GameState\" />
+    <Folder Include="Library\Card\" />
+    <Folder Include="Library\Deck\" />
+    <Folder Include="Library\Player\" />
+    <Folder Include="Library\Stat\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
