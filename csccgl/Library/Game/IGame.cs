@@ -2,7 +2,7 @@
 
 namespace csccgl
 {
-    public interface IGameState
+    public interface IGame
     {
     }
 }
