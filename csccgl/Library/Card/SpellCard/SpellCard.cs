@@ -3,7 +3,7 @@
 namespace csccgl
 {
     [Serializable]
-    public class SpellCard : Card, ISpellCard
+    public abstract class SpellCard : Card, ISpellCard
     {
         /// <summary>
         /// Represents a certain type of Card that has an

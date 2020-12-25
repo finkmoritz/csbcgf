@@ -4,11 +4,10 @@ namespace csccgl
     public interface IHand : IDeck
     {
         /// <summary>
-        /// Remove the Card at position index from this Hand.
+        /// Remove the specified Card from this Hand.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns>The removed Card</returns>
-        ICard RemoveAt(int index);
+        /// <param name="card"></param>
+        void Remove(ICard card);
 
         /// <summary>
         /// Add the given Card to this Hand.

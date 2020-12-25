@@ -5,6 +5,9 @@ namespace csccgl
     [Serializable]
     public class Player : IPlayer
     {
+        public AttackStat AttackStat { get; }
+        public LifeStat LifeStat { get; }
+
         /// <summary>
         /// The Player's Deck of Cards.
         /// </summary>
@@ -29,9 +32,16 @@ namespace csccgl
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
-        public Player(IStackedDeck deck)
+        public Player(IStackedDeck deck, int life = 30)
         {
             this.Deck = deck;
+            this.AttackStat.Value = 0;
+            this.LifeStat.Value = life;
+        }
+
+        public void Attack(IMonsterCard monsterCard, ICharacter targetCharacter)
+        {
+            monsterCard.Attack(targetCharacter);
         }
 
         public ICard DrawCard()
@@ -39,6 +49,22 @@ namespace csccgl
             ICard card = Deck.PopCard();
             Hand.Add(card);
             return card;
+        }
+
+        public void PlayCard(IMonsterCard monsterCard, int boardIndex)
+        {
+            Hand.Remove(monsterCard);
+            Board.AddAt(boardIndex, monsterCard);
+        }
+
+        public void PlayCard(ITargetlessSpellCard spellCard)
+        {
+            throw new NotImplementedException(); //TODO
+        }
+
+        public void PlayCard(ITargetfulSpellCard spellCard, ICharacter targetCharacter)
+        {
+            throw new NotImplementedException(); //TODO
         }
     }
 }

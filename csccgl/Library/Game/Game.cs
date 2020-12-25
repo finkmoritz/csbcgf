@@ -14,7 +14,7 @@ namespace csccgl
         /// Index of the active Player. Refers to the Players array.
         /// Also see the ActivePlayer accessor.
         /// </summary>
-        public readonly int ActivePlayerIndex;
+        public int ActivePlayerIndex { get; protected set; }
 
         /// <summary>
         /// Additional GameOptions that help customizing a Game.
@@ -58,6 +58,12 @@ namespace csccgl
                     player.DrawCard();
                 }
             }
+        }
+
+        public void EndTurn()
+        {
+            ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
+            ActivePlayer.DrawCard();
         }
     }
 }

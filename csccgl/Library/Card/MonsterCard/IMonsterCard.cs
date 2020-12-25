@@ -1,16 +1,12 @@
 ﻿using System;
 namespace csccgl
 {
-    public interface IMonsterCard : ICard
+    public interface IMonsterCard : ICard, ICharacter, ITargetful
     {
         /// <summary>
-        /// Damage that is dealt to an enemy in battle.
+        /// Attack the given target Character.
         /// </summary>
-        AttackStat AttackStat { get; }
-
-        /// <summary>
-        /// Maximum damage that can be taken until this Monster dies.
-        /// </summary>
-        LifeStat LifeStat { get; }
+        /// <param name="targetCharacter"></param>
+        void Attack(ICharacter targetCharacter);
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace csccgl
 {
     [Serializable]
-    public class MonsterCard : Card, IMonsterCard
+    public abstract class MonsterCard : Card, IMonsterCard
     {
         public AttackStat AttackStat { get; }
         public LifeStat LifeStat { get; }
@@ -20,5 +21,13 @@ namespace csccgl
             AttackStat.Value = attack;
             LifeStat.Value = life;
         }
+
+        public void Attack(ICharacter targetCharacter)
+        {
+            targetCharacter.LifeStat.Value -= this.AttackStat.Value;
+            this.LifeStat.Value -= targetCharacter.AttackStat.Value;
+        }
+
+        public abstract List<ICharacter> GetPotentialTargets(Game game);
     }
 }

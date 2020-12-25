@@ -15,5 +15,7 @@ namespace csccgl
         {
             ManaStat.Value = mana;
         }
+
+        public abstract bool IsPlayable(Game game);
     }
 }

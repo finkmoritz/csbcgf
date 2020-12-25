@@ -8,8 +8,8 @@ namespace csccgltest
         [Test()]
         public void TestCase()
         {
-            MyClass myClass = new MyClass();
-            Assert.AreEqual("1", "1");
+            CsccglExample example = new CsccglExample();
+            Assert.True(true);
         }
     }
 }

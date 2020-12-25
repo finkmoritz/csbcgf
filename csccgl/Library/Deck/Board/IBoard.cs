@@ -4,12 +4,10 @@ namespace csccgl
     public interface IBoard : IDeck
     {
         /// <summary>
-        /// Remove the Card at position index and return that Card.
+        /// Remove the specified Card from this Board.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns>The removed Card or null if there was no
-        /// Card at position index.</returns>
-        ICard RemoveAt(int index);
+        /// <param name="card"></param>
+        void Remove(ICard card);
 
         /// <summary>
         /// Add the given Card to the Board at position index.

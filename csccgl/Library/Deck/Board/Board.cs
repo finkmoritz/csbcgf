@@ -31,11 +31,15 @@ namespace csccgl
             Cards[index] = card;
         }
 
-        public ICard RemoveAt(int index)
+        public void Remove(ICard card)
         {
-            ICard card = Cards[index];
-            Cards[index] = null;
-            return card;
+            for(int i=0; i<Cards.Length; ++i)
+            {
+                if(Cards[i] == card)
+                {
+                    Cards[i] = null;
+                }
+            }
         }
     }
 }

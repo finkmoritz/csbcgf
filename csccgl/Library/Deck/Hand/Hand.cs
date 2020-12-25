@@ -28,11 +28,9 @@ namespace csccgl
             }
         }
 
-        public ICard RemoveAt(int index)
+        public void Remove(ICard card)
         {
-            ICard card = Cards[index];
-            Cards.RemoveAt(index);
-            return card;
+            Cards.Remove(card);
         }
     }
 }
