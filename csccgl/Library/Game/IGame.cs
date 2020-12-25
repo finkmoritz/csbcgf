@@ -9,12 +9,12 @@ namespace csccgl
         /// Equivalent to using
         /// <code>Players[ActivePlayerIndex]</code>
         /// </summary>
-        public Player ActivePlayer { get; }
+        Player ActivePlayer { get; }
 
         /// <summary>
         /// Array of Players involved in the Game.
         /// </summary>
-        public Player[] Players { get; }
+        Player[] Players { get; }
 
         /// <summary>
         /// The active Player's MonsterCard attacks another Player's Character.
