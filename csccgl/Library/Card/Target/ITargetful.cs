@@ -11,6 +11,6 @@ namespace csccgl
         /// </summary>
         /// <param name="game"></param>
         /// <returns>All valid target Characters.</returns>
-        List<ICharacter> GetPotentialTargets(Game game);
+        List<ICharacter> GetPotentialTargets(IGame game);
     }
 }

@@ -5,10 +5,7 @@ namespace csccgl
     [Serializable]
     public class Game : IGame
     {
-        /// <summary>
-        /// Array of Players involved in the Game.
-        /// </summary>
-        public readonly Player[] Players;
+        public Player[] Players { get; }
 
         /// <summary>
         /// Index of the active Player. Refers to the Players array.
@@ -20,7 +17,6 @@ namespace csccgl
         /// Additional GameOptions that help customizing a Game.
         /// </summary>
         public readonly GameOptions Options;
-
 
         /// <summary>
         /// Represent the current Game state and provides methods to alter
@@ -42,14 +38,9 @@ namespace csccgl
             Init();
         }
 
-        /// <summary>
-        /// Convenience method to retrieve the active Player.
-        /// Equivalent to using
-        /// <code>Players[ActivePlayerIndex]</code>
-        /// </summary>
         public Player ActivePlayer => Players[ActivePlayerIndex];
 
-        private void Init()
+        protected void Init()
         {
             foreach (Player player in Players)
             {
@@ -64,6 +55,26 @@ namespace csccgl
         {
             ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
             ActivePlayer.DrawCard();
+        }
+
+        public void Attack(IMonsterCard monsterCard, ICharacter targetCharacter)
+        {
+            ActivePlayer.Attack(this, monsterCard, targetCharacter);
+        }
+
+        public void PlayMonster(IMonsterCard monsterCard, int boardIndex)
+        {
+            ActivePlayer.PlayMonster(this, monsterCard, boardIndex);
+        }
+
+        public void PlaySpell(ITargetlessSpellCard spellCard)
+        {
+            ActivePlayer.PlaySpell(this, spellCard);
+        }
+
+        public void PlaySpell(ITargetfulSpellCard spellCard, ICharacter targetCharacter)
+        {
+            ActivePlayer.PlaySpell(this, spellCard, targetCharacter);
         }
     }
 }

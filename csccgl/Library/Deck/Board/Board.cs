@@ -31,6 +31,18 @@ namespace csccgl
             Cards[index] = card;
         }
 
+        public bool IsEmpty()
+        {
+            foreach(ICard card in Cards)
+            {
+                if(card != null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void Remove(ICard card)
         {
             for(int i=0; i<Cards.Length; ++i)

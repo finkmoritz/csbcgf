@@ -10,8 +10,8 @@ namespace csccgl
         {
         }
 
-        public abstract List<ICharacter> GetPotentialTargets(Game game);
+        public abstract List<ICharacter> GetPotentialTargets(IGame game);
 
-        public abstract void Play(Game game, ICharacter targetCharacter);
+        public abstract void Play(IGame game, ICharacter targetCharacter);
     }
 }

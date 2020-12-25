@@ -12,5 +12,7 @@ namespace csccgl
         public Deck()
         {
         }
+
+        public abstract bool IsEmpty();
     }
 }

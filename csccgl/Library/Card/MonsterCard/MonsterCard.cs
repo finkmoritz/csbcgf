@@ -28,6 +28,6 @@ namespace csccgl
             this.LifeStat.Value -= targetCharacter.AttackStat.Value;
         }
 
-        public abstract List<ICharacter> GetPotentialTargets(Game game);
+        public abstract List<ICharacter> GetPotentialTargets(IGame game);
     }
 }

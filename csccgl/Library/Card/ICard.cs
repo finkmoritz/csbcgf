@@ -11,6 +11,6 @@
         /// Checks if this Card is playable.
         /// </summary>
         /// <returns>True if this Card can be played.</returns>
-        bool IsPlayable(Game game);
+        bool IsPlayable(IGame game);
     }
 }

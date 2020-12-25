@@ -10,29 +10,35 @@
 
         /// <summary>
         /// Play a MonsterCard from the Player's Hand to the Board at
-        /// position boardIndex
+        /// position boardIndex.
         /// </summary>
-        /// <param name="card"></param>
-        void PlayCard(IMonsterCard monsterCard, int boardIndex);
+        /// <param name="game"></param>
+        /// <param name="monsterCard"></param>
+        /// <param name="boardIndex"></param>
+        void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex);
 
         /// <summary>
-        /// Play a SpellCard that needs no target.
+        /// Play a SpellCard from the Player's Hand that needs no target.
         /// </summary>
-        /// <param name="card"></param>
-        void PlayCard(ITargetlessSpellCard spellCard);
+        /// <param name="game"></param>
+        /// <param name="spellCard"></param>
+        void PlaySpell(IGame game, ITargetlessSpellCard spellCard);
 
         /// <summary>
-        /// Play a SpellCard onto the specified target Character.
+        /// Play a SpellCard from the Player's Hand onto the specified
+        /// target Character.
         /// </summary>
-        /// <param name="card"></param>
-        /// <param name="target"></param>
-        void PlayCard(ITargetfulSpellCard spellCard, ICharacter targetCharacter);
+        /// <param name="game"></param>
+        /// <param name="spellCard"></param>
+        /// <param name="targetCharacter"></param>
+        void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter);
 
         /// <summary>
         /// Attack the target Character with the specified MonsterCard.
         /// </summary>
+        /// <param name="game"></param>
         /// <param name="monsterCard"></param>
         /// <param name="targetCharacter"></param>
-        void Attack(IMonsterCard monsterCard, ICharacter targetCharacter);
+        void Attack(IGame game, IMonsterCard monsterCard, ICharacter targetCharacter);
     }
 }

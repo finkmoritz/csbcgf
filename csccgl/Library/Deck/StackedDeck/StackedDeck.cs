@@ -13,9 +13,14 @@ namespace csccgl
         {
         }
 
+        public bool IsEmpty()
+        {
+            return Cards.Count == 0;
+        }
+
         public ICard PopCard()
         {
-            return (ICard)Cards.Pop();
+            return Cards.Pop();
         }
 
         public void PushCard(ICard card)

@@ -9,6 +9,6 @@ namespace csccgl
         /// </summary>
         /// <param name="game"></param>
         /// <param name="targetCharacter"></param>
-        void Play(Game game, ICharacter targetCharacter);
+        void Play(IGame game, ICharacter targetCharacter);
     }
 }

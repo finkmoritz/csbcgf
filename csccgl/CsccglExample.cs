@@ -15,12 +15,12 @@ namespace csccgl
         {
         }
 
-        public override List<ICharacter> GetPotentialTargets(Game game)
+        public override List<ICharacter> GetPotentialTargets(IGame game)
         {
             throw new System.NotImplementedException();
         }
 
-        public override bool IsPlayable(Game game)
+        public override bool IsPlayable(IGame game)
         {
             throw new System.NotImplementedException();
         }
@@ -32,12 +32,12 @@ namespace csccgl
         {
         }
 
-        public override bool IsPlayable(Game game)
+        public override bool IsPlayable(IGame game)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Play(Game game)
+        public override void Play(IGame game)
         {
             throw new System.NotImplementedException();
         }
@@ -49,17 +49,17 @@ namespace csccgl
         {
         }
 
-        public override List<ICharacter> GetPotentialTargets(Game game)
+        public override List<ICharacter> GetPotentialTargets(IGame game)
         {
             throw new System.NotImplementedException();
         }
 
-        public override bool IsPlayable(Game game)
+        public override bool IsPlayable(IGame game)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Play(Game game, ICharacter targetCharacter)
+        public override void Play(IGame game, ICharacter targetCharacter)
         {
             throw new System.NotImplementedException();
         }

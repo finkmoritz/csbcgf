@@ -7,6 +7,6 @@ namespace csccgl
         /// Play this Card to alter the Game's state.
         /// </summary>
         /// <param name="game"></param>
-        void Play(Game game);
+        void Play(IGame game);
     }
 }

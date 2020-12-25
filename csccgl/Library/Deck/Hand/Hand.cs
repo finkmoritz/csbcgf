@@ -28,6 +28,11 @@ namespace csccgl
             }
         }
 
+        public bool IsEmpty()
+        {
+            return Cards.Count == 0;
+        }
+
         public void Remove(ICard card)
         {
             Cards.Remove(card);

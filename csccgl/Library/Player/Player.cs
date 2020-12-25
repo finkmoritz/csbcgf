@@ -39,32 +39,67 @@ namespace csccgl
             this.LifeStat.Value = life;
         }
 
-        public void Attack(IMonsterCard monsterCard, ICharacter targetCharacter)
+        public void Attack(IGame game, IMonsterCard monsterCard, ICharacter targetCharacter)
         {
-            monsterCard.Attack(targetCharacter);
+            if (monsterCard.IsPlayable(game))
+            {
+                monsterCard.Attack(targetCharacter);
+            }
+            else
+            {
+                throw new CsccglException("Tried to attack with a card that " +
+                    "is not playable!");
+            }
         }
 
         public ICard DrawCard()
         {
-            ICard card = Deck.PopCard();
-            Hand.Add(card);
-            return card;
+            if(!Deck.IsEmpty())
+            {
+                ICard card = Deck.PopCard();
+                Hand.Add(card);
+                return card;
+            }
+            return null;
         }
 
-        public void PlayCard(IMonsterCard monsterCard, int boardIndex)
+        public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
         {
-            Hand.Remove(monsterCard);
-            Board.AddAt(boardIndex, monsterCard);
+            if (monsterCard.IsPlayable(game))
+            {
+                Hand.Remove(monsterCard);
+                Board.AddAt(boardIndex, monsterCard);
+            }
+            else
+            {
+                throw new CsccglException("Tried to play a card that is " +
+                    "not playable!");
+            }
         }
 
-        public void PlayCard(ITargetlessSpellCard spellCard)
+        public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
         {
-            throw new NotImplementedException(); //TODO
+            if(spellCard.IsPlayable(game))
+            {
+                spellCard.Play(game);
+            } else
+            {
+                throw new CsccglException("Tried to play a card that is " +
+                    "not playable!");
+            }
         }
 
-        public void PlayCard(ITargetfulSpellCard spellCard, ICharacter targetCharacter)
+        public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
         {
-            throw new NotImplementedException(); //TODO
+            if (spellCard.IsPlayable(game))
+            {
+                spellCard.Play(game, targetCharacter);
+            }
+            else
+            {
+                throw new CsccglException("Tried to play a card that is " +
+                    "not playable!");
+            }
         }
     }
 }
