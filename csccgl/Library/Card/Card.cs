@@ -13,7 +13,7 @@ namespace csccgl
         /// <param name="mana">Initial value for the ManaStat.</param>
         public Card(int mana)
         {
-            ManaStat.Value = mana;
+            ManaStat = new ManaStat(mana, 99);
         }
 
         public abstract bool IsPlayable(IGame game);

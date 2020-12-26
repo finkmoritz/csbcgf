@@ -16,7 +16,7 @@ namespace csccgl
                 throw new CsccglException("Parameter components cannot be empty!");
             }
             this.Components = components;
-            this.ManaStat = new ManaStat(Components.Sum(c => c.ManaStat.Value));
+            this.ManaStat = new ManaStat(Components.Sum(c => c.ManaStat.Value), 99);
         }
 
         public bool IsPlayable(IGame game)

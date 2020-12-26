@@ -7,7 +7,7 @@ namespace csccgl {
         /// <summary>
         /// Costs in Mana.
         /// </summary>
-        public ManaStat(int value) : base(value, 0, 99)
+        public ManaStat(int value, int maxValue) : base(value, maxValue)
         {
         }
     }

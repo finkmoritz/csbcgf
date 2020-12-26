@@ -2,6 +2,8 @@
 {
     public interface IPlayer : ICharacter
     {
+        ManaStat ManaStat { get; }
+
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.
         /// </summary>

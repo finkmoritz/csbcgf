@@ -5,6 +5,7 @@ namespace csccgl
     [Serializable]
     public class Player : IPlayer
     {
+        public ManaStat ManaStat { get; }
         public AttackStat AttackStat { get; }
         public LifeStat LifeStat { get; }
 
@@ -35,8 +36,9 @@ namespace csccgl
         public Player(IStackedDeck deck, int life = 30)
         {
             this.Deck = deck;
-            this.AttackStat.Value = 0;
-            this.LifeStat.Value = life;
+            this.ManaStat = new ManaStat(0, 10);
+            this.AttackStat = new AttackStat(0);
+            this.LifeStat = new LifeStat(life);
         }
 
         public void Attack(IGame game, IMonsterCard monsterCard, ICharacter targetCharacter)

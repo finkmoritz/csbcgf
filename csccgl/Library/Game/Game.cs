@@ -54,6 +54,7 @@ namespace csccgl
         public void EndTurn()
         {
             ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
+            ActivePlayer.ManaStat.Value++;
             ActivePlayer.DrawCard();
         }
 

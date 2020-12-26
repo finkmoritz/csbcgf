@@ -8,7 +8,7 @@ namespace csccgl
         /// <summary>
         /// Maximum number of damage that can be taken.
         /// </summary>
-        public LifeStat(int value) : base(value, 0, 99)
+        public LifeStat(int value) : base(value, value)
         {
         }
     }

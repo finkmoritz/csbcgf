@@ -18,8 +18,8 @@ namespace csccgl
         /// <param name="life"></param>
         public MonsterCard(int mana, int attack, int life) : base(mana)
         {
-            AttackStat.Value = attack;
-            LifeStat.Value = life;
+            AttackStat = new AttackStat(attack);
+            LifeStat = new LifeStat(life);
         }
 
         public void Attack(ICharacter targetCharacter)
