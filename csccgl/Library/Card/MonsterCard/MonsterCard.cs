@@ -29,5 +29,7 @@ namespace csccgl
         }
 
         public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);
+
+        public bool IsAlive() => LifeStat.Value > 0;
     }
 }

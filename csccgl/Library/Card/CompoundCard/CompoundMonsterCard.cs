@@ -34,5 +34,7 @@ namespace csccgl
             }
             return potentialTargets;
         }
+
+        public bool IsAlive() => LifeStat.Value > 0;
     }
 }

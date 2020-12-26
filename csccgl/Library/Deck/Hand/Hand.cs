@@ -28,6 +28,11 @@ namespace csccgl
             }
         }
 
+        public bool Contains(ICard card)
+        {
+            return Cards.Contains(card);
+        }
+
         public bool IsEmpty()
         {
             return Cards.Count == 0;

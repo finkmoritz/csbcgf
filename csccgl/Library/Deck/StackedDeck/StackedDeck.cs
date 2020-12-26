@@ -13,17 +13,22 @@ namespace csccgl
         {
         }
 
+        public bool Contains(ICard card)
+        {
+            return Cards.Contains(card);
+        }
+
         public bool IsEmpty()
         {
             return Cards.Count == 0;
         }
 
-        public ICard PopCard()
+        public ICard Pop()
         {
             return Cards.Pop();
         }
 
-        public void PushCard(ICard card)
+        public void Push(ICard card)
         {
             Cards.Push(card);
         }

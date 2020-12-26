@@ -12,6 +12,13 @@ namespace csccgl
         Player ActivePlayer { get; }
 
         /// <summary>
+        /// Convenience method to retrieve the non-active Player.
+        /// Equivalent to using
+        /// <code>Players[1 - ActivePlayerIndex]</code>
+        /// </summary>
+        Player NonActivePlayer { get; }
+
+        /// <summary>
         /// Array of Players involved in the Game.
         /// </summary>
         Player[] Players { get; }

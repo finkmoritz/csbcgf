@@ -26,6 +26,11 @@ namespace csccgl
         /// <param name="options"></param>
         public Game(Player[] players, GameOptions options = null)
         {
+            if(players.Length != 2)
+            {
+                throw new CsccglException("Parameter 'players' must feature exactly two Player entries!");
+            }
+
             this.Players = players;
             this.ActivePlayerIndex = new Random().Next(this.Players.Length);
             this.Options = options;
@@ -39,6 +44,8 @@ namespace csccgl
         }
 
         public Player ActivePlayer => Players[ActivePlayerIndex];
+
+        public Player NonActivePlayer => Players[1 - ActivePlayerIndex];
 
         protected void Init(GameOptions options)
         {

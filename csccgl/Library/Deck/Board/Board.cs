@@ -31,6 +31,18 @@ namespace csccgl
             Cards[index] = card;
         }
 
+        public bool Contains(ICard card)
+        {
+            foreach(ICard c in Cards)
+            {
+                if(c == card)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool IsEmpty()
         {
             foreach(ICard card in Cards)

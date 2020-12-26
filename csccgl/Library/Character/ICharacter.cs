@@ -12,5 +12,11 @@ namespace csccgl
         /// Damage that is dealt to an enemy in battle.
         /// </summary>
         AttackStat AttackStat { get; }
+
+        /// <summary>
+        /// Checks if this Character is still alive.
+        /// </summary>
+        /// <returns>True if this Character is alive.</returns>
+        bool IsAlive();
     }
 }

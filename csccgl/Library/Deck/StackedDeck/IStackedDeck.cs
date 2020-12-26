@@ -7,13 +7,13 @@ namespace csccgl
         /// Remove and return the top Card from this Deck.
         /// </summary>
         /// <returns>The top Card from this Deck.</returns>
-        ICard PopCard();
+        ICard Pop();
 
         /// <summary>
         /// Push the given Card to this Deck.
         /// </summary>
         /// <param name="card"></param>
-        void PushCard(ICard card);
+        void Push(ICard card);
 
         /// <summary>
         /// Shuffle this Deck.

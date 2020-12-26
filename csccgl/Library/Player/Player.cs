@@ -44,14 +44,34 @@ namespace csccgl
 
         public void Attack(IGame game, IMonsterCard monsterCard, ICharacter targetCharacter)
         {
-            if (monsterCard.IsPlayable(game))
+            if (!Board.Contains(monsterCard))
             {
-                monsterCard.Attack(targetCharacter);
+                throw new CsccglException("Failed to attack with a MonsterCard that is not " +
+                    "on the Player's Board!");
             }
-            else
+            if (targetCharacter is IPlayer && targetCharacter != game.NonActivePlayer
+                || targetCharacter is ICard && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
+            {
+                throw new CsccglException("Failed to attack a target Character that is neither " +
+                    "the opposing Player nor a Card on the non-active Player's Board!");
+            }
+            if (!monsterCard.IsPlayable(game))
             {
                 throw new CsccglException("Tried to attack with a card that " +
                     "is not playable!");
+            }
+
+            monsterCard.Attack(targetCharacter);
+
+            if(!monsterCard.IsAlive())
+            {
+                Board.Remove(monsterCard);
+                Graveyard.Push(monsterCard);
+            }
+            if(targetCharacter is ICard && !targetCharacter.IsAlive())
+            {
+                game.NonActivePlayer.Board.Remove((ICard)targetCharacter);
+                game.NonActivePlayer.Graveyard.Push((ICard)targetCharacter);
             }
         }
 
@@ -59,7 +79,7 @@ namespace csccgl
         {
             if(!Deck.IsEmpty())
             {
-                ICard card = Deck.PopCard();
+                ICard card = Deck.Pop();
                 Hand.Add(card);
                 return card;
             }
@@ -68,44 +88,65 @@ namespace csccgl
 
         public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
         {
-            if (monsterCard.IsPlayable(game))
+            if (!Hand.Contains(monsterCard))
             {
-                payCosts(monsterCard.ManaStat.Value);
-                Hand.Remove(monsterCard);
-                Board.AddAt(boardIndex, monsterCard);
+                throw new CsccglException("Failed to play a MonsterCard that is not " +
+                    "on the Player's Hand!");
             }
-            else
+            if (!monsterCard.IsPlayable(game))
             {
                 throw new CsccglException("Tried to play a card that is " +
                     "not playable!");
             }
+
+            payCosts(monsterCard.ManaStat.Value);
+            Hand.Remove(monsterCard);
+            Board.AddAt(boardIndex, monsterCard);
         }
 
         public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
         {
-            if(spellCard.IsPlayable(game))
+            if (!Hand.Contains(spellCard))
             {
-                payCosts(spellCard.ManaStat.Value);
-                spellCard.Play(game);
-            } else
+                throw new CsccglException("Failed to play a SpellCard that is not " +
+                    "on the Player's Hand!");
+            }
+            if (!spellCard.IsPlayable(game))
             {
                 throw new CsccglException("Tried to play a card that is " +
                     "not playable!");
             }
+
+            payCosts(spellCard.ManaStat.Value);
+            Hand.Remove(spellCard);
+            spellCard.Play(game);
+            Graveyard.Push(spellCard);
         }
 
         public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
         {
-            if (spellCard.IsPlayable(game))
+            if (!Hand.Contains(spellCard))
             {
-                payCosts(spellCard.ManaStat.Value);
-                spellCard.Play(game, targetCharacter);
+                throw new CsccglException("Failed to play a SpellCard that is not " +
+                    "on the Player's Hand!");
             }
-            else
+            if (targetCharacter is ICard
+                && !game.ActivePlayer.Board.Contains((ICard)targetCharacter)
+                && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
+            {
+                throw new CsccglException("Failed to attack a target Character that is neither " +
+                    "a Player nor a Card on a Player's Board!");
+            }
+            if (!spellCard.IsPlayable(game))
             {
                 throw new CsccglException("Tried to play a card that is " +
                     "not playable!");
             }
+
+            payCosts(spellCard.ManaStat.Value);
+            Hand.Remove(spellCard);
+            spellCard.Play(game, targetCharacter);
+            Graveyard.Push(spellCard);
         }
 
         private void payCosts(int mana)
@@ -117,5 +158,7 @@ namespace csccgl
             }
             ManaStat.Value -= mana;
         }
+
+        public bool IsAlive() => LifeStat.Value > 0;
     }
 }

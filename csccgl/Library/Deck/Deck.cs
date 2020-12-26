@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace csccgl
 {
@@ -13,6 +12,7 @@ namespace csccgl
         {
         }
 
+        public abstract bool Contains(ICard card);
         public abstract bool IsEmpty();
     }
 }
