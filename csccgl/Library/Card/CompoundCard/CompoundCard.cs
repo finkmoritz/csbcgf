@@ -8,6 +8,7 @@ namespace csccgl
     {
         protected List<ICard> Components;
         public ManaStat ManaStat { get; }
+        public IPlayer Owner { get; set; }
 
         public CompoundCard(List<ICard> components)
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace csccgl
 {
-    public interface ICharacter
+    public interface ICharacter : IOwnable
     {
         /// <summary>
         /// Maximum damage that can be taken until this Monster dies.

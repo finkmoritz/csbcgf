@@ -9,25 +9,16 @@ namespace csccgl
         public AttackStat AttackStat { get; }
         public LifeStat LifeStat { get; }
 
-        /// <summary>
-        /// The Player's Deck of Cards.
-        /// </summary>
-        public readonly IStackedDeck Deck;
+        public IStackedDeck Deck { get; protected set; }
+        public IHand Hand { get; protected set; }
+        public IBoard Board { get; protected set; }
+        public IStackedDeck Graveyard { get; protected set; }
 
-        /// <summary>
-        /// The Player's Hand Cards.
-        /// </summary>
-        public readonly IHand Hand;
-
-        /// <summary>
-        /// The Player's Cards on the Board.
-        /// </summary>
-        public readonly IBoard Board;
-
-        /// <summary>
-        /// The Player's Cards that have been removed from the Game.
-        /// </summary>
-        public readonly IStackedDeck Graveyard;
+        public IPlayer Owner {
+            get => this;
+            set => throw new CsccglException("Changing the Owner of a Player " +
+                "is not allowed!");
+        }
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
@@ -61,7 +52,7 @@ namespace csccgl
                     "is not playable!");
             }
 
-            monsterCard.Attack(targetCharacter);
+            monsterCard.Attack(game, targetCharacter);
 
             if(!monsterCard.IsAlive())
             {
@@ -80,6 +71,7 @@ namespace csccgl
             if(!Deck.IsEmpty())
             {
                 ICard card = Deck.Pop();
+                card.Owner = this;
                 Hand.Add(card);
                 return card;
             }

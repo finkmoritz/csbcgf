@@ -68,6 +68,15 @@
     <Compile Include="Library\Card\CompoundCard\CompoundTargetlessSpellCard.cs" />
     <Compile Include="Library\Card\CompoundCard\CompoundTargetfulSpellCard.cs" />
     <Compile Include="Library\Card\CompoundCard\CompoundMonsterCard.cs" />
+    <Compile Include="Library\Action\IAction.cs" />
+    <Compile Include="Library\Action\ActionQueue\IActionQueue.cs" />
+    <Compile Include="Library\Action\ActionQueue\ActionQueue.cs" />
+    <Compile Include="Library\Action\Implementations\Stat\ModifyManaStatAction.cs" />
+    <Compile Include="Library\Action\Implementations\Stat\ModifyAttackStatAction.cs" />
+    <Compile Include="Library\Action\Implementations\Stat\ModifyLifeStatAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\Board\RemoveCardFromBoardAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\StackedDeck\AddCardToGraveyardAction.cs" />
+    <Compile Include="Library\Player\IOwnable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -88,6 +97,13 @@
     <Folder Include="Library\Card\SpellCard\TargetlessSpellCard\" />
     <Folder Include="Library\Card\SpellCard\TargetfulSpellCard\" />
     <Folder Include="Library\Card\CompoundCard\" />
+    <Folder Include="Library\Action\" />
+    <Folder Include="Library\Action\ActionQueue\" />
+    <Folder Include="Library\Action\Implementations\" />
+    <Folder Include="Library\Action\Implementations\Stat\" />
+    <Folder Include="Library\Action\Implementations\Deck\" />
+    <Folder Include="Library\Action\Implementations\Deck\Board\" />
+    <Folder Include="Library\Action\Implementations\Deck\StackedDeck\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

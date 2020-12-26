@@ -7,6 +7,8 @@ namespace csccgl
     {
         public ManaStat ManaStat { get; }
 
+        public IPlayer Owner { get; set; }
+
         /// <summary>
         /// Abstract class to represent a Card.
         /// </summary>

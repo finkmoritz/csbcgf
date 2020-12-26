@@ -56,5 +56,12 @@ namespace csccgl
         /// <param name="spellCard"></param>
         /// <param name="targetCharacter"></param>
         void PlaySpell(ITargetfulSpellCard spellCard, ICharacter targetCharacter);
+
+        /// <summary>
+        /// Queue an Action for execution. Changes on the Game state should
+        /// only be performed via Actions queued through this method!
+        /// </summary>
+        /// <param name="action"></param>
+        void Queue(IAction action);
     }
 }

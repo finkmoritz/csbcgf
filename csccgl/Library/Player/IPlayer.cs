@@ -5,6 +5,26 @@
         ManaStat ManaStat { get; }
 
         /// <summary>
+        /// The Player's Deck of Cards.
+        /// </summary>
+        IStackedDeck Deck { get; }
+
+        /// <summary>
+        /// The Player's Hand Cards.
+        /// </summary>
+        IHand Hand { get; }
+
+        /// <summary>
+        /// The Player's Cards on the Board.
+        /// </summary>
+        IBoard Board { get; }
+
+        /// <summary>
+        /// The Player's Cards that have been removed from the Game.
+        /// </summary>
+        IStackedDeck Graveyard { get; }
+
+        /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.
         /// </summary>
         /// <returns>The drawn Card or null if no Card was drawn.</returns>

@@ -18,6 +18,8 @@ namespace csccgl
         /// </summary>
         public readonly GameOptions Options;
 
+        protected ActionQueue actions = new ActionQueue();
+
         /// <summary>
         /// Represent the current Game state and provides methods to alter
         /// this Game state.
@@ -41,6 +43,8 @@ namespace csccgl
             }
 
             Init(Options);
+
+            actions.Process(this);
         }
 
         public Player ActivePlayer => Players[ActivePlayerIndex];
@@ -64,28 +68,39 @@ namespace csccgl
         public void EndTurn()
         {
             ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
-            ActivePlayer.ManaStat.Value++;
+            Queue(new ModifyManaStatAction(ActivePlayer.ManaStat, 1));
             ActivePlayer.DrawCard();
+
+            actions.Process(this);
         }
 
         public void Attack(IMonsterCard monsterCard, ICharacter targetCharacter)
         {
             ActivePlayer.Attack(this, monsterCard, targetCharacter);
+            actions.Process(this);
         }
 
         public void PlayMonster(IMonsterCard monsterCard, int boardIndex)
         {
             ActivePlayer.PlayMonster(this, monsterCard, boardIndex);
+            actions.Process(this);
         }
 
         public void PlaySpell(ITargetlessSpellCard spellCard)
         {
             ActivePlayer.PlaySpell(this, spellCard);
+            actions.Process(this);
         }
 
         public void PlaySpell(ITargetfulSpellCard spellCard, ICharacter targetCharacter)
         {
             ActivePlayer.PlaySpell(this, spellCard, targetCharacter);
+            actions.Process(this);
+        }
+
+        public void Queue(IAction action)
+        {
+            actions.Queue(action);
         }
     }
 }

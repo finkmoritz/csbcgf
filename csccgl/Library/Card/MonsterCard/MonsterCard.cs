@@ -22,10 +22,10 @@ namespace csccgl
             LifeStat = new LifeStat(life);
         }
 
-        public void Attack(ICharacter targetCharacter)
+        public void Attack(IGame game, ICharacter targetCharacter)
         {
-            targetCharacter.LifeStat.Value -= this.AttackStat.Value;
-            this.LifeStat.Value -= targetCharacter.AttackStat.Value;
+            game.Queue(new ModifyLifeStatAction(targetCharacter, -this.AttackStat.Value));
+            game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackStat.Value));
         }
 
         public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);

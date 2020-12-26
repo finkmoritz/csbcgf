@@ -6,7 +6,8 @@ namespace csccgl
         /// <summary>
         /// Attack the given target Character.
         /// </summary>
+        /// <param name="game"></param>
         /// <param name="targetCharacter"></param>
-        void Attack(ICharacter targetCharacter);
+        void Attack(IGame game, ICharacter targetCharacter);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace csccgl
 {
-    public interface ICard
+    public interface ICard : IOwnable
     {
         /// <summary>
         /// Costs to pay in order for the Card to be played.
