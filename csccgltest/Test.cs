@@ -1,5 +1,6 @@
 ﻿using csccgl;
 using NUnit.Framework;
+
 namespace csccgltest
 {
     [TestFixture()]

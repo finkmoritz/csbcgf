@@ -8,6 +8,9 @@ namespace csccgl
         public const int GlobalMin = 0;
         public const int GlobalMax = 99;
 
+        private int value;
+        private int maxValue;
+
         /// <summary>
         /// Represents a Card's property.
         /// </summary>
@@ -15,23 +18,23 @@ namespace csccgl
         /// <param name="maxValue">Maximum value this Stat's value can be set to.</param>
         public Stat(int value, int maxValue)
         {
-            Value = value;
-            MaxValue = maxValue;
+            this.maxValue = maxValue;
+            this.value = value;
         }
 
         public int Value {
-            get => Value;
+            get => value;
             set {
-                Value = Math.Max(GlobalMin, Math.Min(MaxValue, value));
+                this.value = Math.Max(GlobalMin, Math.Min(maxValue, value));
             }
         }
 
         public int MaxValue
         {
-            get => MaxValue;
+            get => maxValue;
             set
             {
-                MaxValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
+                maxValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
             }
         }
     }

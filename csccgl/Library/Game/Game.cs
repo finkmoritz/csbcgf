@@ -35,20 +35,23 @@ namespace csccgl
                 Options = new GameOptions();
             }
 
-            Init();
+            Init(Options);
         }
 
         public Player ActivePlayer => Players[ActivePlayerIndex];
 
-        protected void Init()
+        protected void Init(GameOptions options)
         {
             foreach (Player player in Players)
             {
-                for (int i=0; i<Options.StartHandSize; ++i)
+                player.ManaStat.Value = 0;
+                player.LifeStat.Value = options.InitialPlayerLife;
+                for (int i=0; i<Options.InitialHandSize; ++i)
                 {
                     player.DrawCard();
                 }
             }
+            ActivePlayer.ManaStat.Value = 1;
         }
 
         public void EndTurn()

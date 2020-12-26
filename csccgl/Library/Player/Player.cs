@@ -33,6 +33,7 @@ namespace csccgl
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
+        /// <param name="life"></param>
         public Player(IStackedDeck deck, int life = 30)
         {
             this.Deck = deck;
