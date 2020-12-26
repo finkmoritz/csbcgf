@@ -27,8 +27,8 @@
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.
         /// </summary>
-        /// <returns>The drawn Card or null if no Card was drawn.</returns>
-        ICard DrawCard();
+        /// <param name="game"></param>
+        void DrawCard(IGame game);
 
         /// <summary>
         /// Play a MonsterCard from the Player's Hand to the Board at

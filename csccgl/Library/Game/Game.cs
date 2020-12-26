@@ -59,7 +59,7 @@ namespace csccgl
                 player.LifeStat.Value = options.InitialPlayerLife;
                 for (int i=0; i<Options.InitialHandSize; ++i)
                 {
-                    player.DrawCard();
+                    player.DrawCard(this);
                 }
             }
             ActivePlayer.ManaStat.Value = 1;
@@ -69,7 +69,7 @@ namespace csccgl
         {
             ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
             Queue(new ModifyManaStatAction(ActivePlayer.ManaStat, 1));
-            ActivePlayer.DrawCard();
+            ActivePlayer.DrawCard(this);
 
             actions.Process(this);
         }

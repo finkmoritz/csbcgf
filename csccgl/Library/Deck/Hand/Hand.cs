@@ -6,10 +6,7 @@ namespace csccgl
     [Serializable]
     public class Hand : IHand
     {
-        /// <summary>
-        /// Maximum number of Cards that this Hand can hold.
-        /// </summary>
-        public const int MaxCards = 10;
+        public int MaxSize => 10;
 
         /// <summary>
         /// Data container.
@@ -22,7 +19,7 @@ namespace csccgl
 
         public void Add(ICard card)
         {
-            if(Cards.Count < MaxCards)
+            if(Cards.Count < MaxSize)
             {
                 Cards.Add(card);
             }
@@ -42,5 +39,9 @@ namespace csccgl
         {
             Cards.Remove(card);
         }
+
+        public ICard Get(int index) => Cards[index];
+
+        public int Size => Cards.Count;
     }
 }

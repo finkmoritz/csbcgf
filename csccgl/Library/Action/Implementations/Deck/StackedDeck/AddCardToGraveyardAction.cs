@@ -17,6 +17,9 @@ namespace csccgl
             graveyard.Push(card);
         }
 
-        public bool IsExecutable(IGame game) => !graveyard.Contains(card);
+        public bool IsExecutable(IGame game)
+        {
+            return card != null && !graveyard.Contains(card);
+        }
     }
 }

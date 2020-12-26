@@ -16,5 +16,11 @@ namespace csccgl
         /// <param name="card"></param>
         /// <returns>True if this Deck contains the given Card.</returns>
         bool Contains(ICard card);
+
+        /// <summary>
+        /// Number of Cards currently in this Deck.
+        /// </summary>
+        /// <returns>The number of Cards in this Deck.</returns>
+        int Size { get; }
     }
 }

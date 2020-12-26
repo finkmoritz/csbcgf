@@ -4,15 +4,14 @@ namespace csccgl
     [Serializable]
     public class Board : IBoard
     {
-        /// <summary>
-        /// Maximum number of Cards that this Board can hold.
-        /// </summary>
-        public const int MaxCards = 6;
+        public int MaxSize => MaxCapacity;
 
         /// <summary>
         /// Data container.
         /// </summary>
-        protected ICard[] Cards = new ICard[MaxCards];
+        protected ICard[] Cards = new ICard[MaxCapacity];
+
+        private const int MaxCapacity = 6;
 
         /// <summary>
         /// Represents all Cards on a Player's Board.
@@ -23,7 +22,7 @@ namespace csccgl
 
         public void AddAt(int index, ICard card)
         {
-            if(Cards[index] != null)
+            if(!IsFreeSlot(index))
             {
                 throw new CsccglException("Cannot add card to board, because " +
                     "position " + index + " is already occupied!");
@@ -63,6 +62,24 @@ namespace csccgl
                 {
                     Cards[i] = null;
                 }
+            }
+        }
+
+        public ICard Get(int index) => Cards[index];
+
+        public bool IsFreeSlot(int index) => Cards[index] == null;
+
+        public int Size {
+            get {
+                int size = 0;
+                foreach (ICard card in Cards)
+                {
+                    if (card != null)
+                    {
+                        ++size;
+                    }
+                }
+                return size;
             }
         }
     }

@@ -14,5 +14,6 @@ namespace csccgl
 
         public abstract bool Contains(ICard card);
         public abstract bool IsEmpty();
+        public abstract int Size { get; }
     }
 }

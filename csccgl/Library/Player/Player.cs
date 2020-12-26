@@ -53,29 +53,13 @@ namespace csccgl
             }
 
             monsterCard.Attack(game, targetCharacter);
-
-            if(!monsterCard.IsAlive())
-            {
-                Board.Remove(monsterCard);
-                Graveyard.Push(monsterCard);
-            }
-            if(targetCharacter is ICard && !targetCharacter.IsAlive())
-            {
-                game.NonActivePlayer.Board.Remove((ICard)targetCharacter);
-                game.NonActivePlayer.Graveyard.Push((ICard)targetCharacter);
-            }
         }
 
-        public ICard DrawCard()
+        public void DrawCard(IGame game)
         {
-            if(!Deck.IsEmpty())
-            {
-                ICard card = Deck.Pop();
-                card.Owner = this;
-                Hand.Add(card);
-                return card;
-            }
-            return null;
+            RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
+            game.Queue(removeAction);
+            game.Queue(new AddCardToHandAction(Hand, removeAction.Card));
         }
 
         public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
@@ -91,9 +75,9 @@ namespace csccgl
                     "not playable!");
             }
 
-            payCosts(monsterCard.ManaStat.Value);
-            Hand.Remove(monsterCard);
-            Board.AddAt(boardIndex, monsterCard);
+            payCosts(game, monsterCard.ManaStat.Value);
+            game.Queue(new RemoveCardFromHandAction(Hand, monsterCard));
+            game.Queue(new AddCardToBoardAction(Board, monsterCard, boardIndex));
         }
 
         public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
@@ -109,10 +93,10 @@ namespace csccgl
                     "not playable!");
             }
 
-            payCosts(spellCard.ManaStat.Value);
-            Hand.Remove(spellCard);
+            payCosts(game, spellCard.ManaStat.Value);
+            game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game);
-            Graveyard.Push(spellCard);
+            game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 
         public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
@@ -135,20 +119,22 @@ namespace csccgl
                     "not playable!");
             }
 
-            payCosts(spellCard.ManaStat.Value);
-            Hand.Remove(spellCard);
+            payCosts(game, spellCard.ManaStat.Value);
+            game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game, targetCharacter);
-            Graveyard.Push(spellCard);
+            game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 
-        private void payCosts(int mana)
+        private void payCosts(IGame game, int mana)
         {
             if(ManaStat.Value < mana)
             {
                 throw new CsccglException("Cannot pay costs of " + mana + " mana as this player has only " +
                     ManaStat.Value + " mana left!");
+            } else
+            {
+                game.Queue(new ModifyManaStatAction(ManaStat, -mana));
             }
-            ManaStat.Value -= mana;
         }
 
         public bool IsAlive() => LifeStat.Value > 0;

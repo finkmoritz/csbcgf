@@ -13,6 +13,8 @@ namespace csccgl
         {
         }
 
+        public int Size => Cards.Count;
+
         public bool Contains(ICard card)
         {
             return Cards.Contains(card);
