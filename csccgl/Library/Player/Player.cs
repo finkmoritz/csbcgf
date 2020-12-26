@@ -70,6 +70,7 @@ namespace csccgl
         {
             if (monsterCard.IsPlayable(game))
             {
+                payCosts(monsterCard.ManaStat.Value);
                 Hand.Remove(monsterCard);
                 Board.AddAt(boardIndex, monsterCard);
             }
@@ -84,6 +85,7 @@ namespace csccgl
         {
             if(spellCard.IsPlayable(game))
             {
+                payCosts(spellCard.ManaStat.Value);
                 spellCard.Play(game);
             } else
             {
@@ -96,6 +98,7 @@ namespace csccgl
         {
             if (spellCard.IsPlayable(game))
             {
+                payCosts(spellCard.ManaStat.Value);
                 spellCard.Play(game, targetCharacter);
             }
             else
@@ -103,6 +106,16 @@ namespace csccgl
                 throw new CsccglException("Tried to play a card that is " +
                     "not playable!");
             }
+        }
+
+        private void payCosts(int mana)
+        {
+            if(ManaStat.Value < mana)
+            {
+                throw new CsccglException("Cannot pay costs of " + mana + " mana as this player has only " +
+                    ManaStat.Value + " mana left!");
+            }
+            ManaStat.Value -= mana;
         }
     }
 }
