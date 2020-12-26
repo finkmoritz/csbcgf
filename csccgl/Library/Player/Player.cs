@@ -60,6 +60,7 @@ namespace csccgl
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
             game.Queue(removeAction);
             game.Queue(new AddCardToHandAction(Hand, removeAction.Card));
+            game.Process();
         }
 
         public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
@@ -78,6 +79,7 @@ namespace csccgl
             payCosts(game, monsterCard.ManaStat.Value);
             game.Queue(new RemoveCardFromHandAction(Hand, monsterCard));
             game.Queue(new AddCardToBoardAction(Board, monsterCard, boardIndex));
+            game.Process();
         }
 
         public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
@@ -97,6 +99,7 @@ namespace csccgl
             game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game);
             game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
+            game.Process();
         }
 
         public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
@@ -123,6 +126,7 @@ namespace csccgl
             game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game, targetCharacter);
             game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
+            game.Process();
         }
 
         private void payCosts(IGame game, int mana)

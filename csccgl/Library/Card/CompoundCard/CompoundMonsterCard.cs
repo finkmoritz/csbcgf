@@ -20,6 +20,7 @@ namespace csccgl
         {
             game.Queue(new ModifyLifeStatAction(targetCharacter, -this.AttackStat.Value));
             game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackStat.Value));
+            game.Process();
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)

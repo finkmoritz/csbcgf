@@ -24,38 +24,9 @@ namespace csccgl
         Player[] Players { get; }
 
         /// <summary>
-        /// The active Player's MonsterCard attacks another Player's Character.
-        /// </summary>
-        /// <param name="monsterCard"></param>
-        /// <param name="targetCharacter"></param>
-        void Attack(IMonsterCard monsterCard, ICharacter targetCharacter);
-
-        /// <summary>
         /// End the current turn.
         /// </summary>
         void EndTurn();
-
-        /// <summary>
-        /// Play a MonsterCard from the active Player's Hand to the Board at
-        /// position boardIndex.
-        /// </summary>
-        /// <param name="monsterCard"></param>
-        /// <param name="boardIndex"></param>
-        void PlayMonster(IMonsterCard monsterCard, int boardIndex);
-
-        /// <summary>
-        /// Play a SpellCard from the active Player's Hand that needs no target.
-        /// </summary>
-        /// <param name="spellCard"></param>
-        void PlaySpell(ITargetlessSpellCard spellCard);
-
-        /// <summary>
-        /// Play a SpellCard from the active Player's Hand onto the specified
-        /// target Character.
-        /// </summary>
-        /// <param name="spellCard"></param>
-        /// <param name="targetCharacter"></param>
-        void PlaySpell(ITargetfulSpellCard spellCard, ICharacter targetCharacter);
 
         /// <summary>
         /// Queue an Action for execution. Changes on the Game state should
@@ -63,5 +34,10 @@ namespace csccgl
         /// </summary>
         /// <param name="action"></param>
         void Queue(IAction action);
+
+        /// <summary>
+        /// Execute all Actions in the queue.
+        /// </summary>
+        void Process();
     }
 }

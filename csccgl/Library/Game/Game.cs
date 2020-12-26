@@ -74,33 +74,14 @@ namespace csccgl
             actions.Process(this);
         }
 
-        public void Attack(IMonsterCard monsterCard, ICharacter targetCharacter)
-        {
-            ActivePlayer.Attack(this, monsterCard, targetCharacter);
-            actions.Process(this);
-        }
-
-        public void PlayMonster(IMonsterCard monsterCard, int boardIndex)
-        {
-            ActivePlayer.PlayMonster(this, monsterCard, boardIndex);
-            actions.Process(this);
-        }
-
-        public void PlaySpell(ITargetlessSpellCard spellCard)
-        {
-            ActivePlayer.PlaySpell(this, spellCard);
-            actions.Process(this);
-        }
-
-        public void PlaySpell(ITargetfulSpellCard spellCard, ICharacter targetCharacter)
-        {
-            ActivePlayer.PlaySpell(this, spellCard, targetCharacter);
-            actions.Process(this);
-        }
-
         public void Queue(IAction action)
         {
             actions.Queue(action);
+        }
+
+        public void Process()
+        {
+            actions.Process(this);
         }
     }
 }
