@@ -64,6 +64,10 @@
     <Compile Include="Library\Card\SpellCard\TargetlessSpellCard\TargetlessSpellCard.cs" />
     <Compile Include="Library\Card\SpellCard\TargetfulSpellCard\ITargetfulSpellCard.cs" />
     <Compile Include="Library\Card\SpellCard\TargetfulSpellCard\TargetfulSpellCard.cs" />
+    <Compile Include="Library\Card\CompoundCard\CompoundCard.cs" />
+    <Compile Include="Library\Card\CompoundCard\CompoundTargetlessSpellCard.cs" />
+    <Compile Include="Library\Card\CompoundCard\CompoundTargetfulSpellCard.cs" />
+    <Compile Include="Library\Card\CompoundCard\CompoundMonsterCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -83,6 +87,7 @@
     <Folder Include="Library\Card\Target\" />
     <Folder Include="Library\Card\SpellCard\TargetlessSpellCard\" />
     <Folder Include="Library\Card\SpellCard\TargetfulSpellCard\" />
+    <Folder Include="Library\Card\CompoundCard\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

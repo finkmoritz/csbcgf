@@ -20,8 +20,9 @@ namespace csccgl
         /// </summary>
         /// <param name="minValue">Minimum value of this Stat's Value.</param>
         /// <param name="maxValue">Maximum value of this Stat's Value.</param>
-        public Stat(int minValue, int maxValue)
+        public Stat(int value, int minValue, int maxValue)
         {
+            Value = value;
             MinValue = minValue;
             MaxValue = maxValue;
         }

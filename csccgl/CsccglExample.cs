@@ -15,7 +15,7 @@ namespace csccgl
         {
         }
 
-        public override List<ICharacter> GetPotentialTargets(IGame game)
+        public override HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             throw new System.NotImplementedException();
         }
@@ -49,7 +49,7 @@ namespace csccgl
         {
         }
 
-        public override List<ICharacter> GetPotentialTargets(IGame game)
+        public override HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             throw new System.NotImplementedException();
         }

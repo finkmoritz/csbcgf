@@ -8,7 +8,7 @@ namespace csccgl
         /// <summary>
         /// Potential damage to be dealt.
         /// </summary>
-        public AttackStat() : base(0, 99)
+        public AttackStat(int value) : base(value, 0, 99)
         {
         }
     }
