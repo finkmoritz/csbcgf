@@ -76,7 +76,7 @@ namespace csccgl
                     "not playable!");
             }
 
-            payCosts(game, monsterCard.ManaStat.Value);
+            PayCosts(game, monsterCard.ManaStat.Value);
             game.Queue(new RemoveCardFromHandAction(Hand, monsterCard));
             game.Queue(new AddCardToBoardAction(Board, monsterCard, boardIndex));
             game.Process();
@@ -95,7 +95,7 @@ namespace csccgl
                     "not playable!");
             }
 
-            payCosts(game, spellCard.ManaStat.Value);
+            PayCosts(game, spellCard.ManaStat.Value);
             game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game);
             game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
@@ -122,14 +122,14 @@ namespace csccgl
                     "not playable!");
             }
 
-            payCosts(game, spellCard.ManaStat.Value);
+            PayCosts(game, spellCard.ManaStat.Value);
             game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game, targetCharacter);
             game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
             game.Process();
         }
 
-        private void payCosts(IGame game, int mana)
+        private void PayCosts(IGame game, int mana)
         {
             if(ManaStat.Value < mana)
             {

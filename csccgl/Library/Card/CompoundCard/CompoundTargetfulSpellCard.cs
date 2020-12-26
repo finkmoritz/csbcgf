@@ -11,7 +11,7 @@ namespace csccgl
             {
                 throw new CsccglException("Tried to construct a CompoundTargetfulSpellCard " +
                     "without a component of type ITargetfulSpellCard.\n" +
-                    "Use CompoundTargetlessSpellCard or the CompoundCardFactory instead.");
+                    "Use CompoundTargetlessSpellCard instead.");
             }
             components.ForEach(c => Components.Add(c));
         }
