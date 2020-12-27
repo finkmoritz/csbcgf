@@ -18,6 +18,7 @@ namespace csbcgf
                 Components.ForEach(c => ((IMonsterCard)c).IsReadyToAttack = value);
             }
         }
+        public bool IsAlive => LifeStat.Value > 0;
 
         public CompoundMonsterCard(List<IMonsterCard> components)
             : base(new List<ICard>())
@@ -64,8 +65,6 @@ namespace csbcgf
             }
             return potentialTargets;
         }
-
-        public bool IsAlive() => LifeStat.Value > 0;
 
         public override void AddComponent(ICard card)
         {

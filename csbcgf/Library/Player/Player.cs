@@ -10,6 +10,8 @@ namespace csbcgf
         public AttackStat AttackStat { get; }
         public LifeStat LifeStat { get; }
 
+        public bool IsAlive => LifeStat.Value > 0;
+
         public IStackedDeck Deck { get; protected set; }
         public IHand Hand { get; protected set; }
         public IBoard Board { get; protected set; }
@@ -158,7 +160,5 @@ namespace csbcgf
                 game.Queue(new ModifyManaStatAction(ManaStat, -mana));
             }
         }
-
-        public bool IsAlive() => LifeStat.Value > 0;
     }
 }

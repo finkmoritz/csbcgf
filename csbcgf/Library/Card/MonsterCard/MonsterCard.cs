@@ -11,6 +11,7 @@ namespace csbcgf
         public LifeStat LifeStat { get; }
 
         public bool IsReadyToAttack { get; set; }
+        public bool IsAlive => LifeStat.Value > 0;
 
         /// <summary>
         /// Represents a certain type of Card that is played
@@ -42,8 +43,6 @@ namespace csbcgf
                 (IEnumerable<ICharacter>)game.NonActivePlayer.Board.AllCards
             );
         }
-
-        public bool IsAlive() => LifeStat.Value > 0;
 
         public override bool IsPlayable(IGame game)
         {

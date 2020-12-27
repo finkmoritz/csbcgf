@@ -45,10 +45,10 @@ namespace csbcgftest
             Assert.AreEqual(2, game.ActivePlayer.Hand.Size);
             Assert.AreEqual(1, game.NonActivePlayer.Hand.Size);
 
-            ICard goblin = game.ActivePlayer.Hand.Get(0);
+            IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand.Get(0);
             Assert.AreEqual(2, goblin.ManaStat.Value);
-            Assert.AreEqual(1, ((IMonsterCard)goblin).AttackStat.Value);
-            Assert.AreEqual(2, ((IMonsterCard)goblin).LifeStat.Value);
+            Assert.AreEqual(1, goblin.AttackStat.Value);
+            Assert.AreEqual(2, goblin.LifeStat.Value);
 
             Assert.False(goblin.IsPlayable(game));
         }
@@ -82,8 +82,9 @@ namespace csbcgftest
             goblin = (IMonsterCard)game.ActivePlayer.Hand.Get(0);
             Assert.True(goblin.IsPlayable(game));
 
+            //Play monster card
             Assert.True(game.ActivePlayer.Board.IsFreeSlot(0));
-            game.ActivePlayer.PlayMonster(game, (IMonsterCard)goblin, 0);
+            game.ActivePlayer.PlayMonster(game, goblin, 0);
             Assert.False(game.ActivePlayer.Board.IsFreeSlot(0));
 
             Assert.False(goblin.IsReadyToAttack);
@@ -94,7 +95,12 @@ namespace csbcgftest
 
             game.NextTurn(); //First player's turn again
 
+            //Attack player
             Assert.True(goblin.IsReadyToAttack);
+            Assert.AreEqual(3, game.NonActivePlayer.LifeStat.Value);
+            goblin.Attack(game, game.NonActivePlayer);
+            Assert.AreEqual(2, game.NonActivePlayer.LifeStat.Value);
+            Assert.True(game.NonActivePlayer.IsAlive);
         }
     }
 }
