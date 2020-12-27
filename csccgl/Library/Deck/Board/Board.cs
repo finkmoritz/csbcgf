@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public class Board : IBoard
@@ -28,7 +28,7 @@ namespace csccgl
         {
             if(!IsFreeSlot(index))
             {
-                throw new CsccglException("Cannot add card to board, because " +
+                throw new csbcgfException("Cannot add card to board, because " +
                     "position " + index + " is already occupied!");
             }
             Cards[index] = card;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace csccgl
+namespace csbcgf
 {
     public class CompoundMonsterCard : CompoundCard, IMonsterCard
     {

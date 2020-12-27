@@ -1,7 +1,7 @@
-﻿using csccgl;
+﻿using csbcgf;
 using NUnit.Framework;
 
-namespace csccgltest
+namespace csbcgftest
 {
     [TestFixture()]
     public class Test
@@ -9,7 +9,7 @@ namespace csccgltest
         [Test()]
         public void TestCase()
         {
-            CsccglExample example = new CsccglExample();
+            csbcgfExample example = new csbcgfExample();
             Assert.True(true);
         }
     }

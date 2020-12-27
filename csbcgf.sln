@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csccgltest", "csccgltest\csccgltest.csproj", "{D2B251DA-9EDE-478F-8978-9F55F59B38B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csbcgftest", "csccgltest\csbcgftest.csproj", "{D2B251DA-9EDE-478F-8978-9F55F59B38B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

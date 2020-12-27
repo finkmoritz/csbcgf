@@ -1,7 +1,7 @@
-﻿using csccgl;
+﻿using csbcgf;
 using NUnit.Framework;
 
-namespace csccgltest
+namespace csbcgftest
 {
     [TestFixture()]
     public class ManaStatTest

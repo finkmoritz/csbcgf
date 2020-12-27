@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public class Player : IPlayer
@@ -17,7 +17,7 @@ namespace csccgl
 
         public IPlayer Owner {
             get => this;
-            set => throw new CsccglException("Changing the Owner of a Player " +
+            set => throw new csbcgfException("Changing the Owner of a Player " +
                 "is not allowed!");
         }
 
@@ -51,18 +51,18 @@ namespace csccgl
         {
             if (!Board.Contains(monsterCard))
             {
-                throw new CsccglException("Failed to attack with a MonsterCard that is not " +
+                throw new csbcgfException("Failed to attack with a MonsterCard that is not " +
                     "on the Player's Board!");
             }
             if (targetCharacter is IPlayer && targetCharacter != game.NonActivePlayer
                 || targetCharacter is ICard && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
             {
-                throw new CsccglException("Failed to attack a target Character that is neither " +
+                throw new csbcgfException("Failed to attack a target Character that is neither " +
                     "the opposing Player nor a Card on the non-active Player's Board!");
             }
             if (!monsterCard.IsPlayable(game))
             {
-                throw new CsccglException("Tried to attack with a card that " +
+                throw new csbcgfException("Tried to attack with a card that " +
                     "is not playable!");
             }
 
@@ -81,12 +81,12 @@ namespace csccgl
         {
             if (!Hand.Contains(monsterCard))
             {
-                throw new CsccglException("Failed to play a MonsterCard that is not " +
+                throw new csbcgfException("Failed to play a MonsterCard that is not " +
                     "on the Player's Hand!");
             }
             if (!monsterCard.IsPlayable(game))
             {
-                throw new CsccglException("Tried to play a card that is " +
+                throw new csbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
@@ -100,12 +100,12 @@ namespace csccgl
         {
             if (!Hand.Contains(spellCard))
             {
-                throw new CsccglException("Failed to play a SpellCard that is not " +
+                throw new csbcgfException("Failed to play a SpellCard that is not " +
                     "on the Player's Hand!");
             }
             if (!spellCard.IsPlayable(game))
             {
-                throw new CsccglException("Tried to play a card that is " +
+                throw new csbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
@@ -120,19 +120,19 @@ namespace csccgl
         {
             if (!Hand.Contains(spellCard))
             {
-                throw new CsccglException("Failed to play a SpellCard that is not " +
+                throw new csbcgfException("Failed to play a SpellCard that is not " +
                     "on the Player's Hand!");
             }
             if (targetCharacter is ICard
                 && !game.ActivePlayer.Board.Contains((ICard)targetCharacter)
                 && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
             {
-                throw new CsccglException("Failed to attack a target Character that is neither " +
+                throw new csbcgfException("Failed to attack a target Character that is neither " +
                     "a Player nor a Card on a Player's Board!");
             }
             if (!spellCard.IsPlayable(game))
             {
-                throw new CsccglException("Tried to play a card that is " +
+                throw new csbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
@@ -147,7 +147,7 @@ namespace csccgl
         {
             if(ManaStat.Value < mana)
             {
-                throw new CsccglException("Cannot pay costs of " + mana + " mana as this player has only " +
+                throw new csbcgfException("Cannot pay costs of " + mana + " mana as this player has only " +
                     ManaStat.Value + " mana left!");
             } else
             {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace csccgl
+namespace csbcgf
 {
     public interface ITargetfulSpellCard : ITargetful, ISpellCard
     {

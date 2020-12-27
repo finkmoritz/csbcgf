@@ -30,7 +30,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CsccglExample.cs" />
+    <Compile Include="CsbcgfExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Library\Game\Game.cs" />
     <Compile Include="Library\Card\Card.cs" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace csccgl
+namespace csbcgf
 {
     public class CompoundTargetfulSpellCard : CompoundCard, ITargetfulSpellCard
     {
@@ -9,7 +9,7 @@ namespace csccgl
         {
             if(components.Find(c => c is ITargetfulSpellCard) == null)
             {
-                throw new CsccglException("Tried to construct a CompoundTargetfulSpellCard " +
+                throw new csbcgfException("Tried to construct a CompoundTargetfulSpellCard " +
                     "without a component of type ITargetfulSpellCard.\n" +
                     "Use CompoundTargetlessSpellCard instead.");
             }

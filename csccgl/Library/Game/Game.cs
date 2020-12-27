@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public class Game : IGame
@@ -31,7 +31,7 @@ namespace csccgl
         {
             if(players.Length != 2)
             {
-                throw new CsccglException("Parameter 'players' must feature exactly two Player entries!");
+                throw new csbcgfException("Parameter 'players' must feature exactly two Player entries!");
             }
 
             this.Players = players;

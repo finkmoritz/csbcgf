@@ -1,5 +1,5 @@
 ﻿using System;
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public abstract class TargetlessSpellCard : SpellCard, ITargetlessSpellCard

@@ -1,15 +1,15 @@
 ﻿using System;
-namespace csccgl
+namespace csbcgf
 {
-    public class CsccglException : Exception
+    public class csbcgfException : Exception
     {
-        const string MessagePrefix = "CSCCGL EXCEPTION: ";
+        const string MessagePrefix = "csbcgf EXCEPTION: ";
 
         /// <summary>
         /// Library specific Exception. Usually thrown when the Game's
         /// mechanics are being violated.
         /// </summary>
-        public CsccglException()
+        public csbcgfException()
         {
         }
 
@@ -18,7 +18,7 @@ namespace csccgl
         /// mechanics are being violated.
         /// </summary>
         /// <param name="message"></param>
-        public CsccglException(string message)
+        public csbcgfException(string message)
             : base(MessagePrefix + message)
         {
         }
@@ -29,7 +29,7 @@ namespace csccgl
         /// </summary>
         /// <param name="message"></param>
         /// <param name="inner"></param>
-        public CsccglException(string message, Exception inner)
+        public csbcgfException(string message, Exception inner)
             : base(MessagePrefix + message, inner)
         {
         }

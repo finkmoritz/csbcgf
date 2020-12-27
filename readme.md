@@ -1,1 +1,1 @@
-﻿# C# Collectible Card Game Library
+﻿# C# Battle Card Game Framework (CSBCGF)

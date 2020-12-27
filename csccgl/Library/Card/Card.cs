@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public abstract class Card : ICard

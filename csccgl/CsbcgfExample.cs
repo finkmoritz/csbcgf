@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace csccgl
+namespace csbcgf
 {
-    public class CsccglExample
+    public class csbcgfExample
     {
-        public CsccglExample()
+        public csbcgfExample()
         {
         }
     }

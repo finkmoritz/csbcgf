@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace csccgl
+namespace csbcgf
 {
     public abstract class CompoundCard : Card, ICompoundCard
     {
@@ -13,7 +13,7 @@ namespace csccgl
         {
             if(components.Count == 0)
             {
-                throw new CsccglException("Parameter components cannot be empty!");
+                throw new csbcgfException("Parameter components cannot be empty!");
             }
             this.Components = components;
         }

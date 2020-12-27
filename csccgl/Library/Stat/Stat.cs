@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public abstract class Stat : IStat
