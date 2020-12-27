@@ -6,13 +6,30 @@ namespace csbcgf
     [Serializable]
     public class Game : IGame
     {
-        public Player[] Players { get; }
+        public IPlayer[] Players { get; }
 
         /// <summary>
         /// Index of the active Player. Refers to the Players array.
         /// Also see the ActivePlayer accessor.
         /// </summary>
         public int ActivePlayerIndex { get; protected set; }
+
+        public IPlayer ActivePlayer => Players[ActivePlayerIndex];
+
+        public IPlayer NonActivePlayer => Players[1 - ActivePlayerIndex];
+
+        public List<ICard> AllCards
+        {
+            get
+            {
+                List<ICard> allCards = new List<ICard>();
+                foreach (IPlayer player in Players)
+                {
+                    allCards.AddRange(player.AllCards);
+                }
+                return allCards;
+            }
+        }
 
         /// <summary>
         /// Additional GameOptions that help customizing a Game.
@@ -27,7 +44,7 @@ namespace csbcgf
         /// </summary>
         /// <param name="players"></param>
         /// <param name="options"></param>
-        public Game(Player[] players, GameOptions options = null)
+        public Game(IPlayer[] players, GameOptions options = null)
         {
             if(players.Length != 2)
             {
@@ -36,47 +53,28 @@ namespace csbcgf
 
             this.Players = players;
             this.ActivePlayerIndex = new Random().Next(this.Players.Length);
-            this.Options = options;
-
-            if(Options == null)
-            {
-                Options = new GameOptions();
-            }
+            this.Options = options ?? new GameOptions();
 
             Init(Options);
 
             actions.Process(this);
         }
 
-        public Player ActivePlayer => Players[ActivePlayerIndex];
-
-        public Player NonActivePlayer => Players[1 - ActivePlayerIndex];
-
-        public List<ICard> AllCards
-        {
-            get
-            {
-                List<ICard> allCards = new List<ICard>();
-                foreach(IPlayer player in Players)
-                {
-                    allCards.AddRange(player.AllCards);
-                }
-                return allCards;
-            }
-        }
-
         protected void Init(GameOptions options)
         {
-            foreach (Player player in Players)
+            foreach (IPlayer player in Players)
             {
                 player.ManaStat.Value = 0;
                 player.LifeStat.Value = options.InitialPlayerLife;
-                for (int i=0; i<Options.InitialHandSize; ++i)
+
+                player.AllCards.ForEach(c => c.Owner = player);
+
+                for (int i = 0; i < Options.InitialHandSize; ++i)
                 {
                     player.DrawCard(this);
                 }
             }
-            ActivePlayer.ManaStat.Value = 1;
+            Queue(new ModifyManaStatAction(ActivePlayer.ManaStat, 1));
         }
 
         public void EndTurn()

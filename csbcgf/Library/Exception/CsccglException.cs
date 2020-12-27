@@ -1,6 +1,7 @@
 ﻿using System;
 namespace csbcgf
 {
+    [Serializable]
     public class CsbcgfException : Exception
     {
         const string MessagePrefix = "csbcgf EXCEPTION: ";

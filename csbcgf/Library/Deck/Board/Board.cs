@@ -13,7 +13,21 @@ namespace csbcgf
         /// </summary>
         protected ICard[] Cards = new ICard[MaxCapacity];
 
-        public List<ICard> AllCards => new List<ICard>(Cards);
+        public List<ICard> AllCards
+        {
+            get
+            {
+                List<ICard> allCards = new List<ICard>();
+                foreach (ICard card in Cards)
+                {
+                    if(card != null)
+                    {
+                        allCards.Add(card);
+                    }
+                }
+                return allCards;
+            }
+        }
 
         private const int MaxCapacity = 6;
 
@@ -22,6 +36,10 @@ namespace csbcgf
         /// </summary>
         public Board()
         {
+            for (int i = 0; i < Cards.Length; ++i)
+            {
+                Cards[i] = null;
+            }
         }
 
         public void AddAt(int index, ICard card)

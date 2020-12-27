@@ -5,6 +5,9 @@ namespace csbcgf
 {
     public interface IDeck
     {
+        /// <summary>
+        /// Get all cards in this Deck.
+        /// </summary>
         List<ICard> AllCards { get; }
 
         /// <summary>

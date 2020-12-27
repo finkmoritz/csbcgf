@@ -6,9 +6,9 @@ namespace csbcgf
     [Serializable]
     public abstract class Card : ICard
     {
-        public ManaStat ManaStat { get; }
+        public ManaStat ManaStat { get; protected set; }
 
-        public IPlayer Owner { get; set; }
+        public virtual IPlayer Owner { get; set; }
 
         public virtual List<IReaction> Reactions { get; }
 
@@ -22,7 +22,11 @@ namespace csbcgf
             Reactions = new List<IReaction>();
         }
 
-        public abstract bool IsPlayable(IGame game);
+        public virtual bool IsPlayable(IGame game)
+        {
+            return Owner == game.ActivePlayer
+                && ManaStat.Value <= Owner.ManaStat.Value;
+        }
 
         public void AddReaction(IReaction reaction)
         {
@@ -34,12 +38,12 @@ namespace csbcgf
             Reactions.Remove(reaction);
         }
 
-        public List<IAction> ReactTo(IAction action)
+        public List<IAction> ReactTo(IGame game, IAction action)
         {
             List<IAction> actions = new List<IAction>();
             foreach(IReaction reaction in Reactions)
             {
-                actions.AddRange(reaction.ReactTo(action));
+                actions.AddRange(reaction.ReactTo(game, action));
             }
             return actions;
         }

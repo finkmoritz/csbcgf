@@ -4,17 +4,23 @@ using System.Linq;
 
 namespace csbcgf
 {
+    [Serializable]
     public abstract class CompoundCard : Card, ICompoundCard
     {
         protected List<ICard> Components;
 
+        public override IPlayer Owner
+        {
+            get => Components[0].Owner;
+            set
+            {
+                Components.ForEach(c => c.Owner = value);
+            }
+        }
+
         public CompoundCard(List<ICard> components)
             : base(components.Sum(c => c.ManaStat.Value))
         {
-            if(components.Count == 0)
-            {
-                throw new CsbcgfException("Parameter components cannot be empty!");
-            }
             this.Components = components;
         }
 
@@ -40,11 +46,12 @@ namespace csbcgf
             }
             else
             {
+                card.Owner = Owner;
                 Components.Add(card);
             }
         }
 
-        override public bool IsPlayable(IGame game)
+        public override bool IsPlayable(IGame game)
         {
             return Components.TrueForAll(c => c.IsPlayable(game));
         }

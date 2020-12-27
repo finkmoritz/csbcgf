@@ -1,6 +1,7 @@
 ﻿using System;
 namespace csbcgf
 {
+    [Serializable]
     public class AddCardToGraveyardAction : IAction
     {
         protected IStackedDeck graveyard;

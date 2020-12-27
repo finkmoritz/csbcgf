@@ -10,19 +10,19 @@ namespace csbcgf
         /// Equivalent to using
         /// <code>Players[ActivePlayerIndex]</code>
         /// </summary>
-        Player ActivePlayer { get; }
+        IPlayer ActivePlayer { get; }
 
         /// <summary>
         /// Convenience method to retrieve the non-active Player.
         /// Equivalent to using
         /// <code>Players[1 - ActivePlayerIndex]</code>
         /// </summary>
-        Player NonActivePlayer { get; }
+        IPlayer NonActivePlayer { get; }
 
         /// <summary>
         /// Array of Players involved in the Game.
         /// </summary>
-        Player[] Players { get; }
+        IPlayer[] Players { get; }
 
         /// <summary>
         /// Get all Cards involved in the Game.

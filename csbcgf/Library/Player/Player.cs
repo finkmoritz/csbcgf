@@ -29,6 +29,10 @@ namespace csbcgf
         public Player(IStackedDeck deck, int life = 30)
         {
             this.Deck = deck;
+            this.Hand = new Hand();
+            this.Board = new Board();
+            this.Graveyard = new StackedDeck();
+
             this.ManaStat = new ManaStat(0, 10);
             this.AttackStat = new AttackStat(0);
             this.LifeStat = new LifeStat(life);
@@ -73,7 +77,7 @@ namespace csbcgf
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
             game.Queue(removeAction);
-            game.Queue(new AddCardToHandAction(Hand, removeAction.Card));
+            game.Queue(new AddCardToHandAction(Hand, () => removeAction.card));
             game.Process();
         }
 

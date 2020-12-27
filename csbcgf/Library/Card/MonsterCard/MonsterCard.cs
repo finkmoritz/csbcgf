@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class MonsterCard : Card, IMonsterCard
+    public class MonsterCard : Card, IMonsterCard
     {
         public AttackStat AttackStat { get; }
         public LifeStat LifeStat { get; }
@@ -29,8 +29,20 @@ namespace csbcgf
             game.Process();
         }
 
-        public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);
+        public virtual HashSet<ICharacter> GetPotentialTargets(IGame game)
+        {
+            return new HashSet<ICharacter>(
+                (IEnumerable<ICharacter>)game.NonActivePlayer.Board.AllCards
+            );
+        }
 
         public bool IsAlive() => LifeStat.Value > 0;
+
+        public override bool IsPlayable(IGame game)
+        {
+            IBoard board = game.ActivePlayer.Board;
+            return base.IsPlayable(game)
+                && board.AllCards.Count < board.MaxSize;
+        }
     }
 }

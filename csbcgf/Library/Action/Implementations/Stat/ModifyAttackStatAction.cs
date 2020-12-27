@@ -1,6 +1,7 @@
 ﻿using System;
 namespace csbcgf
 {
+    [Serializable]
     public class ModifyAttackStatAction : IAction
     {
         protected AttackStat attackStat;

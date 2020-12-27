@@ -1,10 +1,11 @@
 ﻿using System;
 namespace csbcgf
 {
+    [Serializable]
     public class RemoveCardFromDeckAction : IAction
     {
         protected IStackedDeck deck;
-        public ICard Card { get; protected set; }
+        public ICard card;
 
         public RemoveCardFromDeckAction(IStackedDeck deck)
         {
@@ -13,7 +14,7 @@ namespace csbcgf
 
         public void Execute(IGame game)
         {
-            Card = deck.Pop();
+            card = deck.Pop();
         }
 
         public bool IsExecutable(IGame game) => !deck.IsEmpty();

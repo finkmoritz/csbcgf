@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
+    [Serializable]
     public class CompoundTargetfulSpellCard : CompoundCard, ITargetfulSpellCard
     {
-        public CompoundTargetfulSpellCard(List<ISpellCard> components) : base(new List<ICard>())
+        public CompoundTargetfulSpellCard(List<ISpellCard> components)
+            : base(new List<ICard>())
         {
             if(components.Find(c => c is ITargetfulSpellCard) == null)
             {
@@ -14,6 +16,11 @@ namespace csbcgf
                     "Use CompoundTargetlessSpellCard instead.");
             }
             components.ForEach(c => Components.Add(c));
+        }
+
+        public CompoundTargetfulSpellCard(ISpellCard spellCard)
+            : this(new List<ISpellCard> { spellCard })
+        {
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)

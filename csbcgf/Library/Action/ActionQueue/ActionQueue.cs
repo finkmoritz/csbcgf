@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
+    [Serializable]
     public class ActionQueue : IActionQueue
     {
         protected Queue<IAction> actions = new Queue<IAction>();
@@ -19,7 +20,7 @@ namespace csbcgf
                 if(action.IsExecutable(game))
                 {
                     action.Execute(game);
-                    game.AllCards.ForEach(c => QueueAll(c.ReactTo(action)));
+                    game.AllCards.ForEach(c => QueueAll(c.ReactTo(game, action)));
                 }
             }
         }
@@ -29,7 +30,7 @@ namespace csbcgf
             actions.Enqueue(action);
         }
 
-        protected void QueueAll(List<IAction> actionList)
+        public void QueueAll(List<IAction> actionList)
         {
             actionList.ForEach(a => actions.Enqueue(a));
         }

@@ -1,25 +1,32 @@
 ﻿using System;
 namespace csbcgf
 {
+    [Serializable]
     public class AddCardToHandAction : IAction
     {
         protected IHand hand;
-        protected ICard card;
+        protected Func<ICard> cardGenerator;
 
         public AddCardToHandAction(IHand hand, ICard card)
         {
             this.hand = hand;
-            this.card = card;
+            this.cardGenerator = () => card;
+        }
+
+        public AddCardToHandAction(IHand hand, Func<ICard> cardGenerator)
+        {
+            this.hand = hand;
+            this.cardGenerator = cardGenerator;
         }
 
         public void Execute(IGame game)
         {
-            hand.Add(card);
+            hand.Add(cardGenerator());
         }
 
         public bool IsExecutable(IGame game)
         {
-            return card != null && hand.Size < hand.MaxSize;
+            return cardGenerator() != null && hand.Size < hand.MaxSize;
         }
     }
 }
