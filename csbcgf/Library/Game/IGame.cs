@@ -30,9 +30,9 @@ namespace csbcgf
         List<ICard> AllCards { get; }
 
         /// <summary>
-        /// End the current turn.
+        /// Start the next turn.
         /// </summary>
-        void EndTurn();
+        void NextTurn();
 
         /// <summary>
         /// Queue an Action for execution. Changes on the Game state should

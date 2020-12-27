@@ -24,8 +24,11 @@ namespace csbcgf
 
         public virtual bool IsPlayable(IGame game)
         {
+            bool owned = Owner == game.ActivePlayer;
+            bool contained = game.ActivePlayer.Hand.Contains(this);
+            bool affordable = this.ManaStat.Value <= Owner.ManaStat.Value;
             return Owner == game.ActivePlayer
-                && ManaStat.Value <= Owner.ManaStat.Value;
+                && this.ManaStat.Value <= Owner.ManaStat.Value;
         }
 
         public void AddReaction(IReaction reaction)

@@ -59,15 +59,15 @@ namespace csbcgf
                     "on the Player's Board!");
             }
             if (targetCharacter is IPlayer && targetCharacter != game.NonActivePlayer
-                || targetCharacter is ICard && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
+                || targetCharacter is ICard card && !game.NonActivePlayer.Board.Contains(card))
             {
                 throw new CsbcgfException("Failed to attack a target Character that is neither " +
                     "the opposing Player nor a Card on the non-active Player's Board!");
             }
-            if (!monsterCard.IsPlayable(game))
+            if (!monsterCard.IsReadyToAttack)
             {
-                throw new CsbcgfException("Tried to attack with a card that " +
-                    "is not playable!");
+                throw new CsbcgfException("Tried to attack with a monster card that " +
+                    "is not ready to attack!");
             }
 
             monsterCard.Attack(game, targetCharacter);

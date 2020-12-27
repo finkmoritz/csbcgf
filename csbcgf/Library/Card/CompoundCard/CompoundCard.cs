@@ -28,17 +28,17 @@ namespace csbcgf
         {
         }
 
-        override public List<IReaction> Reactions
+        /*override public List<IReaction> Reactions
         {
-            get
-            {
+            get;
+            /*{
                 List<IReaction> reactions = new List<IReaction>();
                 Components.ForEach(c => reactions.AddRange(c.Reactions));
                 return reactions;
             }
-        }
+        }*/
 
-        public void AddComponent(ICard card)
+        public virtual void AddComponent(ICard card)
         {
             if(card is CompoundCard)
             {
@@ -47,13 +47,15 @@ namespace csbcgf
             else
             {
                 card.Owner = Owner;
+                card.Reactions.ForEach(r => Reactions.Add(r));
                 Components.Add(card);
             }
         }
 
         public override bool IsPlayable(IGame game)
         {
-            return Components.TrueForAll(c => c.IsPlayable(game));
+            return game.ActivePlayer.Hand.Contains(this)
+                && Components.TrueForAll(c => c.IsPlayable(game));
         }
 
         public void RemoveComponent(ICard card)
@@ -64,6 +66,7 @@ namespace csbcgf
             }
             else
             {
+                card.Reactions.ForEach(r => Reactions.Remove(r));
                 Components.Remove(card);
             }
         }

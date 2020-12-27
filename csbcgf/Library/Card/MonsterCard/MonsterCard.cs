@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using csccgl;
 
 namespace csbcgf
 {
@@ -8,6 +9,8 @@ namespace csbcgf
     {
         public AttackStat AttackStat { get; }
         public LifeStat LifeStat { get; }
+
+        public bool IsReadyToAttack { get; set; }
 
         /// <summary>
         /// Represents a certain type of Card that is played
@@ -20,12 +23,16 @@ namespace csbcgf
         {
             AttackStat = new AttackStat(attack);
             LifeStat = new LifeStat(life);
+
+            IsReadyToAttack = false;
+            Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction(this));
         }
 
         public void Attack(IGame game, ICharacter targetCharacter)
         {
             game.Queue(new ModifyLifeStatAction(targetCharacter, -this.AttackStat.Value));
             game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackStat.Value));
+            game.Queue(new SetReadyToAttackAction(this, false));
             game.Process();
         }
 
@@ -42,7 +49,7 @@ namespace csbcgf
         {
             IBoard board = game.ActivePlayer.Board;
             return base.IsPlayable(game)
-                && board.AllCards.Count < board.MaxSize;
+                    && board.AllCards.Count < board.MaxSize;
         }
     }
 }

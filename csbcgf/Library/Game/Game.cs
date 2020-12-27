@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using csccgl;
 
 namespace csbcgf
 {
@@ -74,14 +75,16 @@ namespace csbcgf
                     player.DrawCard(this);
                 }
             }
-            Queue(new ModifyManaStatAction(ActivePlayer.ManaStat, 1));
+
+            NextTurn();
         }
 
-        public void EndTurn()
+        public void NextTurn()
         {
             ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
             Queue(new ModifyManaStatAction(ActivePlayer.ManaStat, 1));
             ActivePlayer.DrawCard(this);
+            Queue(new StartOfTurnEvent());
 
             actions.Process(this);
         }
