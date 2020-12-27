@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace csccgl
 {
@@ -22,6 +23,11 @@ namespace csccgl
         /// Array of Players involved in the Game.
         /// </summary>
         Player[] Players { get; }
+
+        /// <summary>
+        /// Get all Cards involved in the Game.
+        /// </summary>
+        List<ICard> AllCards { get; }
 
         /// <summary>
         /// End the current turn.

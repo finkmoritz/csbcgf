@@ -13,6 +13,8 @@ namespace csccgl
         /// </summary>
         protected List<ICard> Cards = new List<ICard>();
 
+        public List<ICard> AllCards => new List<ICard>(Cards);
+
         public Hand()
         {
         }

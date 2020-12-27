@@ -9,6 +9,8 @@ namespace csccgl
     {
         protected Stack<ICard> Cards = new Stack<ICard>();
 
+        public List<ICard> AllCards => new List<ICard>(Cards);
+
         public StackedDeck()
         {
         }

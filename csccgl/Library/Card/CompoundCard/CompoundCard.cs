@@ -22,7 +22,17 @@ namespace csccgl
         {
         }
 
-        public virtual void AddComponent(ICard card)
+        override public List<IReaction> Reactions
+        {
+            get
+            {
+                List<IReaction> reactions = new List<IReaction>();
+                Components.ForEach(c => reactions.AddRange(c.Reactions));
+                return reactions;
+            }
+        }
+
+        public void AddComponent(ICard card)
         {
             if(card is CompoundCard)
             {

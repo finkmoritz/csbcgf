@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace csccgl
 {
     [Serializable]
@@ -10,6 +12,8 @@ namespace csccgl
         /// Data container.
         /// </summary>
         protected ICard[] Cards = new ICard[MaxCapacity];
+
+        public List<ICard> AllCards => new List<ICard>(Cards);
 
         private const int MaxCapacity = 6;
 

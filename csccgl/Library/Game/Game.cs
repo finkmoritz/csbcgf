@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace csccgl
 {
@@ -50,6 +51,19 @@ namespace csccgl
         public Player ActivePlayer => Players[ActivePlayerIndex];
 
         public Player NonActivePlayer => Players[1 - ActivePlayerIndex];
+
+        public List<ICard> AllCards
+        {
+            get
+            {
+                List<ICard> allCards = new List<ICard>();
+                foreach(IPlayer player in Players)
+                {
+                    allCards.AddRange(player.AllCards);
+                }
+                return allCards;
+            }
+        }
 
         protected void Init(GameOptions options)
         {

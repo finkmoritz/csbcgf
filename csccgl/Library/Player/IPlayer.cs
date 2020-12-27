@@ -1,4 +1,6 @@
-﻿namespace csccgl
+﻿using System.Collections.Generic;
+
+namespace csccgl
 {
     public interface IPlayer : ICharacter
     {
@@ -23,6 +25,11 @@
         /// The Player's Cards that have been removed from the Game.
         /// </summary>
         IStackedDeck Graveyard { get; }
+
+        /// <summary>
+        /// Get all Cards from the Player's Decks.
+        /// </summary>
+        List<ICard> AllCards { get; }
 
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.

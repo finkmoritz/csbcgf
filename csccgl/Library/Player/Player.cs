@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace csccgl
 {
@@ -31,6 +32,19 @@ namespace csccgl
             this.ManaStat = new ManaStat(0, 10);
             this.AttackStat = new AttackStat(0);
             this.LifeStat = new LifeStat(life);
+        }
+
+        public List<ICard> AllCards
+        {
+            get
+            {
+                List<ICard> allCards = new List<ICard>();
+                allCards.AddRange(Deck.AllCards);
+                allCards.AddRange(Hand.AllCards);
+                allCards.AddRange(Board.AllCards);
+                allCards.AddRange(Graveyard.AllCards);
+                return allCards;
+            }
         }
 
         public void Attack(IGame game, IMonsterCard monsterCard, ICharacter targetCharacter)

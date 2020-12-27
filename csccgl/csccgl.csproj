@@ -82,6 +82,8 @@
     <Compile Include="Library\Action\Implementations\Deck\Hand\RemoveCardFromHandAction.cs" />
     <Compile Include="Library\Action\Implementations\Deck\Board\AddCardToBoardAction.cs" />
     <Compile Include="Library\Card\CompoundCard\ICompoundCard.cs" />
+    <Compile Include="Library\Reaction\IReaction.cs" />
+    <Compile Include="Library\Reaction\IReactive.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -110,6 +112,7 @@
     <Folder Include="Library\Action\Implementations\Deck\Board\" />
     <Folder Include="Library\Action\Implementations\Deck\StackedDeck\" />
     <Folder Include="Library\Action\Implementations\Deck\Hand\" />
+    <Folder Include="Library\Reaction\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

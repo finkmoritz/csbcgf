@@ -1,9 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace csccgl
 {
     public interface IDeck
     {
+        List<ICard> AllCards { get; }
+
+        /// <summary>
+        /// Number of Cards currently in this Deck.
+        /// </summary>
+        /// <returns>The number of Cards in this Deck.</returns>
+        int Size { get; }
+
         /// <summary>
         /// Checks if this Deck contains any Cards.
         /// </summary>
@@ -16,11 +25,5 @@ namespace csccgl
         /// <param name="card"></param>
         /// <returns>True if this Deck contains the given Card.</returns>
         bool Contains(ICard card);
-
-        /// <summary>
-        /// Number of Cards currently in this Deck.
-        /// </summary>
-        /// <returns>The number of Cards in this Deck.</returns>
-        int Size { get; }
     }
 }

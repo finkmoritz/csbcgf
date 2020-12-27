@@ -19,6 +19,7 @@ namespace csccgl
                 if(action.IsExecutable(game))
                 {
                     action.Execute(game);
+                    game.AllCards.ForEach(c => QueueAll(c.ReactTo(action)));
                 }
             }
         }
@@ -26,6 +27,11 @@ namespace csccgl
         public void Queue(IAction action)
         {
             actions.Enqueue(action);
+        }
+
+        protected void QueueAll(List<IAction> actionList)
+        {
+            actionList.ForEach(a => actions.Enqueue(a));
         }
     }
 }
