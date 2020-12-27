@@ -31,7 +31,7 @@ namespace csbcgf
         {
             if(players.Length != 2)
             {
-                throw new csbcgfException("Parameter 'players' must feature exactly two Player entries!");
+                throw new CsbcgfException("Parameter 'players' must feature exactly two Player entries!");
             }
 
             this.Players = players;

@@ -9,7 +9,7 @@ namespace csbcgftest
         [Test()]
         public void TestCase()
         {
-            csbcgfExample example = new csbcgfExample();
+            CsbcgfExample example = new CsbcgfExample();
             Assert.True(true);
         }
     }

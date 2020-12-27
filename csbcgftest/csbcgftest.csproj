@@ -39,15 +39,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\csccgl\csccgl.csproj">
-      <Project>{3FF09BE9-E494-4D60-B87B-DFB4F91209A4}</Project>
-      <Name>csccgl</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Library\" />
     <Folder Include="Library\Stat\" />
     <Folder Include="Library\Stat\Implementations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\csbcgf\csbcgf.csproj">
+      <Project>{3FF09BE9-E494-4D60-B87B-DFB4F91209A4}</Project>
+      <Name>csbcgf</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

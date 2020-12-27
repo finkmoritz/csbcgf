@@ -2,9 +2,9 @@
 
 namespace csbcgf
 {
-    public class csbcgfExample
+    public class CsbcgfExample
     {
-        public csbcgfExample()
+        public CsbcgfExample()
         {
         }
     }

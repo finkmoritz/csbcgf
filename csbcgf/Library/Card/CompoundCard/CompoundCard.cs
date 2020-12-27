@@ -13,7 +13,7 @@ namespace csbcgf
         {
             if(components.Count == 0)
             {
-                throw new csbcgfException("Parameter components cannot be empty!");
+                throw new CsbcgfException("Parameter components cannot be empty!");
             }
             this.Components = components;
         }

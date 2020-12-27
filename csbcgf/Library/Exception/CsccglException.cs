@@ -1,7 +1,7 @@
 ﻿using System;
 namespace csbcgf
 {
-    public class csbcgfException : Exception
+    public class CsbcgfException : Exception
     {
         const string MessagePrefix = "csbcgf EXCEPTION: ";
 
@@ -9,7 +9,7 @@ namespace csbcgf
         /// Library specific Exception. Usually thrown when the Game's
         /// mechanics are being violated.
         /// </summary>
-        public csbcgfException()
+        public CsbcgfException()
         {
         }
 
@@ -18,7 +18,7 @@ namespace csbcgf
         /// mechanics are being violated.
         /// </summary>
         /// <param name="message"></param>
-        public csbcgfException(string message)
+        public CsbcgfException(string message)
             : base(MessagePrefix + message)
         {
         }
@@ -29,7 +29,7 @@ namespace csbcgf
         /// </summary>
         /// <param name="message"></param>
         /// <param name="inner"></param>
-        public csbcgfException(string message, Exception inner)
+        public CsbcgfException(string message, Exception inner)
             : base(MessagePrefix + message, inner)
         {
         }

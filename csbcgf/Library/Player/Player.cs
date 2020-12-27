@@ -17,7 +17,7 @@ namespace csbcgf
 
         public IPlayer Owner {
             get => this;
-            set => throw new csbcgfException("Changing the Owner of a Player " +
+            set => throw new CsbcgfException("Changing the Owner of a Player " +
                 "is not allowed!");
         }
 
@@ -51,18 +51,18 @@ namespace csbcgf
         {
             if (!Board.Contains(monsterCard))
             {
-                throw new csbcgfException("Failed to attack with a MonsterCard that is not " +
+                throw new CsbcgfException("Failed to attack with a MonsterCard that is not " +
                     "on the Player's Board!");
             }
             if (targetCharacter is IPlayer && targetCharacter != game.NonActivePlayer
                 || targetCharacter is ICard && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
             {
-                throw new csbcgfException("Failed to attack a target Character that is neither " +
+                throw new CsbcgfException("Failed to attack a target Character that is neither " +
                     "the opposing Player nor a Card on the non-active Player's Board!");
             }
             if (!monsterCard.IsPlayable(game))
             {
-                throw new csbcgfException("Tried to attack with a card that " +
+                throw new CsbcgfException("Tried to attack with a card that " +
                     "is not playable!");
             }
 
@@ -81,12 +81,12 @@ namespace csbcgf
         {
             if (!Hand.Contains(monsterCard))
             {
-                throw new csbcgfException("Failed to play a MonsterCard that is not " +
+                throw new CsbcgfException("Failed to play a MonsterCard that is not " +
                     "on the Player's Hand!");
             }
             if (!monsterCard.IsPlayable(game))
             {
-                throw new csbcgfException("Tried to play a card that is " +
+                throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
@@ -100,12 +100,12 @@ namespace csbcgf
         {
             if (!Hand.Contains(spellCard))
             {
-                throw new csbcgfException("Failed to play a SpellCard that is not " +
+                throw new CsbcgfException("Failed to play a SpellCard that is not " +
                     "on the Player's Hand!");
             }
             if (!spellCard.IsPlayable(game))
             {
-                throw new csbcgfException("Tried to play a card that is " +
+                throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
@@ -120,19 +120,19 @@ namespace csbcgf
         {
             if (!Hand.Contains(spellCard))
             {
-                throw new csbcgfException("Failed to play a SpellCard that is not " +
+                throw new CsbcgfException("Failed to play a SpellCard that is not " +
                     "on the Player's Hand!");
             }
             if (targetCharacter is ICard
                 && !game.ActivePlayer.Board.Contains((ICard)targetCharacter)
                 && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
             {
-                throw new csbcgfException("Failed to attack a target Character that is neither " +
+                throw new CsbcgfException("Failed to attack a target Character that is neither " +
                     "a Player nor a Card on a Player's Board!");
             }
             if (!spellCard.IsPlayable(game))
             {
-                throw new csbcgfException("Tried to play a card that is " +
+                throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
@@ -147,7 +147,7 @@ namespace csbcgf
         {
             if(ManaStat.Value < mana)
             {
-                throw new csbcgfException("Cannot pay costs of " + mana + " mana as this player has only " +
+                throw new CsbcgfException("Cannot pay costs of " + mana + " mana as this player has only " +
                     ManaStat.Value + " mana left!");
             } else
             {

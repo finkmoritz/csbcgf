@@ -9,7 +9,7 @@ namespace csbcgf
         {
             if(components.Find(c => c is ITargetfulSpellCard) == null)
             {
-                throw new csbcgfException("Tried to construct a CompoundTargetfulSpellCard " +
+                throw new CsbcgfException("Tried to construct a CompoundTargetfulSpellCard " +
                     "without a component of type ITargetfulSpellCard.\n" +
                     "Use CompoundTargetlessSpellCard instead.");
             }

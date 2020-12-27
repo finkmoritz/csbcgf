@@ -28,7 +28,7 @@ namespace csbcgf
         {
             if(!IsFreeSlot(index))
             {
-                throw new csbcgfException("Cannot add card to board, because " +
+                throw new CsbcgfException("Cannot add card to board, because " +
                     "position " + index + " is already occupied!");
             }
             Cards[index] = card;
