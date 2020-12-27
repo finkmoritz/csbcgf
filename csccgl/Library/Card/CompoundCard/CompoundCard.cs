@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace csccgl
 {
-    public abstract class CompoundCard : Card, ICard
+    public abstract class CompoundCard : Card, ICompoundCard
     {
         protected List<ICard> Components;
 
@@ -22,7 +22,7 @@ namespace csccgl
         {
         }
 
-        public void AddComponent(ICard card)
+        public virtual void AddComponent(ICard card)
         {
             if(card is CompoundCard)
             {

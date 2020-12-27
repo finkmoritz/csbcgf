@@ -81,6 +81,7 @@
     <Compile Include="Library\Action\Implementations\Deck\Hand\AddCardToHandAction.cs" />
     <Compile Include="Library\Action\Implementations\Deck\Hand\RemoveCardFromHandAction.cs" />
     <Compile Include="Library\Action\Implementations\Deck\Board\AddCardToBoardAction.cs" />
+    <Compile Include="Library\Card\CompoundCard\ICompoundCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
