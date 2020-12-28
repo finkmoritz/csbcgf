@@ -1,4 +1,5 @@
 ﻿using csbcgf;
+using csccgltest;
 using NUnit.Framework;
 
 namespace csbcgftest
@@ -16,7 +17,13 @@ namespace csbcgftest
             {
                 IStackedDeck deck = new StackedDeck();
 
-                for (int j=0; j<5; ++j)
+                for (int j=0; j<3; ++j)
+                {
+                    ICard fireball = new DamageSpellCard(3);
+                    deck.Push(fireball);
+                }
+
+                for (int j=0; j<2; ++j)
                 {
                     ICard goblin = new MonsterCard(2, 1, 2);
                     deck.Push(goblin);
@@ -130,6 +137,16 @@ namespace csbcgftest
             otherGoblin.Attack(game, goblin);
             Assert.AreEqual(1, goblin.LifeValue);
             Assert.AreEqual(1, otherGoblin.LifeValue);
+
+            //Destroy opposing player
+            Assert.AreEqual(3, game.NonActivePlayer.LifeValue);
+            Assert.True(game.NonActivePlayer.IsAlive);
+
+            ITargetfulSpellCard fireball = (ITargetfulSpellCard)game.ActivePlayer.Hand[2];
+            game.ActivePlayer.PlaySpell(game, fireball, game.NonActivePlayer);
+
+            Assert.AreEqual(0, game.NonActivePlayer.LifeValue);
+            Assert.False(game.NonActivePlayer.IsAlive);
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using csbcgf;
+
 namespace csccgl
 {
     [Serializable]
@@ -7,5 +10,7 @@ namespace csccgl
         public TargetlessSpellCardComponent(int mana) : base(mana)
         {
         }
+
+        public abstract List<IAction> GetActions(IGame game);
     }
 }

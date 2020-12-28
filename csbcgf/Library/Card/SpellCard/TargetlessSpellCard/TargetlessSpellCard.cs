@@ -5,10 +5,15 @@ using csccgl;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class TargetlessSpellCard : SpellCard, ITargetlessSpellCard
+    public class TargetlessSpellCard : SpellCard, ITargetlessSpellCard
     {
         public TargetlessSpellCard(List<ITargetlessSpellCardComponent> components)
             : base(components.ConvertAll(c => (ISpellCardComponent)c))
+        {
+        }
+
+        public TargetlessSpellCard(ITargetlessSpellCardComponent component)
+            : this(new List<ITargetlessSpellCardComponent> { component })
         {
         }
 
@@ -16,6 +21,14 @@ namespace csbcgf
         {
         }
 
-        public abstract void Play(IGame game);
+        public void Play(IGame game)
+        {
+            Components.ForEach(
+                c => ((ITargetlessSpellCardComponent)c).GetActions(game).ForEach(
+                    a => game.Queue(a)
+                )
+            );
+            game.Process();
+        }
     }
 }

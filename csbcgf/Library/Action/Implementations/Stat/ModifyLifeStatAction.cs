@@ -16,7 +16,7 @@ namespace csbcgf
         public void Execute(IGame game)
         {
             character.LifeValue += delta;
-            if(character is ICard card && character.LifeValue == LifeStat.GlobalMin)
+            if(character is ICard card && character.LifeValue <= 0)
             {
                 game.Queue(new RemoveCardFromBoardAction(card.Owner.Board, (ICard)character));
                 game.Queue(new AddCardToGraveyardAction(card.Owner.Graveyard, (ICard)character));

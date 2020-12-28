@@ -11,6 +11,8 @@ namespace csccgl
         {
         }
 
+        public abstract List<IAction> GetActions(IGame game, ICharacter targetCharacter);
+
         public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);
     }
 }

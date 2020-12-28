@@ -5,10 +5,15 @@ using csccgl;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
+    public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
         public TargetfulSpellCard(List<ISpellCardComponent> components)
             : base(components)
+        {
+        }
+
+        public TargetfulSpellCard(ISpellCardComponent component)
+            : this(new List<ISpellCardComponent> { component })
         {
         }
 
@@ -35,6 +40,29 @@ namespace csbcgf
             return potentialTargets;
         }
 
-        public abstract void Play(IGame game, ICharacter targetCharacter);
+        public void Play(IGame game, ICharacter targetCharacter)
+        {
+            if (!GetPotentialTargets(game).Contains(targetCharacter))
+            {
+                throw new CsbcgfException("Tried to play a TargetfulSpellCard " +
+                    "on an invalid target character!");
+            }
+
+            foreach (ISpellCardComponent component in Components)
+            {
+                if (component is ITargetlessSpellCardComponent targetlessComponent)
+                {
+                    targetlessComponent.GetActions(game).ForEach(
+                        a => game.Queue(a)
+                    );
+                } else if (component is ITargetfulSpellCardComponent targetfulComponent)
+                {
+                    targetfulComponent.GetActions(game, targetCharacter).ForEach(
+                        a => game.Queue(a)
+                    );
+                }
+            }
+            game.Process();
+        }
     }
 }
