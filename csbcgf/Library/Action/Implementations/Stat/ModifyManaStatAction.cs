@@ -5,17 +5,20 @@ namespace csbcgf
     public class ModifyManaStatAction : IAction
     {
         protected ManaStat manaStat;
-        protected int delta;
+        protected int deltaValue;
+        protected int deltaMaxValue;
 
-        public ModifyManaStatAction(ManaStat manaStat, int delta)
+        public ModifyManaStatAction(ManaStat manaStat, int deltaValue, int deltaMaxValue)
         {
             this.manaStat = manaStat;
-            this.delta = delta;
+            this.deltaValue = deltaValue;
+            this.deltaMaxValue = deltaMaxValue;
         }
 
         public void Execute(IGame game)
         {
-            manaStat.Value += delta;
+            manaStat.MaxValue += deltaMaxValue;
+            manaStat.Value += deltaValue;
         }
 
         public bool IsExecutable(IGame game) => true;

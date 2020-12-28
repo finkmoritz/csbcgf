@@ -157,7 +157,7 @@ namespace csbcgf
                     ManaStat.Value + " mana left!");
             } else
             {
-                game.Queue(new ModifyManaStatAction(ManaStat, -mana));
+                game.Queue(new ModifyManaStatAction(ManaStat, -mana, 0));
             }
         }
     }

@@ -66,6 +66,7 @@ namespace csbcgf
             foreach (IPlayer player in Players)
             {
                 player.ManaStat.Value = 0;
+                player.ManaStat.MaxValue = 0;
                 player.LifeStat.Value = options.InitialPlayerLife;
 
                 player.AllCards.ForEach(c => c.Owner = player);
@@ -82,7 +83,7 @@ namespace csbcgf
         public void NextTurn()
         {
             ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
-            Queue(new ModifyManaStatAction(ActivePlayer.ManaStat, 1));
+            Queue(new ModifyManaStatAction(ActivePlayer.ManaStat, ManaStat.GlobalMax + 1, 1));
             ActivePlayer.DrawCard(this);
             Queue(new StartOfTurnEvent());
 
