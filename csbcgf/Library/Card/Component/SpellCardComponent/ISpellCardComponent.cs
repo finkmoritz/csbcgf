@@ -1,5 +1,4 @@
-﻿using System;
-namespace csccgl
+﻿namespace csccgl
 {
     public interface ISpellCardComponent : ICardComponent
     {

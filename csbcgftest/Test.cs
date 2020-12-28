@@ -35,7 +35,7 @@ namespace csbcgftest
             GameOptions gameOptions = new GameOptions
             {
                 InitialHandSize = 1,
-                InitialPlayerLife = 3
+                InitialPlayerLife = 2
             };
 
             game = new Game(players, gameOptions);
@@ -125,9 +125,9 @@ namespace csbcgftest
 
             //Attack player
             Assert.True(goblin.IsReadyToAttack);
-            Assert.AreEqual(3, game.NonActivePlayer.LifeValue);
-            goblin.Attack(game, game.NonActivePlayer);
             Assert.AreEqual(2, game.NonActivePlayer.LifeValue);
+            goblin.Attack(game, game.NonActivePlayer);
+            Assert.AreEqual(1, game.NonActivePlayer.LifeValue);
             Assert.True(game.NonActivePlayer.IsAlive);
             Assert.False(goblin.IsReadyToAttack);
 
@@ -139,7 +139,7 @@ namespace csbcgftest
             Assert.AreEqual(1, otherGoblin.LifeValue);
 
             //Destroy opposing player
-            Assert.AreEqual(3, game.NonActivePlayer.LifeValue);
+            Assert.AreEqual(2, game.NonActivePlayer.LifeValue);
             Assert.True(game.NonActivePlayer.IsAlive);
 
             ITargetfulSpellCard fireball = (ITargetfulSpellCard)game.ActivePlayer.Hand[2];

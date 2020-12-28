@@ -69,7 +69,7 @@ namespace csbcgf
 
         public void Attack(IGame game, ICharacter targetCharacter)
         {
-            game.Queue(new ModifyLifeStatAction(targetCharacter, -this.AttackValue));
+            game.Queue(new ModifyLifeStatAction(targetCharacter, -AttackValue));
             game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackValue));
             game.Queue(new SetReadyToAttackAction(this, false));
             game.Process();

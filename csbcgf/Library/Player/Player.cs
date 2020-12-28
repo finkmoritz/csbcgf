@@ -31,12 +31,12 @@ namespace csbcgf
         /// <param name="life"></param>
         public Player(IStackedDeck deck, int life = 30)
         {
-            this.Deck = deck;
-            this.Hand = new Hand();
-            this.Board = new Board();
-            this.Graveyard = new StackedDeck();
+            Deck = deck;
+            Hand = new Hand();
+            Board = new Board();
+            Graveyard = new StackedDeck();
 
-            this.lifeStat = new LifeStat(life);
+            lifeStat = new LifeStat(life);
         }
 
         public List<ICard> AllCards

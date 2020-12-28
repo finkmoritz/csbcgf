@@ -87,7 +87,10 @@ namespace csbcgf
             }
         }
 
-        public bool IsFreeSlot(int index) => Cards[index] == null;
+        public bool IsFreeSlot(int index)
+        {
+            return Cards[index] == null;
+        }
 
         public int Size
         {

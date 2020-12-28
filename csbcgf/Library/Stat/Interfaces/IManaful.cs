@@ -1,7 +1,4 @@
-﻿using System;
-using csbcgf;
-
-namespace csccgl
+﻿namespace csccgl
 {
     public interface IManaful
     {

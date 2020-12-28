@@ -10,7 +10,7 @@ namespace csbcgf
         public AddCardToHandAction(IHand hand, ICard card)
         {
             this.hand = hand;
-            this.getCard = () => card;
+            getCard = () => card;
         }
 
         public AddCardToHandAction(IHand hand, Func<ICard> getCard)

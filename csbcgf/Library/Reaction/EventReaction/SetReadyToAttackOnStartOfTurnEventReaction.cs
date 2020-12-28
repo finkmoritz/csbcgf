@@ -7,7 +7,7 @@ namespace csccgl
     [Serializable]
     public class SetReadyToAttackOnStartOfTurnEventReaction : IReaction
     {
-        private IMonsterCard monsterCard;
+        private readonly IMonsterCard monsterCard;
 
         public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard)
         {

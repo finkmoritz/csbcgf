@@ -10,6 +10,9 @@ namespace csccgl
         {
         }
 
-        public override bool IsExecutable(IGame game) => true;
+        public override bool IsExecutable(IGame game)
+        {
+            return true;
+        }
     }
 }

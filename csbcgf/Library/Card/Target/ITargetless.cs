@@ -1,5 +1,4 @@
-﻿using System;
-namespace csbcgf
+﻿namespace csbcgf
 {
     public interface ITargetless
     {

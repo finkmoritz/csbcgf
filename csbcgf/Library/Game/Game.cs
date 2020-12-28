@@ -52,9 +52,9 @@ namespace csbcgf
                 throw new CsbcgfException("Parameter 'players' must feature exactly two Player entries!");
             }
 
-            this.Players = players;
-            this.ActivePlayerIndex = new Random().Next(this.Players.Length);
-            this.Options = options ?? new GameOptions();
+            Players = players;
+            ActivePlayerIndex = new Random().Next(Players.Length);
+            Options = options ?? new GameOptions();
 
             Init(Options);
 

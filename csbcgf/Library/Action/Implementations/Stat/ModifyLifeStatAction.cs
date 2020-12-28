@@ -1,4 +1,6 @@
 ﻿using System;
+using csccgl;
+
 namespace csbcgf
 {
     [Serializable]
@@ -16,6 +18,10 @@ namespace csbcgf
         public void Execute(IGame game)
         {
             character.LifeValue += delta;
+            if(!(character is ICardComponent) && character.LifeValue < 0)
+            {
+                character.LifeValue = 0;
+            }
             if(character is ICard card && character.LifeValue <= 0)
             {
                 game.Queue(new RemoveCardFromBoardAction(card.Owner.Board, (ICard)character));
@@ -23,6 +29,10 @@ namespace csbcgf
             }
         }
 
-        public bool IsExecutable(IGame game) => character.LifeValue > LifeStat.GlobalMin;
+        public bool IsExecutable(IGame game)
+        {
+            return !(character is ICardComponent)
+                && character.LifeValue > 0;
+        }
     }
 }

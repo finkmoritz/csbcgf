@@ -8,8 +8,8 @@ namespace csbcgf
         public const int GlobalMin = -99;
         public const int GlobalMax = 99;
 
-        private int value;
-        private int baseValue;
+        protected int value;
+        protected int baseValue;
 
         /// <summary>
         /// Represents a Card's property.
@@ -24,18 +24,13 @@ namespace csbcgf
 
         public virtual int Value {
             get => value;
-            set {
-                this.value = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
-            }
+            set => this.value = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
         }
 
         public virtual int BaseValue
         {
             get => baseValue;
-            set
-            {
-                baseValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
-            }
+            set => baseValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
         }
     }
 }

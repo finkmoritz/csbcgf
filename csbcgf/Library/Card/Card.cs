@@ -56,7 +56,7 @@ namespace csbcgf
         public virtual bool IsPlayable(IGame game)
         {
             return Owner == game.ActivePlayer
-                && this.ManaValue <= game.ActivePlayer.ManaValue;
+                && ManaValue <= game.ActivePlayer.ManaValue;
         }
 
         public virtual void RemoveComponent(ICardComponent cardComponent)
