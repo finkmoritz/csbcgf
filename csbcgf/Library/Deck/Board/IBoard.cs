@@ -26,7 +26,7 @@ namespace csbcgf
         /// </summary>
         /// <param name="index"></param>
         /// <returns>The Card at position index.</returns>
-        ICard Get(int index);
+        ICard this[int index] { get; set; }
 
         /// <summary>
         /// Checks if the given position points to a free slot on this Board.

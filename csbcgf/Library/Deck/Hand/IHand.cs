@@ -25,6 +25,6 @@ namespace csbcgf
         /// </summary>
         /// <param name="index"></param>
         /// <returns>The Card at position index.</returns>
-        ICard Get(int index);
+        ICard this[int index] { get; set; }
     }
 }

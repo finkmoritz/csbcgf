@@ -47,7 +47,7 @@ namespace csbcgftest
             Assert.AreEqual(2, game.ActivePlayer.Hand.Size);
             Assert.AreEqual(1, game.NonActivePlayer.Hand.Size);
 
-            IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand.Get(0);
+            IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             Assert.AreEqual(2, goblin.ManaStat.Value);
             Assert.AreEqual(1, goblin.AttackStat.Value);
             Assert.AreEqual(2, goblin.LifeStat.Value);
@@ -58,7 +58,7 @@ namespace csbcgftest
         [Test()]
         public void TestGame()
         {
-            IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand.Get(0);
+            IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             Assert.False(goblin.IsPlayable(game));
 
             game.NextTurn(); //Second player's turn
@@ -85,7 +85,7 @@ namespace csbcgftest
             Assert.AreEqual(3, game.ActivePlayer.Hand.Size);
             Assert.AreEqual(2, game.NonActivePlayer.Hand.Size);
 
-            goblin = (IMonsterCard)game.ActivePlayer.Hand.Get(0);
+            goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             Assert.True(goblin.IsPlayable(game));
 
             //Play monster card
@@ -104,7 +104,7 @@ namespace csbcgftest
             Assert.AreEqual(2, game.ActivePlayer.ManaStat.MaxValue);
             Assert.AreEqual(2, game.NonActivePlayer.ManaStat.MaxValue);
 
-            IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.Hand.Get(0);
+            IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             game.ActivePlayer.PlayMonster(game, otherGoblin, 0);
 
             Assert.False(goblin.IsReadyToAttack);

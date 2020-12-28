@@ -87,11 +87,10 @@ namespace csbcgf
             }
         }
 
-        public ICard Get(int index) => Cards[index];
-
         public bool IsFreeSlot(int index) => Cards[index] == null;
 
-        public int Size {
+        public int Size
+        {
             get {
                 int size = 0;
                 foreach (ICard card in Cards)
@@ -103,6 +102,12 @@ namespace csbcgf
                 }
                 return size;
             }
+        }
+
+        public ICard this[int index]
+        {
+            get => Cards[index];
+            set => Cards[index] = value;
         }
     }
 }

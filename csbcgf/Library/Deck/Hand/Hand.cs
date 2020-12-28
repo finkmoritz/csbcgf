@@ -42,8 +42,12 @@ namespace csbcgf
             Cards.Remove(card);
         }
 
-        public ICard Get(int index) => Cards[index];
-
         public int Size => Cards.Count;
+
+        public ICard this[int index]
+        {
+            get => Cards[index];
+            set => Cards[index] = value;
+        }
     }
 }
