@@ -33,15 +33,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test.cs" />
-    <Compile Include="Library\Stat\Implementations\ManaStatTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
-    <Folder Include="Library\Stat\" />
-    <Folder Include="Library\Stat\Implementations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\csbcgf\csbcgf.csproj">

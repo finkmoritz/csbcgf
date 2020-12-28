@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using csccgl;
 
 namespace csbcgf
 {
-    public interface IPlayer : ICharacter, IOwnable
+    public interface IPlayer : IManaful, ICharacter, IOwnable
     {
-        ManaStat ManaStat { get; }
-
         /// <summary>
         /// The Player's Deck of Cards.
         /// </summary>

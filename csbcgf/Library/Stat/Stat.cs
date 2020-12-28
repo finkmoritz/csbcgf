@@ -5,36 +5,36 @@ namespace csbcgf
     [Serializable]
     public abstract class Stat : IStat
     {
-        public const int GlobalMin = 0;
+        public const int GlobalMin = -99;
         public const int GlobalMax = 99;
 
         private int value;
-        private int maxValue;
+        private int baseValue;
 
         /// <summary>
         /// Represents a Card's property.
         /// </summary>
-        /// <param name="value">Initial value of this Stat.</param>
-        /// <param name="maxValue">Maximum value this Stat's value can be set to.</param>
-        public Stat(int value, int maxValue)
+        /// <param name="value"></param>
+        /// <param name="baseValue"></param>
+        public Stat(int value, int baseValue)
         {
-            this.maxValue = maxValue;
+            this.baseValue = baseValue;
             this.value = value;
         }
 
-        public int Value {
+        public virtual int Value {
             get => value;
             set {
-                this.value = Math.Max(GlobalMin, Math.Min(maxValue, value));
+                this.value = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
             }
         }
 
-        public int MaxValue
+        public virtual int BaseValue
         {
-            get => maxValue;
+            get => baseValue;
             set
             {
-                maxValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
+                baseValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
             }
         }
     }

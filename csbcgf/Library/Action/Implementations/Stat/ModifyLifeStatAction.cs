@@ -15,14 +15,14 @@ namespace csbcgf
 
         public void Execute(IGame game)
         {
-            character.LifeStat.Value += delta;
-            if(character is ICard card && character.LifeStat.Value == LifeStat.GlobalMin)
+            character.LifeValue += delta;
+            if(character is ICard card && character.LifeValue == LifeStat.GlobalMin)
             {
                 game.Queue(new RemoveCardFromBoardAction(card.Owner.Board, (ICard)character));
                 game.Queue(new AddCardToGraveyardAction(card.Owner.Graveyard, (ICard)character));
             }
         }
 
-        public bool IsExecutable(IGame game) => character.LifeStat.Value > LifeStat.GlobalMin;
+        public bool IsExecutable(IGame game) => character.LifeValue > LifeStat.GlobalMin;
     }
 }

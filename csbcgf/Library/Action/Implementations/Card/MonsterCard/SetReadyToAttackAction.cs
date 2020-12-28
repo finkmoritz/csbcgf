@@ -6,8 +6,8 @@ namespace csccgl
     [Serializable]
     public class SetReadyToAttackAction : IAction
     {
-        private IMonsterCard monsterCard;
-        private bool isReadyToAttack;
+        private readonly IMonsterCard monsterCard;
+        private readonly bool isReadyToAttack;
 
         public SetReadyToAttackAction(IMonsterCard monsterCard, bool isReadyToAttack)
         {

@@ -9,13 +9,16 @@ namespace csccgl
     {
         public CardComponent(int mana)
         {
-            ManaStat = new ManaStat(mana, mana);
             Reactions = new List<IReaction>();
+            manaCostStat = new ManaCostStat(mana, mana);
         }
 
-        public ManaStat ManaStat { get;}
-
         public List<IReaction> Reactions { get; }
+
+        public int ManaValue { get => manaCostStat.Value; set => manaCostStat.Value = value; }
+        public int ManaBaseValue { get => manaCostStat.BaseValue; set => manaCostStat.BaseValue = value; }
+
+        protected ManaCostStat manaCostStat;
 
         public void AddReaction(IReaction reaction)
         {

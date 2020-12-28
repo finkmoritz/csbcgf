@@ -8,8 +8,8 @@
         int Value { get; set; }
 
         /// <summary>
-        /// Maximum value of this Stat's Value.
+        /// Base value for this Stat.
         /// </summary>
-        int MaxValue { get; set; }
+        int BaseValue { get; set; }
     }
 }

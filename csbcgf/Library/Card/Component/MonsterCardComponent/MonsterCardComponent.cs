@@ -9,13 +9,37 @@ namespace csccgl
     {
         public MonsterCardComponent(int mana, int attack, int life) : base(mana)
         {
-            AttackStat = new AttackStat(attack);
-            LifeStat = new LifeStat(life);
+            attackStat = new AttackStat(attack);
+            lifeStat = new LifeStat(life);
         }
 
-        public AttackStat AttackStat { get; }
+        public int AttackValue
+        {
+            get => attackStat.Value;
+            set => attackStat.Value = value;
+        }
 
-        public LifeStat LifeStat { get; }
+        public int AttackBaseValue
+        {
+            get => attackStat.BaseValue;
+            set => attackStat.BaseValue = value;
+        }
+
+        public int LifeValue
+        {
+            get => lifeStat.Value;
+            set => lifeStat.Value = value;
+        }
+
+        public int LifeBaseValue
+        {
+            get => lifeStat.BaseValue;
+            set => lifeStat.BaseValue = value;
+        }
+
+        protected AttackStat attackStat;
+
+        protected LifeStat lifeStat;
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using csccgl;
 
 namespace csbcgf
@@ -7,11 +8,36 @@ namespace csbcgf
     [Serializable]
     public class MonsterCard : Card, IMonsterCard
     {
-        public AttackStat AttackStat { get; protected set; }
-        public LifeStat LifeStat { get; protected set; }
-
         public bool IsReadyToAttack { get; set; }
-        public bool IsAlive => LifeStat.Value > 0;
+        public bool IsAlive => LifeValue > 0;
+
+        public int AttackValue
+        {
+            get => attackStat.Value + Components.Sum(c=> ((IMonsterCardComponent)c).AttackValue);
+            set => attackStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
+        }
+
+        public int AttackBaseValue
+        {
+            get => attackStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
+            set => attackStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
+        }
+
+        public int LifeValue
+        {
+            get => lifeStat.Value + Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
+            set => lifeStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
+        }
+
+        public int LifeBaseValue
+        {
+            get => lifeStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
+            set => lifeStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
+        }
+
+        protected AttackStat attackStat = new AttackStat(0);
+
+        protected LifeStat lifeStat = new LifeStat(0);
 
         /// <summary>
         /// Represents a certain type of Card that is played
@@ -43,8 +69,8 @@ namespace csbcgf
 
         public void Attack(IGame game, ICharacter targetCharacter)
         {
-            game.Queue(new ModifyLifeStatAction(targetCharacter, -this.AttackStat.Value));
-            game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackStat.Value));
+            game.Queue(new ModifyLifeStatAction(targetCharacter, -this.AttackValue));
+            game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackValue));
             game.Queue(new SetReadyToAttackAction(this, false));
             game.Process();
         }
@@ -61,25 +87,6 @@ namespace csbcgf
             IBoard board = game.ActivePlayer.Board;
             return base.IsPlayable(game)
                     && board.AllCards.Count < board.MaxSize;
-        }
-
-        public override void AddComponent(ICardComponent cardComponent)
-        {
-            base.AddComponent(cardComponent);
-
-            if(AttackStat == null)
-            {
-                AttackStat = new AttackStat(0);
-            }
-            if(LifeStat == null)
-            {
-                LifeStat = new LifeStat(0);
-            }
-
-            IMonsterCardComponent component = (IMonsterCardComponent)cardComponent;
-            AttackStat.Value += component.AttackStat.Value;
-            LifeStat.MaxValue += component.LifeStat.Value;
-            LifeStat.Value += component.LifeStat.Value;
         }
     }
 }

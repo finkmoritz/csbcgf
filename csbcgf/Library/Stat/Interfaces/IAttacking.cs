@@ -5,9 +5,7 @@ namespace csccgl
 {
     public interface IAttacking : ITargetful
     {
-        /// <summary>
-        /// Damage that is dealt to an enemy in battle.
-        /// </summary>
-        AttackStat AttackStat { get; }
+        int AttackValue { get; set; }
+        int AttackBaseValue { get; set; }
     }
 }

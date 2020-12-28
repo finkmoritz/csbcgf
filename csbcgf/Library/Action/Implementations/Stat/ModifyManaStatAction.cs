@@ -1,24 +1,26 @@
 ﻿using System;
+using csccgl;
+
 namespace csbcgf
 {
     [Serializable]
     public class ModifyManaStatAction : IAction
     {
-        protected ManaStat manaStat;
+        protected IManaful manaful;
         protected int deltaValue;
-        protected int deltaMaxValue;
+        protected int deltaBaseValue;
 
-        public ModifyManaStatAction(ManaStat manaStat, int deltaValue, int deltaMaxValue)
+        public ModifyManaStatAction(IManaful manaful, int deltaValue, int deltaBaseValue)
         {
-            this.manaStat = manaStat;
+            this.manaful = manaful;
             this.deltaValue = deltaValue;
-            this.deltaMaxValue = deltaMaxValue;
+            this.deltaBaseValue = deltaBaseValue;
         }
 
         public void Execute(IGame game)
         {
-            manaStat.MaxValue += deltaMaxValue;
-            manaStat.Value += deltaValue;
+            manaful.ManaBaseValue += deltaBaseValue;
+            manaful.ManaValue += deltaValue;
         }
 
         public bool IsExecutable(IGame game) => true;

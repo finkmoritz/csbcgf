@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using csccgl;
 
 namespace csbcgf
@@ -10,7 +11,6 @@ namespace csbcgf
         public Card(List<ICardComponent> components)
         {
             Components = new List<ICardComponent>();
-            Reactions = new List<IReaction>();
 
             components.ForEach(c => AddComponent(c));
         }
@@ -23,19 +23,32 @@ namespace csbcgf
 
         public List<ICardComponent> Components { get; }
 
-        public ManaStat ManaStat { get; protected set; }
+        public List<IReaction> Reactions {
+            get
+            {
+                List<IReaction> reactions = new List<IReaction>();
+                reactions.AddRange(this.reactions);
+                Components.ForEach(c => reactions.AddRange(c.Reactions));
+                return reactions;
+            }
+        }
 
-        public List<IReaction> Reactions { get; }
+        public int ManaValue {
+            get => manaCostStat.Value + Components.Sum(c => c.ManaValue);
+            set => manaCostStat.Value = value - Components.Sum(c => c.ManaValue);
+        }
+
+        public int ManaBaseValue {
+            get => manaCostStat.BaseValue + Components.Sum(c => c.ManaBaseValue);
+            set => manaCostStat.BaseValue = value - Components.Sum(c => c.ManaBaseValue);
+        }
+
+        protected List<IReaction> reactions = new List<IReaction>();
+
+        protected ManaCostStat manaCostStat = new ManaCostStat(0, 0);
 
         public virtual void AddComponent(ICardComponent cardComponent)
         {
-            if(ManaStat == null)
-            {
-                ManaStat = new ManaStat(0, ManaStat.GlobalMax);
-            }
-            ManaStat.Value += cardComponent.ManaStat.Value;
-
-            cardComponent.Reactions.ForEach(r => AddReaction(r));
 
             Components.Add(cardComponent);
         }
@@ -43,24 +56,22 @@ namespace csbcgf
         public virtual bool IsPlayable(IGame game)
         {
             return Owner == game.ActivePlayer
-                && this.ManaStat.Value <= game.ActivePlayer.ManaStat.Value;
+                && this.ManaValue <= game.ActivePlayer.ManaValue;
         }
 
         public virtual void RemoveComponent(ICardComponent cardComponent)
         {
-            ManaStat.Value -= cardComponent.ManaStat.Value;
-            cardComponent.Reactions.ForEach(r => RemoveReaction(r));
             Components.Remove(cardComponent);
         }
 
         public virtual void AddReaction(IReaction reaction)
         {
-            Reactions.Add(reaction);
+            reactions.Add(reaction);
         }
 
         public virtual void RemoveReaction(IReaction reaction)
         {
-            Reactions.Remove(reaction);
+            reactions.Remove(reaction);
         }
 
         public virtual List<IAction> ReactTo(IGame game, IAction action)

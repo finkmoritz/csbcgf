@@ -3,12 +3,12 @@
 namespace csbcgf {
 
     [Serializable]
-    public class ManaStat : Stat
+    public class ManaCostStat : Stat
     {
         /// <summary>
         /// Costs in Mana.
         /// </summary>
-        public ManaStat(int value, int maxValue) : base(value, maxValue)
+        public ManaCostStat(int value, int baseValue) : base(value, baseValue)
         {
         }
     }

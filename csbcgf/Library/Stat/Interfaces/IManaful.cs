@@ -5,9 +5,7 @@ namespace csccgl
 {
     public interface IManaful
     {
-        /// <summary>
-        /// Costs to pay in order for the Card to be played.
-        /// </summary>
-        ManaStat ManaStat { get; }
+        int ManaValue { get; set; }
+        int ManaBaseValue { get; set; }
     }
 }

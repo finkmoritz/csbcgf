@@ -37,10 +37,10 @@ namespace csbcgftest
         [Test()]
         public void TestInitialConditions()
         {
-            Assert.AreEqual(1, game.ActivePlayer.ManaStat.Value);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaStat.Value);
-            Assert.AreEqual(1, game.ActivePlayer.ManaStat.MaxValue);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaStat.MaxValue);
+            Assert.AreEqual(1, game.ActivePlayer.ManaValue);
+            Assert.AreEqual(0, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(1, game.ActivePlayer.ManaBaseValue);
+            Assert.AreEqual(0, game.NonActivePlayer.ManaBaseValue);
 
             Assert.AreEqual(3, game.ActivePlayer.Deck.Size);
             Assert.AreEqual(4, game.NonActivePlayer.Deck.Size);
@@ -48,9 +48,9 @@ namespace csbcgftest
             Assert.AreEqual(1, game.NonActivePlayer.Hand.Size);
 
             IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            Assert.AreEqual(2, goblin.ManaStat.Value);
-            Assert.AreEqual(1, goblin.AttackStat.Value);
-            Assert.AreEqual(2, goblin.LifeStat.Value);
+            Assert.AreEqual(2, goblin.ManaValue);
+            Assert.AreEqual(1, goblin.AttackValue);
+            Assert.AreEqual(2, goblin.LifeValue);
 
             Assert.False(goblin.IsPlayable(game));
         }
@@ -63,10 +63,10 @@ namespace csbcgftest
 
             game.NextTurn(); //Second player's turn
 
-            Assert.AreEqual(1, game.ActivePlayer.ManaStat.Value);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaStat.Value);
-            Assert.AreEqual(1, game.ActivePlayer.ManaStat.MaxValue);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaStat.MaxValue);
+            Assert.AreEqual(1, game.ActivePlayer.ManaValue);
+            Assert.AreEqual(1, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(1, game.ActivePlayer.ManaBaseValue);
+            Assert.AreEqual(1, game.NonActivePlayer.ManaBaseValue);
 
             Assert.AreEqual(3, game.ActivePlayer.Deck.Size);
             Assert.AreEqual(3, game.NonActivePlayer.Deck.Size);
@@ -75,10 +75,10 @@ namespace csbcgftest
 
             game.NextTurn(); //First player's turn again
 
-            Assert.AreEqual(2, game.ActivePlayer.ManaStat.Value);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaStat.Value);
-            Assert.AreEqual(2, game.ActivePlayer.ManaStat.MaxValue);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaStat.MaxValue);
+            Assert.AreEqual(2, game.ActivePlayer.ManaValue);
+            Assert.AreEqual(1, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(2, game.ActivePlayer.ManaBaseValue);
+            Assert.AreEqual(1, game.NonActivePlayer.ManaBaseValue);
 
             Assert.AreEqual(2, game.ActivePlayer.Deck.Size);
             Assert.AreEqual(3, game.NonActivePlayer.Deck.Size);
@@ -94,15 +94,15 @@ namespace csbcgftest
             Assert.False(game.ActivePlayer.Board.IsFreeSlot(0));
             Assert.AreEqual(1, game.ActivePlayer.Board.AllCards.Count);
 
-            Assert.AreEqual(0, game.ActivePlayer.ManaStat.Value);
+            Assert.AreEqual(0, game.ActivePlayer.ManaValue);
             Assert.False(goblin.IsReadyToAttack);
 
             game.NextTurn(); //Second player's turn again
 
-            Assert.AreEqual(2, game.ActivePlayer.ManaStat.Value);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaStat.Value);
-            Assert.AreEqual(2, game.ActivePlayer.ManaStat.MaxValue);
-            Assert.AreEqual(2, game.NonActivePlayer.ManaStat.MaxValue);
+            Assert.AreEqual(2, game.ActivePlayer.ManaValue);
+            Assert.AreEqual(0, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(2, game.ActivePlayer.ManaBaseValue);
+            Assert.AreEqual(2, game.NonActivePlayer.ManaBaseValue);
 
             IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             game.ActivePlayer.PlayMonster(game, otherGoblin, 0);
@@ -111,24 +111,24 @@ namespace csbcgftest
 
             game.NextTurn(); //First player's turn again
 
-            Assert.AreEqual(3, game.ActivePlayer.ManaStat.Value);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaStat.Value);
-            Assert.AreEqual(3, game.ActivePlayer.ManaStat.MaxValue);
-            Assert.AreEqual(2, game.NonActivePlayer.ManaStat.MaxValue);
+            Assert.AreEqual(3, game.ActivePlayer.ManaValue);
+            Assert.AreEqual(0, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(3, game.ActivePlayer.ManaBaseValue);
+            Assert.AreEqual(2, game.NonActivePlayer.ManaBaseValue);
 
             //Attack player
             Assert.True(goblin.IsReadyToAttack);
-            Assert.AreEqual(3, game.NonActivePlayer.LifeStat.Value);
+            Assert.AreEqual(3, game.NonActivePlayer.LifeValue);
             goblin.Attack(game, game.NonActivePlayer);
-            Assert.AreEqual(2, game.NonActivePlayer.LifeStat.Value);
+            Assert.AreEqual(2, game.NonActivePlayer.LifeValue);
             Assert.True(game.NonActivePlayer.IsAlive);
             Assert.False(goblin.IsReadyToAttack);
 
             game.NextTurn(); //Second player's turn again
-            Assert.AreEqual(2, goblin.LifeStat.Value);
+            Assert.AreEqual(2, goblin.LifeValue);
             otherGoblin.Attack(game, goblin);
-            Assert.AreEqual(1, goblin.LifeStat.Value);
-            Assert.AreEqual(1, otherGoblin.LifeStat.Value);
+            Assert.AreEqual(1, goblin.LifeValue);
+            Assert.AreEqual(1, otherGoblin.LifeValue);
         }
     }
 }
