@@ -33,11 +33,10 @@ namespace csbcgf
                 }
                 else
                 {
-                    HashSet<ICharacter> potTargets = ((ITargetful)component).GetPotentialTargets(game);
-                    potentialTargets.RemoveWhere(t => !potTargets.Contains(t));
+                    potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(game));
                 }
             }
-            return potentialTargets;
+            return potentialTargets ?? new HashSet<ICharacter>();
         }
 
         public void Play(IGame game, ICharacter targetCharacter)

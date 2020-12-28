@@ -29,6 +29,11 @@ namespace csbcgf
         List<ICard> AllCards { get; }
 
         /// <summary>
+        /// Convenience method to retrieve all Cards on the Boards of all players.
+        /// </summary>
+        List<ICard> AllCardsOnTheBoard { get; }
+
+        /// <summary>
         /// Start the next turn.
         /// </summary>
         void NextTurn();

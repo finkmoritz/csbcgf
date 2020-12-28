@@ -43,13 +43,7 @@ namespace csccgl
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
-            HashSet<ICharacter> potTargets = new HashSet<ICharacter>
-            {
-                game.NonActivePlayer
-            };
-            game.NonActivePlayer.Board.AllCards.ForEach(c => potTargets.Add((ICharacter)c));
-
-            return potTargets;
+            return new HashSet<ICharacter>(game.NonActivePlayer.Characters);
         }
     }
 }

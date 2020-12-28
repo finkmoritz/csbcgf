@@ -32,6 +32,19 @@ namespace csbcgf
             }
         }
 
+        public List<ICard> AllCardsOnTheBoard
+        {
+            get
+            {
+                List<ICard> allCards = new List<ICard>();
+                foreach (IPlayer player in Players)
+                {
+                    allCards.AddRange(player.Board.AllCards);
+                }
+                return allCards;
+            }
+        }
+
         /// <summary>
         /// Additional GameOptions that help customizing a Game.
         /// </summary>

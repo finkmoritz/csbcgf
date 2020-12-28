@@ -34,6 +34,7 @@ namespace csbcgf
         public virtual bool IsPlayable(IGame game)
         {
             return Owner == game.ActivePlayer
+                && Owner.Hand.Contains(this)
                 && ManaValue <= game.ActivePlayer.ManaValue;
         }
 

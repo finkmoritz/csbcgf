@@ -88,6 +88,17 @@ namespace csbcgf
             set => manaPoolStat.BaseValue = value;
         }
 
+        public List<ICharacter> Characters
+        {
+            get
+            {
+                List<ICharacter> characters = new List<ICharacter>();
+                characters.Add(this);
+                Board.AllCards.ForEach(c => characters.Add((ICharacter)c));
+                return characters;
+            }
+        }
+
         public void DrawCard(IGame game)
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
@@ -99,18 +110,13 @@ namespace csbcgf
 
         public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
         {
-            if (!Hand.Contains(monsterCard))
-            {
-                throw new CsbcgfException("Failed to play a MonsterCard that is not " +
-                    "on the Player's Hand!");
-            }
             if (!monsterCard.IsPlayable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            PayCosts(game, monsterCard.ManaValue);
+            game.Queue(new ModifyManaStatAction(this, -monsterCard.ManaValue, 0));
             game.Queue(new RemoveCardFromHandAction(Hand, monsterCard));
             game.Queue(new AddCardToBoardAction(Board, monsterCard, boardIndex));
             game.Process();
@@ -118,18 +124,13 @@ namespace csbcgf
 
         public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
         {
-            if (!Hand.Contains(spellCard))
-            {
-                throw new CsbcgfException("Failed to play a SpellCard that is not " +
-                    "on the Player's Hand!");
-            }
             if (!spellCard.IsPlayable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            PayCosts(game, spellCard.ManaValue);
+            game.Queue(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
             game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game);
             game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
@@ -138,41 +139,17 @@ namespace csbcgf
 
         public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
         {
-            if (!Hand.Contains(spellCard))
-            {
-                throw new CsbcgfException("Failed to play a SpellCard that is not " +
-                    "on the Player's Hand!");
-            }
-            if (targetCharacter is ICard
-                && !game.ActivePlayer.Board.Contains((ICard)targetCharacter)
-                && !game.NonActivePlayer.Board.Contains((ICard)targetCharacter))
-            {
-                throw new CsbcgfException("Failed to attack a target Character that is neither " +
-                    "a Player nor a Card on a Player's Board!");
-            }
             if (!spellCard.IsPlayable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            PayCosts(game, spellCard.ManaValue);
+            game.Queue(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
             game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
             spellCard.Play(game, targetCharacter);
             game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
             game.Process();
-        }
-
-        private void PayCosts(IGame game, int mana)
-        {
-            if(ManaValue < mana)
-            {
-                throw new CsbcgfException("Cannot pay costs of " + mana + " mana as this player has only " +
-                    ManaValue + " mana left!");
-            } else
-            {
-                game.Queue(new ModifyManaStatAction(this, -mana, 0));
-            }
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)

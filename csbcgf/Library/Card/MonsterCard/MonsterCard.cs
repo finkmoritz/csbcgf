@@ -69,17 +69,38 @@ namespace csbcgf
 
         public void Attack(IGame game, ICharacter targetCharacter)
         {
+            if(!IsReadyToAttack)
+            {
+                throw new CsbcgfException("Failed to attack with a MonsterCard " +
+                    "that is not ready to attack!");
+            }
+            if(!GetPotentialTargets(game).Contains(targetCharacter))
+            {
+                throw new CsbcgfException("Cannot attack a target character " +
+                    "that is not specified in the list of potential targets!");
+            }
+
             game.Queue(new ModifyLifeStatAction(targetCharacter, -AttackValue));
             game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackValue));
             game.Queue(new SetReadyToAttackAction(this, false));
+
             game.Process();
         }
 
         public virtual HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
-            return new HashSet<ICharacter>(
-                (IEnumerable<ICharacter>)game.NonActivePlayer.Board.AllCards
-            );
+            if (Components.Count == 0)
+            {
+                return new HashSet<ICharacter>();
+            }
+
+            //Compute the intersection of all potential targets
+            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(game);
+            foreach (ICardComponent component in Components)
+            {
+                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(game));
+            }
+            return potentialTargets;
         }
 
         public override bool IsPlayable(IGame game)
