@@ -53,28 +53,6 @@ namespace csbcgf
             }
         }
 
-        public void Attack(IGame game, IMonsterCard monsterCard, ICharacter targetCharacter)
-        {
-            if (!Board.Contains(monsterCard))
-            {
-                throw new CsbcgfException("Failed to attack with a MonsterCard that is not " +
-                    "on the Player's Board!");
-            }
-            if (targetCharacter is IPlayer && targetCharacter != game.NonActivePlayer
-                || targetCharacter is ICard card && !game.NonActivePlayer.Board.Contains(card))
-            {
-                throw new CsbcgfException("Failed to attack a target Character that is neither " +
-                    "the opposing Player nor a Card on the non-active Player's Board!");
-            }
-            if (!monsterCard.IsReadyToAttack)
-            {
-                throw new CsbcgfException("Tried to attack with a monster card that " +
-                    "is not ready to attack!");
-            }
-
-            monsterCard.Attack(game, targetCharacter);
-        }
-
         public void DrawCard(IGame game)
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
@@ -159,6 +137,11 @@ namespace csbcgf
             {
                 game.Queue(new ModifyManaStatAction(ManaStat, -mana, 0));
             }
+        }
+
+        public HashSet<ICharacter> GetPotentialTargets(IGame game)
+        {
+            return new HashSet<ICharacter>();
         }
     }
 }

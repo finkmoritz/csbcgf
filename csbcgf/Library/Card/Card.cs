@@ -1,54 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
+using csccgl;
 
 namespace csbcgf
 {
     [Serializable]
     public abstract class Card : ICard
     {
+        public Card(List<ICardComponent> components)
+        {
+            Components = new List<ICardComponent>();
+            Reactions = new List<IReaction>();
+
+            components.ForEach(c => AddComponent(c));
+        }
+
+        public Card() : this(new List<ICardComponent>())
+        {
+        }
+
+        public IPlayer Owner { get; set; }
+
+        public List<ICardComponent> Components { get; }
+
         public ManaStat ManaStat { get; protected set; }
 
-        public virtual IPlayer Owner { get; set; }
+        public List<IReaction> Reactions { get; }
 
-        public virtual List<IReaction> Reactions { get; }
-
-        /// <summary>
-        /// Abstract class to represent a Card.
-        /// </summary>
-        /// <param name="mana">Initial value for the ManaStat.</param>
-        public Card(int mana)
+        public virtual void AddComponent(ICardComponent cardComponent)
         {
-            ManaStat = new ManaStat(mana, 99);
-            Reactions = new List<IReaction>();
+            if(ManaStat == null)
+            {
+                ManaStat = new ManaStat(0, ManaStat.GlobalMax);
+            }
+            ManaStat.Value += cardComponent.ManaStat.Value;
+
+            cardComponent.Reactions.ForEach(r => AddReaction(r));
+
+            Components.Add(cardComponent);
         }
 
         public virtual bool IsPlayable(IGame game)
         {
-            bool owned = Owner == game.ActivePlayer;
-            bool contained = game.ActivePlayer.Hand.Contains(this);
-            bool affordable = this.ManaStat.Value <= Owner.ManaStat.Value;
             return Owner == game.ActivePlayer
-                && this.ManaStat.Value <= Owner.ManaStat.Value;
+                && this.ManaStat.Value <= game.ActivePlayer.ManaStat.Value;
         }
 
-        public void AddReaction(IReaction reaction)
+        public virtual void RemoveComponent(ICardComponent cardComponent)
+        {
+            ManaStat.Value -= cardComponent.ManaStat.Value;
+            cardComponent.Reactions.ForEach(r => RemoveReaction(r));
+            Components.Remove(cardComponent);
+        }
+
+        public virtual void AddReaction(IReaction reaction)
         {
             Reactions.Add(reaction);
         }
 
-        public void RemoveReaction(IReaction reaction)
+        public virtual void RemoveReaction(IReaction reaction)
         {
             Reactions.Remove(reaction);
         }
 
-        public List<IAction> ReactTo(IGame game, IAction action)
+        public virtual List<IAction> ReactTo(IGame game, IAction action)
         {
-            List<IAction> actions = new List<IAction>();
-            foreach(IReaction reaction in Reactions)
-            {
-                actions.AddRange(reaction.ReactTo(game, action));
-            }
-            return actions;
+            List<IAction> reactions = new List<IAction>();
+            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(game, action)));
+            return reactions;
         }
     }
 }

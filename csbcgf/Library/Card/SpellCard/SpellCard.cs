@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using csccgl;
 
 namespace csbcgf
 {
@@ -9,8 +11,17 @@ namespace csbcgf
         /// Represents a certain type of Card that has an
         /// immediate effect on the Game's state.
         /// </summary>
-        /// <param name="mana"></param>
-        public SpellCard(int mana) : base(mana)
+        public SpellCard() : base()
+        {
+        }
+
+        /// <summary>
+        /// Represents a certain type of Card that has an
+        /// immediate effect on the Game's state.
+        /// </summary>
+        /// <param name="components"></param>
+        public SpellCard(List<ISpellCardComponent> components)
+            : base(components.ConvertAll(c => (ICardComponent)c))
         {
         }
     }

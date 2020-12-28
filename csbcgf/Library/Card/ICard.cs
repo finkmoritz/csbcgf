@@ -1,23 +1,9 @@
 ﻿using System.Collections.Generic;
+using csccgl;
 
 namespace csbcgf
 {
-    public interface ICard : IOwnable, IReactive
+    public interface ICard : IOwnable, IManaful, IPlayable, IReactive, ICompound
     {
-        /// <summary>
-        /// Costs to pay in order for the Card to be played.
-        /// </summary>
-        ManaStat ManaStat { get; }
-
-        /// <summary>
-        /// Collection of Reactions.
-        /// </summary>
-        List<IReaction> Reactions { get; }
-
-        /// <summary>
-        /// Checks if this Card is playable.
-        /// </summary>
-        /// <returns>True if this Card can be played.</returns>
-        bool IsPlayable(IGame game);
     }
 }

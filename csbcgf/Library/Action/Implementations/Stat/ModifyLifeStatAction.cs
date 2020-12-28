@@ -16,10 +16,10 @@ namespace csbcgf
         public void Execute(IGame game)
         {
             character.LifeStat.Value += delta;
-            if(character is ICard && character.LifeStat.Value == LifeStat.GlobalMin)
+            if(character is ICard card && character.LifeStat.Value == LifeStat.GlobalMin)
             {
-                game.Queue(new RemoveCardFromBoardAction(character.Owner.Board, (ICard)character));
-                game.Queue(new AddCardToGraveyardAction(character.Owner.Graveyard, (ICard)character));
+                game.Queue(new RemoveCardFromBoardAction(card.Owner.Board, (ICard)character));
+                game.Queue(new AddCardToGraveyardAction(card.Owner.Graveyard, (ICard)character));
             }
         }
 

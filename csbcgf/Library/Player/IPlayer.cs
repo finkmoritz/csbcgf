@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public interface IPlayer : ICharacter
+    public interface IPlayer : ICharacter, IOwnable
     {
         ManaStat ManaStat { get; }
 
@@ -61,13 +61,5 @@ namespace csbcgf
         /// <param name="spellCard"></param>
         /// <param name="targetCharacter"></param>
         void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter);
-
-        /// <summary>
-        /// Attack the target Character with the specified MonsterCard.
-        /// </summary>
-        /// <param name="game"></param>
-        /// <param name="monsterCard"></param>
-        /// <param name="targetCharacter"></param>
-        void Attack(IGame game, IMonsterCard monsterCard, ICharacter targetCharacter);
     }
 }

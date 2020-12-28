@@ -18,7 +18,7 @@ namespace csbcgftest
 
                 for (int j=0; j<5; ++j)
                 {
-                    CompoundMonsterCard goblin = new CompoundMonsterCard(2, 1, 2);
+                    ICard goblin = new MonsterCard(2, 1, 2);
                     deck.Push(goblin);
                 }
 
@@ -92,6 +92,7 @@ namespace csbcgftest
             Assert.True(game.ActivePlayer.Board.IsFreeSlot(0));
             game.ActivePlayer.PlayMonster(game, goblin, 0);
             Assert.False(game.ActivePlayer.Board.IsFreeSlot(0));
+            Assert.AreEqual(1, game.ActivePlayer.Board.AllCards.Count);
 
             Assert.AreEqual(0, game.ActivePlayer.ManaStat.Value);
             Assert.False(goblin.IsReadyToAttack);
