@@ -6,13 +6,11 @@ using csccgl;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class Card : ICard
+    public abstract class Card : ReactiveCompound, ICard
     {
         public Card(List<ICardComponent> components)
+            : base(components)
         {
-            Components = new List<ICardComponent>();
-
-            components.ForEach(c => AddComponent(c));
         }
 
         public Card() : this(new List<ICardComponent>())
@@ -20,18 +18,6 @@ namespace csbcgf
         }
 
         public IPlayer Owner { get; set; }
-
-        public List<ICardComponent> Components { get; }
-
-        public List<IReaction> Reactions {
-            get
-            {
-                List<IReaction> reactions = new List<IReaction>();
-                reactions.AddRange(this.reactions);
-                Components.ForEach(c => reactions.AddRange(c.Reactions));
-                return reactions;
-            }
-        }
 
         public int ManaValue {
             get => manaCostStat.Value + Components.Sum(c => c.ManaValue);
@@ -43,15 +29,7 @@ namespace csbcgf
             set => manaCostStat.BaseValue = value - Components.Sum(c => c.ManaBaseValue);
         }
 
-        protected List<IReaction> reactions = new List<IReaction>();
-
         protected ManaCostStat manaCostStat = new ManaCostStat(0, 0);
-
-        public virtual void AddComponent(ICardComponent cardComponent)
-        {
-            cardComponent.ParentCard = this;
-            Components.Add(cardComponent);
-        }
 
         public virtual bool IsPlayable(IGame game)
         {
@@ -59,27 +37,16 @@ namespace csbcgf
                 && ManaValue <= game.ActivePlayer.ManaValue;
         }
 
-        public virtual void RemoveComponent(ICardComponent cardComponent)
+        public override void AddComponent(ICardComponent cardComponent)
         {
-            Components.Remove(cardComponent);
+            cardComponent.ParentCard = this;
+            base.AddComponent(cardComponent);
+        }
+
+        public override void RemoveComponent(ICardComponent cardComponent)
+        {
+            base.RemoveComponent(cardComponent);
             cardComponent.ParentCard = null;
-        }
-
-        public virtual void AddReaction(IReaction reaction)
-        {
-            reactions.Add(reaction);
-        }
-
-        public virtual void RemoveReaction(IReaction reaction)
-        {
-            reactions.Remove(reaction);
-        }
-
-        public virtual List<IAction> ReactTo(IGame game, IAction action)
-        {
-            List<IAction> reactions = new List<IAction>();
-            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(game, action)));
-            return reactions;
         }
     }
 }
