@@ -64,16 +64,19 @@ namespace csbcgf
             return false;
         }
 
-        public bool IsEmpty()
+        public bool IsEmpty
         {
-            foreach(ICard card in Cards)
+            get
             {
-                if(card != null)
+                foreach (ICard card in Cards)
                 {
-                    return false;
+                    if (card != null)
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
         }
 
         public void Remove(ICard card)

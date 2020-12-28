@@ -32,9 +32,9 @@ namespace csbcgf
             return Cards.Contains(card);
         }
 
-        public bool IsEmpty()
+        public bool IsEmpty
         {
-            return Cards.Count == 0;
+            get => Cards.Count == 0;
         }
 
         public void Remove(ICard card)

@@ -19,7 +19,7 @@ namespace csbcgf
 
         public bool IsExecutable(IGame game)
         {
-            return !deck.IsEmpty();
+            return !deck.IsEmpty;
         }
     }
 }

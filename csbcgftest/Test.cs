@@ -138,8 +138,21 @@ namespace csbcgftest
             Assert.AreEqual(1, goblin.LifeValue);
             Assert.AreEqual(1, otherGoblin.LifeValue);
 
-            //Destroy opposing player
-            Assert.AreEqual(2, game.NonActivePlayer.LifeValue);
+            game.NextTurn(); //First player's turn again
+
+            //Both monster cards die in battle
+            Assert.True(game.ActivePlayer.Graveyard.IsEmpty);
+            Assert.True(game.NonActivePlayer.Graveyard.IsEmpty);
+            Assert.False(game.ActivePlayer.Board.IsEmpty);
+            Assert.False(game.NonActivePlayer.Board.IsEmpty);
+            goblin.Attack(game, otherGoblin);
+            Assert.AreEqual(1, game.ActivePlayer.Graveyard.Size);
+            Assert.AreEqual(1, game.NonActivePlayer.Graveyard.Size);
+            Assert.True(game.ActivePlayer.Board.IsEmpty);
+            Assert.True(game.NonActivePlayer.Board.IsEmpty);
+
+            //Destroy second player
+            Assert.AreEqual(1, game.NonActivePlayer.LifeValue);
             Assert.True(game.NonActivePlayer.IsAlive);
 
             ITargetfulSpellCard fireball = (ITargetfulSpellCard)game.ActivePlayer.Hand[2];

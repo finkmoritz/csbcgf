@@ -19,7 +19,7 @@ namespace csbcgf
         /// Checks if this Deck contains any Cards.
         /// </summary>
         /// <returns>True if this Deck does not contain any Cards.</returns>
-        bool IsEmpty();
+        bool IsEmpty { get; }
 
         /// <summary>
         /// Checks if this Deck contains the given Card.
