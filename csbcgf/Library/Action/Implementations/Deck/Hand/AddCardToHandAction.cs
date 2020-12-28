@@ -5,28 +5,28 @@ namespace csbcgf
     public class AddCardToHandAction : IAction
     {
         protected IHand hand;
-        protected Func<ICard> cardGenerator;
+        protected Func<ICard> getCard;
 
         public AddCardToHandAction(IHand hand, ICard card)
         {
             this.hand = hand;
-            this.cardGenerator = () => card;
+            this.getCard = () => card;
         }
 
-        public AddCardToHandAction(IHand hand, Func<ICard> cardGenerator)
+        public AddCardToHandAction(IHand hand, Func<ICard> getCard)
         {
             this.hand = hand;
-            this.cardGenerator = cardGenerator;
+            this.getCard = getCard;
         }
 
         public void Execute(IGame game)
         {
-            hand.Add(cardGenerator());
+            hand.Add(getCard());
         }
 
         public bool IsExecutable(IGame game)
         {
-            return cardGenerator() != null && hand.Size < hand.MaxSize;
+            return getCard() != null && hand.Size < hand.MaxSize;
         }
     }
 }

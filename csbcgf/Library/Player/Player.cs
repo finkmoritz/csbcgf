@@ -93,6 +93,7 @@ namespace csbcgf
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
             game.Queue(removeAction);
             game.Queue(new AddCardToHandAction(Hand, () => removeAction.card));
+
             game.Process();
         }
 

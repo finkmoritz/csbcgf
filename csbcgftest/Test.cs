@@ -125,6 +125,7 @@ namespace csbcgftest
             Assert.False(goblin.IsReadyToAttack);
 
             game.NextTurn(); //Second player's turn again
+
             Assert.AreEqual(2, goblin.LifeValue);
             otherGoblin.Attack(game, goblin);
             Assert.AreEqual(1, goblin.LifeValue);
