@@ -4,6 +4,7 @@ using csbcgf;
 
 namespace csccgl
 {
+    [Serializable]
     public class MonsterCardComponent : CardComponent, IMonsterCardComponent
     {
         public MonsterCardComponent(int mana, int attack, int life) : base(mana)

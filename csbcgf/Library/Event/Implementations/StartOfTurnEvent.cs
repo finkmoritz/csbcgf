@@ -3,6 +3,7 @@ using csbcgf;
 
 namespace csccgl
 {
+    [Serializable]
     public class StartOfTurnEvent : Event
     {
         public StartOfTurnEvent()

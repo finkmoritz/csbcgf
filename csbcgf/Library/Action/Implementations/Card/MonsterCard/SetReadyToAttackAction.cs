@@ -3,6 +3,7 @@ using csbcgf;
 
 namespace csccgl
 {
+    [Serializable]
     public class SetReadyToAttackAction : IAction
     {
         private IMonsterCard monsterCard;

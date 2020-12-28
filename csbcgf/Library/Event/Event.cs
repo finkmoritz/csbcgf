@@ -3,6 +3,7 @@ using csbcgf;
 
 namespace csccgl
 {
+    [Serializable]
     public abstract class Event : IAction
     {
         public Event()

@@ -4,6 +4,7 @@ using csbcgf;
 
 namespace csccgl
 {
+    [Serializable]
     public abstract class CardComponent : ICardComponent
     {
         public CardComponent(int mana)

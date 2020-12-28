@@ -4,6 +4,7 @@ using csbcgf;
 
 namespace csccgl
 {
+    [Serializable]
     public class SetReadyToAttackOnStartOfTurnEventReaction : IReaction
     {
         private IMonsterCard monsterCard;
