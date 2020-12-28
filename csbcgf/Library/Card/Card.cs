@@ -49,7 +49,7 @@ namespace csbcgf
 
         public virtual void AddComponent(ICardComponent cardComponent)
         {
-
+            cardComponent.ParentCard = this;
             Components.Add(cardComponent);
         }
 
@@ -62,6 +62,7 @@ namespace csbcgf
         public virtual void RemoveComponent(ICardComponent cardComponent)
         {
             Components.Remove(cardComponent);
+            cardComponent.ParentCard = null;
         }
 
         public virtual void AddReaction(IReaction reaction)

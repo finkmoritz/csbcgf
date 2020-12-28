@@ -18,6 +18,8 @@ namespace csccgl
         public int ManaValue { get => manaCostStat.Value; set => manaCostStat.Value = value; }
         public int ManaBaseValue { get => manaCostStat.BaseValue; set => manaCostStat.BaseValue = value; }
 
+        public ICard ParentCard { get; set; }
+
         protected ManaCostStat manaCostStat;
 
         public void AddReaction(IReaction reaction)
