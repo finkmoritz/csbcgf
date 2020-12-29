@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using csbcgf;
 
-namespace csccgl
+namespace csbcgf
 {
     public abstract class ReactiveCompound : Compound, IReactive
     {

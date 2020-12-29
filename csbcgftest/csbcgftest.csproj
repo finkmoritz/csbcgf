@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D2B251DA-9EDE-478F-8978-9F55F59B38B2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>csccgltest</RootNamespace>
+    <RootNamespace>csbcgftest</RootNamespace>
     <AssemblyName>csccgltest</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>

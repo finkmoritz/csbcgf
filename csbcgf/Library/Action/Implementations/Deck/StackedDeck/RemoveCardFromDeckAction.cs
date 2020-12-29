@@ -4,8 +4,9 @@ namespace csbcgf
     [Serializable]
     public class RemoveCardFromDeckAction : IAction
     {
+        public ICard Card;
+
         protected IStackedDeck deck;
-        public ICard card;
 
         public RemoveCardFromDeckAction(IStackedDeck deck)
         {
@@ -14,7 +15,7 @@ namespace csbcgf
 
         public void Execute(IGame game)
         {
-            card = deck.Pop();
+            Card = deck.Pop();
         }
 
         public bool IsExecutable(IGame game)

@@ -1,7 +1,7 @@
 ﻿using System;
 using csbcgf;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public abstract class Event : IAction
@@ -15,6 +15,9 @@ namespace csccgl
             //An event should not alter the game state.
         }
 
-        public abstract bool IsExecutable(IGame game);
+        public virtual bool IsExecutable(IGame game)
+        {
+            return true;
+        }
     }
 }

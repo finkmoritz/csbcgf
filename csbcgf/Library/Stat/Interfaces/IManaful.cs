@@ -1,4 +1,4 @@
-﻿namespace csccgl
+﻿namespace csbcgf
 {
     public interface IManaful
     {

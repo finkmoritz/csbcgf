@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using csbcgf;
 
-namespace csccgl
+namespace csbcgf
 {
     public interface ITargetfulSpellCardComponent : ISpellCardComponent, ITargetful
     {

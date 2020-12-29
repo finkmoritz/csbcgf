@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using csbcgf;
-using csccgl;
 
-namespace csccgltest
+
+namespace csbcgftest
 {
     public class DamageSpellCard : TargetfulSpellCard
     {

@@ -1,5 +1,4 @@
 ﻿using csbcgf;
-using csccgltest;
 using NUnit.Framework;
 
 namespace csbcgftest

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using csccgl;
+
 
 namespace csbcgf
 {
@@ -106,8 +106,10 @@ namespace csbcgf
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
             game.Execute(new List<IAction>
             {
+                new StartDrawCardEvent(),
                 removeAction,
-                new AddCardToHandAction(Hand, () => removeAction.card)
+                new AddCardToHandAction(Hand, () => removeAction.Card),
+                new EndDrawCardEvent(() => removeAction.Card)
             });
         }
 
@@ -121,9 +123,11 @@ namespace csbcgf
 
             game.Execute(new List<IAction>
             {
+                new StartPlayMonsterCardEvent(monsterCard, boardIndex),
                 new ModifyManaStatAction(this, -monsterCard.ManaValue, 0),
                 new RemoveCardFromHandAction(Hand, monsterCard),
-                new AddCardToBoardAction(Board, monsterCard, boardIndex)
+                new AddCardToBoardAction(Board, monsterCard, boardIndex),
+                new EndPlayMonsterCardEvent(monsterCard, boardIndex)
             });
         }
 
@@ -137,11 +141,13 @@ namespace csbcgf
 
             List<IAction> actions = new List<IAction>
             {
+                new StartPlayTargetlessSpellCardEvent(spellCard),
                 new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
                 new RemoveCardFromHandAction(Hand, spellCard)
             };
             actions.AddRange(spellCard.GetActions(game));
             actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
+            actions.Add(new EndPlayTargetlessSpellCardEvent(spellCard));
 
             game.Execute(actions);
         }
@@ -156,11 +162,13 @@ namespace csbcgf
 
             List<IAction> actions = new List<IAction>
             {
+                new StartPlayTargetfulSpellCardEvent(spellCard, targetCharacter),
                 new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
                 new RemoveCardFromHandAction(Hand, spellCard)
             };
             actions.AddRange(spellCard.GetActions(game, targetCharacter));
             actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
+            actions.Add(new EndPlayTargetfulSpellCardEvent(spellCard, targetCharacter));
 
             game.Execute(actions);
         }

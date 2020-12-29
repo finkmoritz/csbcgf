@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using csbcgf;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public abstract class TargetlessSpellCardComponent : CardComponent, ITargetlessSpellCardComponent

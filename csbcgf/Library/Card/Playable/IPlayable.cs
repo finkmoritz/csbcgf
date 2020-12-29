@@ -1,6 +1,6 @@
 ﻿using csbcgf;
 
-namespace csccgl
+namespace csbcgf
 {
     public interface IPlayable
     {

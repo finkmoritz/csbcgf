@@ -1,7 +1,7 @@
 ﻿using System;
 using csbcgf;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public class ManaPoolStat : Stat

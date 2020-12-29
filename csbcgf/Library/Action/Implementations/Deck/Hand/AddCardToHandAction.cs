@@ -4,29 +4,37 @@ namespace csbcgf
     [Serializable]
     public class AddCardToHandAction : IAction
     {
+        public ICard Card
+        {
+            get
+            {
+                return GetCard();
+            }
+        }
+
         protected IHand hand;
-        protected Func<ICard> getCard;
+        protected Func<ICard> GetCard;
 
         public AddCardToHandAction(IHand hand, ICard card)
         {
             this.hand = hand;
-            getCard = () => card;
+            GetCard = () => card;
         }
 
         public AddCardToHandAction(IHand hand, Func<ICard> getCard)
         {
             this.hand = hand;
-            this.getCard = getCard;
+            this.GetCard = getCard;
         }
 
         public void Execute(IGame game)
         {
-            hand.Add(getCard());
+            hand.Add(Card);
         }
 
         public bool IsExecutable(IGame game)
         {
-            return getCard() != null && hand.Size < hand.MaxSize;
+            return Card != null && hand.Size < hand.MaxSize;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using csbcgf;
 
-namespace csccgl
+namespace csbcgf
 {
     [Serializable]
     public class SetReadyToAttackOnStartOfTurnEventReaction : IReaction

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using csccgl;
+
 
 namespace csbcgf
 {
@@ -82,9 +82,11 @@ namespace csbcgf
 
             game.Execute(new List<IAction>
             {
+                new StartAttackEvent(this, targetCharacter),
                 new ModifyLifeStatAction(targetCharacter, -AttackValue),
                 new ModifyLifeStatAction(this, -targetCharacter.AttackValue),
-                new SetReadyToAttackAction(this, false)
+                new SetReadyToAttackAction(this, false),
+                new EndAttackEvent(this, targetCharacter)
             });
         }
 
