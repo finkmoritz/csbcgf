@@ -1,6 +1,7 @@
 ﻿using System;
 namespace csbcgf
 {
+    [Serializable]
     public abstract class AttackEvent : Event
     {
         public IMonsterCard Attacker { get => GetAttacker(); }

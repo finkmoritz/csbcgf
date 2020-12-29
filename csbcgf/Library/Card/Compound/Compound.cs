@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csbcgf
 {
+    [Serializable]
     public abstract class Compound
     {
         public List<ICardComponent> Components { get;}

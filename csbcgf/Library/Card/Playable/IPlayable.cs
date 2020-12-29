@@ -1,6 +1,4 @@
-﻿using csbcgf;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public interface IPlayable
     {

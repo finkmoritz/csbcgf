@@ -1,8 +1,8 @@
 ﻿using System;
-using csbcgf;
 
 namespace csbcgf
 {
+    [Serializable]
     public class StartPlayCardEvent : CardEvent
     {
         public StartPlayCardEvent(ICard card) : base(card)

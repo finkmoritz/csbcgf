@@ -1,6 +1,7 @@
 ﻿using System;
 namespace csbcgf
 {
+    [Serializable]
     public class EndAttackEvent : AttackEvent
     {
         public EndAttackEvent(Func<IMonsterCard> getAttacker, Func<ICharacter> getTarget)

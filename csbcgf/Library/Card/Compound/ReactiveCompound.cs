@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using csbcgf;
 
 namespace csbcgf
 {
+    [Serializable]
     public abstract class ReactiveCompound : Compound, IReactive
     {
         public ReactiveCompound(List<ICardComponent> components)
