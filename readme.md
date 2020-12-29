@@ -1,10 +1,20 @@
 ﻿# C# Battle Card Game Framework (CSBCGF)
 
+## Overview
+
 The C# Battle Card Game Framework facilitates the process of developing a custom
 battle card game (such as Magic The Gathering, Pokémon and Hearthstone) in C#.
 It already provides a basic event-driven game loop and classes to derive from.
 
+## Contents
+
+- [Classes & Interfaces](#classes-and-interfaces)
+- [FAQ](#faq)
+- [Impressum](#impressum)
+
 ---
+
+# Classes and Interfaces
 
 ## IGame interface & Game class
 
@@ -123,16 +133,17 @@ subsequently processed.
 
 ---
 
-## FAQ
+# FAQ
 
-### When should I use card components to assemble cards?
+**When should I use card components to assemble cards?**
 
 As often as possible. You can of course change the card's mana costs (``ManaValue``)
 or reactions (``AddReaction``/``RemoveReaction``) directly, but this might lead
 to unexpected side effects. It is good practice to always add/remove ``IReaction``s/
 ``IStat``s as components.
 
-### How to properly execute multiple actions?
+
+**How to properly execute multiple actions?**
 
 Apparently there are two ways to execute multiple ``IAction``s:
 1. Call ``Game.Execute(IAction)`` multiple times. At each call the ``IAction`` itself
@@ -151,14 +162,16 @@ the second monster could not take place anymore and the first monster leaves the
 unharmed. In this case you should definitely go with the second approach, which would
 modify the life stats of both monsters first, before sending them to the graveyard.
 
-### How can I implement a custom spell card?
+
+**How can I implement a custom spell card?**
 
 You can either inherit from ``TargetfulSpellCard`` or ``TargetlessSpellCard`` based on whether
 your card should feature ``ISpellCardComponent`` that require a target to be selected
 (``ITargetful``) or not (``ITargetless``). If at least one component requires a target
 you have to inherit from ``TargetfulSpellCard``.
 
-### How can I implement a custom spell card component?
+
+**How can I implement a custom spell card component?**
 
 You can either inherit from ``TargetfulSpellCardComponent`` or ``TargetlessSpellCardComponent``
 based on whether your component requires a target to be selected (``ITargetful``) or not
@@ -172,7 +185,7 @@ method to provide a list of valid targets based on a given game state.
 
 ---
 
-## Impressum
+# Impressum
 
 The C# Battle Card Game Framework was designed and implemented by
 [Moritz Fink](https://finkmoritz.github.io/).
