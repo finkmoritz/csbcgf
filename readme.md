@@ -4,6 +4,8 @@ The C# Battle Card Game Framework facilitates the process of developing a custom
 battle card game (such as Magic The Gathering, Pokémon and Hearthstone) in C#.
 It already provides a basic event-driven game loop and classes to derive from.
 
+---
+
 ## IGame interface & Game class
 
 The ``Game`` class is the central object within the framework implementing the
@@ -93,19 +95,16 @@ a character can either be a player or a monster card.
 ## IAction interface & how to properly change a Game's state
 
 Changes to the game state should only be performed via actions (i.e. classes
-implementing ``IAction``)! More specifically only in the ``Execute`` method.
-Actions must not be executed immediately or arbitrarily, but rather be queued
-via ``Game.Queue`` and executed via ``Game.Process`` methods.
+implementing ``IAction``)! More specifically only in the ``Game.Execute`` method.
+This method takes one or more ``IAction``s, adds them to the queue and
+executes them one by one. ``IReaction``s triggered by those ``IAction``s
+are being executed afterwards (which in turn can trigger further ``IReaction``s).
 
-The resulting pipeline looks like this:
-1. An ``Action`` is initialized (e.g. with some further information needed to
-execute the action later on).
-2. The ``Action`` is queued for execution via ``Game.Queue`` method.
-3. Repeat 1. & 2. for all ``Action``s that should be executed 'simultaneously'.
-4. Execute all queued ``Action``s via ``Game.Process`` method (first in first out).
-For each ``Action`` to be executed, the framework first checks if it can be
-executed (``IAction.IsExecutable``) immediately before the actual execution
-(``IAction.Execute``). Non-executable ``Action``s are discarded.
+Since the game state might change before ``IAction.Execute`` is executed,
+the ``IAction`` provides a check ``IAction.IsExecutable`` which is executed
+immediately before ``IAction.Execute``. If this method evaluates to ``false``
+the ``IAction`` will not be executed and simply discarded (i.e. also no
+``IReaction``s will be triggered).
 
 ### Event
 
@@ -121,3 +120,59 @@ execution of each ``Action`` (via Game.Process method), this ``Action`` is fed i
 the ``ReactTo`` method of every ``Action`` in every ``Card`` and all ``Action``s
 returned from this method are in turn again fed into the action queue and
 subsequently processed.
+
+---
+
+## FAQ
+
+### When should I use card components to assemble cards?
+
+As often as possible. You can of course change the card's mana costs (``ManaValue``)
+or reactions (``AddReaction``/``RemoveReaction``) directly, but this might lead
+to unexpected side effects. It is good practice to always add/remove ``IReaction``s/
+``IStat``s as components.
+
+### How to properly execute multiple actions?
+
+Apparently there are two ways to execute multiple ``IAction``s:
+1. Call ``Game.Execute(IAction)`` multiple times. At each call the ``IAction`` itself
+plus all triggered ``IReaction``s are executed if not forbidden by ``IAction.IsExecutable``.
+Note that also the triggered ``IReaction``s could in turn trigger further ``IReaction``s.
+2. Call ``Game.Execute(List<IAction>)`` with all ``IAction``s. Now all ``IAction``s in
+the list will be executed first (if not forbidden by ``IAction.IsExecutable``). Only after
+that has happened, all ``IReaction``s triggered by all those ``IAction``s will be executed.
+This goes on until no ``IReaction``s have been triggered anymore.
+
+So there is definitely a difference between both approaches. Consider e.g. a fight between
+two monster cards, where you want both monsters to lower each others life stats
+'simultaneously'. If you pick the first approach, the first monster to attack would maybe
+kill the second monster and - as reaction - send it to the graveyard. Now the attack from
+the second monster could not take place anymore and the first monster leaves the fight
+unharmed. In this case you should definitely go with the second approach, which would
+modify the life stats of both monsters first, before sending them to the graveyard.
+
+### How can I implement a custom spell card?
+
+You can either inherit from ``TargetfulSpellCard`` or ``TargetlessSpellCard`` based on whether
+your card should feature ``ISpellCardComponent`` that require a target to be selected
+(``ITargetful``) or not (``ITargetless``). If at least one component requires a target
+you have to inherit from ``TargetfulSpellCard``.
+
+### How can I implement a custom spell card component?
+
+You can either inherit from ``TargetfulSpellCardComponent`` or ``TargetlessSpellCardComponent``
+based on whether your component requires a target to be selected (``ITargetful``) or not
+(``ITargetless``).
+
+- ``TargetlessSpellCardComponent``: Override the ``GetActions`` to return the ``IAction``s to
+be performed once the corresponding spell card is played.
+- ``TargetfulSpellCardComponent``: Override the ``GetActions`` to return the ``IAction``s to
+be performed once the corresponding spell card is played. Also override the ``GetPotentialTargets``
+method to provide a list of valid targets based on a given game state.
+
+---
+
+## Impressum
+
+The C# Battle Card Game Framework was designed and implemented by
+[Moritz Fink](https://finkmoritz.github.io/).
