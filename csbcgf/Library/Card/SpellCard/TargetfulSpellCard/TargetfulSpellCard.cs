@@ -39,7 +39,7 @@ namespace csbcgf
             return potentialTargets ?? new HashSet<ICharacter>();
         }
 
-        public void Play(IGame game, ICharacter targetCharacter)
+        public List<IAction> GetActions(IGame game, ICharacter targetCharacter)
         {
             if (!GetPotentialTargets(game).Contains(targetCharacter))
             {
@@ -62,7 +62,7 @@ namespace csbcgf
                     );
                 }
             }
-            game.Execute(actions);
+            return actions;
         }
     }
 }

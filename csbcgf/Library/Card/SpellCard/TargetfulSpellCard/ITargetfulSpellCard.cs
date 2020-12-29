@@ -1,13 +1,17 @@
-﻿namespace csbcgf
+﻿using System.Collections.Generic;
+
+namespace csbcgf
 {
     public interface ITargetfulSpellCard : ITargetful, ISpellCard
     {
         /// <summary>
-        /// Play this SpellCard onto the target Character in order to alter
-        /// the Game's state.
+        /// Retrieve all Actions to be performed when this spell card is played.
+        /// Targetful spell card components will make use of the specified
+        /// target character.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="targetCharacter"></param>
-        void Play(IGame game, ICharacter targetCharacter);
+        /// <returns>All Actions to be performed when this spell card is played.</returns>
+        List<IAction> GetActions(IGame game, ICharacter targetCharacter);
     }
 }

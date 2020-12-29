@@ -27,7 +27,7 @@ namespace csbcgf
                         if (action.IsExecutable(game))
                         {
                             action.Execute(game);
-                            game.AllCards.ForEach(c => Queue(c.ReactTo(game, action)));
+                            game.AllCards.ForEach(c => Enqueue(c.ReactTo(game, action)));
                         }
                     }
                 } finally
@@ -37,12 +37,12 @@ namespace csbcgf
             }
         }
 
-        public void Queue(IAction action)
+        public void Enqueue(IAction action)
         {
             actions.Enqueue(action);
         }
 
-        public void Queue(List<IAction> actionList)
+        public void Enqueue(List<IAction> actionList)
         {
             actionList.ForEach(a => actions.Enqueue(a));
         }

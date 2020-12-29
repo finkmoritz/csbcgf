@@ -21,7 +21,7 @@ namespace csbcgf
         {
         }
 
-        public void Play(IGame game)
+        public List<IAction> GetActions(IGame game)
         {
             List<IAction> actions = new List<IAction>();
             Components.ForEach(
@@ -29,7 +29,7 @@ namespace csbcgf
                     a => actions.Add(a)
                 )
             );
-            game.Execute(actions);
+            return actions;
         }
     }
 }

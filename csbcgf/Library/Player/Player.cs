@@ -92,8 +92,10 @@ namespace csbcgf
         {
             get
             {
-                List<ICharacter> characters = new List<ICharacter>();
-                characters.Add(this);
+                List<ICharacter> characters = new List<ICharacter>
+                {
+                    this
+                };
                 Board.AllCards.ForEach(c => characters.Add((ICharacter)c));
                 return characters;
             }
@@ -133,13 +135,15 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Execute(new List<IAction>
+            List<IAction> actions = new List<IAction>
             {
                 new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
                 new RemoveCardFromHandAction(Hand, spellCard)
-            });
-            spellCard.Play(game);
-            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
+            };
+            actions.AddRange(spellCard.GetActions(game));
+            actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
+
+            game.Execute(actions);
         }
 
         public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
@@ -150,13 +154,15 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Execute(new List<IAction>
+            List<IAction> actions = new List<IAction>
             {
                 new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
                 new RemoveCardFromHandAction(Hand, spellCard)
-            });
-            spellCard.Play(game, targetCharacter);
-            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
+            };
+            actions.AddRange(spellCard.GetActions(game, targetCharacter));
+            actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
+
+            game.Execute(actions);
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)

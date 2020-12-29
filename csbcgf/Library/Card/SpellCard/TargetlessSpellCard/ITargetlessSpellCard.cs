@@ -1,11 +1,14 @@
-﻿namespace csbcgf
+﻿using System.Collections.Generic;
+
+namespace csbcgf
 {
     public interface ITargetlessSpellCard : ITargetless, ISpellCard
     {
         /// <summary>
-        /// Play this Card to alter the Game's state.
+        /// Retrieve all Actions to be performed when this spell card is played.
         /// </summary>
         /// <param name="game"></param>
-        void Play(IGame game);
+        /// <returns>All Actions to be performed when this spell card is played.</returns>
+        List<IAction> GetActions(IGame game);
     }
 }

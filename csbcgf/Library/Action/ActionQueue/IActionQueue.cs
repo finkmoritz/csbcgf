@@ -5,16 +5,16 @@ namespace csbcgf
     public interface IActionQueue
     {
         /// <summary>
-        /// Queue a given Action for later execution.
+        /// Enqueue a given Action for later execution.
         /// </summary>
         /// <param name="action"></param>
-        void Queue(IAction action);
+        void Enqueue(IAction action);
 
         /// <summary>
-        /// Queue all given Actions for later execution.
+        /// Enqueue all given Actions for later execution.
         /// </summary>
         /// <param name="actions"></param>
-        void Queue(List<IAction> actions);
+        void Enqueue(List<IAction> actions);
 
         /// <summary>
         /// Execute all Actions in the queue if they are executable

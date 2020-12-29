@@ -105,13 +105,13 @@ namespace csbcgf
 
         public void Execute(IAction action)
         {
-            actionQueue.Queue(action);
+            actionQueue.Enqueue(action);
             actionQueue.Process(this);
         }
 
         public void Execute(List<IAction> actions)
         {
-            actionQueue.Queue(actions);
+            actionQueue.Enqueue(actions);
             actionQueue.Process(this);
         }
     }
