@@ -122,6 +122,18 @@ An event is an abstract implementation of an ``IAction`` that does not execute
 a game state change but rather serves as marker/trigger. One example would be
 the ``StartOfTurnEvent`` which is triggered at the start of each turn.
 
+Additionally, they may be used to mark the start and end of a certain series of
+``IAction``s and thereby provide useful information. E.g. before a player draws
+a card, a ``StartDrawCardEvent`` is triggered. After the player has drawn the
+card, a ``EndDrawCardEvent`` is triggered that also provides the drawn card.
+
+Other useful ``Event``s to listen to and that are provided out of the box are:
+- ``[Start/End]AttackEvent``: Provides attacking monster card and target character.
+- ``[Start/End]PlayMonsterCardEvent``: Provides monster card and board index.
+- ``[Start/End]PlayTargetlessSpellCardEvent``: Provides the spell card.
+- ``[Start/End]PlayTargetfulSpellCardEvent``: Provides the spell card and target
+character.
+
 ## IReactive & IReaction interfaces
 
 ``Card``s implement the ``IReactive`` interface which means that implementations
