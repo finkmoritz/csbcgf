@@ -31,11 +31,11 @@ namespace csbcgf
                         IAction action = actions.Dequeue();
                         if (action.IsExecutable(game))
                         {
-                            action.Execute(game);
-                            if(ExecuteReactions)
+                            if (ExecuteReactions)
                             {
                                 game.AllCards.ForEach(c => Enqueue(c.ReactTo(game, action)));
                             }
+                            action.Execute(game);
                         }
                     }
                 } finally
