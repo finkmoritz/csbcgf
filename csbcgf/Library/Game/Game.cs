@@ -50,7 +50,7 @@ namespace csbcgf
         /// </summary>
         public readonly GameOptions Options;
 
-        protected ActionQueue actions = new ActionQueue();
+        protected ActionQueue actionQueue = new ActionQueue();
 
         /// <summary>
         /// Represent the current Game state and provides methods to alter
@@ -70,8 +70,6 @@ namespace csbcgf
             Options = options ?? new GameOptions();
 
             Init(Options);
-
-            actions.Process(this);
         }
 
         protected void Init(GameOptions options)
@@ -98,22 +96,23 @@ namespace csbcgf
             ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
 
             int manaDelta = ActivePlayer.ManaBaseValue + 1 - ActivePlayer.ManaValue;
-            Queue(new ModifyManaStatAction(ActivePlayer, manaDelta, 1));
+            Execute(new ModifyManaStatAction(ActivePlayer, manaDelta, 1));
 
             ActivePlayer.DrawCard(this);
-            Queue(new StartOfTurnEvent());
 
-            actions.Process(this);
+            Execute(new StartOfTurnEvent());
         }
 
-        public void Queue(IAction action)
+        public void Execute(IAction action)
         {
-            actions.Queue(action);
+            actionQueue.Queue(action);
+            actionQueue.Process(this);
         }
 
-        public void Process()
+        public void Execute(List<IAction> actions)
         {
-            actions.Process(this);
+            actionQueue.Queue(actions);
+            actionQueue.Process(this);
         }
     }
 }

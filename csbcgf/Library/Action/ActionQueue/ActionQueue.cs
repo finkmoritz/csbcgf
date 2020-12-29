@@ -8,19 +8,31 @@ namespace csbcgf
     {
         protected Queue<IAction> actions = new Queue<IAction>();
 
+        protected bool isProcessing = false;
+
         public ActionQueue()
         {
         }
 
         public void Process(IGame game)
         {
-            while(actions.Count > 0)
+            if(!isProcessing)
             {
-                IAction action = actions.Dequeue();
-                if(action.IsExecutable(game))
+                try
                 {
-                    action.Execute(game);
-                    game.AllCards.ForEach(c => QueueAll(c.ReactTo(game, action)));
+                    isProcessing = true;
+                    while (actions.Count > 0)
+                    {
+                        IAction action = actions.Dequeue();
+                        if (action.IsExecutable(game))
+                        {
+                            action.Execute(game);
+                            game.AllCards.ForEach(c => Queue(c.ReactTo(game, action)));
+                        }
+                    }
+                } finally
+                {
+                    isProcessing = false;
                 }
             }
         }
@@ -30,7 +42,7 @@ namespace csbcgf
             actions.Enqueue(action);
         }
 
-        public void QueueAll(List<IAction> actionList)
+        public void Queue(List<IAction> actionList)
         {
             actionList.ForEach(a => actions.Enqueue(a));
         }

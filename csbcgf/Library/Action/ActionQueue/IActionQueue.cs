@@ -14,7 +14,7 @@ namespace csbcgf
         /// Queue all given Actions for later execution.
         /// </summary>
         /// <param name="actions"></param>
-        void QueueAll(List<IAction> actions);
+        void Queue(List<IAction> actions);
 
         /// <summary>
         /// Execute all Actions in the queue if they are executable

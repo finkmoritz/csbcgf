@@ -80,11 +80,12 @@ namespace csbcgf
                     "that is not specified in the list of potential targets!");
             }
 
-            game.Queue(new ModifyLifeStatAction(targetCharacter, -AttackValue));
-            game.Queue(new ModifyLifeStatAction(this, -targetCharacter.AttackValue));
-            game.Queue(new SetReadyToAttackAction(this, false));
-
-            game.Process();
+            game.Execute(new List<IAction>
+            {
+                new ModifyLifeStatAction(targetCharacter, -AttackValue),
+                new ModifyLifeStatAction(this, -targetCharacter.AttackValue),
+                new SetReadyToAttackAction(this, false)
+            });
         }
 
         public virtual HashSet<ICharacter> GetPotentialTargets(IGame game)

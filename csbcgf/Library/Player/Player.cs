@@ -102,10 +102,11 @@ namespace csbcgf
         public void DrawCard(IGame game)
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
-            game.Queue(removeAction);
-            game.Queue(new AddCardToHandAction(Hand, () => removeAction.card));
-
-            game.Process();
+            game.Execute(new List<IAction>
+            {
+                removeAction,
+                new AddCardToHandAction(Hand, () => removeAction.card)
+            });
         }
 
         public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
@@ -116,10 +117,12 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Queue(new ModifyManaStatAction(this, -monsterCard.ManaValue, 0));
-            game.Queue(new RemoveCardFromHandAction(Hand, monsterCard));
-            game.Queue(new AddCardToBoardAction(Board, monsterCard, boardIndex));
-            game.Process();
+            game.Execute(new List<IAction>
+            {
+                new ModifyManaStatAction(this, -monsterCard.ManaValue, 0),
+                new RemoveCardFromHandAction(Hand, monsterCard),
+                new AddCardToBoardAction(Board, monsterCard, boardIndex)
+            });
         }
 
         public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
@@ -130,11 +133,13 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Queue(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
-            game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
+            game.Execute(new List<IAction>
+            {
+                new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
+                new RemoveCardFromHandAction(Hand, spellCard)
+            });
             spellCard.Play(game);
-            game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
-            game.Process();
+            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 
         public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
@@ -145,11 +150,13 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Queue(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
-            game.Queue(new RemoveCardFromHandAction(Hand, spellCard));
+            game.Execute(new List<IAction>
+            {
+                new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
+                new RemoveCardFromHandAction(Hand, spellCard)
+            });
             spellCard.Play(game, targetCharacter);
-            game.Queue(new AddCardToGraveyardAction(Graveyard, spellCard));
-            game.Process();
+            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)

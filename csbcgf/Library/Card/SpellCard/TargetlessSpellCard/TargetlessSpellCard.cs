@@ -23,12 +23,13 @@ namespace csbcgf
 
         public void Play(IGame game)
         {
+            List<IAction> actions = new List<IAction>();
             Components.ForEach(
                 c => ((ITargetlessSpellCardComponent)c).GetActions(game).ForEach(
-                    a => game.Queue(a)
+                    a => actions.Add(a)
                 )
             );
-            game.Process();
+            game.Execute(actions);
         }
     }
 }

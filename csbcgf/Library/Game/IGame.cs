@@ -43,11 +43,13 @@ namespace csbcgf
         /// only be performed via Actions queued through this method!
         /// </summary>
         /// <param name="action"></param>
-        void Queue(IAction action);
+        void Execute(IAction action);
 
         /// <summary>
-        /// Execute all Actions in the queue.
+        /// Queue multiple Actions for execution. Changes on the Game state should
+        /// only be performed via Actions queued through this method!
         /// </summary>
-        void Process();
+        /// <param name="actions"></param>
+        void Execute(List<IAction> actions);
     }
 }

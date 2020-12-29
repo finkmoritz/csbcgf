@@ -47,21 +47,22 @@ namespace csbcgf
                     "on an invalid target character!");
             }
 
+            List<IAction> actions = new List<IAction>();
             foreach (ISpellCardComponent component in Components)
             {
                 if (component is ITargetlessSpellCardComponent targetlessComponent)
                 {
                     targetlessComponent.GetActions(game).ForEach(
-                        a => game.Queue(a)
+                        a => actions.Add(a)
                     );
                 } else if (component is ITargetfulSpellCardComponent targetfulComponent)
                 {
                     targetfulComponent.GetActions(game, targetCharacter).ForEach(
-                        a => game.Queue(a)
+                        a => actions.Add(a)
                     );
                 }
             }
-            game.Process();
+            game.Execute(actions);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using csccgl;
 
 namespace csbcgf
@@ -24,8 +25,11 @@ namespace csbcgf
             }
             if(character is ICard card && character.LifeValue <= 0)
             {
-                game.Queue(new RemoveCardFromBoardAction(card.Owner.Board, (ICard)character));
-                game.Queue(new AddCardToGraveyardAction(card.Owner.Graveyard, (ICard)character));
+                game.Execute(new List<IAction>
+                {
+                    new RemoveCardFromBoardAction(card.Owner.Board, (ICard)character),
+                    new AddCardToGraveyardAction(card.Owner.Graveyard, (ICard)character)
+                });
             }
         }
 
