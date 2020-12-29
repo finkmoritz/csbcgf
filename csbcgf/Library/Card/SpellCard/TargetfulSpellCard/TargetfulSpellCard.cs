@@ -39,9 +39,9 @@ namespace csbcgf
             return potentialTargets ?? new HashSet<ICharacter>();
         }
 
-        public List<IAction> GetActions(IGame game, ICharacter targetCharacter)
+        public List<IAction> GetActions(IGame game, ICharacter target)
         {
-            if (!GetPotentialTargets(game).Contains(targetCharacter))
+            if (!GetPotentialTargets(game).Contains(target))
             {
                 throw new CsbcgfException("Tried to play a TargetfulSpellCard " +
                     "on an invalid target character!");
@@ -57,7 +57,7 @@ namespace csbcgf
                     );
                 } else if (component is ITargetfulSpellCardComponent targetfulComponent)
                 {
-                    targetfulComponent.GetActions(game, targetCharacter).ForEach(
+                    targetfulComponent.GetActions(game, target).ForEach(
                         a => actions.Add(a)
                     );
                 }

@@ -64,7 +64,7 @@ namespace csbcgf
         /// </summary>
         /// <param name="game"></param>
         /// <param name="spellCard"></param>
-        /// <param name="targetCharacter"></param>
-        void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter);
+        /// <param name="target"></param>
+        void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target);
     }
 }

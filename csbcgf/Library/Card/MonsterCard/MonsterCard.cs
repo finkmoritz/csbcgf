@@ -67,14 +67,14 @@ namespace csbcgf
         {
         }
 
-        public void Attack(IGame game, ICharacter targetCharacter)
+        public void Attack(IGame game, ICharacter target)
         {
             if(!IsReadyToAttack)
             {
                 throw new CsbcgfException("Failed to attack with a MonsterCard " +
                     "that is not ready to attack!");
             }
-            if(!GetPotentialTargets(game).Contains(targetCharacter))
+            if(!GetPotentialTargets(game).Contains(target))
             {
                 throw new CsbcgfException("Cannot attack a target character " +
                     "that is not specified in the list of potential targets!");
@@ -82,11 +82,11 @@ namespace csbcgf
 
             game.Execute(new List<IAction>
             {
-                new StartAttackEvent(this, targetCharacter),
-                new ModifyLifeStatAction(targetCharacter, -AttackValue),
-                new ModifyLifeStatAction(this, -targetCharacter.AttackValue),
+                new StartAttackEvent(this, target),
+                new ModifyLifeStatAction(target, -AttackValue),
+                new ModifyLifeStatAction(this, -target.AttackValue),
                 new SetReadyToAttackAction(this, false),
-                new EndAttackEvent(this, targetCharacter)
+                new EndAttackEvent(this, target)
             });
         }
 

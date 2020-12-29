@@ -21,11 +21,11 @@ namespace csbcgftest
                 this.damage = damage;
             }
 
-            public override List<IAction> GetActions(IGame game, ICharacter targetCharacter)
+            public override List<IAction> GetActions(IGame game, ICharacter target)
             {
                 return new List<IAction>
                 {
-                    new ModifyLifeStatAction(targetCharacter, -(int)damage)
+                    new ModifyLifeStatAction(target, -(int)damage)
                 };
             }
 

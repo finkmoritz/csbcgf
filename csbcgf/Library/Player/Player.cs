@@ -152,7 +152,7 @@ namespace csbcgf
             game.Execute(actions);
         }
 
-        public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter targetCharacter)
+        public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
         {
             if (!spellCard.IsPlayable(game))
             {
@@ -162,13 +162,13 @@ namespace csbcgf
 
             List<IAction> actions = new List<IAction>
             {
-                new StartPlayTargetfulSpellCardEvent(spellCard, targetCharacter),
+                new StartPlayTargetfulSpellCardEvent(spellCard, target),
                 new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
                 new RemoveCardFromHandAction(Hand, spellCard)
             };
-            actions.AddRange(spellCard.GetActions(game, targetCharacter));
+            actions.AddRange(spellCard.GetActions(game, target));
             actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
-            actions.Add(new EndPlayTargetfulSpellCardEvent(spellCard, targetCharacter));
+            actions.Add(new EndPlayTargetfulSpellCardEvent(spellCard, target));
 
             game.Execute(actions);
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using csbcgf;
 
 namespace csbcgf
 {
@@ -11,7 +10,7 @@ namespace csbcgf
         {
         }
 
-        public abstract List<IAction> GetActions(IGame game, ICharacter targetCharacter);
+        public abstract List<IAction> GetActions(IGame game, ICharacter target);
 
         public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);
     }
