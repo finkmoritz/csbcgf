@@ -50,7 +50,7 @@ namespace csbcgf
         /// </summary>
         public readonly GameOptions Options;
 
-        protected ActionQueue actionQueue = new ActionQueue();
+        protected ActionQueue actionQueue = new ActionQueue(false);
 
         /// <summary>
         /// Represent the current Game state and provides methods to alter
@@ -66,7 +66,6 @@ namespace csbcgf
             }
 
             Players = players;
-            ActivePlayerIndex = new Random().Next(Players.Length);
             Options = options ?? new GameOptions();
 
             Init(Options);
@@ -88,6 +87,14 @@ namespace csbcgf
                 }
             }
 
+            StartGame();
+        }
+
+        protected void StartGame()
+        {
+            actionQueue.ExecuteReactions = true;
+            Execute(new StartOfGameEvent());
+            ActivePlayerIndex = new Random().Next(Players.Length);
             NextTurn();
         }
 

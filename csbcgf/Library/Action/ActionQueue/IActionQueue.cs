@@ -5,6 +5,13 @@ namespace csbcgf
     public interface IActionQueue
     {
         /// <summary>
+        /// Marks if the ActionQueue also executes IReactions to the
+        /// executed IActions.
+        /// Can be e.g. set to false during Game initialization.
+        /// </summary>
+        bool ExecuteReactions { get; set; }
+
+        /// <summary>
         /// Enqueue a given Action for later execution.
         /// </summary>
         /// <param name="action"></param>

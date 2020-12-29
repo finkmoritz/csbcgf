@@ -23,14 +23,21 @@ namespace csbcgf
             {
                 character.LifeValue = 0;
             }
-            if(character is ICard card && character.LifeValue <= 0)
+            if(character.LifeValue <= 0)
             {
-                game.Execute(new List<IAction>
+                if (character is IMonsterCard monsterCard)
                 {
-                    new RemoveCardFromBoardAction(card.Owner.Board, (ICard)character),
-                    new AddCardToGraveyardAction(card.Owner.Graveyard, (ICard)character)
-                });
+                    game.Execute(new List<IAction>
+                    {
+                        new RemoveCardFromBoardAction(monsterCard.Owner.Board, monsterCard),
+                        new AddCardToGraveyardAction(monsterCard.Owner.Graveyard, monsterCard)
+                    });
+                } else if (character is IPlayer player)
+                {
+                    game.Execute(new EndOfGameEvent());
+                }
             }
+            
         }
 
         public bool IsExecutable(IGame game)
