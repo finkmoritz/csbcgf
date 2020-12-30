@@ -13,31 +13,31 @@ namespace csbcgf
 
         public int AttackValue
         {
-            get => attackStat.Value + Components.Sum(c=> ((IMonsterCardComponent)c).AttackValue);
-            set => attackStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
+            get => attackOffsetStat.Value + Components.Sum(c=> ((IMonsterCardComponent)c).AttackValue);
+            set => attackOffsetStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
         }
 
         public int AttackBaseValue
         {
-            get => attackStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
-            set => attackStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
+            get => attackOffsetStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
+            set => attackOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
         }
 
         public int LifeValue
         {
-            get => lifeStat.Value + Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
-            set => lifeStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
+            get => lifeOffsetStat.Value + Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
+            set => lifeOffsetStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
         }
 
         public int LifeBaseValue
         {
-            get => lifeStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
-            set => lifeStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
+            get => lifeOffsetStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
+            set => lifeOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
         }
 
-        protected AttackStat attackStat = new AttackStat(0);
+        protected AttackStat attackOffsetStat = new AttackStat(0);
 
-        protected LifeStat lifeStat = new LifeStat(0);
+        protected LifeStat lifeOffsetStat = new LifeStat(0);
 
         /// <summary>
         /// Represents a certain type of Card that is played

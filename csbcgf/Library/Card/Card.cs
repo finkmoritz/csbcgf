@@ -20,16 +20,16 @@ namespace csbcgf
         public IPlayer Owner { get; set; }
 
         public int ManaValue {
-            get => manaCostStat.Value + Components.Sum(c => c.ManaValue);
-            set => manaCostStat.Value = value - Components.Sum(c => c.ManaValue);
+            get => manaCostOffsetStat.Value + Components.Sum(c => c.ManaValue);
+            set => manaCostOffsetStat.Value = value - Components.Sum(c => c.ManaValue);
         }
 
         public int ManaBaseValue {
-            get => manaCostStat.BaseValue + Components.Sum(c => c.ManaBaseValue);
-            set => manaCostStat.BaseValue = value - Components.Sum(c => c.ManaBaseValue);
+            get => manaCostOffsetStat.BaseValue + Components.Sum(c => c.ManaBaseValue);
+            set => manaCostOffsetStat.BaseValue = value - Components.Sum(c => c.ManaBaseValue);
         }
 
-        protected ManaCostStat manaCostStat = new ManaCostStat(0, 0);
+        protected ManaCostStat manaCostOffsetStat = new ManaCostStat(0, 0);
 
         public virtual bool IsPlayable(IGame game)
         {
