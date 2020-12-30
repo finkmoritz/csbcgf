@@ -9,7 +9,7 @@ namespace csbcgf
         /// Equivalent to using
         /// <code>Players[ActivePlayerIndex]</code>
         /// </summary>
-        IPlayer ActivePlayer { get; }
+        IPlayer ActivePlayer { get; set; }
 
         /// <summary>
         /// Convenience method to retrieve the non-active Player.

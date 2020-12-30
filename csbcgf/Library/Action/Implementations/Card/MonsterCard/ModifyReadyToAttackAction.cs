@@ -3,12 +3,12 @@
 namespace csbcgf
 {
     [Serializable]
-    public class SetReadyToAttackAction : IAction
+    public class ModifyReadyToAttackAction : IAction
     {
         private readonly IMonsterCard monsterCard;
         private readonly bool isReadyToAttack;
 
-        public SetReadyToAttackAction(IMonsterCard monsterCard, bool isReadyToAttack)
+        public ModifyReadyToAttackAction(IMonsterCard monsterCard, bool isReadyToAttack)
         {
             this.monsterCard = monsterCard;
             this.isReadyToAttack = isReadyToAttack;

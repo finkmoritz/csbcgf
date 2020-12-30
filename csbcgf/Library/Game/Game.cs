@@ -12,11 +12,24 @@ namespace csbcgf
         /// Index of the active Player. Refers to the Players array.
         /// Also see the ActivePlayer accessor.
         /// </summary>
-        public int ActivePlayerIndex { get; protected set; }
+        protected int activePlayerIndex;
 
-        public IPlayer ActivePlayer => Players[ActivePlayerIndex];
+        public IPlayer ActivePlayer
+        {
+            get => Players[activePlayerIndex];
+            set
+            {
+                for (int i = 0; i < Players.Length; ++i)
+                {
+                    if (Players[i] == value)
+                    {
+                        activePlayerIndex = i;
+                    }
+                }
+            }
+        }
 
-        public IPlayer NonActivePlayer => Players[1 - ActivePlayerIndex];
+        public IPlayer NonActivePlayer => Players[1 - activePlayerIndex];
 
         public List<ICard> AllCards
         {
@@ -84,6 +97,8 @@ namespace csbcgf
                 }
             }
 
+            activePlayerIndex = new Random().Next(Players.Length);
+
             actionQueue.ExecuteReactions = true;
 
             StartGame();
@@ -92,13 +107,12 @@ namespace csbcgf
         protected void StartGame()
         {
             Execute(new StartOfGameEvent());
-            ActivePlayerIndex = new Random().Next(Players.Length);
             NextTurn();
         }
 
         public void NextTurn()
         {
-            ActivePlayerIndex = (ActivePlayerIndex + 1) % Players.Length;
+            Execute(new ModifyActivePlayerAction(NonActivePlayer));
 
             int manaDelta = ActivePlayer.ManaBaseValue + 1 - ActivePlayer.ManaValue;
             Execute(new ModifyManaStatAction(ActivePlayer, manaDelta, 1));

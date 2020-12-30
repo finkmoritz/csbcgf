@@ -38,7 +38,8 @@ namespace csbcgf
                             action.Execute(game);
                         }
                     }
-                } finally
+                }
+                finally
                 {
                     isProcessing = false;
                 }

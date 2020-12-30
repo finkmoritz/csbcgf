@@ -85,7 +85,7 @@ namespace csbcgf
                 new StartAttackEvent(this, target),
                 new ModifyLifeStatAction(target, -AttackValue),
                 new ModifyLifeStatAction(this, -target.AttackValue),
-                new SetReadyToAttackAction(this, false),
+                new ModifyReadyToAttackAction(this, false),
                 new EndAttackEvent(this, target)
             });
         }

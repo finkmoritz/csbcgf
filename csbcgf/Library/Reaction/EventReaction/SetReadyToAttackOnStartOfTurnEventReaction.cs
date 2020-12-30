@@ -20,7 +20,7 @@ namespace csbcgf
                 && monsterCard.Owner == game.ActivePlayer
                 && game.ActivePlayer.Board.Contains(monsterCard))
             {
-                reactions.Add(new SetReadyToAttackAction(monsterCard, true));
+                reactions.Add(new ModifyReadyToAttackAction(monsterCard, true));
             }
             return reactions;
         }
