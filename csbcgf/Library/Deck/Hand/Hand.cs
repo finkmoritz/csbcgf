@@ -6,7 +6,7 @@ namespace csbcgf
     [Serializable]
     public class Hand : IHand
     {
-        public int MaxSize => 10;
+        public int MaxSize { get; protected set; }
 
         /// <summary>
         /// Data container.
@@ -15,8 +15,9 @@ namespace csbcgf
 
         public List<ICard> AllCards => new List<ICard>(Cards);
 
-        public Hand()
+        public Hand(int maxSize)
         {
+            MaxSize = maxSize;
         }
 
         public void Add(ICard card)

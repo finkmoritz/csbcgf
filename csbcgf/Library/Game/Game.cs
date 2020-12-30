@@ -44,11 +44,6 @@ namespace csbcgf
             }
         }
 
-        /// <summary>
-        /// Additional GameOptions that help customizing a Game.
-        /// </summary>
-        public readonly GameOptions Options;
-
         protected ActionQueue actionQueue = new ActionQueue(false);
 
         /// <summary>
@@ -56,8 +51,8 @@ namespace csbcgf
         /// this Game state.
         /// </summary>
         /// <param name="players"></param>
-        /// <param name="options"></param>
-        public Game(IPlayer[] players, GameOptions options = null)
+        /// <param name="initialHandSize"></param>
+        public Game(IPlayer[] players, int initialPlayerLife = 30, int initialHandSize = 4)
         {
             if(players.Length != 2)
             {
@@ -65,33 +60,37 @@ namespace csbcgf
             }
 
             Players = players;
-            Options = options ?? new GameOptions();
 
-            Init(Options);
+            Init(initialPlayerLife, initialHandSize);
         }
 
-        protected void Init(GameOptions options)
+        protected void Init(int initialPlayerLife, int initialHandSize)
         {
+            //Do not trigger any reactions during setup
+            actionQueue.ExecuteReactions = false;
+
             foreach (IPlayer player in Players)
             {
                 player.ManaValue = 0;
                 player.ManaBaseValue = 0;
-                player.LifeValue = options.InitialPlayerLife;
+                player.LifeValue = initialPlayerLife;
+                player.LifeBaseValue = initialPlayerLife;
 
                 player.AllCards.ForEach(c => c.Owner = player);
 
-                for (int i = 0; i < Options.InitialHandSize; ++i)
+                for (int i = 0; i < initialHandSize; ++i)
                 {
                     player.DrawCard(this);
                 }
             }
+
+            actionQueue.ExecuteReactions = true;
 
             StartGame();
         }
 
         protected void StartGame()
         {
-            actionQueue.ExecuteReactions = true;
             Execute(new StartOfGameEvent());
             ActivePlayerIndex = new Random().Next(Players.Length);
             NextTurn();

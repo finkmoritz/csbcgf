@@ -31,13 +31,7 @@ namespace csbcgftest
                 players[i] = new Player(deck);
             }
 
-            GameOptions gameOptions = new GameOptions
-            {
-                InitialHandSize = 1,
-                InitialPlayerLife = 2
-            };
-
-            game = new Game(players, gameOptions);
+            game = new Game(players, initialHandSize: 1, initialPlayerLife: 2);
         }
 
         [Test()]

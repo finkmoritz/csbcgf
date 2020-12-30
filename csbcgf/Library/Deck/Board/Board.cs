@@ -6,12 +6,12 @@ namespace csbcgf
     [Serializable]
     public class Board : IBoard
     {
-        public int MaxSize => MaxCapacity;
+        public int MaxSize { get; private set; }
 
         /// <summary>
         /// Data container.
         /// </summary>
-        protected ICard[] Cards = new ICard[MaxCapacity];
+        protected ICard[] Cards;
 
         public List<ICard> AllCards
         {
@@ -29,13 +29,14 @@ namespace csbcgf
             }
         }
 
-        private const int MaxCapacity = 6;
-
         /// <summary>
         /// Represents all Cards on a Player's Board.
         /// </summary>
-        public Board()
+        public Board(int maxSize)
         {
+            MaxSize = maxSize;
+
+            Cards = new ICard[MaxSize];
             for (int i = 0; i < Cards.Length; ++i)
             {
                 Cards[i] = null;

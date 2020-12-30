@@ -28,15 +28,16 @@ namespace csbcgf
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
-        /// <param name="life"></param>
-        public Player(IStackedDeck deck, int life = 30)
+        /// <param name="maxHandSize"></param>
+        /// <param name="maxBoardSize"></param>
+        public Player(IStackedDeck deck, int maxHandSize = 10, int maxBoardSize = 6)
         {
             Deck = deck;
-            Hand = new Hand();
-            Board = new Board();
+            Hand = new Hand(maxHandSize);
+            Board = new Board(maxBoardSize);
             Graveyard = new StackedDeck();
 
-            lifeStat = new LifeStat(life);
+            lifeStat = new LifeStat(0);
         }
 
         public List<ICard> AllCards
