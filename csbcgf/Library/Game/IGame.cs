@@ -34,6 +34,11 @@ namespace csbcgf
         List<ICard> AllCardsOnTheBoard { get; }
 
         /// <summary>
+        /// Start the game.
+        /// </summary>
+        void StartGame();
+
+        /// <summary>
         /// Start the next turn.
         /// </summary>
         void NextTurn();

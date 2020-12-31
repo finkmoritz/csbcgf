@@ -32,6 +32,7 @@ namespace csbcgftest
             }
 
             game = new Game(players, initialHandSize: 1, initialPlayerLife: 2);
+            game.StartGame();
         }
 
         [Test()]

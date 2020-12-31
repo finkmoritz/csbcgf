@@ -107,11 +107,9 @@ namespace csbcgf
             activePlayerIndex = new Random().Next(Players.Length);
 
             actionQueue.ExecuteReactions = true;
-
-            StartGame();
         }
 
-        protected void StartGame()
+        public void StartGame()
         {
             Execute(new StartOfGameEvent());
             NextTurn();
