@@ -82,10 +82,10 @@ namespace csbcgf
             Players = players;
         }
 
-        public void StartGame(int initialPlayerLife = 30, int initialHandSize = 4)
+        public void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
         {
             //Do not trigger any reactions during setup
-            actionQueue.ExecuteReactions = false;
+            actionQueue.executeReactions = false;
 
             foreach (IPlayer player in Players)
             {
@@ -104,7 +104,7 @@ namespace csbcgf
 
             activePlayerIndex = new Random().Next(Players.Length);
 
-            actionQueue.ExecuteReactions = true;
+            actionQueue.executeReactions = true;
 
             Execute(new StartOfGameEvent());
             NextTurn();

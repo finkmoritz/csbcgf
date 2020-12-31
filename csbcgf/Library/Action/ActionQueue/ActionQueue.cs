@@ -7,7 +7,7 @@ namespace csbcgf
     [Serializable]
     public class ActionQueue : IActionQueue
     {
-        public bool ExecuteReactions { get; set; }
+        public bool executeReactions { get; set; }
 
         protected Queue<IAction> actions = new Queue<IAction>();
 
@@ -20,7 +20,7 @@ namespace csbcgf
 
         public ActionQueue(bool executeReactions = true)
         {
-            ExecuteReactions = executeReactions;
+            this.executeReactions = executeReactions;
         }
 
         public void Process(IGame game)
@@ -35,7 +35,7 @@ namespace csbcgf
                         IAction action = actions.Dequeue();
                         if (action.IsExecutable(game))
                         {
-                            if (ExecuteReactions)
+                            if (executeReactions)
                             {
                                 game.AllCards.ForEach(c => Enqueue(c.ReactTo(game, action)));
                             }

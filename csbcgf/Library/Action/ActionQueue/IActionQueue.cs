@@ -9,7 +9,7 @@ namespace csbcgf
         /// executed IActions.
         /// Can be e.g. set to false during Game initialization.
         /// </summary>
-        bool ExecuteReactions { get; set; }
+        bool executeReactions { get; set; }
 
         /// <summary>
         /// Enqueue a given Action for later execution.

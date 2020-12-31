@@ -9,12 +9,19 @@ namespace csbcgf
     public abstract class Card : ReactiveCompound, ICard
     {
         public Card(List<ICardComponent> components)
-            : base(components)
+            : this(components, null)
         {
         }
 
         public Card() : this(new List<ICardComponent>())
         {
+        }
+
+        [JsonConstructor]
+        protected Card(List<ICardComponent> components, IPlayer owner)
+            : base(components)
+        {
+            Owner = owner;
         }
 
         public IPlayer Owner { get; set; }
