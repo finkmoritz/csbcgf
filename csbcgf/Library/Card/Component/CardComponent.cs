@@ -15,11 +15,13 @@ namespace csbcgf
 
         public List<IReaction> Reactions { get; }
 
+        [JsonIgnore]
         public int ManaValue {
             get => manaCostStat.Value;
             set => manaCostStat.Value = value;
         }
 
+        [JsonIgnore]
         public int ManaBaseValue {
             get => manaCostStat.BaseValue;
             set => manaCostStat.BaseValue = value;
@@ -27,6 +29,7 @@ namespace csbcgf
 
         public ICard ParentCard { get; set; }
 
+        [JsonProperty]
         protected ManaCostStat manaCostStat;
 
         public void AddReaction(IReaction reaction)

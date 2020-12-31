@@ -68,7 +68,7 @@ namespace csbcgf
         /// <summary>
         /// Represents all Cards on a Player's Board.
         /// </summary>
-        public Board(int maxSize)
+        public Board(int maxSize = 6)
         {
             MaxSize = maxSize;
 
