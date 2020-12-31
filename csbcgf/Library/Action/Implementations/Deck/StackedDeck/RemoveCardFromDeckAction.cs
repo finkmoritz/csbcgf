@@ -1,11 +1,15 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace csbcgf
 {
     [Serializable]
     public class RemoveCardFromDeckAction : IAction
     {
+        [JsonProperty]
         public ICard Card;
 
+        [JsonProperty]
         protected IStackedDeck deck;
 
         public RemoveCardFromDeckAction(IStackedDeck deck)

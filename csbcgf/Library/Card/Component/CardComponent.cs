@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -14,8 +15,15 @@ namespace csbcgf
 
         public List<IReaction> Reactions { get; }
 
-        public int ManaValue { get => manaCostStat.Value; set => manaCostStat.Value = value; }
-        public int ManaBaseValue { get => manaCostStat.BaseValue; set => manaCostStat.BaseValue = value; }
+        public int ManaValue {
+            get => manaCostStat.Value;
+            set => manaCostStat.Value = value;
+        }
+
+        public int ManaBaseValue {
+            get => manaCostStat.BaseValue;
+            set => manaCostStat.BaseValue = value;
+        }
 
         public ICard ParentCard { get; set; }
 

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class SetReadyToAttackOnStartOfTurnEventReaction : IReaction
     {
+        [JsonProperty]
         private readonly IMonsterCard monsterCard;
 
         public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard)

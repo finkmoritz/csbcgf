@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -11,6 +12,7 @@ namespace csbcgf
         {
         }
 
+        [JsonIgnore]
         public List<IReaction> Reactions
         {
             get

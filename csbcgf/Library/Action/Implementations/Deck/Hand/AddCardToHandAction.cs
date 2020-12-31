@@ -1,9 +1,12 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace csbcgf
 {
     [Serializable]
     public class AddCardToHandAction : IAction
     {
+        [JsonIgnore]
         public ICard Card
         {
             get
@@ -12,7 +15,10 @@ namespace csbcgf
             }
         }
 
+        [JsonProperty]
         protected IHand hand;
+
+        [JsonProperty]
         protected Func<ICard> GetCard;
 
         public AddCardToHandAction(IHand hand, ICard card)

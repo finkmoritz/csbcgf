@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class Player : IPlayer
     {
+        [JsonIgnore]
         public bool IsAlive => lifeStat.Value > 0;
 
         public IStackedDeck Deck { get; protected set; }
@@ -14,15 +15,21 @@ namespace csbcgf
         public IBoard Board { get; protected set; }
         public IStackedDeck Graveyard { get; protected set; }
 
+        [JsonIgnore]
         public IPlayer Owner {
             get => this;
             set => throw new CsbcgfException("Changing the Owner of a Player " +
                 "is not allowed!");
         }
 
+        [JsonProperty]
         protected ManaPoolStat manaPoolStat = new ManaPoolStat(0, 0);
+
+        [JsonProperty]
         protected AttackStat attackStat = new AttackStat(0);
-        protected LifeStat lifeStat;
+
+        [JsonProperty]
+        protected LifeStat lifeStat = new LifeStat(0);
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
@@ -36,10 +43,9 @@ namespace csbcgf
             Hand = new Hand(maxHandSize);
             Board = new Board(maxBoardSize);
             Graveyard = new StackedDeck();
-
-            lifeStat = new LifeStat(0);
         }
 
+        [JsonIgnore]
         public List<ICard> AllCards
         {
             get
@@ -53,42 +59,49 @@ namespace csbcgf
             }
         }
 
+        [JsonIgnore]
         public int AttackValue
         {
             get => attackStat.Value;
             set => attackStat.Value = value;
         }
 
+        [JsonIgnore]
         public int AttackBaseValue
         {
             get => attackStat.BaseValue;
             set => attackStat.BaseValue = value;
         }
 
+        [JsonIgnore]
         public int LifeValue
         {
             get => lifeStat.Value;
             set => lifeStat.Value = value;
         }
 
+        [JsonIgnore]
         public int LifeBaseValue
         {
             get => lifeStat.BaseValue;
             set => lifeStat.BaseValue = value;
         }
 
+        [JsonIgnore]
         public int ManaValue
         {
             get => manaPoolStat.Value;
             set => manaPoolStat.Value = value;
         }
 
+        [JsonIgnore]
         public int ManaBaseValue
         {
             get => manaPoolStat.BaseValue;
             set => manaPoolStat.BaseValue = value;
         }
 
+        [JsonIgnore]
         public List<ICharacter> Characters
         {
             get

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -11,9 +12,21 @@ namespace csbcgf
         /// <summary>
         /// Data container.
         /// </summary>
-        protected List<ICard> Cards = new List<ICard>();
+        [JsonProperty]
+        protected List<ICard> cards = new List<ICard>();
 
-        public List<ICard> AllCards => new List<ICard>(Cards);
+        [JsonIgnore]
+        public List<ICard> AllCards => new List<ICard>(cards);
+
+        [JsonIgnore]
+        public bool IsEmpty
+        {
+            get => cards.Count == 0;
+        }
+
+        [JsonIgnore]
+        public int Size => cards.Count;
+
 
         public Hand(int maxSize)
         {
@@ -22,33 +35,26 @@ namespace csbcgf
 
         public void Add(ICard card)
         {
-            if(Cards.Count < MaxSize)
+            if(cards.Count < MaxSize)
             {
-                Cards.Add(card);
+                cards.Add(card);
             }
         }
 
         public bool Contains(ICard card)
         {
-            return Cards.Contains(card);
-        }
-
-        public bool IsEmpty
-        {
-            get => Cards.Count == 0;
+            return cards.Contains(card);
         }
 
         public void Remove(ICard card)
         {
-            Cards.Remove(card);
+            cards.Remove(card);
         }
-
-        public int Size => Cards.Count;
 
         public ICard this[int index]
         {
-            get => Cards[index];
-            set => Cards[index] = value;
+            get => cards[index];
+            set => cards[index] = value;
         }
     }
 }

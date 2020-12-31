@@ -1,10 +1,15 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace csbcgf
 {
     [Serializable]
     public class RemoveCardFromHandAction : IAction
     {
+        [JsonProperty]
         protected IHand hand;
+
+        [JsonProperty]
         protected ICard card;
 
         public RemoveCardFromHandAction(IHand hand, ICard card)

@@ -1,10 +1,15 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace csbcgf
 {
     [Serializable]
     public class AddCardToGraveyardAction : IAction
     {
+        [JsonProperty]
         protected IStackedDeck graveyard;
+
+        [JsonProperty]
         protected ICard card;
 
         public AddCardToGraveyardAction(IStackedDeck graveyard, ICard card)

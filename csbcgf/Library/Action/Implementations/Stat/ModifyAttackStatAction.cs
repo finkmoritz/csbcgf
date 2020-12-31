@@ -1,10 +1,15 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace csbcgf
 {
     [Serializable]
     public class ModifyAttackStatAction : IAction
     {
+        [JsonProperty]
         protected AttackStat attackStat;
+
+        [JsonProperty]
         protected int delta;
 
         public ModifyAttackStatAction(AttackStat attackStat, int delta)

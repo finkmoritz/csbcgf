@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class Board : IBoard
     {
-        public int MaxSize { get; private set; }
+        public int MaxSize { get; protected set; }
 
         /// <summary>
         /// Data container.
         /// </summary>
-        protected ICard[] Cards;
+        [JsonProperty]
+        protected ICard[] cards;
 
+        [JsonIgnore]
         public List<ICard> AllCards
         {
             get
             {
                 List<ICard> allCards = new List<ICard>();
-                foreach (ICard card in Cards)
+                foreach (ICard card in cards)
                 {
                     if(card != null)
                     {
@@ -29,47 +32,12 @@ namespace csbcgf
             }
         }
 
-        /// <summary>
-        /// Represents all Cards on a Player's Board.
-        /// </summary>
-        public Board(int maxSize)
-        {
-            MaxSize = maxSize;
-
-            Cards = new ICard[MaxSize];
-            for (int i = 0; i < Cards.Length; ++i)
-            {
-                Cards[i] = null;
-            }
-        }
-
-        public void AddAt(int index, ICard card)
-        {
-            if(!IsFreeSlot(index))
-            {
-                throw new CsbcgfException("Cannot add card to board, because " +
-                    "position " + index + " is already occupied!");
-            }
-            Cards[index] = card;
-        }
-
-        public bool Contains(ICard card)
-        {
-            foreach(ICard c in Cards)
-            {
-                if(c == card)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+        [JsonIgnore]
         public bool IsEmpty
         {
             get
             {
-                foreach (ICard card in Cards)
+                foreach (ICard card in cards)
                 {
                     if (card != null)
                     {
@@ -80,27 +48,13 @@ namespace csbcgf
             }
         }
 
-        public void Remove(ICard card)
-        {
-            for(int i=0; i<Cards.Length; ++i)
-            {
-                if(Cards[i] == card)
-                {
-                    Cards[i] = null;
-                }
-            }
-        }
-
-        public bool IsFreeSlot(int index)
-        {
-            return Cards[index] == null;
-        }
-
+        [JsonIgnore]
         public int Size
         {
-            get {
+            get
+            {
                 int size = 0;
-                foreach (ICard card in Cards)
+                foreach (ICard card in cards)
                 {
                     if (card != null)
                     {
@@ -111,10 +65,62 @@ namespace csbcgf
             }
         }
 
+        /// <summary>
+        /// Represents all Cards on a Player's Board.
+        /// </summary>
+        public Board(int maxSize)
+        {
+            MaxSize = maxSize;
+
+            cards = new ICard[MaxSize];
+            for (int i = 0; i < cards.Length; ++i)
+            {
+                cards[i] = null;
+            }
+        }
+
+        public void AddAt(int index, ICard card)
+        {
+            if(!IsFreeSlot(index))
+            {
+                throw new CsbcgfException("Cannot add card to board, because " +
+                    "position " + index + " is already occupied!");
+            }
+            cards[index] = card;
+        }
+
+        public bool Contains(ICard card)
+        {
+            foreach(ICard c in cards)
+            {
+                if(c == card)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void Remove(ICard card)
+        {
+            for(int i=0; i<cards.Length; ++i)
+            {
+                if(cards[i] == card)
+                {
+                    cards[i] = null;
+                }
+            }
+        }
+
+        public bool IsFreeSlot(int index)
+        {
+            return cards[index] == null;
+        }
+
         public ICard this[int index]
         {
-            get => Cards[index];
-            set => Cards[index] = value;
+            get => cards[index];
+            set => cards[index] = value;
         }
     }
 }

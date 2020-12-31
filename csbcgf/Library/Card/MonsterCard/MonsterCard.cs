@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -9,34 +9,42 @@ namespace csbcgf
     public class MonsterCard : Card, IMonsterCard
     {
         public bool IsReadyToAttack { get; set; }
+
+        [JsonIgnore]
         public bool IsAlive => LifeValue > 0;
 
+        [JsonIgnore]
         public int AttackValue
         {
             get => attackOffsetStat.Value + Components.Sum(c=> ((IMonsterCardComponent)c).AttackValue);
             set => attackOffsetStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
         }
 
+        [JsonIgnore]
         public int AttackBaseValue
         {
             get => attackOffsetStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
             set => attackOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
         }
 
+        [JsonIgnore]
         public int LifeValue
         {
             get => lifeOffsetStat.Value + Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
             set => lifeOffsetStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
         }
 
+        [JsonIgnore]
         public int LifeBaseValue
         {
             get => lifeOffsetStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
             set => lifeOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
         }
 
+        [JsonProperty]
         protected AttackStat attackOffsetStat = new AttackStat(0);
 
+        [JsonProperty]
         protected LifeStat lifeOffsetStat = new LifeStat(0);
 
         /// <summary>

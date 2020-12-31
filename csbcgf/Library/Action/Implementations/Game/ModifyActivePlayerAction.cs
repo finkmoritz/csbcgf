@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     public class ModifyActivePlayerAction : IAction
     {
+        [JsonProperty]
         public readonly IPlayer NewActivePlayer;
 
         public ModifyActivePlayerAction(IPlayer newActivePlayer)

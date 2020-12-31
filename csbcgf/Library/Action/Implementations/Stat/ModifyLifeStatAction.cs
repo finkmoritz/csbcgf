@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class ModifyLifeStatAction : IAction
     {
+        [JsonProperty]
         protected ICharacter character;
+
+        [JsonProperty]
         protected int delta;
 
         public ModifyLifeStatAction(ICharacter character, int delta)

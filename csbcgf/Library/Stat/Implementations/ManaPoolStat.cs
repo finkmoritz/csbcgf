@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -9,12 +10,14 @@ namespace csbcgf
         {
         }
 
+        [JsonIgnore]
         public override int Value
         {
             get => base.Value;
             set => base.Value = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public override int BaseValue
         {
             get => base.BaseValue;

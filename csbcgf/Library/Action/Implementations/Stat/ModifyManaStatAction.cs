@@ -1,13 +1,18 @@
 ﻿using System;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class ModifyManaStatAction : IAction
     {
+        [JsonProperty]
         protected IManaful manaful;
+
+        [JsonProperty]
         protected int deltaValue;
+
+        [JsonProperty]
         protected int deltaBaseValue;
 
         public ModifyManaStatAction(IManaful manaful, int deltaValue, int deltaBaseValue)

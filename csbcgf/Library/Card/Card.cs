@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -19,16 +19,19 @@ namespace csbcgf
 
         public IPlayer Owner { get; set; }
 
+        [JsonIgnore]
         public int ManaValue {
             get => manaCostOffsetStat.Value + Components.Sum(c => c.ManaValue);
             set => manaCostOffsetStat.Value = value - Components.Sum(c => c.ManaValue);
         }
 
+        [JsonIgnore]
         public int ManaBaseValue {
             get => manaCostOffsetStat.BaseValue + Components.Sum(c => c.ManaBaseValue);
             set => manaCostOffsetStat.BaseValue = value - Components.Sum(c => c.ManaBaseValue);
         }
 
+        [JsonProperty]
         protected ManaCostStat manaCostOffsetStat = new ManaCostStat(0, 0);
 
         public virtual bool IsPlayable(IGame game)

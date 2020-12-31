@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -8,7 +9,10 @@ namespace csbcgf
         public const int GlobalMin = -99;
         public const int GlobalMax = 99;
 
+        [JsonProperty]
         protected int value;
+
+        [JsonProperty]
         protected int baseValue;
 
         /// <summary>
@@ -22,11 +26,13 @@ namespace csbcgf
             this.value = value;
         }
 
+        [JsonIgnore]
         public virtual int Value {
             get => value;
             set => this.value = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
         }
 
+        [JsonIgnore]
         public virtual int BaseValue
         {
             get => baseValue;

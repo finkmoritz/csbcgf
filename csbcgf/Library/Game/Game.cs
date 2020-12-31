@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class Game : IGame
     {
-        public IPlayer[] Players { get; }
+        public IPlayer[] Players { get; protected set; }
 
         /// <summary>
         /// Index of the active Player. Refers to the Players array.
         /// Also see the ActivePlayer accessor.
         /// </summary>
+        [JsonProperty]
         protected int activePlayerIndex;
 
+        [JsonIgnore]
         public IPlayer ActivePlayer
         {
             get => Players[activePlayerIndex];
@@ -29,8 +32,10 @@ namespace csbcgf
             }
         }
 
+        [JsonIgnore]
         public IPlayer NonActivePlayer => Players[1 - activePlayerIndex];
 
+        [JsonIgnore]
         public List<ICard> AllCards
         {
             get
@@ -44,6 +49,7 @@ namespace csbcgf
             }
         }
 
+        [JsonIgnore]
         public List<ICard> AllCardsOnTheBoard
         {
             get
@@ -57,6 +63,7 @@ namespace csbcgf
             }
         }
 
+        [JsonProperty]
         protected ActionQueue actionQueue = new ActionQueue(false);
 
         /// <summary>

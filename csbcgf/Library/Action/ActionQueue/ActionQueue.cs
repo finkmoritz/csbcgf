@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -10,7 +10,11 @@ namespace csbcgf
         public bool ExecuteReactions { get; set; }
 
         protected Queue<IAction> actions = new Queue<IAction>();
+
+        [JsonProperty]
         protected bool isProcessing = false;
+
+        [JsonProperty]
         protected bool isGameOver = false;
 
 
