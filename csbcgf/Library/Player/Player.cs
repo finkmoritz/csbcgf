@@ -35,18 +35,21 @@ namespace csbcgf
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
-        /// <param name="maxHandSize"></param>
-        /// <param name="maxBoardSize"></param>
-        public Player(IStackedDeck deck, int maxHandSize = 10, int maxBoardSize = 6)
+        public Player(IStackedDeck deck)
+            : this(deck, new Hand(), new Board(), new StackedDeck())
         {
-            Deck = deck;
-            Hand = new Hand(maxHandSize);
-            Board = new Board(maxBoardSize);
-            Graveyard = new StackedDeck();
-
             manaPoolStat = new ManaPoolStat(0, 0);
             attackStat = new AttackStat(0);
             lifeStat = new LifeStat(0);
+        }
+
+        [JsonConstructor]
+        protected Player(IStackedDeck deck, IHand hand, IBoard board, IStackedDeck graveyard)
+        {
+            Deck = deck;
+            Hand = hand;
+            Board = board;
+            Graveyard = graveyard;
         }
 
         [JsonIgnore]

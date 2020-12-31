@@ -36,7 +36,7 @@ namespace csbcgf
         /// <summary>
         /// Start the game.
         /// </summary>
-        void StartGame();
+        void StartGame(int initialHandSize, int initialPlayerLife);
 
         /// <summary>
         /// Start the next turn.

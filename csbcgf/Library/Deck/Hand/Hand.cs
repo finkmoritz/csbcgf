@@ -28,9 +28,9 @@ namespace csbcgf
         public int Size => cards.Count;
 
 
-        public Hand(int maxSize = 10)
+        public Hand()
         {
-            MaxSize = maxSize;
+            MaxSize = 10;
         }
 
         public void Add(ICard card)

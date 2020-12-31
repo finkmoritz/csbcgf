@@ -31,8 +31,8 @@ namespace csbcgftest
                 players[i] = new Player(deck);
             }
 
-            game = new Game(players, initialHandSize: 1, initialPlayerLife: 2);
-            game.StartGame();
+            game = new Game(players);
+            game.StartGame(initialHandSize: 1, initialPlayerLife: 2);
         }
 
         [Test()]

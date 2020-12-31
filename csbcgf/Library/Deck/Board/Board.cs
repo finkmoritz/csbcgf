@@ -68,9 +68,9 @@ namespace csbcgf
         /// <summary>
         /// Represents all Cards on a Player's Board.
         /// </summary>
-        public Board(int maxSize = 6)
+        public Board()
         {
-            MaxSize = maxSize;
+            MaxSize = 6;
 
             cards = new ICard[MaxSize];
             for (int i = 0; i < cards.Length; ++i)

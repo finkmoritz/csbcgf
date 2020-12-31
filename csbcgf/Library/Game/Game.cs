@@ -72,7 +72,7 @@ namespace csbcgf
         /// </summary>
         /// <param name="players"></param>
         /// <param name="initialHandSize"></param>
-        public Game(IPlayer[] players, int initialPlayerLife = 30, int initialHandSize = 4)
+        public Game(IPlayer[] players)
         {
             if(players.Length != 2)
             {
@@ -80,11 +80,9 @@ namespace csbcgf
             }
 
             Players = players;
-
-            Init(initialPlayerLife, initialHandSize);
         }
 
-        protected void Init(int initialPlayerLife, int initialHandSize)
+        public void StartGame(int initialPlayerLife = 30, int initialHandSize = 4)
         {
             //Do not trigger any reactions during setup
             actionQueue.ExecuteReactions = false;
@@ -107,10 +105,7 @@ namespace csbcgf
             activePlayerIndex = new Random().Next(Players.Length);
 
             actionQueue.ExecuteReactions = true;
-        }
 
-        public void StartGame()
-        {
             Execute(new StartOfGameEvent());
             NextTurn();
         }
