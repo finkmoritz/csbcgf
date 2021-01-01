@@ -7,13 +7,13 @@ namespace csbcgf
     public class AddCardToGraveyardAction : IAction
     {
         [JsonProperty]
-        protected readonly IStackedDeck graveyard;
+        protected readonly IDeck graveyard;
 
         [JsonProperty]
         protected readonly ICard card;
 
         [JsonConstructor]
-        public AddCardToGraveyardAction(IStackedDeck graveyard, ICard card)
+        public AddCardToGraveyardAction(IDeck graveyard, ICard card)
         {
             this.graveyard = graveyard;
             this.card = card;

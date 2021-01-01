@@ -8,7 +8,7 @@ namespace csbcgf
         /// <summary>
         /// The Player's Deck of Cards.
         /// </summary>
-        IStackedDeck Deck { get; }
+        IDeck Deck { get; }
 
         /// <summary>
         /// The Player's Hand Cards.
@@ -23,7 +23,7 @@ namespace csbcgf
         /// <summary>
         /// The Player's Cards that have been removed from the Game.
         /// </summary>
-        IStackedDeck Graveyard { get; }
+        IDeck Graveyard { get; }
 
         /// <summary>
         /// Get all Cards from the Player's Decks.

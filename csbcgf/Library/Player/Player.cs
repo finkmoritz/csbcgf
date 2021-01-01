@@ -16,23 +16,23 @@ namespace csbcgf
         [JsonProperty]
         protected LifeStat lifeStat;
 
-        public IStackedDeck Deck { get; protected set; }
+        public IDeck Deck { get; protected set; }
         public IHand Hand { get; protected set; }
         public IBoard Board { get; protected set; }
-        public IStackedDeck Graveyard { get; protected set; }
+        public IDeck Graveyard { get; protected set; }
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
-        public Player(IStackedDeck deck)
-            : this(deck, new Hand(), new Board(), new StackedDeck(),
+        public Player(IDeck deck)
+            : this(deck, new Hand(), new Board(), new Deck(),
                   new ManaPoolStat(0, 0), new AttackStat(0), new LifeStat(0))
         {
         }
 
         [JsonConstructor]
-        protected Player(IStackedDeck deck, IHand hand, IBoard board, IStackedDeck graveyard,
+        protected Player(IDeck deck, IHand hand, IBoard board, IDeck graveyard,
             ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat)
         {
             this.manaPoolStat = manaPoolStat;

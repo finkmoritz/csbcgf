@@ -14,7 +14,7 @@ namespace csbcgftest
             IPlayer[] players = new Player[2];
             for (int i=0; i<players.Length; ++i)
             {
-                IStackedDeck deck = new StackedDeck();
+                IDeck deck = new Deck();
 
                 for (int j=0; j<3; ++j)
                 {

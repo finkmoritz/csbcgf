@@ -10,10 +10,10 @@ namespace csbcgf
         public ICard Card { get; protected set; }
 
         [JsonProperty]
-        protected readonly IStackedDeck deck;
+        protected readonly IDeck deck;
 
         [JsonConstructor]
-        public RemoveCardFromDeckAction(IStackedDeck deck)
+        public RemoveCardFromDeckAction(IDeck deck)
         {
             this.deck = deck;
         }
