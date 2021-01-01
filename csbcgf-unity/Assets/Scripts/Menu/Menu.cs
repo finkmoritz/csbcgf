@@ -19,6 +19,13 @@ public class Menu : MonoBehaviourPunCallbacks
     private GameObject progressLabel;
 
     /// <summary>
+    /// Keep track of the current process. Since connection is asynchronous and is based on several callbacks from Photon,
+    /// we need to keep track of this to properly adjust the behavior when we receive call back by Photon.
+    /// Typically this is used for the OnConnectedToMaster() callback.
+    /// </summary>
+    private bool isConnecting;
+
+    /// <summary>
     /// MonoBehaviour method called on GameObject by Unity during early initialization phase.
     /// </summary>
     void Awake()
@@ -55,33 +62,36 @@ public class Menu : MonoBehaviourPunCallbacks
         else
         {
             //we must first and foremost connect to Photon Online Server.
-            PhotonNetwork.ConnectUsingSettings();
+            isConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
         }
     }
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
-        PhotonNetwork.JoinRandomRoom();
+        if (isConnecting)
+        {
+            PhotonNetwork.JoinRandomRoom();
+            isConnecting = false;
+        }
     }
 
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
+
+        isConnecting = false;
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+        PhotonNetwork.LoadLevel("GameScene");
     }
 }
