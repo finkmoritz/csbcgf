@@ -9,6 +9,7 @@ namespace csbcgf
     {
         public List<ICardComponent> Components { get; }
 
+        [JsonConstructor]
         public Compound(List<ICardComponent> components)
         {
             Components = new List<ICardComponent>();

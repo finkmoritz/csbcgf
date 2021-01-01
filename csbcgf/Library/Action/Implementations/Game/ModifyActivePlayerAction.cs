@@ -9,6 +9,7 @@ namespace csbcgf
         [JsonProperty]
         public readonly IPlayer NewActivePlayer;
 
+        [JsonConstructor]
         public ModifyActivePlayerAction(IPlayer newActivePlayer)
         {
             this.NewActivePlayer = newActivePlayer;

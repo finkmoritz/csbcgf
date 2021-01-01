@@ -12,6 +12,7 @@ namespace csbcgf
         [JsonProperty]
         private readonly bool isReadyToAttack;
 
+        [JsonConstructor]
         public ModifyReadyToAttackAction(IMonsterCard monsterCard, bool isReadyToAttack)
         {
             this.monsterCard = monsterCard;

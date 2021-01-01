@@ -7,9 +7,18 @@ namespace csbcgf
     [Serializable]
     public abstract class ReactiveCompound : Compound, IReactive
     {
+        protected List<IReaction> reactions;
+
         public ReactiveCompound(List<ICardComponent> components)
+            : this(components, new List<IReaction>())
+        {
+        }
+
+        [JsonConstructor]
+        protected ReactiveCompound(List<ICardComponent> components, List<IReaction> reactions)
             : base(components)
         {
+            this.reactions = reactions;
         }
 
         [JsonIgnore]
@@ -23,8 +32,6 @@ namespace csbcgf
                 return reactions;
             }
         }
-
-        protected List<IReaction> reactions = new List<IReaction>();
 
         public virtual void AddReaction(IReaction reaction)
         {

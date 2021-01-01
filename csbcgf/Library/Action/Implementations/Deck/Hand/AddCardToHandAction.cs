@@ -6,20 +6,11 @@ namespace csbcgf
     [Serializable]
     public class AddCardToHandAction : IAction
     {
-        [JsonIgnore]
-        public ICard Card
-        {
-            get
-            {
-                return GetCard();
-            }
-        }
+        [JsonProperty]
+        protected readonly IHand hand;
 
         [JsonProperty]
-        protected IHand hand;
-
-        [JsonProperty]
-        protected Func<ICard> GetCard;
+        protected readonly Func<ICard> GetCard;
 
         public AddCardToHandAction(IHand hand, ICard card)
         {
@@ -27,10 +18,20 @@ namespace csbcgf
             GetCard = () => card;
         }
 
+        [JsonConstructor]
         public AddCardToHandAction(IHand hand, Func<ICard> getCard)
         {
             this.hand = hand;
             this.GetCard = getCard;
+        }
+
+        [JsonIgnore]
+        public ICard Card
+        {
+            get
+            {
+                return GetCard();
+            }
         }
 
         public void Execute(IGame game)

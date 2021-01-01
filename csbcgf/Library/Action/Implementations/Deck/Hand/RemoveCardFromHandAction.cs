@@ -7,11 +7,12 @@ namespace csbcgf
     public class RemoveCardFromHandAction : IAction
     {
         [JsonProperty]
-        protected IHand hand;
+        protected readonly IHand hand;
 
         [JsonProperty]
-        protected ICard card;
+        protected readonly ICard card;
 
+        [JsonConstructor]
         public RemoveCardFromHandAction(IHand hand, ICard card)
         {
             this.hand = hand;

@@ -7,21 +7,6 @@ namespace csbcgf
     [Serializable]
     public class Player : IPlayer
     {
-        [JsonIgnore]
-        public bool IsAlive => lifeStat.Value > 0;
-
-        public IStackedDeck Deck { get; protected set; }
-        public IHand Hand { get; protected set; }
-        public IBoard Board { get; protected set; }
-        public IStackedDeck Graveyard { get; protected set; }
-
-        [JsonIgnore]
-        public IPlayer Owner {
-            get => this;
-            set => throw new CsbcgfException("Changing the Owner of a Player " +
-                "is not allowed!");
-        }
-
         [JsonProperty]
         protected ManaPoolStat manaPoolStat;
 
@@ -31,25 +16,44 @@ namespace csbcgf
         [JsonProperty]
         protected LifeStat lifeStat;
 
+        public IStackedDeck Deck { get; protected set; }
+        public IHand Hand { get; protected set; }
+        public IBoard Board { get; protected set; }
+        public IStackedDeck Graveyard { get; protected set; }
+
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
         public Player(IStackedDeck deck)
-            : this(deck, new Hand(), new Board(), new StackedDeck())
+            : this(deck, new Hand(), new Board(), new StackedDeck(),
+                  new ManaPoolStat(0, 0), new AttackStat(0), new LifeStat(0))
         {
-            manaPoolStat = new ManaPoolStat(0, 0);
-            attackStat = new AttackStat(0);
-            lifeStat = new LifeStat(0);
         }
 
         [JsonConstructor]
-        protected Player(IStackedDeck deck, IHand hand, IBoard board, IStackedDeck graveyard)
+        protected Player(IStackedDeck deck, IHand hand, IBoard board, IStackedDeck graveyard,
+            ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat)
         {
             Deck = deck;
             Hand = hand;
             Board = board;
             Graveyard = graveyard;
+
+            this.manaPoolStat = manaPoolStat;
+            this.attackStat = attackStat;
+            this.lifeStat = lifeStat;
+        }
+
+        [JsonIgnore]
+        public bool IsAlive => lifeStat.Value > 0;
+
+        [JsonIgnore]
+        public IPlayer Owner
+        {
+            get => this;
+            set => throw new CsbcgfException("Changing the Owner of a Player " +
+                "is not allowed!");
         }
 
         [JsonIgnore]

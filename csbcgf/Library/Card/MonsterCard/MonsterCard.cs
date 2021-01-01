@@ -8,7 +8,50 @@ namespace csbcgf
     [Serializable]
     public class MonsterCard : Card, IMonsterCard
     {
+        [JsonProperty]
+        protected AttackStat attackOffsetStat;
+
+        [JsonProperty]
+        protected LifeStat lifeOffsetStat;
+
         public bool IsReadyToAttack { get; set; }
+
+        /// <summary>
+        /// Represents a certain type of Card that is played
+        /// onto the Player's Board.
+        /// </summary>
+        /// <param name="components"></param>
+        public MonsterCard(List<IMonsterCardComponent> components)
+            : this(components, new AttackStat(0), new LifeStat(0), false)
+        {
+        }
+
+        /// <summary>
+        /// Represents a certain type of Card that is played
+        /// onto the Player's Board.
+        /// </summary>
+        /// <param name="mana"></param>
+        /// <param name="attack"></param>
+        /// <param name="life"></param>
+        public MonsterCard(int mana, int attack, int life)
+            : this(new List<IMonsterCardComponent> { new MonsterCardComponent(mana, attack, life) })
+        {
+        }
+
+        public MonsterCard() : this(new List<IMonsterCardComponent>())
+        {
+        }
+
+        [JsonConstructor]
+        protected MonsterCard(List<IMonsterCardComponent> components, AttackStat attackOffsetStat, LifeStat lifeOffsetStat, bool isReadyToAttack)
+            : base(components.ConvertAll(c => (ICardComponent)c))
+        {
+            this.attackOffsetStat = attackOffsetStat;
+            this.lifeOffsetStat = lifeOffsetStat;
+            IsReadyToAttack = isReadyToAttack;
+
+            AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
+        }
 
         [JsonIgnore]
         public bool IsAlive => LifeValue > 0;
@@ -16,7 +59,7 @@ namespace csbcgf
         [JsonIgnore]
         public int AttackValue
         {
-            get => attackOffsetStat.Value + Components.Sum(c=> ((IMonsterCardComponent)c).AttackValue);
+            get => attackOffsetStat.Value + Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
             set => attackOffsetStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
         }
 
@@ -39,40 +82,6 @@ namespace csbcgf
         {
             get => lifeOffsetStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
             set => lifeOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
-        }
-
-        [JsonProperty]
-        protected AttackStat attackOffsetStat = new AttackStat(0);
-
-        [JsonProperty]
-        protected LifeStat lifeOffsetStat = new LifeStat(0);
-
-        /// <summary>
-        /// Represents a certain type of Card that is played
-        /// onto the Player's Board.
-        /// </summary>
-        /// <param name="components"></param>
-        public MonsterCard(List<IMonsterCardComponent> components)
-            : base(components.ConvertAll(c => (ICardComponent)c))
-        {
-            IsReadyToAttack = false;
-            AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
-        }
-
-        /// <summary>
-        /// Represents a certain type of Card that is played
-        /// onto the Player's Board.
-        /// </summary>
-        /// <param name="mana"></param>
-        /// <param name="attack"></param>
-        /// <param name="life"></param>
-        public MonsterCard(int mana, int attack, int life)
-            : this(new List<IMonsterCardComponent> { new MonsterCardComponent(mana, attack, life) })
-        {
-        }
-
-        public MonsterCard() : base()
-        {
         }
 
         public void Attack(IGame game, ICharacter target)

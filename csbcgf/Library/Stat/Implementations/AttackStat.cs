@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -8,6 +9,7 @@ namespace csbcgf
         /// <summary>
         /// Potential damage to be dealt.
         /// </summary>
+        [JsonConstructor]
         public AttackStat(int value) : base(value, value)
         {
         }

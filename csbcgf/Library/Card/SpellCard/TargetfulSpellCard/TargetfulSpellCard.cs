@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
+        [JsonConstructor]
         public TargetfulSpellCard(List<ISpellCardComponent> components)
             : base(components)
         {
@@ -17,7 +18,7 @@ namespace csbcgf
         {
         }
 
-        public TargetfulSpellCard() : base()
+        public TargetfulSpellCard() : this(new List<ISpellCardComponent>())
         {
         }
 

@@ -20,6 +20,7 @@ namespace csbcgf
         /// </summary>
         /// <param name="value"></param>
         /// <param name="baseValue"></param>
+        [JsonConstructor]
         public Stat(int value, int baseValue)
         {
             this.baseValue = baseValue;

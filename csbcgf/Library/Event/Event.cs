@@ -1,10 +1,12 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public abstract class Event : IAction
     {
+        [JsonConstructor]
         public Event()
         {
         }

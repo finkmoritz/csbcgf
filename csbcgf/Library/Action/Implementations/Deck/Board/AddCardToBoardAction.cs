@@ -7,14 +7,15 @@ namespace csbcgf
     public class AddCardToBoardAction : IAction
     {
         [JsonProperty]
-        protected IBoard board;
+        protected readonly IBoard board;
 
         [JsonProperty]
-        protected ICard card;
+        protected readonly ICard card;
 
         [JsonProperty]
-        protected int boardIndex;
+        protected readonly int boardIndex;
 
+        [JsonConstructor]
         public AddCardToBoardAction(IBoard board, ICard card, int boardIndex)
         {
             this.board = board;

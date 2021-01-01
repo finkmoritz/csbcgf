@@ -8,8 +8,13 @@ namespace csbcgf
     [Serializable]
     public abstract class Card : ReactiveCompound, ICard
     {
+        [JsonProperty]
+        protected ManaCostStat manaCostOffsetStat;
+
+        public IPlayer Owner { get; set; }
+
         public Card(List<ICardComponent> components)
-            : this(components, null)
+            : this(components, new ManaCostStat(0, 0), null)
         {
         }
 
@@ -18,13 +23,12 @@ namespace csbcgf
         }
 
         [JsonConstructor]
-        protected Card(List<ICardComponent> components, IPlayer owner)
+        protected Card(List<ICardComponent> components, ManaCostStat manaCostOffsetStat, IPlayer owner)
             : base(components)
         {
+            this.manaCostOffsetStat = manaCostOffsetStat;
             Owner = owner;
         }
-
-        public IPlayer Owner { get; set; }
 
         [JsonIgnore]
         public int ManaValue {
@@ -37,9 +41,6 @@ namespace csbcgf
             get => manaCostOffsetStat.BaseValue + Components.Sum(c => c.ManaBaseValue);
             set => manaCostOffsetStat.BaseValue = value - Components.Sum(c => c.ManaBaseValue);
         }
-
-        [JsonProperty]
-        protected ManaCostStat manaCostOffsetStat = new ManaCostStat(0, 0);
 
         public virtual bool IsPlayable(IGame game)
         {

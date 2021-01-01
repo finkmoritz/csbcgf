@@ -7,11 +7,12 @@ namespace csbcgf
     public class RemoveCardFromBoardAction : IAction
     {
         [JsonProperty]
-        protected IBoard board;
+        protected readonly IBoard board;
 
         [JsonProperty]
-        protected ICard card;
+        protected readonly ICard card;
 
+        [JsonConstructor]
         public RemoveCardFromBoardAction(IBoard board, ICard card)
         {
             this.board = board;

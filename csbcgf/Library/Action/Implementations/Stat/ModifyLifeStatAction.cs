@@ -8,11 +8,12 @@ namespace csbcgf
     public class ModifyLifeStatAction : IAction
     {
         [JsonProperty]
-        protected ICharacter character;
+        protected readonly ICharacter character;
 
         [JsonProperty]
-        protected int delta;
+        protected readonly int delta;
 
+        [JsonConstructor]
         public ModifyLifeStatAction(ICharacter character, int delta)
         {
             this.character = character;

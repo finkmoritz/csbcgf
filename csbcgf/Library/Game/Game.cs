@@ -7,14 +7,40 @@ namespace csbcgf
     [Serializable]
     public class Game : IGame
     {
-        public IPlayer[] Players { get; protected set; }
-
         /// <summary>
         /// Index of the active Player. Refers to the Players array.
         /// Also see the ActivePlayer accessor.
         /// </summary>
         [JsonProperty]
         protected int activePlayerIndex;
+
+        [JsonProperty]
+        protected ActionQueue actionQueue;
+
+        public IPlayer[] Players { get; protected set; }
+
+        /// <summary>
+        /// Represent the current Game state and provides methods to alter
+        /// this Game state.
+        /// </summary>
+        /// <param name="players"></param>
+        public Game(IPlayer[] players)
+            : this(players, new Random().Next(players.Length), new ActionQueue(false))
+        {
+        }
+
+        [JsonConstructor]
+        public Game(IPlayer[] players, int activePlayerIndex, ActionQueue actionQueue)
+        {
+            if (players.Length != 2)
+            {
+                throw new CsbcgfException("Parameter 'players' must feature exactly two Player entries!");
+            }
+
+            Players = players;
+            this.activePlayerIndex = activePlayerIndex;
+            this.actionQueue = actionQueue;
+        }
 
         [JsonIgnore]
         public IPlayer ActivePlayer
@@ -63,29 +89,10 @@ namespace csbcgf
             }
         }
 
-        [JsonProperty]
-        protected ActionQueue actionQueue = new ActionQueue(false);
-
-        /// <summary>
-        /// Represent the current Game state and provides methods to alter
-        /// this Game state.
-        /// </summary>
-        /// <param name="players"></param>
-        /// <param name="initialHandSize"></param>
-        public Game(IPlayer[] players)
-        {
-            if(players.Length != 2)
-            {
-                throw new CsbcgfException("Parameter 'players' must feature exactly two Player entries!");
-            }
-
-            Players = players;
-        }
-
         public void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
         {
             //Do not trigger any reactions during setup
-            actionQueue.executeReactions = false;
+            actionQueue.ExecuteReactions = false;
 
             foreach (IPlayer player in Players)
             {
@@ -102,9 +109,7 @@ namespace csbcgf
                 }
             }
 
-            activePlayerIndex = new Random().Next(Players.Length);
-
-            actionQueue.executeReactions = true;
+            actionQueue.ExecuteReactions = true;
 
             Execute(new StartOfGameEvent());
             NextTurn();

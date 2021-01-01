@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace csbcgf {
 
@@ -8,6 +9,7 @@ namespace csbcgf {
         /// <summary>
         /// Costs in Mana.
         /// </summary>
+        [JsonConstructor]
         public ManaCostStat(int value, int baseValue) : base(value, baseValue)
         {
         }

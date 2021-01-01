@@ -5,32 +5,42 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class Hand : IHand
+    public class Hand : Deck, IHand
     {
-        public int MaxSize { get; protected set; }
-
         /// <summary>
         /// Data container.
         /// </summary>
         [JsonProperty]
-        protected List<ICard> cards = new List<ICard>();
+        protected List<ICard> cards;
+
+        public Hand() : this(new List<ICard>())
+        {
+        }
+
+        [JsonConstructor]
+        protected Hand(List<ICard> cards)
+        {
+            this.cards = cards;
+        }
 
         [JsonIgnore]
-        public List<ICard> AllCards => new List<ICard>(cards);
+        public int MaxSize { get => 10; }
 
         [JsonIgnore]
-        public bool IsEmpty
+        public override List<ICard> AllCards => new List<ICard>(cards);
+
+        [JsonIgnore]
+        public override bool IsEmpty
         {
             get => cards.Count == 0;
         }
 
         [JsonIgnore]
-        public int Size => cards.Count;
+        public override int Size => cards.Count;
 
-
-        public Hand()
+        public override bool Contains(ICard card)
         {
-            MaxSize = 10;
+            return cards.Contains(card);
         }
 
         public void Add(ICard card)
@@ -39,11 +49,6 @@ namespace csbcgf
             {
                 cards.Add(card);
             }
-        }
-
-        public bool Contains(ICard card)
-        {
-            return cards.Contains(card);
         }
 
         public void Remove(ICard card)

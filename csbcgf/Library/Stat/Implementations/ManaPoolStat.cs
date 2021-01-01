@@ -6,6 +6,12 @@ namespace csbcgf
     [Serializable]
     public class ManaPoolStat : Stat
     {
+        /// <summary>
+        /// Represents available mana.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="baseValue"></param>
+        [JsonConstructor]
         public ManaPoolStat(int value, int baseValue) : base(value, baseValue)
         {
         }

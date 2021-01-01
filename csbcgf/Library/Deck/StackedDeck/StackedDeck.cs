@@ -6,28 +6,34 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class StackedDeck : IStackedDeck
+    public class StackedDeck : Deck, IStackedDeck
     {
         [JsonProperty]
-        protected Stack<ICard> cards = new Stack<ICard>();
+        protected Stack<ICard> cards;
 
-        [JsonIgnore]
-        public List<ICard> AllCards => new List<ICard>(cards);
-
-        public StackedDeck()
+        public StackedDeck() : this(new Stack<ICard>())
         {
         }
 
-        [JsonIgnore]
-        public int Size => cards.Count;
+        [JsonConstructor]
+        protected StackedDeck(Stack<ICard> cards)
+        {
+            this.cards = cards;
+        }
 
         [JsonIgnore]
-        public bool IsEmpty
+        public override List<ICard> AllCards => new List<ICard>(cards);
+
+        [JsonIgnore]
+        public override int Size => cards.Count;
+
+        [JsonIgnore]
+        public override bool IsEmpty
         {
             get => cards.Count == 0;
         }
 
-        public bool Contains(ICard card)
+        public override bool Contains(ICard card)
         {
             return cards.Contains(card);
         }

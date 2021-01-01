@@ -5,25 +5,46 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class Board : IBoard
+    public class Board : Deck, IBoard
     {
-        public int MaxSize { get; protected set; }
-
         /// <summary>
         /// Data container.
         /// </summary>
         [JsonProperty]
         protected ICard[] cards;
 
+        [JsonProperty]
+        protected const int MaximumCapacity = 6;
+
+        /// <summary>
+        /// Represents all Cards on a Player's Board.
+        /// </summary>
+        public Board() : this(new ICard[MaximumCapacity])
+        {
+            for (int i = 0; i < cards.Length; ++i)
+            {
+                cards[i] = null;
+            }
+        }
+
+        [JsonConstructor]
+        protected Board(ICard[] cards)
+        {
+            this.cards = cards;
+        }
+
         [JsonIgnore]
-        public List<ICard> AllCards
+        public int MaxSize { get => MaximumCapacity; }
+
+        [JsonIgnore]
+        public override List<ICard> AllCards
         {
             get
             {
                 List<ICard> allCards = new List<ICard>();
                 foreach (ICard card in cards)
                 {
-                    if(card != null)
+                    if (card != null)
                     {
                         allCards.Add(card);
                     }
@@ -33,7 +54,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public bool IsEmpty
+        public override bool IsEmpty
         {
             get
             {
@@ -49,7 +70,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public int Size
+        public override int Size
         {
             get
             {
@@ -65,18 +86,16 @@ namespace csbcgf
             }
         }
 
-        /// <summary>
-        /// Represents all Cards on a Player's Board.
-        /// </summary>
-        public Board()
+        public override bool Contains(ICard card)
         {
-            MaxSize = 6;
-
-            cards = new ICard[MaxSize];
-            for (int i = 0; i < cards.Length; ++i)
+            foreach (ICard c in cards)
             {
-                cards[i] = null;
+                if (c == card)
+                {
+                    return true;
+                }
             }
+            return false;
         }
 
         public void AddAt(int index, ICard card)
@@ -87,18 +106,6 @@ namespace csbcgf
                     "position " + index + " is already occupied!");
             }
             cards[index] = card;
-        }
-
-        public bool Contains(ICard card)
-        {
-            foreach(ICard c in cards)
-            {
-                if(c == card)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public void Remove(ICard card)

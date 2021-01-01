@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -11,17 +11,14 @@ namespace csbcgf
         /// Represents a certain type of Card that has an
         /// immediate effect on the Game's state.
         /// </summary>
-        public SpellCard() : base()
+        /// <param name="components"></param>
+        [JsonConstructor]
+        public SpellCard(List<ISpellCardComponent> components)
+            : base(components.ConvertAll(c => (ICardComponent)c))
         {
         }
 
-        /// <summary>
-        /// Represents a certain type of Card that has an
-        /// immediate effect on the Game's state.
-        /// </summary>
-        /// <param name="components"></param>
-        public SpellCard(List<ISpellCardComponent> components)
-            : base(components.ConvertAll(c => (ICardComponent)c))
+        public SpellCard() : this(new List<ISpellCardComponent>())
         {
         }
     }

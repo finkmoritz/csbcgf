@@ -7,13 +7,25 @@ namespace csbcgf
     [Serializable]
     public abstract class CardComponent : ICardComponent
     {
-        public CardComponent(int mana)
-        {
-            Reactions = new List<IReaction>();
-            manaCostStat = new ManaCostStat(mana, mana);
-        }
+        [JsonProperty]
+        protected ManaCostStat manaCostStat;
 
         public List<IReaction> Reactions { get; }
+
+        public ICard ParentCard { get; set; }
+
+        public CardComponent(int mana)
+            : this(new ManaCostStat(mana, mana), new List<IReaction>(), null)
+        {
+        }
+
+        [JsonConstructor]
+        protected CardComponent(ManaCostStat manaCostStat, List<IReaction> reactions, ICard parentCard)
+        {
+            this.manaCostStat = manaCostStat;
+            Reactions = reactions;
+            ParentCard = parentCard;
+        }
 
         [JsonIgnore]
         public int ManaValue {
@@ -26,11 +38,6 @@ namespace csbcgf
             get => manaCostStat.BaseValue;
             set => manaCostStat.BaseValue = value;
         }
-
-        public ICard ParentCard { get; set; }
-
-        [JsonProperty]
-        protected ManaCostStat manaCostStat;
 
         public void AddReaction(IReaction reaction)
         {

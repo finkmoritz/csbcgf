@@ -7,11 +7,12 @@ namespace csbcgf
     public class ModifyAttackStatAction : IAction
     {
         [JsonProperty]
-        protected AttackStat attackStat;
+        protected readonly AttackStat attackStat;
 
         [JsonProperty]
-        protected int delta;
+        protected readonly int delta;
 
+        [JsonConstructor]
         public ModifyAttackStatAction(AttackStat attackStat, int delta)
         {
             this.attackStat = attackStat;

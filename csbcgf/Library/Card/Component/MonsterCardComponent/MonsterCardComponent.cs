@@ -7,10 +7,23 @@ namespace csbcgf
     [Serializable]
     public class MonsterCardComponent : CardComponent, IMonsterCardComponent
     {
-        public MonsterCardComponent(int mana, int attack, int life) : base(mana)
+        [JsonProperty]
+        protected AttackStat attackStat;
+
+        [JsonProperty]
+        protected LifeStat lifeStat;
+
+        public MonsterCardComponent(int mana, int attack, int life)
+            : this(mana, new AttackStat(attack), new LifeStat(life))
         {
-            attackStat = new AttackStat(attack);
-            lifeStat = new LifeStat(life);
+        }
+
+        [JsonConstructor]
+        protected MonsterCardComponent(int mana, AttackStat attackStat, LifeStat lifeStat)
+            : base(mana)
+        {
+            this.attackStat = attackStat;
+            this.lifeStat = lifeStat;
         }
 
         [JsonIgnore]
@@ -40,12 +53,6 @@ namespace csbcgf
             get => lifeStat.BaseValue;
             set => lifeStat.BaseValue = value;
         }
-
-        [JsonProperty]
-        protected AttackStat attackStat;
-
-        [JsonProperty]
-        protected LifeStat lifeStat;
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {

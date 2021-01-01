@@ -7,14 +7,15 @@ namespace csbcgf
     public class ModifyManaStatAction : IAction
     {
         [JsonProperty]
-        protected IManaful manaful;
+        protected readonly IManaful manaful;
 
         [JsonProperty]
-        protected int deltaValue;
+        protected readonly int deltaValue;
 
         [JsonProperty]
-        protected int deltaBaseValue;
+        protected readonly int deltaBaseValue;
 
+        [JsonConstructor]
         public ModifyManaStatAction(IManaful manaful, int deltaValue, int deltaBaseValue)
         {
             this.manaful = manaful;

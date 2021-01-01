@@ -8,8 +8,9 @@ namespace csbcgf
     public class SetReadyToAttackOnStartOfTurnEventReaction : IReaction
     {
         [JsonProperty]
-        private readonly IMonsterCard monsterCard;
+        protected readonly IMonsterCard monsterCard;
 
+        [JsonConstructor]
         public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard)
         {
             this.monsterCard = monsterCard;
