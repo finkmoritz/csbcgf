@@ -25,7 +25,7 @@
         /// </summary>
         /// <param name="index"></param>
         /// <returns>The Card at position index.</returns>
-        ICard this[int index] { get; set; }
+        ICard this[int index] { get; }
 
         /// <summary>
         /// Checks if the given position points to a free slot on this Board.

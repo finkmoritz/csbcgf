@@ -86,6 +86,11 @@ namespace csbcgf
             }
         }
 
+        public ICard this[int index]
+        {
+            get => cards[index];
+        }
+
         public override bool Contains(ICard card)
         {
             foreach (ICard c in cards)
@@ -122,12 +127,6 @@ namespace csbcgf
         public bool IsFreeSlot(int index)
         {
             return cards[index] == null;
-        }
-
-        public ICard this[int index]
-        {
-            get => cards[index];
-            set => cards[index] = value;
         }
     }
 }

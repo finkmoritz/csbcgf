@@ -24,6 +24,6 @@
         /// </summary>
         /// <param name="index"></param>
         /// <returns>The Card at position index.</returns>
-        ICard this[int index] { get; set; }
+        ICard this[int index] { get; }
     }
 }

@@ -59,7 +59,6 @@ namespace csbcgf
         public ICard this[int index]
         {
             get => cards[index];
-            set => cards[index] = value;
         }
     }
 }
