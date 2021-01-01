@@ -101,8 +101,6 @@ namespace csbcgf
                 player.LifeValue = initialPlayerLife;
                 player.LifeBaseValue = initialPlayerLife;
 
-                player.AllCards.ForEach(c => c.Owner = player);
-
                 for (int i = 0; i < initialHandSize; ++i)
                 {
                     player.DrawCard(this);

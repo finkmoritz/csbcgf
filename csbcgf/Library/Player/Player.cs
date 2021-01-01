@@ -35,14 +35,19 @@ namespace csbcgf
         protected Player(IStackedDeck deck, IHand hand, IBoard board, IStackedDeck graveyard,
             ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat)
         {
+            this.manaPoolStat = manaPoolStat;
+            this.attackStat = attackStat;
+            this.lifeStat = lifeStat;
+
             Deck = deck;
             Hand = hand;
             Board = board;
             Graveyard = graveyard;
 
-            this.manaPoolStat = manaPoolStat;
-            this.attackStat = attackStat;
-            this.lifeStat = lifeStat;
+            Deck.AllCards.ForEach(c => c.Owner = this);
+            Hand.AllCards.ForEach(c => c.Owner = this);
+            Board.AllCards.ForEach(c => c.Owner = this);
+            Graveyard.AllCards.ForEach(c => c.Owner = this);
         }
 
         [JsonIgnore]

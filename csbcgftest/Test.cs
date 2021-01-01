@@ -155,5 +155,14 @@ namespace csbcgftest
             Assert.AreEqual(0, game.NonActivePlayer.LifeValue);
             Assert.False(game.NonActivePlayer.IsAlive);
         }
+
+        [Test()]
+        public void TestGameSerialization()
+        {
+            string serializedJson = CsbcgfJsonConvert.Serialize(game);
+            Game deserializedGame = CsbcgfJsonConvert.Deserialize<Game>(serializedJson);
+            string deserializedJson = CsbcgfJsonConvert.Serialize(deserializedGame);
+            Assert.AreEqual(serializedJson, deserializedJson);
+        }
     }
 }
