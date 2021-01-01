@@ -49,14 +49,6 @@ namespace csbcgf
         public bool IsAlive => lifeStat.Value > 0;
 
         [JsonIgnore]
-        public IPlayer Owner
-        {
-            get => this;
-            set => throw new CsbcgfException("Changing the Owner of a Player " +
-                "is not allowed!");
-        }
-
-        [JsonIgnore]
         public List<ICard> AllCards
         {
             get

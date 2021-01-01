@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public interface ICharacter : IOwnable, IAttacking, ILiving
+    public interface ICharacter : IAttacking, ILiving
     {
         /// <summary>
         /// Indicates if this Character is still alive.
