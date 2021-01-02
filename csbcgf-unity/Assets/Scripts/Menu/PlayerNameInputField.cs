@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,16 +27,15 @@ public class PlayerNameInputField : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     /// <summary>
     /// Sets the name of the player, and save it in the PlayerPrefs for future sessions.
     /// </summary>
-    /// <param name="value">The name of the Player</param>
-    public void SetPlayerName(string value)
+    public void SetPlayerName()
     {
-        // #Important
+        InputField inputField = GetComponent<InputField>();
+        string value = inputField.text;
         if (string.IsNullOrEmpty(value))
         {
             Debug.LogError("Player Name is null or empty");
