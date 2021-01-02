@@ -32,7 +32,7 @@ public class PlayerNameInputField : MonoBehaviour
     /// <summary>
     /// Sets the name of the player, and save it in the PlayerPrefs for future sessions.
     /// </summary>
-    public void SetPlayerName()
+    public void SetPlayerName(string _)
     {
         InputField inputField = GetComponent<InputField>();
         string value = inputField.text;
@@ -42,8 +42,6 @@ public class PlayerNameInputField : MonoBehaviour
             return;
         }
         PhotonNetwork.NickName = value;
-
-
         PlayerPrefs.SetString(playerNamePrefKey, value);
     }
 }
