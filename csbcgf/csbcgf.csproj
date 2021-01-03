@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3FF09BE9-E494-4D60-B87B-DFB4F91209A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>csbcgf</RootNamespace>
+    <AssemblyName>scbcgf</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web">
+      <HintPath>..\packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CsbcgfExample.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Library\Game\Game.cs" />
+    <Compile Include="Library\Card\Card.cs" />
+    <Compile Include="Library\CardCollection\CardCollection.cs" />
+    <Compile Include="Library\Player\Player.cs" />
+    <Compile Include="Library\Player\IPlayer.cs" />
+    <Compile Include="Library\Card\ICard.cs" />
+    <Compile Include="Library\CardCollection\ICardCollection.cs" />
+    <Compile Include="Library\Game\IGame.cs" />
+    <Compile Include="Library\Stat\IStat.cs" />
+    <Compile Include="Library\Stat\Stat.cs" />
+    <Compile Include="Library\Card\MonsterCard\IMonsterCard.cs" />
+    <Compile Include="Library\Card\MonsterCard\MonsterCard.cs" />
+    <Compile Include="Library\Card\SpellCard\ISpellCard.cs" />
+    <Compile Include="Library\Card\SpellCard\SpellCard.cs" />
+    <Compile Include="Library\CardCollection\Board\Board.cs" />
+    <Compile Include="Library\CardCollection\Board\IBoard.cs" />
+    <Compile Include="Library\CardCollection\Hand\Hand.cs" />
+    <Compile Include="Library\CardCollection\Hand\IHand.cs" />
+    <Compile Include="Library\CardCollection\Deck\IDeck.cs" />
+    <Compile Include="Library\CardCollection\Deck\Deck.cs" />
+    <Compile Include="Library\Stat\Implementations\AttackStat.cs" />
+    <Compile Include="Library\Stat\Implementations\LifeStat.cs" />
+    <Compile Include="Library\Stat\Implementations\ManaCostStat.cs" />
+    <Compile Include="Library\Exception\CsbcgfException.cs" />
+    <Compile Include="Library\Character\ICharacter.cs" />
+    <Compile Include="Library\Card\Target\ITargetful.cs" />
+    <Compile Include="Library\Card\Target\ITargetless.cs" />
+    <Compile Include="Library\Card\SpellCard\TargetlessSpellCard\ITargetlessSpellCard.cs" />
+    <Compile Include="Library\Card\SpellCard\TargetlessSpellCard\TargetlessSpellCard.cs" />
+    <Compile Include="Library\Card\SpellCard\TargetfulSpellCard\ITargetfulSpellCard.cs" />
+    <Compile Include="Library\Card\SpellCard\TargetfulSpellCard\TargetfulSpellCard.cs" />
+    <Compile Include="Library\Action\IAction.cs" />
+    <Compile Include="Library\Action\ActionQueue\IActionQueue.cs" />
+    <Compile Include="Library\Action\ActionQueue\ActionQueue.cs" />
+    <Compile Include="Library\Action\Implementations\Stat\ModifyManaStatAction.cs" />
+    <Compile Include="Library\Action\Implementations\Stat\ModifyAttackStatAction.cs" />
+    <Compile Include="Library\Action\Implementations\Stat\ModifyLifeStatAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\Board\RemoveCardFromBoardAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\StackedDeck\AddCardToGraveyardAction.cs" />
+    <Compile Include="Library\Player\IOwnable.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\StackedDeck\RemoveCardFromDeckAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\Hand\AddCardToHandAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\Hand\RemoveCardFromHandAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\Board\AddCardToBoardAction.cs" />
+    <Compile Include="Library\Reaction\IReaction.cs" />
+    <Compile Include="Library\Reaction\IReactive.cs" />
+    <Compile Include="Library\Event\Event.cs" />
+    <Compile Include="Library\Reaction\EventReaction\SetReadyToAttackOnStartOfTurnEventReaction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\MonsterCard\ModifyReadyToAttackAction.cs" />
+    <Compile Include="Library\Card\Playable\IPlayable.cs" />
+    <Compile Include="Library\Card\Component\SpellCardComponent\ISpellCardComponent.cs" />
+    <Compile Include="Library\Card\Component\ICardComponent.cs" />
+    <Compile Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\ITargetlessSpellCardComponent.cs" />
+    <Compile Include="Library\Card\Component\SpellCardComponent\TargetfulSpellCardComponent\ITargetfulSpellCardComponent.cs" />
+    <Compile Include="Library\Card\Component\MonsterCardComponent\IMonsterCardComponent.cs" />
+    <Compile Include="Library\Stat\Interfaces\IManaful.cs" />
+    <Compile Include="Library\Stat\Interfaces\ILiving.cs" />
+    <Compile Include="Library\Stat\Interfaces\IAttacking.cs" />
+    <Compile Include="Library\Card\Component\CardComponent.cs" />
+    <Compile Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\TargetlessSpellCardComponent.cs" />
+    <Compile Include="Library\Card\Component\SpellCardComponent\TargetfulSpellCardComponent\TargetfulSpellCardComponent.cs" />
+    <Compile Include="Library\Card\Component\MonsterCardComponent\MonsterCardComponent.cs" />
+    <Compile Include="Library\Stat\Implementations\ManaPoolStat.cs" />
+    <Compile Include="Library\Card\Compound\ICompound.cs" />
+    <Compile Include="Library\Card\Compound\Compound.cs" />
+    <Compile Include="Library\Card\Compound\ReactiveCompound.cs" />
+    <Compile Include="Library\Event\Implementations\GameEvent\EndOfGameEvent.cs" />
+    <Compile Include="Library\Event\Implementations\GameEvent\StartOfGameEvent.cs" />
+    <Compile Include="Library\Event\Implementations\TurnEvent\StartOfTurnEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\CardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\DrawCard\EndDrawCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\DrawCard\StartDrawCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\EndPlayCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlayMonsterCardEvent\EndPlayMonsterCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlayMonsterCardEvent\StartPlayMonsterCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\EndPlaySpellCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetfulSpellCardEvent\EndPlayTargetfulSpellCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetfulSpellCardEvent\StartPlayTargetfulSpellCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetlessSpellCardEvent\EndPlayTargetlessSpellCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetlessSpellCardEvent\StartPlayTargetlessSpellCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\StartPlaySpellCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\StartPlayCardEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\AttackEvent\AttackEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\AttackEvent\StartAttackEvent.cs" />
+    <Compile Include="Library\Event\Implementations\CardEvent\AttackEvent\EndAttackEvent.cs" />
+    <Compile Include="Library\Action\Implementations\Game\ModifyActivePlayerAction.cs" />
+    <Compile Include="Library\Util\Serialization\StackConverter.cs" />
+    <Compile Include="Library\Util\Serialization\CsbcgfJsonConvert.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Library\" />
+    <Folder Include="Library\Game\" />
+    <Folder Include="Library\Card\" />
+    <Folder Include="Library\CardCollection\" />
+    <Folder Include="Library\Player\" />
+    <Folder Include="Library\Stat\" />
+    <Folder Include="Library\Card\MonsterCard\" />
+    <Folder Include="Library\Card\SpellCard\" />
+    <Folder Include="Library\CardCollection\Board\" />
+    <Folder Include="Library\CardCollection\Hand\" />
+    <Folder Include="Library\CardCollection\Deck\" />
+    <Folder Include="Library\Stat\Implementations\" />
+    <Folder Include="Library\Exception\" />
+    <Folder Include="Library\Character\" />
+    <Folder Include="Library\Card\Target\" />
+    <Folder Include="Library\Card\SpellCard\TargetlessSpellCard\" />
+    <Folder Include="Library\Card\SpellCard\TargetfulSpellCard\" />
+    <Folder Include="Library\Action\" />
+    <Folder Include="Library\Action\ActionQueue\" />
+    <Folder Include="Library\Action\Implementations\" />
+    <Folder Include="Library\Action\Implementations\Stat\" />
+    <Folder Include="Library\Action\Implementations\Deck\" />
+    <Folder Include="Library\Action\Implementations\Deck\Board\" />
+    <Folder Include="Library\Action\Implementations\Deck\StackedDeck\" />
+    <Folder Include="Library\Action\Implementations\Deck\Hand\" />
+    <Folder Include="Library\Reaction\" />
+    <Folder Include="Library\Event\" />
+    <Folder Include="Library\Event\Implementations\" />
+    <Folder Include="Library\Reaction\EventReaction\" />
+    <Folder Include="Library\Action\Implementations\Card\" />
+    <Folder Include="Library\Action\Implementations\Card\MonsterCard\" />
+    <Folder Include="Library\Card\Playable\" />
+    <Folder Include="Library\Card\Component\" />
+    <Folder Include="Library\Card\Component\SpellCardComponent\" />
+    <Folder Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\" />
+    <Folder Include="Library\Card\Component\SpellCardComponent\TargetfulSpellCardComponent\" />
+    <Folder Include="Library\Card\Component\MonsterCardComponent\" />
+    <Folder Include="Library\Stat\Interfaces\" />
+    <Folder Include="Library\Card\Compound\" />
+    <Folder Include="Library\Event\Implementations\GameEvent\" />
+    <Folder Include="Library\Event\Implementations\TurnEvent\" />
+    <Folder Include="Library\Event\Implementations\CardEvent\" />
+    <Folder Include="Library\Event\Implementations\CardEvent\AttackEvent\" />
+    <Folder Include="Library\Event\Implementations\CardEvent\DrawCard\" />
+    <Folder Include="Library\Event\Implementations\CardEvent\PlayCard\" />
+    <Folder Include="Library\Action\Implementations\Game\" />
+    <Folder Include="Library\Util\" />
+    <Folder Include="Library\Util\Serialization\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
