@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using csbcgf;
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
 public class PlayMaker : MonoBehaviourPunCallbacks
@@ -13,7 +12,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        InitGame(); //TODO: Remove, only used for testing
+        //InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -40,20 +39,22 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         {
             IPlayer player = game.Players[p];
             Vector3 position = new Vector3(1f - 2 * p, distance, -3f + 6 * p);
-            foreach (IMonsterCard monsterCard in player.Deck.AllCards)
+            foreach (MonsterCard3D monsterCard in player.Deck.AllCards)
             {
-                PhotonNetwork.Instantiate("MonsterCard", position, Quaternion.identity, 0);
+                GameObject gameObject = PhotonNetwork.Instantiate("MonsterCard", position, Quaternion.identity, 0);
+                monsterCard.gameObject = gameObject;
                 position.y += distance;
-                position.x += distance;
-                position.z += distance;
+                //gameObject.transform.position = new Vector3();
             }
         }
+
+        game.StartGame(initialHandSize: 3, initialPlayerLife: 5);
     }
 
     private IGame RandomGame()
     {
         var random = new System.Random();
-        IPlayer[] players = new csbcgf.Player[2];
+        IPlayer[] players = new Player[2];
         for (int i=0; i<2; ++i)
         {
             IDeck deck = new Deck();
@@ -62,9 +63,9 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                 int mana = random.Next(10) + 1;
                 int life = random.Next(mana) + 1;
                 int attack = mana - life;
-                deck.Push(new MonsterCard(mana, attack, life));
+                deck.Push(new MonsterCard3D(mana, attack, life));
             }
-            players[i] = new csbcgf.Player(deck);
+            players[i] = new Player(deck);
         }
         return new Game(players);
     }

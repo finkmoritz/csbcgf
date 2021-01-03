@@ -34,7 +34,6 @@ public class PlayerName : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
-        Debug.Log("isMyPlayer: " + isMyPlayer);
         if(!isMyPlayer)
         {
             Text playerNameComponent = GetComponent<Text>();

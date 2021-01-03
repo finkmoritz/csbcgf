@@ -101,6 +101,9 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("GameScene");
+        if(PhotonNetwork.PlayerList.Length == 1)
+        {
+            PhotonNetwork.LoadLevel("GameScene");
+        }
     }
 }
