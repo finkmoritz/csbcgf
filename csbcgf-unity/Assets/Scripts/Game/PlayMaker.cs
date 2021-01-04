@@ -45,6 +45,10 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                 gameObject.transform.Rotate(-90f, 180f - 180f * p, 0f);
                 monsterCard.gameObject = gameObject;
 
+                monsterCard.SetMana(monsterCard.ManaValue);
+                monsterCard.SetAttack(monsterCard.AttackValue);
+                monsterCard.SetLife(monsterCard.LifeValue);
+
                 position.y += distance;
             }
         }
