@@ -12,7 +12,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //InitGame(); //TODO: Remove, only used for testing
+        InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -34,17 +34,18 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     {
         game = RandomGame();
 
-        float distance = 0.1f;
+        float distance = 0.02f;
         for (int p=0; p<2; ++p)
         {
             IPlayer player = game.Players[p];
-            Vector3 position = new Vector3(1f - 2 * p, distance, -3f + 6 * p);
+            Vector3 position = new Vector3(4f - 8f * p, distance, -3f + 6 * p);
             foreach (MonsterCard3D monsterCard in player.Deck.AllCards)
             {
                 GameObject gameObject = PhotonNetwork.Instantiate("MonsterCard", position, Quaternion.identity, 0);
+                gameObject.transform.Rotate(-90f, 180f - 180f * p, 0f);
                 monsterCard.gameObject = gameObject;
+
                 position.y += distance;
-                //gameObject.transform.position = new Vector3();
             }
         }
 
@@ -58,7 +59,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         for (int i=0; i<2; ++i)
         {
             IDeck deck = new Deck();
-            for(int j=0; j<5; ++j)
+            for(int j=0; j<30; ++j)
             {
                 int mana = random.Next(10) + 1;
                 int life = random.Next(mana) + 1;
