@@ -72,9 +72,9 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             Quaternion handRotation = Quaternion.Euler((1-2*p) * 45f, 180f * p, 0f);
             for (int i=0; i<handSize; ++i)
             {
-                Transform transform = ((MonsterCard3D)player.Hand[i]).gameObject.transform;
-                transform.position = handAncor + i * distance;
-                transform.rotation = handRotation;
+                CardBehaviour cardBehaviour = ((MonsterCard3D)player.Hand[i]).gameObject.GetComponent<CardBehaviour>();
+                cardBehaviour.targetPosition = handAncor + i * distance;
+                cardBehaviour.targetRotation = handRotation;
             }
         }
     }
