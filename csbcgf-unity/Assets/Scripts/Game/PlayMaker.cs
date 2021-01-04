@@ -9,6 +9,8 @@ public class PlayMaker : MonoBehaviourPunCallbacks
 {
     private IGame game;
 
+    private static Vector3 CardDim = new Vector3(1f, 1.5f, 0.01f);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         for (int p=0; p<2; ++p)
         {
             IPlayer player = game.Players[p];
-            Vector3 position = new Vector3(4f - 8f * p, distance, -3f + 6 * p);
+            Vector3 position = new Vector3(4f - 8f * p, distance, -3f + 6f * p);
             foreach (MonsterCard3D monsterCard in player.Deck.AllCards)
             {
                 GameObject gameObject = PhotonNetwork.Instantiate("MonsterCard", position, Quaternion.identity, 0);
@@ -54,6 +56,27 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         }
 
         game.StartGame(initialHandSize: 3, initialPlayerLife: 5);
+
+        UpdateCards();
+    }
+
+    private void UpdateCards()
+    {
+        for (int p = 0; p < 2; ++p)
+        {
+            IPlayer player = game.Players[p];
+            int handSize = player.Hand.Size;
+            float handAncorX = (1-2*p) * (-(0.5f * handSize) + 0.5f) * CardDim.x;
+            Vector3 handAncor = new Vector3(handAncorX, 2f, -3.5f + 7f * p);
+            Vector3 distance = new Vector3((1 - 2 * p) * CardDim.x, 0f, 2 * CardDim.z);
+            Quaternion handRotation = Quaternion.Euler((1-2*p) * 45f, 180f * p, 0f);
+            for (int i=0; i<handSize; ++i)
+            {
+                Transform transform = ((MonsterCard3D)player.Hand[i]).gameObject.transform;
+                transform.position = handAncor + i * distance;
+                transform.rotation = handRotation;
+            }
+        }
     }
 
     private IGame RandomGame()
