@@ -98,4 +98,23 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         }
         return new Game(players);
     }
+
+    public void OnEndTurnClicked()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            EndTurn();
+        } else
+        {
+            photonView.RPC("EndTurn", RpcTarget.MasterClient);
+        }
+    }
+
+    [PunRPC]
+    private void EndTurn()
+    {
+        Debug.Log("EndTurn called");
+        game.NextTurn();
+        UpdateCards();
+    }
 }
