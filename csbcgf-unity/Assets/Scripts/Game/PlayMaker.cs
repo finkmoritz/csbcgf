@@ -41,15 +41,16 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         {
             IPlayer player = game.Players[p];
             Vector3 position = new Vector3(4f - 8f * p, distance, -3f + 6f * p);
-            foreach (MonsterCard3D monsterCard in player.Deck.AllCards)
+            foreach (MonsterCardWithGameObject monsterCard in player.Deck.AllCards)
             {
                 GameObject gameObject = PhotonNetwork.Instantiate("MonsterCard", position, Quaternion.identity, 0);
                 gameObject.transform.Rotate(-90f, 180f - 180f * p, 0f);
                 monsterCard.gameObject = gameObject;
 
-                monsterCard.SetMana(monsterCard.ManaValue);
-                monsterCard.SetAttack(monsterCard.AttackValue);
-                monsterCard.SetLife(monsterCard.LifeValue);
+                Card3D card3D = monsterCard.gameObject.GetComponent<Card3D>();
+                card3D.SetMana(monsterCard.ManaValue);
+                card3D.SetAttack(monsterCard.AttackValue);
+                card3D.SetLife(monsterCard.LifeValue);
 
                 position.y += distance;
             }
@@ -72,9 +73,9 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             Quaternion handRotation = Quaternion.Euler((1-2*p) * 45f, 180f * p, 0f);
             for (int i=0; i<handSize; ++i)
             {
-                CardBehaviour cardBehaviour = ((MonsterCard3D)player.Hand[i]).gameObject.GetComponent<CardBehaviour>();
-                cardBehaviour.targetPosition = handAncor + i * distance;
-                cardBehaviour.targetRotation = handRotation;
+                Card3D card3D = ((MonsterCardWithGameObject)player.Hand[i]).gameObject.GetComponent<Card3D>();
+                card3D.targetPosition = handAncor + i * distance;
+                card3D.targetRotation = handRotation;
             }
         }
     }
@@ -91,7 +92,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                 int mana = random.Next(10) + 1;
                 int life = random.Next(mana) + 1;
                 int attack = mana - life;
-                deck.Push(new MonsterCard3D(mana, attack, life));
+                deck.Push(new MonsterCardWithGameObject(mana, attack, life));
             }
             players[i] = new Player(deck);
         }

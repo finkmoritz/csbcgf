@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class CardBehaviour : MonoBehaviour
+public class Card3D : MonoBehaviour
 {
     public Vector3? targetPosition;
     public Quaternion? targetRotation;
@@ -44,5 +45,23 @@ public class CardBehaviour : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion)targetRotation, RotationSpeed);
             }
         }
+    }
+
+    public void SetMana(int mana)
+    {
+        TextMeshPro textMesh = gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshPro>();
+        textMesh.text = "" + mana;
+    }
+
+    public void SetAttack(int attack)
+    {
+        TextMeshPro textMesh = gameObject.transform.GetChild(2).gameObject.GetComponent<TextMeshPro>();
+        textMesh.text = "" + attack;
+    }
+
+    public void SetLife(int life)
+    {
+        TextMeshPro textMesh = gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshPro>();
+        textMesh.text = "" + life;
     }
 }
