@@ -14,7 +14,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        InitGame(); //TODO: Remove, only used for testing
+        //InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -70,7 +70,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             float handAncorX = (1-2*p) * (-(0.5f * handSize) + 0.5f) * CardDim.x;
             Vector3 handAncor = new Vector3(handAncorX, 2f, -3.5f + 7f * p);
             Vector3 distance = new Vector3((1 - 2 * p) * CardDim.x, 0f, 2 * CardDim.z);
-            Quaternion handRotation = Quaternion.Euler((1-2*p) * 45f, 180f * p, 0f);
+            Quaternion handRotation = Quaternion.Euler(45f, 180f * p, 0f);
             for (int i=0; i<handSize; ++i)
             {
                 Card3D card3D = ((MonsterCardWithGameObject)player.Hand[i]).gameObject.GetComponent<Card3D>();
