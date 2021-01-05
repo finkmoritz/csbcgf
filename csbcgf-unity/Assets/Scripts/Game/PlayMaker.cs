@@ -11,7 +11,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     private IGame game;
     private GameObject controlPanel;
 
-    private static Vector3 CardDim = new Vector3(1f, 1.5f, 0.01f);
+    private static Vector3 CardDim = new Vector3(1f, 1.5f, 0.05f);
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +72,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             int handSize = player.Hand.Size;
             float handAncorX = (1-2*p) * (-(0.5f * handSize) + 0.5f) * CardDim.x;
             Vector3 handAncor = new Vector3(handAncorX, 0.75f, -3.25f + 6.5f * p);
-            Vector3 distance = new Vector3((1 - 2 * p) * CardDim.x, 0f, 2 * CardDim.z);
+            Vector3 distance = new Vector3((1 - 2 * p) * CardDim.x, 0f, 0f);
             Quaternion handRotation = Quaternion.Euler(45f, 180f * p, 0f);
             for (int i=0; i<handSize; ++i)
             {
