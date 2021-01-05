@@ -266,6 +266,8 @@ GameObject:
   - component: {fileID: 7959401411022461596}
   - component: {fileID: 6386622603607863479}
   - component: {fileID: 5498313257791027119}
+  - component: {fileID: 2700143294668778436}
+  - component: {fileID: 574001330751639021}
   m_Layer: 0
   m_Name: MonsterCard
   m_TagString: Untagged
@@ -342,6 +344,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8096751ae88141a280d78fe6bcc4a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2700143294668778436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279118007351816813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b87648aeae6a40698ce334cfd3c06c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &574001330751639021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279118007351816813}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5, z: 0.02}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7609432511652421692
 GameObject:
   m_ObjectHideFlags: 0

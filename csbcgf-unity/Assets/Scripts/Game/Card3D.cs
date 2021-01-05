@@ -20,7 +20,7 @@ public class Card3D : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if(targetPosition != null)
+        if (targetPosition != null)
         {
             Vector3 diff = (Vector3)(targetPosition - transform.position);
             if(diff.magnitude < Speed)
@@ -33,7 +33,7 @@ public class Card3D : MonoBehaviourPun
             }
         }
 
-        if(targetRotation != null)
+        if (targetRotation != null)
         {
             float diff = Quaternion.Angle((Quaternion)targetRotation, transform.rotation);
             if(diff < RotationSpeed)
