@@ -4,17 +4,13 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
-public class Card3D : MonoBehaviourPun, IPunObservable
+public class Card3D : MonoBehaviourPun
 {
     public Vector3? targetPosition;
     public Quaternion? targetRotation;
 
     public const float Speed = 0.05f;
     public const float RotationSpeed = 1f;
-
-    private int mana;
-    private int attack;
-    private int life;
 
     // Start is called before the first frame update
     void Start()
@@ -51,39 +47,28 @@ public class Card3D : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void SetMana(int mana)
+    public void SetValue(string name, int value)
     {
-        this.mana = mana;
-        TextMeshPro textMesh = gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshPro>();
+        SetValueInternal(name, value);
+        photonView.RPC("SetValueInternal", RpcTarget.Others, name, value);
+    }
+
+    [PunRPC]
+    private void SetValueInternal(string name, int mana)
+    {
+        TextMeshPro textMesh = GetTextMesh(name);
         textMesh.text = "" + mana;
     }
 
-    public void SetAttack(int attack)
+    private TextMeshPro GetTextMesh(string name)
     {
-        this.attack = attack;
-        TextMeshPro textMesh = gameObject.transform.GetChild(2).gameObject.GetComponent<TextMeshPro>();
-        textMesh.text = "" + attack;
-    }
-
-    public void SetLife(int life)
-    {
-        this.life = life;
-        TextMeshPro textMesh = gameObject.transform.GetChild(3).gameObject.GetComponent<TextMeshPro>();
-        textMesh.text = "" + life;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
+        foreach (Transform child in transform)
         {
-            stream.SendNext(mana);
-            stream.SendNext(attack);
-            stream.SendNext(life);
-        } else
-        {
-            SetMana((int)stream.ReceiveNext());
-            SetAttack((int)stream.ReceiveNext());
-            SetLife((int)stream.ReceiveNext());
+            if (child.name == name)
+            {
+                return child.gameObject.GetComponent<TextMeshPro>();
+            }
         }
+        return null;
     }
 }

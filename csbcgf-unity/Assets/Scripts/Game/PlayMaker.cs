@@ -48,9 +48,9 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                 monsterCard.gameObject = gameObject;
 
                 Card3D card3D = monsterCard.gameObject.GetComponent<Card3D>();
-                card3D.SetMana(monsterCard.ManaValue);
-                card3D.SetAttack(monsterCard.AttackValue);
-                card3D.SetLife(monsterCard.LifeValue);
+                card3D.SetValue("Mana", monsterCard.ManaValue);
+                card3D.SetValue("Attack", monsterCard.AttackValue);
+                card3D.SetValue("Life", monsterCard.LifeValue);
 
                 position.y += distance;
             }
@@ -113,7 +113,6 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     [PunRPC]
     private void EndTurn()
     {
-        Debug.Log("EndTurn called");
         game.NextTurn();
         UpdateCards();
     }
