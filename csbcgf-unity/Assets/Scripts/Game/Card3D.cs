@@ -53,10 +53,10 @@ public class Card3D : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void SetValueInternal(string name, int mana)
+    private void SetValueInternal(string name, int value)
     {
         TextMeshPro textMesh = GetTextMesh(name);
-        textMesh.text = "" + mana;
+        textMesh.text = "" + value;
     }
 
     private TextMeshPro GetTextMesh(string name)

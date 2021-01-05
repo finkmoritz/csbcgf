@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using csbcgf;
 using Photon.Pun;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayMaker : MonoBehaviourPunCallbacks
 {
     private IGame game;
+    private GameObject controlPanel;
 
     private static Vector3 CardDim = new Vector3(1f, 1.5f, 0.01f);
 
@@ -59,6 +61,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         game.StartGame(initialHandSize: 3, initialPlayerLife: 5);
 
         UpdateCards();
+        UpdateUI();
     }
 
     private void UpdateCards()
@@ -78,6 +81,23 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                 card3D.targetRotation = handRotation;
             }
         }
+    }
+
+    private void UpdateUI()
+    {
+        bool activePlayerIsMaster = game.ActivePlayer == game.Players[0];
+        photonView.RPC("SetUIActive", RpcTarget.MasterClient, activePlayerIsMaster);
+        photonView.RPC("SetUIActive", RpcTarget.Others, !activePlayerIsMaster);
+    }
+
+    [PunRPC]
+    private void SetUIActive(bool active)
+    {
+        if (controlPanel == null)
+        {
+            controlPanel = GameObject.FindWithTag("Control Panel");
+        }
+        controlPanel.SetActive(active);
     }
 
     private IGame RandomGame()
@@ -101,7 +121,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
 
     public void OnEndTurnClicked()
     {
-            photonView.RPC("EndTurn", RpcTarget.MasterClient);
+        photonView.RPC("EndTurn", RpcTarget.MasterClient);
     }
 
     [PunRPC]
@@ -109,5 +129,6 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     {
         game.NextTurn();
         UpdateCards();
+        UpdateUI();
     }
 }
