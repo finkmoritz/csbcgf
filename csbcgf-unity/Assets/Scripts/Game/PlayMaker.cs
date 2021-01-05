@@ -101,13 +101,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
 
     public void OnEndTurnClicked()
     {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            EndTurn();
-        } else
-        {
             photonView.RPC("EndTurn", RpcTarget.MasterClient);
-        }
     }
 
     [PunRPC]

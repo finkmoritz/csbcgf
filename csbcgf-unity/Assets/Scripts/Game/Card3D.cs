@@ -49,8 +49,7 @@ public class Card3D : MonoBehaviourPun
 
     public void SetValue(string name, int value)
     {
-        SetValueInternal(name, value);
-        photonView.RPC("SetValueInternal", RpcTarget.Others, name, value);
+        photonView.RPC("SetValueInternal", RpcTarget.All, name, value);
     }
 
     [PunRPC]
