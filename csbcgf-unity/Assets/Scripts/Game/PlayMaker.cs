@@ -18,7 +18,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //InitGame(); //TODO: Remove, only used for testing
+        InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -78,18 +78,28 @@ public class PlayMaker : MonoBehaviourPunCallbacks
 
     private void UpdateCards()
     {
+        UpdateHands();
+    }
+
+    private void UpdateHands()
+    {
+        const float handContraction = 0.8f;
         for (int p = 0; p < 2; ++p)
         {
+            Photon.Realtime.Player networkPlayer = PhotonNetwork.PlayerList[p];
             IPlayer player = game.Players[p];
             int handSize = player.Hand.Size;
-            float handAncorX = (1-2*p) * (-(0.5f * handSize) + 0.5f) * CardDim.x;
+            float handAncorX = (1 - 2 * p) * handContraction * (-(0.5f * handSize) + 0.5f) * CardDim.x;
             Vector3 handAncor = new Vector3(handAncorX, 0.75f, -3.25f + 6.5f * p);
-            Vector3 distance = new Vector3((1-2*p) * CardDim.x, 0f, 0f);
+            Vector3 distance = new Vector3((1 - 2 * p) * handContraction * CardDim.x, 0f, CardDim.z);
             Quaternion handRotation = Quaternion.Euler(45f, 180f * p, 0f);
-            for (int i=0; i<handSize; ++i)
+            for (int i = 0; i < handSize; ++i)
             {
-                Card3D card3D = ((MonsterCardWithGameObject)player.Hand[i]).gameObject.GetComponent<Card3D>();
-                card3D.photonView.RPC("SetTarget", RpcTarget.All, handAncor + i * distance, handRotation);
+                MonsterCardWithGameObject monsterCard = ((MonsterCardWithGameObject)player.Hand[i]);
+                GameObject go = monsterCard.gameObject;
+                go.GetComponent<Card3D>().photonView.RPC("SetTarget", networkPlayer, handAncor + i * distance, handRotation);
+                go.GetComponent<DragDropTransform>().photonView.RPC("SetDraggable", networkPlayer, monsterCard.IsPlayable(game));
+                go.GetComponent<DragDropTransform>().photonView.RPC("SetHoverable", networkPlayer, true);
             }
         }
     }

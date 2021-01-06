@@ -600,6 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b87648aeae6a40698ce334cfd3c06c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDraggable: 0
 --- !u!65 &574001330751639021
 BoxCollider:
   m_ObjectHideFlags: 0
