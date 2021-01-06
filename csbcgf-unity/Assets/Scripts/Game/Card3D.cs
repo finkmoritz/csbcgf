@@ -20,30 +20,45 @@ public class Card3D : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (targetPosition != null)
+        if(photonView.IsMine)
         {
-            Vector3 diff = (Vector3)(targetPosition - transform.position);
-            if(diff.magnitude < Speed)
+            if (targetPosition != null)
             {
-                transform.position = (Vector3)targetPosition;
-                targetPosition = null;
-            } else
+                Vector3 diff = (Vector3)(targetPosition - transform.position);
+                if (diff.magnitude < Speed)
+                {
+                    transform.position = (Vector3)targetPosition;
+                    targetPosition = null;
+                }
+                else
+                {
+                    transform.position += Speed * diff.normalized;
+                }
+            }
+
+            if (targetRotation != null)
             {
-                transform.position += Speed * diff.normalized;
+                float diff = Quaternion.Angle((Quaternion)targetRotation, transform.rotation);
+                if (diff < RotationSpeed)
+                {
+                    transform.rotation = (Quaternion)targetRotation;
+                    targetRotation = null;
+                }
+                else
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion)targetRotation, RotationSpeed);
+                }
             }
         }
+    }
 
-        if (targetRotation != null)
+    [PunRPC]
+    public void SetTarget(Vector3 targetPosition, Quaternion targetRotation)
+    {
+        if (photonView.IsMine)
         {
-            float diff = Quaternion.Angle((Quaternion)targetRotation, transform.rotation);
-            if(diff < RotationSpeed)
-            {
-                transform.rotation = (Quaternion)targetRotation;
-                targetRotation = null;
-            } else
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion)targetRotation, RotationSpeed);
-            }
+            this.targetPosition = targetPosition;
+            this.targetRotation = targetRotation;
         }
     }
 

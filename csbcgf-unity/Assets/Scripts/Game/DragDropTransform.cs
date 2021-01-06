@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class DragDropTransform : MonoBehaviour
+public class DragDropTransform : MonoBehaviourPun
 {
     private Vector3 originalPosition;
     private bool dragging = false;
@@ -17,7 +18,7 @@ public class DragDropTransform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dragging)
+        if (photonView.IsMine && dragging)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 rayPoint = ray.GetPoint(distance);

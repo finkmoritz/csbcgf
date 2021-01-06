@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using csbcgf;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
 
 public class PlayMaker : MonoBehaviourPunCallbacks
 {
     private IGame game;
+    private Photon.Realtime.Player nonMasterPlayer;
     private GameObject controlPanel;
 
     private static Vector3 CardDim = new Vector3(1f, 1.5f, 0.05f);
@@ -16,7 +18,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        InitGame(); //TODO: Remove, only used for testing
+        //InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -27,6 +29,8 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+
+        nonMasterPlayer = newPlayer;
 
         if(PhotonNetwork.IsMasterClient)
         {
@@ -45,14 +49,22 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             Vector3 position = new Vector3(4f - 8f * p, distance, -3f + 6f * p);
             foreach (MonsterCardWithGameObject monsterCard in player.Deck.AllCards)
             {
-                GameObject gameObject = PhotonNetwork.Instantiate("MonsterCard", position, Quaternion.identity, 0);
-                gameObject.transform.Rotate(-90f, 180f - 180f * p, 0f);
+                GameObject gameObject = PhotonNetwork.Instantiate(
+                    "MonsterCard",
+                    position,
+                    Quaternion.Euler(-90f, 180f - 180f * p, 0f)
+                );
                 monsterCard.gameObject = gameObject;
 
                 Card3D card3D = monsterCard.gameObject.GetComponent<Card3D>();
                 card3D.SetValue("Mana", monsterCard.ManaValue);
                 card3D.SetValue("Attack", monsterCard.AttackValue);
                 card3D.SetValue("Life", monsterCard.LifeValue);
+
+                if(p == 1)
+                {
+                    gameObject.GetPhotonView().TransferOwnership(nonMasterPlayer);
+                }
 
                 position.y += distance;
             }
@@ -72,13 +84,12 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             int handSize = player.Hand.Size;
             float handAncorX = (1-2*p) * (-(0.5f * handSize) + 0.5f) * CardDim.x;
             Vector3 handAncor = new Vector3(handAncorX, 0.75f, -3.25f + 6.5f * p);
-            Vector3 distance = new Vector3((1 - 2 * p) * CardDim.x, 0f, 0f);
+            Vector3 distance = new Vector3((1-2*p) * CardDim.x, 0f, 0f);
             Quaternion handRotation = Quaternion.Euler(45f, 180f * p, 0f);
             for (int i=0; i<handSize; ++i)
             {
                 Card3D card3D = ((MonsterCardWithGameObject)player.Hand[i]).gameObject.GetComponent<Card3D>();
-                card3D.targetPosition = handAncor + i * distance;
-                card3D.targetRotation = handRotation;
+                card3D.photonView.RPC("SetTarget", RpcTarget.All, handAncor + i * distance, handRotation);
             }
         }
     }
@@ -103,7 +114,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     private IGame RandomGame()
     {
         var random = new System.Random();
-        IPlayer[] players = new Player[2];
+        IPlayer[] players = new csbcgf.Player[2];
         for (int i=0; i<2; ++i)
         {
             IDeck deck = new Deck();
@@ -114,7 +125,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                 int attack = mana - life;
                 deck.Push(new MonsterCardWithGameObject(mana, attack, life));
             }
-            players[i] = new Player(deck);
+            players[i] = new csbcgf.Player(deck);
         }
         return new Game(players);
     }
