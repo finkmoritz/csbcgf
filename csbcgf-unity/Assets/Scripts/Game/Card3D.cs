@@ -12,7 +12,7 @@ public class Card3D : MonoBehaviourPun
     public Quaternion? targetRotation;
 
     public const float Speed = 0.05f;
-    public const float RotationSpeed = 1f;
+    public const float RotationSpeed = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -78,8 +78,7 @@ public class Card3D : MonoBehaviourPun
     [PunRPC]
     private void SetValueInternal(string name, int value)
     {
-        TextMeshPro textMesh = GetTextMesh(name);
-        textMesh.text = "" + value;
+        GetTextMesh(name).text = "" + value;
     }
 
     private TextMeshPro GetTextMesh(string name)

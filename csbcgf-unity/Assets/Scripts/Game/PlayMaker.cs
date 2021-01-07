@@ -10,6 +10,7 @@ using UnityEngine;
 public class PlayMaker : MonoBehaviourPunCallbacks
 {
     private IGame game;
+    private GameObject[] heros = new GameObject[2];
     private Photon.Realtime.Player nonMasterPlayer;
     private GameObject controlPanel;
 
@@ -18,7 +19,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        InitGame(); //TODO: Remove, only used for testing
+        //InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -42,20 +43,42 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     {
         game = RandomGame();
 
+        InitHeros();
         InitDecks();
         InitSlots();
 
         game.StartGame(initialHandSize: 3, initialPlayerLife: 5);
 
-        UpdateCards();
+        UpdateGameState();
         UpdateUI();
+    }
+
+    private void InitHeros()
+    {
+        for (int p = 0; p < PhotonNetwork.PlayerList.Length; ++p)
+        {
+            IPlayer player = game.Players[p];
+            Vector3 position = new Vector3(0f, 0f, (-1+2*p) * 3.0f);
+            Quaternion rotation = Quaternion.Euler(0f, 180f * p, 0f);
+            GameObject go = PhotonNetwork.Instantiate(
+                "Hero",
+                position,
+                rotation
+            );
+            heros[p] = go;
+
+            Hero hero = go.GetComponent<Hero>();
+            hero.SetPlayerName(PhotonNetwork.PlayerList[p].NickName);
+            hero.SetValue("Mana", player.ManaValue);
+            hero.SetValue("Life", player.LifeValue);
+        }
     }
 
     private void InitDecks()
     {
         int cardUid = 0;
         float distance = 0.02f;
-        for (int p = 0; p < 2; ++p)
+        for (int p = 0; p < PhotonNetwork.PlayerList.Length; ++p)
         {
             IPlayer player = game.Players[p];
             Vector3 position = new Vector3(4f - 8f * p, distance, -3f + 6f * p);
@@ -87,7 +110,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     private void InitSlots()
     {
         float paddingX = 0.25f;
-        for (int p = 0; p < 2; ++p)
+        for (int p = 0; p < PhotonNetwork.PlayerList.Length; ++p)
         {
             IPlayer player = game.Players[p];
             int nSlots = player.Board.MaxSize;
@@ -106,16 +129,28 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdateCards()
+    private void UpdateGameState()
     {
+        UpdateHeros();
         UpdateHands();
         UpdateBoards();
+    }
+
+    private void UpdateHeros()
+    {
+        for (int p = 0; p < PhotonNetwork.PlayerList.Length; ++p)
+        {
+            IPlayer player = game.Players[p];
+            Hero hero = heros[p].GetComponent<Hero>();
+            hero.SetValue("Mana", player.ManaValue);
+            hero.SetValue("Life", player.LifeValue);
+        }
     }
 
     private void UpdateHands()
     {
         const float handContraction = 0.8f;
-        for (int p = 0; p < 2; ++p)
+        for (int p = 0; p < PhotonNetwork.PlayerList.Length; ++p)
         {
             Photon.Realtime.Player networkPlayer = PhotonNetwork.PlayerList[p];
             IPlayer player = game.Players[p];
@@ -138,7 +173,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     private void UpdateBoards()
     {
         float paddingX = 0.25f;
-        for (int p = 0; p < 2; ++p)
+        for (int p = 0; p < PhotonNetwork.PlayerList.Length; ++p)
         {
             Photon.Realtime.Player networkPlayer = PhotonNetwork.PlayerList[p];
             IPlayer player = game.Players[p];
@@ -187,7 +222,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     private void EndTurn()
     {
         game.NextTurn();
-        UpdateCards();
+        UpdateGameState();
         UpdateUI();
     }
 
@@ -207,7 +242,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         {
             IMonsterCard monsterCard = FindCardByUid(game.ActivePlayer.Hand.AllCards.ConvertAll(c => (MonsterCardWithGameObject)c), cardUid);
             game.ActivePlayer.PlayMonster(game, monsterCard, slotIndex);
-            UpdateCards();
+            UpdateGameState();
         } catch (Exception e)
         {
             Debug.LogError(e.Message + "\n" + e.StackTrace);
