@@ -18,7 +18,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        InitGame(); //TODO: Remove, only used for testing
+        //InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -53,6 +53,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
 
     private void InitDecks()
     {
+        int cardUid = 0;
         float distance = 0.02f;
         for (int p = 0; p < 2; ++p)
         {
@@ -65,6 +66,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                     position,
                     Quaternion.Euler(-90f, 180f - 180f * p, 0f)
                 );
+                go.GetPhotonView().RPC("SetUid", RpcTarget.All, cardUid++);
                 monsterCard.gameObject = go;
 
                 Card3D card3D = monsterCard.gameObject.GetComponent<Card3D>();
@@ -107,6 +109,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     private void UpdateCards()
     {
         UpdateHands();
+        UpdateBoards();
     }
 
     private void UpdateHands()
@@ -128,6 +131,32 @@ public class PlayMaker : MonoBehaviourPunCallbacks
                 go.GetComponent<Card3D>().photonView.RPC("SetTarget", networkPlayer, handAncor + i * distance, handRotation);
                 go.GetComponent<DragDropTransform>().photonView.RPC("SetDraggable", networkPlayer, monsterCard.IsPlayable(game));
                 go.GetComponent<DragDropTransform>().photonView.RPC("SetHoverable", networkPlayer, true);
+            }
+        }
+    }
+
+    private void UpdateBoards()
+    {
+        float paddingX = 0.25f;
+        for (int p = 0; p < 2; ++p)
+        {
+            Photon.Realtime.Player networkPlayer = PhotonNetwork.PlayerList[p];
+            IPlayer player = game.Players[p];
+            int nSlots = player.Board.MaxSize;
+            float startX = -(0.5f * nSlots - 0.5f) * (CardDim.x + 2 * paddingX);
+            Vector3 position = new Vector3((1 - 2 * p) * startX, CardDim.z, -1 + 2 * p);
+            Quaternion boardRotation = Quaternion.Euler(90f, 180f * p, 0f);
+            for (int i = 0; i < nSlots; ++i)
+            {
+                MonsterCardWithGameObject monsterCard = (MonsterCardWithGameObject)player.Board[i];
+                if (monsterCard != null)
+                {
+                    GameObject go = monsterCard.gameObject;
+                    go.GetComponent<Card3D>().photonView.RPC("SetTarget", networkPlayer, position, boardRotation);
+                    go.GetComponent<DragDropTransform>().photonView.RPC("SetDraggable", networkPlayer, false);
+                    go.GetComponent<DragDropTransform>().photonView.RPC("SetHoverable", networkPlayer, true);
+                }
+                position.x += (1 - 2 * p) * (CardDim.x + 2 * paddingX);
             }
         }
     }
@@ -160,6 +189,37 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         game.NextTurn();
         UpdateCards();
         UpdateUI();
+    }
+
+    public void PlayMonsterCard(int cardUid, int slotIndex)
+    {
+        photonView.RPC("PlayMonsterCardInternal", RpcTarget.MasterClient, cardUid, slotIndex);
+    }
+
+    [PunRPC]
+    private void PlayMonsterCardInternal(int cardUid, int slotIndex)
+    {
+        try
+        {
+            IMonsterCard monsterCard = FindCardByUid(game.ActivePlayer.Hand.AllCards.ConvertAll(c => (MonsterCardWithGameObject)c), cardUid);
+            game.ActivePlayer.PlayMonster(game, monsterCard, slotIndex);
+            UpdateCards();
+        } catch (Exception e)
+        {
+            Debug.LogError(e.Message + "\n" + e.StackTrace);
+        }
+    }
+
+    private MonsterCardWithGameObject FindCardByUid(List<MonsterCardWithGameObject> cards, int uid)
+    {
+        foreach (MonsterCardWithGameObject card in cards)
+        {
+            if (card.gameObject.GetComponent<Card3D>().uid == uid)
+            {
+                return card;
+            }
+        }
+        return null;
     }
 
     private IGame RandomGame()

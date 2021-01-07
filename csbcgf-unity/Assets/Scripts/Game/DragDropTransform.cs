@@ -8,6 +8,8 @@ public class DragDropTransform : MonoBehaviourPun
     public bool isDraggable = false;
     public bool isHoverable = false;
 
+    private static PlayMaker playMaker;
+
     private Vector3 originalPosition;
     private bool dragging = false;
     private bool hovering = false;
@@ -49,6 +51,7 @@ public class DragDropTransform : MonoBehaviourPun
         {
             transform.position = originalPosition;
             dragging = false;
+            CheckPlay();
         }
     }
 
@@ -82,5 +85,30 @@ public class DragDropTransform : MonoBehaviourPun
     public void SetHoverable(bool isHoverable)
     {
         this.isHoverable = isHoverable;
+    }
+
+    private void CheckPlay()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        int slotsLayerMask = 1 << 9; //bit shift to retrieve mask for layer #9
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, slotsLayerMask) && hit.collider != null)
+        {
+            Slot slot = hit.collider.gameObject.GetComponent<Slot>();
+            if (slot != null)
+            {
+                int cardUid = gameObject.GetComponent<Card3D>().uid;
+                GetPlayMaker().PlayMonsterCard(cardUid, slot.slotIndex);
+            }
+        }
+    }
+
+    public PlayMaker GetPlayMaker()
+    {
+        if (playMaker == null)
+        {
+            playMaker = GameObject.Find("PlayMaker").GetComponent<PlayMaker>();
+        }
+        return playMaker;
     }
 }

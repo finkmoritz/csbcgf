@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Card3D : MonoBehaviourPun
 {
+    public int uid;
+
     public Vector3? targetPosition;
     public Quaternion? targetRotation;
 
@@ -50,6 +52,12 @@ public class Card3D : MonoBehaviourPun
                 }
             }
         }
+    }
+
+    [PunRPC]
+    public void SetUid(int uid)
+    {
+        this.uid = uid;
     }
 
     [PunRPC]

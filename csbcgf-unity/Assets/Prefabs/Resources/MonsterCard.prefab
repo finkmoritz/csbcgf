@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7641534873293094134}
   - component: {fileID: 6117343766062658256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3189822615043419987}
   - component: {fileID: 5417727031436647034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2852988016420978488}
   - component: {fileID: 4511802855569071300}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 5516151883527810627}
   - component: {fileID: 8327705456649161535}
   - component: {fileID: 575092842682147246}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 5279118007348355174}
   - component: {fileID: 5279118007348355179}
   - component: {fileID: 5279118007348355176}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 5498313257791027119}
   - component: {fileID: 2700143294668778436}
   - component: {fileID: 574001330751639021}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MonsterCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8096751ae88141a280d78fe6bcc4a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uid: 0
 --- !u!114 &2700143294668778436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,7 +628,7 @@ GameObject:
   - component: {fileID: 4704274121085202550}
   - component: {fileID: 6732832421601184175}
   - component: {fileID: 6019237496525644187}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +804,7 @@ GameObject:
   - component: {fileID: 5889379672252232148}
   - component: {fileID: 2719495001970227741}
   - component: {fileID: 3742127377274219581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Life
   m_TagString: Untagged
   m_Icon: {fileID: 0}
