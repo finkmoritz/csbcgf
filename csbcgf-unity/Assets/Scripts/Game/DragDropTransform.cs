@@ -98,7 +98,7 @@ public class DragDropTransform : MonoBehaviourPun
             if (slot != null)
             {
                 int cardUid = gameObject.GetComponent<Card3D>().uid;
-                GetPlayMaker().PlayMonsterCard(cardUid, slot.slotIndex);
+                GetPlayMaker().PlayMonsterCard(cardUid, slot);
             }
         }
     }

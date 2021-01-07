@@ -191,14 +191,18 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         UpdateUI();
     }
 
-    public void PlayMonsterCard(int cardUid, int slotIndex)
+    public void PlayMonsterCard(int cardUid, Slot slot)
     {
-        photonView.RPC("PlayMonsterCardInternal", RpcTarget.MasterClient, cardUid, slotIndex);
+        photonView.RPC("PlayMonsterCardInternal", RpcTarget.MasterClient, cardUid, slot.playerIndex, slot.slotIndex);
     }
 
     [PunRPC]
-    private void PlayMonsterCardInternal(int cardUid, int slotIndex)
+    private void PlayMonsterCardInternal(int cardUid, int playerIndex, int slotIndex)
     {
+        if (game.ActivePlayer != game.Players[playerIndex])
+        {
+            return;
+        }
         try
         {
             IMonsterCard monsterCard = FindCardByUid(game.ActivePlayer.Hand.AllCards.ConvertAll(c => (MonsterCardWithGameObject)c), cardUid);
