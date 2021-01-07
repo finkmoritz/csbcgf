@@ -17,6 +17,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        LeaveRoom();
+    }
+
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(0);

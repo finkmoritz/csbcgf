@@ -42,38 +42,66 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     {
         game = RandomGame();
 
+        InitDecks();
+        InitSlots();
+
+        game.StartGame(initialHandSize: 3, initialPlayerLife: 5);
+
+        UpdateCards();
+        UpdateUI();
+    }
+
+    private void InitDecks()
+    {
         float distance = 0.02f;
-        for (int p=0; p<2; ++p)
+        for (int p = 0; p < 2; ++p)
         {
             IPlayer player = game.Players[p];
             Vector3 position = new Vector3(4f - 8f * p, distance, -3f + 6f * p);
             foreach (MonsterCardWithGameObject monsterCard in player.Deck.AllCards)
             {
-                GameObject gameObject = PhotonNetwork.Instantiate(
+                GameObject go = PhotonNetwork.Instantiate(
                     "MonsterCard",
                     position,
                     Quaternion.Euler(-90f, 180f - 180f * p, 0f)
                 );
-                monsterCard.gameObject = gameObject;
+                monsterCard.gameObject = go;
 
                 Card3D card3D = monsterCard.gameObject.GetComponent<Card3D>();
                 card3D.SetValue("Mana", monsterCard.ManaValue);
                 card3D.SetValue("Attack", monsterCard.AttackValue);
                 card3D.SetValue("Life", monsterCard.LifeValue);
 
-                if(p == 1)
+                if (p == 1)
                 {
-                    gameObject.GetPhotonView().TransferOwnership(nonMasterPlayer);
+                    go.GetPhotonView().TransferOwnership(nonMasterPlayer);
                 }
 
                 position.y += distance;
             }
         }
+    }
 
-        game.StartGame(initialHandSize: 3, initialPlayerLife: 5);
-
-        UpdateCards();
-        UpdateUI();
+    private void InitSlots()
+    {
+        float paddingX = 0.25f;
+        for (int p = 0; p < 2; ++p)
+        {
+            IPlayer player = game.Players[p];
+            int nSlots = player.Board.MaxSize;
+            float startX = -(0.5f * nSlots - 0.5f) * (CardDim.x + 2 * paddingX);
+            Vector3 position = new Vector3((1-2*p) * startX, 0, -1 + 2*p);
+            for (int i=0; i<nSlots; ++i)
+            {
+                GameObject go = PhotonNetwork.Instantiate(
+                    "Slot",
+                    position,
+                    Quaternion.identity
+                );
+                go.GetPhotonView().RPC("Init", RpcTarget.All, p, i);
+                position.x += (1 - 2 * p) * (CardDim.x + 2 * paddingX);
+            }
+        }
     }
 
     private void UpdateCards()
@@ -95,7 +123,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             Quaternion handRotation = Quaternion.Euler(45f, 180f * p, 0f);
             for (int i = 0; i < handSize; ++i)
             {
-                MonsterCardWithGameObject monsterCard = ((MonsterCardWithGameObject)player.Hand[i]);
+                MonsterCardWithGameObject monsterCard = (MonsterCardWithGameObject)player.Hand[i];
                 GameObject go = monsterCard.gameObject;
                 go.GetComponent<Card3D>().photonView.RPC("SetTarget", networkPlayer, handAncor + i * distance, handRotation);
                 go.GetComponent<DragDropTransform>().photonView.RPC("SetDraggable", networkPlayer, monsterCard.IsPlayable(game));
@@ -121,25 +149,6 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         controlPanel.SetActive(active);
     }
 
-    private IGame RandomGame()
-    {
-        var random = new System.Random();
-        IPlayer[] players = new csbcgf.Player[2];
-        for (int i=0; i<2; ++i)
-        {
-            IDeck deck = new Deck();
-            for(int j=0; j<30; ++j)
-            {
-                int mana = random.Next(10) + 1;
-                int life = random.Next(mana) + 1;
-                int attack = mana - life;
-                deck.Push(new MonsterCardWithGameObject(mana, attack, life));
-            }
-            players[i] = new csbcgf.Player(deck);
-        }
-        return new Game(players);
-    }
-
     public void OnEndTurnClicked()
     {
         photonView.RPC("EndTurn", RpcTarget.MasterClient);
@@ -151,5 +160,24 @@ public class PlayMaker : MonoBehaviourPunCallbacks
         game.NextTurn();
         UpdateCards();
         UpdateUI();
+    }
+
+    private IGame RandomGame()
+    {
+        var random = new System.Random();
+        IPlayer[] players = new csbcgf.Player[2];
+        for (int i = 0; i < 2; ++i)
+        {
+            IDeck deck = new Deck();
+            for (int j = 0; j < 30; ++j)
+            {
+                int mana = random.Next(10) + 1;
+                int life = random.Next(mana) + 1;
+                int attack = Math.Max(1, mana - life);
+                deck.Push(new MonsterCardWithGameObject(mana, attack, life));
+            }
+            players[i] = new csbcgf.Player(deck);
+        }
+        return new Game(players);
     }
 }

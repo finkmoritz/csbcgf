@@ -601,6 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDraggable: 0
+  isHoverable: 0
 --- !u!65 &574001330751639021
 BoxCollider:
   m_ObjectHideFlags: 0
