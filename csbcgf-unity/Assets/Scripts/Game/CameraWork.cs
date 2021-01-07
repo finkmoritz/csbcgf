@@ -9,12 +9,14 @@ public class CameraWork : MonoBehaviourPun
     void Start()
     {
         float cameraPositionZ = -5f;
+        float cameraRotationY = 0f;
         if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             cameraPositionZ = 5f;
+            cameraRotationY = 180f;
         }
-        Camera.main.transform.position = new Vector3(0f, 5f, cameraPositionZ);
-        Camera.main.transform.LookAt(new Vector3());
+        Camera.main.transform.position = new Vector3(0f, 7f, cameraPositionZ);
+        Camera.main.transform.rotation = Quaternion.Euler(60.0f, cameraRotationY, 0f);
     }
 
     // Update is called once per frame

@@ -18,7 +18,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //InitGame(); //TODO: Remove, only used for testing
+        InitGame(); //TODO: Remove, only used for testing
     }
 
     // Update is called once per frame
@@ -121,7 +121,7 @@ public class PlayMaker : MonoBehaviourPunCallbacks
             IPlayer player = game.Players[p];
             int handSize = player.Hand.Size;
             float handAncorX = (1 - 2 * p) * handContraction * (-(0.5f * handSize) + 0.5f) * CardDim.x;
-            Vector3 handAncor = new Vector3(handAncorX, 0.75f, -3.25f + 6.5f * p);
+            Vector3 handAncor = new Vector3(handAncorX, 0.75f, -4.25f + 8.5f * p);
             Vector3 distance = new Vector3((1 - 2 * p) * handContraction * CardDim.x, 0f, CardDim.z);
             Quaternion handRotation = Quaternion.Euler(45f, 180f * p, 0f);
             for (int i = 0; i < handSize; ++i)
