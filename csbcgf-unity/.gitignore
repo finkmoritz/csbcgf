@@ -22,7 +22,6 @@ sysinfo.txt
 /*.pidb
 *.pidb.meta
 /*.suo
-/*.sln*
 /*.user
 /*.unityproj
 /*.booproj
