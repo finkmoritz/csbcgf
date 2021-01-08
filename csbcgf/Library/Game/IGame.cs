@@ -17,9 +17,9 @@ namespace csbcgf
         List<IPlayer> NonActivePlayers { get; }
 
         /// <summary>
-        /// Array of Players involved in the Game.
+        /// List of Players involved in the Game.
         /// </summary>
-        IPlayer[] Players { get; }
+        List<IPlayer> Players { get; }
 
         /// <summary>
         /// Get all Cards involved in the Game.

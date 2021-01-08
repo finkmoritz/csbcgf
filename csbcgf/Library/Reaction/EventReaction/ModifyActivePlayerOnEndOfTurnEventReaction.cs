@@ -17,7 +17,7 @@ namespace csbcgf
             if (action is EndOfTurnEvent)
             {
                 int playerIndex = game.Players.ToList().IndexOf(game.ActivePlayer);
-                playerIndex = (playerIndex + 1) % game.Players.Length;
+                playerIndex = (playerIndex + 1) % game.Players.Count;
                 reactions.Add(new ModifyActivePlayerAction(game.Players[playerIndex]));
             }
             return reactions;

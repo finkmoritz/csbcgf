@@ -18,7 +18,7 @@ namespace csbcgf
         [JsonProperty]
         protected ActionQueue actionQueue;
 
-        public IPlayer[] Players { get; protected set; }
+        public List<IPlayer> Players { get; protected set; }
 
         public List<IReaction> Reactions { get; }
 
@@ -27,8 +27,8 @@ namespace csbcgf
         /// this Game state.
         /// </summary>
         /// <param name="players"></param>
-        public Game(IPlayer[] players)
-            : this(players, new Random().Next(players.Length), new ActionQueue(false), new List<IReaction>())
+        public Game(List<IPlayer> players)
+            : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())
         {
             AddReaction(new ModifyActivePlayerOnEndOfTurnEventReaction());
             AddReaction(new ModifyManaOnStartOfTurnEventReaction());
@@ -36,7 +36,7 @@ namespace csbcgf
         }
 
         [JsonConstructor]
-        public Game(IPlayer[] players, int activePlayerIndex, ActionQueue actionQueue, List<IReaction> reactions)
+        public Game(List<IPlayer> players, int activePlayerIndex, ActionQueue actionQueue, List<IReaction> reactions)
         {
             Players = players;
             this.activePlayerIndex = activePlayerIndex;
@@ -50,13 +50,7 @@ namespace csbcgf
             get => Players[activePlayerIndex];
             set
             {
-                for (int i = 0; i < Players.Length; ++i)
-                {
-                    if (Players[i] == value)
-                    {
-                        activePlayerIndex = i;
-                    }
-                }
+                activePlayerIndex = Players.IndexOf(value);
             }
         }
 

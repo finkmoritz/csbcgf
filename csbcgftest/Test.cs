@@ -1,4 +1,5 @@
-﻿using csbcgf;
+﻿using System.Collections.Generic;
+using csbcgf;
 using NUnit.Framework;
 
 namespace csbcgftest
@@ -11,8 +12,8 @@ namespace csbcgftest
         [SetUp()]
         public void SetUp()
         {
-            IPlayer[] players = new Player[2];
-            for (int i=0; i<players.Length; ++i)
+            List<IPlayer> players = new List<IPlayer>();
+            for (int i=0; i<2; ++i)
             {
                 IDeck deck = new Deck();
 
@@ -28,7 +29,7 @@ namespace csbcgftest
                     deck.Push(goblin);
                 }
 
-                players[i] = new Player(deck);
+                players.Add(new Player(deck));
             }
 
             game = new Game(players);
