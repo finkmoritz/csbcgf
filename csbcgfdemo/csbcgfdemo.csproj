@@ -33,7 +33,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Cards\MonsterCards\Wisp.cs" />
-    <Compile Include="src\Util\GameConverter.cs" />
+    <Compile Include="src\Util\ConsoleUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />

@@ -4,7 +4,7 @@ using csbcgf;
 
 namespace csbcgfdemo
 {
-    public static class GameConverter
+    public static class ConsoleUtil
     {
         private const ConsoleColor BackgroundColorDefault = ConsoleColor.Black;
         private const ConsoleColor ColorDefault = ConsoleColor.White;

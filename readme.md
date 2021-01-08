@@ -18,7 +18,7 @@ It already provides a basic event-driven game loop and classes to derive from.
 # Getting Started
 
 Check out how easy it is to setup your own battle card game using **CSBCGF** by
-playing the [demo console application](https://github.com/finkmoritz/csbcgf/csbcgfdemo).
+playing the [demo console application](https://github.com/finkmoritz/csbcgf/tree/main/csbcgfdemo).
 
 ---
 

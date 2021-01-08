@@ -23,7 +23,7 @@ namespace csbcgfdemo
             {
                 Console.Clear();
                 Console.WriteLine(info + "\n");
-                GameConverter.PrintGame(game);
+                ConsoleUtil.PrintGame(game);
                 Console.WriteLine(GetOptions());
                 input = Console.ReadLine();
                 info = ProcessInput(game, input);
