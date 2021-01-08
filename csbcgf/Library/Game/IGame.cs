@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public interface IGame
+    public interface IGame : IReactive
     {
         /// <summary>
         /// Convenience method to retrieve the active Player.

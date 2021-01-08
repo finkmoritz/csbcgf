@@ -20,22 +20,28 @@ namespace csbcgf
 
         public IPlayer[] Players { get; protected set; }
 
+        public List<IReaction> Reactions { get; }
+
         /// <summary>
         /// Represent the current Game state and provides methods to alter
         /// this Game state.
         /// </summary>
         /// <param name="players"></param>
         public Game(IPlayer[] players)
-            : this(players, new Random().Next(players.Length), new ActionQueue(false))
+            : this(players, new Random().Next(players.Length), new ActionQueue(false), new List<IReaction>())
         {
+            AddReaction(new ModifyActivePlayerOnEndOfTurnEventReaction());
+            AddReaction(new ModifyManaOnStartOfTurnEventReaction());
+            AddReaction(new DrawCardOnStartOfTurnEventReaction());
         }
 
         [JsonConstructor]
-        public Game(IPlayer[] players, int activePlayerIndex, ActionQueue actionQueue)
+        public Game(IPlayer[] players, int activePlayerIndex, ActionQueue actionQueue, List<IReaction> reactions)
         {
             Players = players;
             this.activePlayerIndex = activePlayerIndex;
             this.actionQueue = actionQueue;
+            Reactions = reactions;
         }
 
         [JsonIgnore]
@@ -112,18 +118,12 @@ namespace csbcgf
             actionQueue.ExecuteReactions = true;
 
             Execute(new StartOfGameEvent());
-            NextTurn();
+            Execute(new StartOfTurnEvent());
         }
 
         public void NextTurn()
         {
-            Execute(new ModifyActivePlayerAction(Players[(activePlayerIndex+1) % Players.Length]));
-
-            int manaDelta = ActivePlayer.ManaBaseValue + 1 - ActivePlayer.ManaValue;
-            Execute(new ModifyManaStatAction(ActivePlayer, manaDelta, 1));
-
-            ActivePlayer.DrawCard(this);
-
+            Execute(new EndOfTurnEvent());
             Execute(new StartOfTurnEvent());
         }
 
@@ -137,6 +137,23 @@ namespace csbcgf
         {
             actionQueue.Enqueue(actions);
             actionQueue.Process(this);
+        }
+
+        public void AddReaction(IReaction reaction)
+        {
+            Reactions.Add(reaction);
+        }
+
+        public void RemoveReaction(IReaction reaction)
+        {
+            Reactions.Remove(reaction);
+        }
+
+        public List<IAction> ReactTo(IGame game, IAction action)
+        {
+            List<IAction> reactions = new List<IAction>();
+            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(game, action)));
+            return reactions;
         }
     }
 }

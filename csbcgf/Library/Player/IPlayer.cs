@@ -3,7 +3,7 @@
 
 namespace csbcgf
 {
-    public interface IPlayer : IManaful, ICharacter
+    public interface IPlayer : IManaful, ICharacter, IReactive
     {
         /// <summary>
         /// The Player's Deck of Cards.

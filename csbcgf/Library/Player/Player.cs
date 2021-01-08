@@ -21,19 +21,23 @@ namespace csbcgf
         public IBoard Board { get; protected set; }
         public IDeck Graveyard { get; protected set; }
 
+        public List<IReaction> Reactions { get; }
+
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
         public Player(IDeck deck)
             : this(deck, new Hand(), new Board(), new Deck(),
-                  new ManaPoolStat(0, 0), new AttackStat(0), new LifeStat(0))
+                  new ManaPoolStat(0, 0), new AttackStat(0), new LifeStat(0),
+                  new List<IReaction>())
         {
         }
 
         [JsonConstructor]
         protected Player(IDeck deck, IHand hand, IBoard board, IDeck graveyard,
-            ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat)
+            ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat,
+            List<IReaction> reactions)
         {
             this.manaPoolStat = manaPoolStat;
             this.attackStat = attackStat;
@@ -48,6 +52,8 @@ namespace csbcgf
             Hand.AllCards.ForEach(c => c.Owner = this);
             Board.AllCards.ForEach(c => c.Owner = this);
             Graveyard.AllCards.ForEach(c => c.Owner = this);
+
+            Reactions = reactions;
         }
 
         [JsonIgnore]
@@ -125,14 +131,7 @@ namespace csbcgf
 
         public void DrawCard(IGame game)
         {
-            RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Deck);
-            game.Execute(new List<IAction>
-            {
-                new StartDrawCardEvent(),
-                removeAction,
-                new AddCardToHandAction(Hand, () => removeAction.Card),
-                new EndDrawCardEvent(() => removeAction.Card)
-            });
+            game.Execute(new DrawCardAction(this));
         }
 
         public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
@@ -198,6 +197,23 @@ namespace csbcgf
         public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             return new HashSet<ICharacter>();
+        }
+
+        public void AddReaction(IReaction reaction)
+        {
+            Reactions.Add(reaction);
+        }
+
+        public void RemoveReaction(IReaction reaction)
+        {
+            Reactions.Remove(reaction);
+        }
+
+        public List<IAction> ReactTo(IGame game, IAction action)
+        {
+            List<IAction> reactions = new List<IAction>();
+            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(game, action)));
+            return reactions;
         }
     }
 }

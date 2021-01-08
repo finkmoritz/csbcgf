@@ -150,6 +150,11 @@
     <Compile Include="Library\Action\Implementations\Game\ModifyActivePlayerAction.cs" />
     <Compile Include="Library\Util\Serialization\StackConverter.cs" />
     <Compile Include="Library\Util\Serialization\CsbcgfJsonConvert.cs" />
+    <Compile Include="Library\Event\Implementations\TurnEvent\EndOfTurnEvent.cs" />
+    <Compile Include="Library\Reaction\EventReaction\ModifyActivePlayerOnEndOfTurnEventReaction.cs" />
+    <Compile Include="Library\Reaction\EventReaction\ModifyManaOnStartOfTurnEventReaction.cs" />
+    <Compile Include="Library\Action\Implementations\Player\DrawCardAction.cs" />
+    <Compile Include="Library\Reaction\EventReaction\DrawCardOnStartOfTurnEventReaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -200,6 +205,7 @@
     <Folder Include="Library\Action\Implementations\Game\" />
     <Folder Include="Library\Util\" />
     <Folder Include="Library\Util\Serialization\" />
+    <Folder Include="Library\Action\Implementations\Player\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

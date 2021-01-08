@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace csbcgf
@@ -27,7 +28,7 @@ namespace csbcgf
         [JsonConstructor]
         protected ActionQueue(bool executeReactions, bool isProcessing, bool isGameOver)
         {
-            this.ExecuteReactions = executeReactions;
+            ExecuteReactions = executeReactions;
             this.isProcessing = isProcessing;
             this.isGameOver = isGameOver;
         }
@@ -65,6 +66,8 @@ namespace csbcgf
                             if (ExecuteReactions)
                             {
                                 game.AllCards.ForEach(c => Enqueue(c.ReactTo(game, action)));
+                                game.Players.ToList().ForEach(p => Enqueue(p.ReactTo(game, action)));
+                                Enqueue(game.ReactTo(game, action));
                             }
                             action.Execute(game);
                         }
