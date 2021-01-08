@@ -36,10 +36,14 @@ namespace csbcgfdemo
             for (int i=0; i<2; ++i)
             {
                 IDeck deck = new Deck();
-                for (int n=0; n<20; ++n)
+                for (int n=0; n<5; ++n)
                 {
                     deck.Push(new Wisp());
+                    deck.Push(new ArgentSquire());
+                    deck.Push(new Bananas());
+                    deck.Push(new ManaWyrm());
                 }
+                deck.Shuffle();
                 players.Add(new Player(deck));
             }
             return new Game(players);
@@ -109,13 +113,13 @@ namespace csbcgfdemo
                 case 0:
                     return game.NonActivePlayers[0];
                 case 1:
-                    return (ICharacter)game.NonActivePlayers[0].Hand[int.Parse(id.Substring(1, 1))];
+                    return game.NonActivePlayers[0].Hand[int.Parse(id.Substring(1, 1))];
                 case 2:
-                    return (ICharacter)game.NonActivePlayers[0].Board[int.Parse(id.Substring(1, 1))];
+                    return game.NonActivePlayers[0].Board[int.Parse(id.Substring(1, 1))];
                 case 3:
-                    return (ICharacter)game.ActivePlayer.Board[int.Parse(id.Substring(1, 1))];
+                    return game.ActivePlayer.Board[int.Parse(id.Substring(1, 1))];
                 case 4:
-                    return (ICharacter)game.ActivePlayer.Hand[int.Parse(id.Substring(1, 1))];
+                    return game.ActivePlayer.Hand[int.Parse(id.Substring(1, 1))];
                 case 5:
                     return game.ActivePlayer;
                 default:

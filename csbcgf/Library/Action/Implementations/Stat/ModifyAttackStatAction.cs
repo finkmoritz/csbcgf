@@ -7,21 +7,21 @@ namespace csbcgf
     public class ModifyAttackStatAction : IAction
     {
         [JsonProperty]
-        protected readonly AttackStat attackStat;
+        public ICharacter Character;
 
         [JsonProperty]
-        protected readonly int delta;
+        public int Delta;
 
         [JsonConstructor]
-        public ModifyAttackStatAction(AttackStat attackStat, int delta)
+        public ModifyAttackStatAction(ICharacter character, int delta)
         {
-            this.attackStat = attackStat;
-            this.delta = delta;
+            Character = character;
+            Delta = delta;
         }
 
         public void Execute(IGame game)
         {
-            attackStat.Value += delta;
+            Character.AttackValue += Delta;
         }
 
         public bool IsExecutable(IGame gameState)

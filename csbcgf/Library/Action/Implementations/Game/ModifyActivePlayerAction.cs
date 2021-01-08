@@ -7,7 +7,7 @@ namespace csbcgf
     public class ModifyActivePlayerAction : IAction
     {
         [JsonProperty]
-        public readonly IPlayer NewActivePlayer;
+        public IPlayer NewActivePlayer;
 
         [JsonConstructor]
         public ModifyActivePlayerAction(IPlayer newActivePlayer)

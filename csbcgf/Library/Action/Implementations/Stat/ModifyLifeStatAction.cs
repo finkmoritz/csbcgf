@@ -8,35 +8,35 @@ namespace csbcgf
     public class ModifyLifeStatAction : IAction
     {
         [JsonProperty]
-        protected readonly ICharacter character;
+        public ICharacter Character;
 
         [JsonProperty]
-        protected readonly int delta;
+        public int Delta;
 
         [JsonConstructor]
         public ModifyLifeStatAction(ICharacter character, int delta)
         {
-            this.character = character;
-            this.delta = delta;
+            Character = character;
+            Delta = delta;
         }
 
         public void Execute(IGame game)
         {
-            character.LifeValue += delta;
-            if(!(character is ICardComponent) && character.LifeValue < 0)
+            Character.LifeValue += Delta;
+            if(!(Character is ICardComponent) && Character.LifeValue < 0)
             {
-                character.LifeValue = 0;
+                Character.LifeValue = 0;
             }
-            if(character.LifeValue <= 0)
+            if(Character.LifeValue <= 0)
             {
-                if (character is IMonsterCard monsterCard)
+                if (Character is IMonsterCard monsterCard)
                 {
                     game.Execute(new List<IAction>
                     {
                         new RemoveCardFromBoardAction(monsterCard.Owner.Board, monsterCard),
                         new AddCardToGraveyardAction(monsterCard.Owner.Graveyard, monsterCard)
                     });
-                } else if (character is IPlayer player)
+                } else if (Character is IPlayer player)
                 {
                     game.Execute(new EndOfGameEvent());
                 }
@@ -46,8 +46,8 @@ namespace csbcgf
 
         public bool IsExecutable(IGame gameState)
         {
-            return !(character is ICardComponent)
-                && character.LifeValue > 0;
+            return !(Character is ICardComponent)
+                && Character.LifeValue > 0;
         }
     }
 }

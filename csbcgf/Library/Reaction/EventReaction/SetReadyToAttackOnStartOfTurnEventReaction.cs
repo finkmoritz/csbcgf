@@ -19,11 +19,11 @@ namespace csbcgf
         public List<IAction> ReactTo(IGame gameState, IAction action)
         {
             List<IAction> reactions = new List<IAction>();
-            if(action is StartOfTurnEvent
-                && monsterCard.Owner == gameState.ActivePlayer
-                && gameState.ActivePlayer.Board.Contains(monsterCard))
+            if(action is StartOfTurnEvent)
             {
-                reactions.Add(new ModifyReadyToAttackAction(monsterCard, true));
+                bool isReadyToAttack = monsterCard.Owner == gameState.ActivePlayer
+                    && gameState.ActivePlayer.Board.Contains(monsterCard);
+                reactions.Add(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
             }
             return reactions;
         }

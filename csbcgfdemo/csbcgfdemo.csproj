@@ -34,12 +34,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Cards\MonsterCards\Wisp.cs" />
     <Compile Include="src\Util\ConsoleUtil.cs" />
+    <Compile Include="src\Reactions\DivineShield.cs" />
+    <Compile Include="src\Cards\MonsterCards\ArgentSquire.cs" />
+    <Compile Include="src\Cards\SpellCards\Bananas.cs" />
+    <Compile Include="src\Cards\MonsterCards\ManaWyrm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\Cards\" />
     <Folder Include="src\Cards\MonsterCards\" />
     <Folder Include="src\Util\" />
+    <Folder Include="src\Reactions\" />
+    <Folder Include="src\Cards\SpellCards\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\csbcgf\csbcgf.csproj">
