@@ -39,14 +39,14 @@ namespace csbcgftest
         public void TestInitialConditions()
         {
             Assert.AreEqual(1, game.ActivePlayer.ManaValue);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(0, game.NonActivePlayers[0].ManaValue);
             Assert.AreEqual(1, game.ActivePlayer.ManaBaseValue);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaBaseValue);
+            Assert.AreEqual(0, game.NonActivePlayers[0].ManaBaseValue);
 
             Assert.AreEqual(3, game.ActivePlayer.Deck.Size);
-            Assert.AreEqual(4, game.NonActivePlayer.Deck.Size);
+            Assert.AreEqual(4, game.NonActivePlayers[0].Deck.Size);
             Assert.AreEqual(2, game.ActivePlayer.Hand.Size);
-            Assert.AreEqual(1, game.NonActivePlayer.Hand.Size);
+            Assert.AreEqual(1, game.NonActivePlayers[0].Hand.Size);
 
             IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             Assert.AreEqual(2, goblin.ManaValue);
@@ -65,26 +65,26 @@ namespace csbcgftest
             game.NextTurn(); //Second player's turn
 
             Assert.AreEqual(1, game.ActivePlayer.ManaValue);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(1, game.NonActivePlayers[0].ManaValue);
             Assert.AreEqual(1, game.ActivePlayer.ManaBaseValue);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaBaseValue);
+            Assert.AreEqual(1, game.NonActivePlayers[0].ManaBaseValue);
 
             Assert.AreEqual(3, game.ActivePlayer.Deck.Size);
-            Assert.AreEqual(3, game.NonActivePlayer.Deck.Size);
+            Assert.AreEqual(3, game.NonActivePlayers[0].Deck.Size);
             Assert.AreEqual(2, game.ActivePlayer.Hand.Size);
-            Assert.AreEqual(2, game.NonActivePlayer.Hand.Size);
+            Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Size);
 
             game.NextTurn(); //First player's turn again
 
             Assert.AreEqual(2, game.ActivePlayer.ManaValue);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(1, game.NonActivePlayers[0].ManaValue);
             Assert.AreEqual(2, game.ActivePlayer.ManaBaseValue);
-            Assert.AreEqual(1, game.NonActivePlayer.ManaBaseValue);
+            Assert.AreEqual(1, game.NonActivePlayers[0].ManaBaseValue);
 
             Assert.AreEqual(2, game.ActivePlayer.Deck.Size);
-            Assert.AreEqual(3, game.NonActivePlayer.Deck.Size);
+            Assert.AreEqual(3, game.NonActivePlayers[0].Deck.Size);
             Assert.AreEqual(3, game.ActivePlayer.Hand.Size);
-            Assert.AreEqual(2, game.NonActivePlayer.Hand.Size);
+            Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Size);
 
             goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             Assert.True(goblin.IsPlayable(game));
@@ -101,9 +101,9 @@ namespace csbcgftest
             game.NextTurn(); //Second player's turn again
 
             Assert.AreEqual(2, game.ActivePlayer.ManaValue);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(0, game.NonActivePlayers[0].ManaValue);
             Assert.AreEqual(2, game.ActivePlayer.ManaBaseValue);
-            Assert.AreEqual(2, game.NonActivePlayer.ManaBaseValue);
+            Assert.AreEqual(2, game.NonActivePlayers[0].ManaBaseValue);
 
             IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             game.ActivePlayer.PlayMonster(game, otherGoblin, 0);
@@ -113,16 +113,16 @@ namespace csbcgftest
             game.NextTurn(); //First player's turn again
 
             Assert.AreEqual(3, game.ActivePlayer.ManaValue);
-            Assert.AreEqual(0, game.NonActivePlayer.ManaValue);
+            Assert.AreEqual(0, game.NonActivePlayers[0].ManaValue);
             Assert.AreEqual(3, game.ActivePlayer.ManaBaseValue);
-            Assert.AreEqual(2, game.NonActivePlayer.ManaBaseValue);
+            Assert.AreEqual(2, game.NonActivePlayers[0].ManaBaseValue);
 
             //Attack player
             Assert.True(goblin.IsReadyToAttack);
-            Assert.AreEqual(2, game.NonActivePlayer.LifeValue);
-            goblin.Attack(game, game.NonActivePlayer);
-            Assert.AreEqual(1, game.NonActivePlayer.LifeValue);
-            Assert.True(game.NonActivePlayer.IsAlive);
+            Assert.AreEqual(2, game.NonActivePlayers[0].LifeValue);
+            goblin.Attack(game, game.NonActivePlayers[0]);
+            Assert.AreEqual(1, game.NonActivePlayers[0].LifeValue);
+            Assert.True(game.NonActivePlayers[0].IsAlive);
             Assert.False(goblin.IsReadyToAttack);
 
             game.NextTurn(); //Second player's turn again
@@ -136,24 +136,24 @@ namespace csbcgftest
 
             //Both monster cards die in battle
             Assert.True(game.ActivePlayer.Graveyard.IsEmpty);
-            Assert.True(game.NonActivePlayer.Graveyard.IsEmpty);
+            Assert.True(game.NonActivePlayers[0].Graveyard.IsEmpty);
             Assert.False(game.ActivePlayer.Board.IsEmpty);
-            Assert.False(game.NonActivePlayer.Board.IsEmpty);
+            Assert.False(game.NonActivePlayers[0].Board.IsEmpty);
             goblin.Attack(game, otherGoblin);
             Assert.AreEqual(1, game.ActivePlayer.Graveyard.Size);
-            Assert.AreEqual(1, game.NonActivePlayer.Graveyard.Size);
+            Assert.AreEqual(1, game.NonActivePlayers[0].Graveyard.Size);
             Assert.True(game.ActivePlayer.Board.IsEmpty);
-            Assert.True(game.NonActivePlayer.Board.IsEmpty);
+            Assert.True(game.NonActivePlayers[0].Board.IsEmpty);
 
             //Destroy second player
-            Assert.AreEqual(1, game.NonActivePlayer.LifeValue);
-            Assert.True(game.NonActivePlayer.IsAlive);
+            Assert.AreEqual(1, game.NonActivePlayers[0].LifeValue);
+            Assert.True(game.NonActivePlayers[0].IsAlive);
 
             ITargetfulSpellCard fireball = (ITargetfulSpellCard)game.ActivePlayer.Hand[2];
-            game.ActivePlayer.PlaySpell(game, fireball, game.NonActivePlayer);
+            game.ActivePlayer.PlaySpell(game, fireball, game.NonActivePlayers[0]);
 
-            Assert.AreEqual(0, game.NonActivePlayer.LifeValue);
-            Assert.False(game.NonActivePlayer.IsAlive);
+            Assert.AreEqual(0, game.NonActivePlayers[0].LifeValue);
+            Assert.False(game.NonActivePlayers[0].IsAlive);
         }
 
         [Test()]

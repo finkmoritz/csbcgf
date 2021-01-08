@@ -27,8 +27,7 @@ namespace csbcgf
         public bool IsExecutable(IGame game)
         {
             return monsterCard.IsReadyToAttack != isReadyToAttack
-                && (game.ActivePlayer.Board.Contains(monsterCard)
-                || game.NonActivePlayer.Board.Contains(monsterCard));
+                && game.AllCardsOnTheBoard.Contains(monsterCard);
         }
     }
 }

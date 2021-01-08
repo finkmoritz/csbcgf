@@ -12,11 +12,9 @@ namespace csbcgf
         IPlayer ActivePlayer { get; set; }
 
         /// <summary>
-        /// Convenience method to retrieve the non-active Player.
-        /// Equivalent to using
-        /// <code>Players[1 - ActivePlayerIndex]</code>
+        /// Convenience method to retrieve the non-active Players.
         /// </summary>
-        IPlayer NonActivePlayer { get; }
+        List<IPlayer> NonActivePlayers { get; }
 
         /// <summary>
         /// Array of Players involved in the Game.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace csbcgf
@@ -32,11 +33,6 @@ namespace csbcgf
         [JsonConstructor]
         public Game(IPlayer[] players, int activePlayerIndex, ActionQueue actionQueue)
         {
-            if (players.Length != 2)
-            {
-                throw new CsbcgfException("Parameter 'players' must feature exactly two Player entries!");
-            }
-
             Players = players;
             this.activePlayerIndex = activePlayerIndex;
             this.actionQueue = actionQueue;
@@ -59,7 +55,13 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IPlayer NonActivePlayer => Players[1 - activePlayerIndex];
+        public List<IPlayer> NonActivePlayers
+        {
+            get
+            {
+                return Players.Where(p => p != ActivePlayer).ToList();
+            }
+        }
 
         [JsonIgnore]
         public List<ICard> AllCards
@@ -115,7 +117,7 @@ namespace csbcgf
 
         public void NextTurn()
         {
-            Execute(new ModifyActivePlayerAction(NonActivePlayer));
+            Execute(new ModifyActivePlayerAction(Players[(activePlayerIndex+1) % Players.Length]));
 
             int manaDelta = ActivePlayer.ManaBaseValue + 1 - ActivePlayer.ManaValue;
             Execute(new ModifyManaStatAction(ActivePlayer, manaDelta, 1));

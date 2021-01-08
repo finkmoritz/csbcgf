@@ -56,7 +56,12 @@ namespace csbcgf
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
-            return new HashSet<ICharacter>(game.NonActivePlayer.Characters);
+            HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
+            foreach (IPlayer player in game.NonActivePlayers)
+            {
+                player.Characters.ForEach(c => potentialTargets.Add(c));
+            }
+            return potentialTargets;
         }
     }
 }
