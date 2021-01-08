@@ -28,7 +28,7 @@ namespace csbcgf
             board.AddAt(boardIndex, card);
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGame gameState)
         {
             return card != null
                 && board.IsFreeSlot(boardIndex);

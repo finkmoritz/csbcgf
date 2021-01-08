@@ -24,7 +24,7 @@ namespace csbcgf
             attackStat.Value += delta;
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGame gameState)
         {
             return true;
         }

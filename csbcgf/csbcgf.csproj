@@ -155,6 +155,7 @@
     <Compile Include="Library\Reaction\EventReaction\ModifyManaOnStartOfTurnEventReaction.cs" />
     <Compile Include="Library\Action\Implementations\Player\DrawCardAction.cs" />
     <Compile Include="Library\Reaction\EventReaction\DrawCardOnStartOfTurnEventReaction.cs" />
+    <Compile Include="Library\Game\IGameState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />

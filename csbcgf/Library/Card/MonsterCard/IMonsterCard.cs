@@ -12,8 +12,8 @@
         /// <summary>
         /// Attack the given target Character.
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="gameState"></param>
         /// <param name="target"></param>
-        void Attack(IGame game, ICharacter target);
+        void Attack(IGame gameState, ICharacter target);
     }
 }

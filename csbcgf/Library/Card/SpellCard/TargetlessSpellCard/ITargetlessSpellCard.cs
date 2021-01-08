@@ -7,8 +7,8 @@ namespace csbcgf
         /// <summary>
         /// Retrieve all Actions to be performed when this spell card is played.
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="gameState"></param>
         /// <returns>All Actions to be performed when this spell card is played.</returns>
-        List<IAction> GetActions(IGame game);
+        List<IAction> GetActions(IGame gameState);
     }
 }

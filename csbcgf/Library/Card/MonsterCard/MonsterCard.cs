@@ -84,20 +84,20 @@ namespace csbcgf
             set => lifeOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
         }
 
-        public void Attack(IGame game, ICharacter target)
+        public void Attack(IGame gameState, ICharacter target)
         {
             if(!IsReadyToAttack)
             {
                 throw new CsbcgfException("Failed to attack with a MonsterCard " +
                     "that is not ready to attack!");
             }
-            if(!GetPotentialTargets(game).Contains(target))
+            if(!GetPotentialTargets(gameState).Contains(target))
             {
                 throw new CsbcgfException("Cannot attack a target character " +
                     "that is not specified in the list of potential targets!");
             }
 
-            game.Execute(new List<IAction>
+            gameState.Execute(new List<IAction>
             {
                 new StartAttackEvent(this, target),
                 new ModifyLifeStatAction(target, -AttackValue),
@@ -107,7 +107,7 @@ namespace csbcgf
             });
         }
 
-        public virtual HashSet<ICharacter> GetPotentialTargets(IGame game)
+        public virtual HashSet<ICharacter> GetPotentialTargets(IGame gameState)
         {
             if (Components.Count == 0)
             {
@@ -115,18 +115,18 @@ namespace csbcgf
             }
 
             //Compute the intersection of all potential targets
-            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(game);
+            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(gameState);
             foreach (ICardComponent component in Components)
             {
-                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(game));
+                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(gameState));
             }
             return potentialTargets;
         }
 
-        public override bool IsPlayable(IGame game)
+        public override bool IsPlayable(IGame gameState)
         {
-            IBoard board = game.ActivePlayer.Board;
-            return base.IsPlayable(game)
+            IBoard board = gameState.ActivePlayer.Board;
+            return base.IsPlayable(gameState)
                     && board.AllCards.Count < board.MaxSize;
         }
     }

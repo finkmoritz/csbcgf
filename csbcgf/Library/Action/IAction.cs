@@ -4,11 +4,10 @@
     {
         /// <summary>
         /// Check if this Action can be executed on the given Game state.
-        /// The Game state should not be changed here!
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="gameState"></param>
         /// <returns>True if this Action can be executed on the given Game state.</returns>
-        bool IsExecutable(IGame game);
+        bool IsExecutable(IGame gameState);
 
         /// <summary>
         /// Execute this Action in order to change the Game's state.

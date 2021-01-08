@@ -44,7 +44,7 @@ namespace csbcgf
             
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGame gameState)
         {
             return !(character is ICardComponent)
                 && character.LifeValue > 0;

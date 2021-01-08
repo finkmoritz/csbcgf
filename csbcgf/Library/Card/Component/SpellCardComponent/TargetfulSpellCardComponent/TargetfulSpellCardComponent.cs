@@ -10,8 +10,8 @@ namespace csbcgf
         {
         }
 
-        public abstract List<IAction> GetActions(IGame game, ICharacter target);
+        public abstract List<IAction> GetActions(IGame gameState, ICharacter target);
 
-        public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);
+        public abstract HashSet<ICharacter> GetPotentialTargets(IGame gameState);
     }
 }

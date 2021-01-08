@@ -8,9 +8,9 @@ namespace csbcgf
         /// Get all Actions to be performed by this component when the
         /// associated SpellCard is played.
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="gameState"></param>
         /// <returns>All Actions to be performed by this component when the
         /// associated SpellCard is played.</returns>
-        List<IAction> GetActions(IGame game);
+        List<IAction> GetActions(IGame gameState);
     }
 }

@@ -42,11 +42,11 @@ namespace csbcgf
             set => manaCostOffsetStat.BaseValue = value - Components.Sum(c => c.ManaBaseValue);
         }
 
-        public virtual bool IsPlayable(IGame game)
+        public virtual bool IsPlayable(IGame gameState)
         {
-            return Owner == game.ActivePlayer
+            return Owner == gameState.ActivePlayer
                 && Owner.Hand.Contains(this)
-                && ManaValue <= game.ActivePlayer.ManaValue;
+                && ManaValue <= gameState.ActivePlayer.ManaValue;
         }
 
         public override void AddComponent(ICardComponent cardComponent)

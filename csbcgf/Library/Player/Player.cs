@@ -194,7 +194,7 @@ namespace csbcgf
             game.Execute(actions);
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGame game)
+        public HashSet<ICharacter> GetPotentialTargets(IGame gameState)
         {
             return new HashSet<ICharacter>();
         }
@@ -209,10 +209,10 @@ namespace csbcgf
             Reactions.Remove(reaction);
         }
 
-        public List<IAction> ReactTo(IGame game, IAction action)
+        public List<IAction> ReactTo(IGame gameState, IAction action)
         {
             List<IAction> reactions = new List<IAction>();
-            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(game, action)));
+            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(gameState, action)));
             return reactions;
         }
     }

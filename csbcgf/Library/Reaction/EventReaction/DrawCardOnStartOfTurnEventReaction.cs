@@ -10,12 +10,12 @@ namespace csbcgf
         {
         }
 
-        public List<IAction> ReactTo(IGame game, IAction action)
+        public List<IAction> ReactTo(IGame gameState, IAction action)
         {
             List<IAction> reactions = new List<IAction>();
             if (action is StartOfTurnEvent)
             {
-                reactions.Add(new DrawCardAction(game.ActivePlayer));
+                reactions.Add(new DrawCardAction(gameState.ActivePlayer));
             }
             return reactions;
         }

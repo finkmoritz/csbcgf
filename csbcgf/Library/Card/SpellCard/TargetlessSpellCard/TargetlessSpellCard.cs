@@ -22,11 +22,11 @@ namespace csbcgf
         {
         }
 
-        public List<IAction> GetActions(IGame game)
+        public List<IAction> GetActions(IGame gameState)
         {
             List<IAction> actions = new List<IAction>();
             Components.ForEach(
-                c => ((ITargetlessSpellCardComponent)c).GetActions(game).ForEach(
+                c => ((ITargetlessSpellCardComponent)c).GetActions(gameState).ForEach(
                     a => actions.Add(a)
                 )
             );
