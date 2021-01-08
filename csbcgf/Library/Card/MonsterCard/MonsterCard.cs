@@ -123,7 +123,7 @@ namespace csbcgf
             return potentialTargets;
         }
 
-        public override bool IsPlayable(IGame gameState)
+        public override bool IsPlayable(IGameState gameState)
         {
             IBoard board = gameState.ActivePlayer.Board;
             return base.IsPlayable(gameState)

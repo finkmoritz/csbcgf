@@ -8,9 +8,17 @@ It already provides a basic event-driven game loop and classes to derive from.
 
 ## Contents
 
+- [Getting Started](#getting-started)
 - [Classes & Interfaces](#classes-and-interfaces)
 - [FAQ](#faq)
 - [Impressum](#impressum)
+
+---
+
+# Getting Started
+
+Check out how easy it is to setup your own battle card game using **CSBCGF** by
+playing the [demo console application](https://github.com/finkmoritz/csbcgf/csbcgfdemo).
 
 ---
 
@@ -21,8 +29,11 @@ It already provides a basic event-driven game loop and classes to derive from.
 The ``Game`` class is the central object within the framework implementing the
 ``IGame`` interface. It contains the whole state of a battle card match and
 provides methods to alter its state:
-- EndTurn: Ends the current turn and starts a new turn, activating the next player.
+- NextTurn: Ends the current turn and starts a new turn, activating the next player.
 - Queue & Process: see section IAction.
+
+There is also a ``IGameState`` interface which represents an ``IGame``, but without
+the ability to alter the game's state.
 
 ## IPlayer interface & Player class
 

@@ -142,6 +142,12 @@ namespace csbcgf
                     "not playable!");
             }
 
+            if (!Board.IsFreeSlot(boardIndex))
+            {
+                throw new CsbcgfException("Slot with index " + boardIndex +
+                    " is already occupied!");
+            }
+
             game.Execute(new List<IAction>
             {
                 new StartPlayMonsterCardEvent(monsterCard, boardIndex),
