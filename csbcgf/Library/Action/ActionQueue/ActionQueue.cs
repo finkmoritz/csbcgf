@@ -10,72 +10,54 @@ namespace csbcgf
     public class ActionQueue : IActionQueue
     {
         [JsonProperty]
-        protected readonly Queue<IAction> actions = new Queue<IAction>();
-
-        [JsonProperty]
-        protected bool isProcessing = false;
-
-        [JsonProperty]
         protected bool isGameOver = false;
 
         public bool ExecuteReactions { get; set; }
 
         public ActionQueue(bool executeReactions = true)
-            : this(executeReactions, false, false)
+            : this(executeReactions, false)
         {
         }
 
         [JsonConstructor]
-        protected ActionQueue(bool executeReactions, bool isProcessing, bool isGameOver)
+        protected ActionQueue(bool executeReactions, bool isGameOver)
         {
             ExecuteReactions = executeReactions;
-            this.isProcessing = isProcessing;
             this.isGameOver = isGameOver;
         }
 
-        public void Enqueue(IAction action)
+        public void Process(IGame game, IAction action)
         {
-            if (!isGameOver)
+            if (!isGameOver && action.IsExecutable(game))
             {
-                actions.Enqueue(action);
+                ProcessReactions(game, new BeforeActionEvent(action));
+                action.Execute(game);
+                ProcessReactions(game, new AfterActionEvent(action));
+            }
 
-                if (action is EndOfGameEvent)
-                {
-                    isGameOver = true;
-                }
+            if (action is EndOfGameEvent)
+            {
+                isGameOver = true;
             }
         }
 
-        public void Enqueue(List<IAction> actionList)
+        private void ProcessReactions(IGame game, IActionEvent actionEvent)
         {
-            actionList.ForEach(a => Enqueue(a));
+            if (ExecuteReactions)
+            {
+                ProcessReactions(game, actionEvent, game.AllCards.ConvertAll(c => (IReactive)c));
+                ProcessReactions(game, actionEvent, game.Players.ConvertAll(p => (IReactive)p));
+                ProcessReactions(game, actionEvent, new List<IReactive> { game });
+            }
         }
 
-        public void Process(IGame game)
+        private void ProcessReactions(IGame game, IActionEvent actionEvent, List<IReactive> reactives)
         {
-            if(!isProcessing && !isGameOver)
+            foreach (IReactive reactive in reactives)
             {
-                try
+                foreach (IAction reaction in reactive.ReactTo(game, actionEvent))
                 {
-                    isProcessing = true;
-                    while (actions.Count > 0)
-                    {
-                        IAction action = actions.Dequeue();
-                        if (action.IsExecutable(game))
-                        {
-                            if (ExecuteReactions)
-                            {
-                                game.AllCards.ForEach(c => Enqueue(c.ReactTo(game, action)));
-                                game.Players.ToList().ForEach(p => Enqueue(p.ReactTo(game, action)));
-                                Enqueue(game.ReactTo(game, action));
-                            }
-                            action.Execute(game);
-                        }
-                    }
-                }
-                finally
-                {
-                    isProcessing = false;
+                    Process(game, reaction);
                 }
             }
         }

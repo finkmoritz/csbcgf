@@ -10,10 +10,10 @@ namespace csbcgf
         {
         }
 
-        public List<IAction> ReactTo(IGame gameState, IAction action)
+        public List<IAction> ReactTo(IGame gameState, IActionEvent actionEvent)
         {
             List<IAction> reactions = new List<IAction>();
-            if (action is StartOfTurnEvent)
+            if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
                 int manaDelta = gameState.ActivePlayer.ManaBaseValue + 1 - gameState.ActivePlayer.ManaValue;
                 reactions.Add(new ModifyManaStatAction(gameState.ActivePlayer, manaDelta, 1));

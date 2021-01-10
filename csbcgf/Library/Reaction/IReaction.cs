@@ -8,8 +8,8 @@ namespace csbcgf
         /// React on a given Action with zero or more Actions.
         /// </summary>
         /// <param name="gameState"></param>
-        /// <param name="action"></param>
+        /// <param name="actionEvent"></param>
         /// <returns>Actions triggered by the given Action.</returns>
-        List<IAction> ReactTo(IGame gameState, IAction action);
+        List<IAction> ReactTo(IGame gameState, IActionEvent actionEvent);
     }
 }

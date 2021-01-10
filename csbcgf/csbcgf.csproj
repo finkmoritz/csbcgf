@@ -156,6 +156,10 @@
     <Compile Include="Library\Action\Implementations\Player\DrawCardAction.cs" />
     <Compile Include="Library\Reaction\EventReaction\DrawCardOnStartOfTurnEventReaction.cs" />
     <Compile Include="Library\Game\IGameState.cs" />
+    <Compile Include="Library\Action\ActionEvent\ActionEvent.cs" />
+    <Compile Include="Library\Action\ActionEvent\IActionEvent.cs" />
+    <Compile Include="Library\Action\ActionEvent\BeforeActionEvent.cs" />
+    <Compile Include="Library\Action\ActionEvent\AfterActionEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -207,6 +211,7 @@
     <Folder Include="Library\Util\" />
     <Folder Include="Library\Util\Serialization\" />
     <Folder Include="Library\Action\Implementations\Player\" />
+    <Folder Include="Library\Action\ActionEvent\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
