@@ -24,7 +24,7 @@ namespace csbcgf
             hand.Remove(card);
         }
 
-        public bool IsExecutable(IGame gameState)
+        public bool IsExecutable(IGame game)
         {
             return hand.Contains(card);
         }

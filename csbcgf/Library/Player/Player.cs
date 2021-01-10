@@ -148,14 +148,9 @@ namespace csbcgf
                     " is already occupied!");
             }
 
-            game.Execute(new List<IAction>
-            {
-                new StartPlayMonsterCardEvent(monsterCard, boardIndex),
-                new ModifyManaStatAction(this, -monsterCard.ManaValue, 0),
-                new RemoveCardFromHandAction(Hand, monsterCard),
-                new AddCardToBoardAction(Board, monsterCard, boardIndex),
-                new EndPlayMonsterCardEvent(monsterCard, boardIndex)
-            });
+            game.Execute(new ModifyManaStatAction(this, -monsterCard.ManaValue, 0));
+            game.Execute(new RemoveCardFromHandAction(Hand, monsterCard));
+            game.Execute(new AddCardToBoardAction(Board, monsterCard, boardIndex));
         }
 
         public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
@@ -166,17 +161,10 @@ namespace csbcgf
                     "not playable!");
             }
 
-            List<IAction> actions = new List<IAction>
-            {
-                new StartPlayTargetlessSpellCardEvent(spellCard),
-                new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
-                new RemoveCardFromHandAction(Hand, spellCard)
-            };
-            actions.AddRange(spellCard.GetActions(game));
-            actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
-            actions.Add(new EndPlayTargetlessSpellCardEvent(spellCard));
-
-            game.Execute(actions);
+            game.Execute(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
+            game.Execute(new RemoveCardFromHandAction(Hand, spellCard));
+            spellCard.GetActions(game).ForEach(a => game.Execute(a));
+            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 
         public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
@@ -187,20 +175,13 @@ namespace csbcgf
                     "not playable!");
             }
 
-            List<IAction> actions = new List<IAction>
-            {
-                new StartPlayTargetfulSpellCardEvent(spellCard, target),
-                new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
-                new RemoveCardFromHandAction(Hand, spellCard)
-            };
-            actions.AddRange(spellCard.GetActions(game, target));
-            actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
-            actions.Add(new EndPlayTargetfulSpellCardEvent(spellCard, target));
-
-            game.Execute(actions);
+            game.Execute(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
+            game.Execute(new RemoveCardFromHandAction(Hand, spellCard));
+            spellCard.GetActions(game, target).ForEach(a => game.Execute(a));
+            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGame gameState)
+        public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             return new HashSet<ICharacter>();
         }
@@ -215,11 +196,9 @@ namespace csbcgf
             Reactions.Remove(reaction);
         }
 
-        public List<IAction> ReactTo(IGame gameState, IActionEvent actionEvent)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(gameState, actionEvent)));
-            return reactions;
+            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
     }
 }

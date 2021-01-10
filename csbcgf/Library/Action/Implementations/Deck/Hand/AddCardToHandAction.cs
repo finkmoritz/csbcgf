@@ -39,7 +39,7 @@ namespace csbcgf
             hand.Add(Card);
         }
 
-        public bool IsExecutable(IGame gameState)
+        public bool IsExecutable(IGame game)
         {
             return Card != null && hand.Size < hand.MaxSize;
         }

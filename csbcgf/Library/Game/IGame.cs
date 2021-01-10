@@ -20,12 +20,5 @@ namespace csbcgf
         /// </summary>
         /// <param name="action"></param>
         void Execute(IAction action);
-
-        /// <summary>
-        /// Queue multiple Actions for execution. Changes on the Game state should
-        /// only be performed via Actions queued through this method!
-        /// </summary>
-        /// <param name="actions"></param>
-        void Execute(List<IAction> actions);
     }
 }

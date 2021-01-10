@@ -16,7 +16,7 @@ namespace csbcgfdemo
             this.parentCard = parentCard;
         }
 
-        public List<IAction> ReactTo(IGame gameState, IActionEvent actionEvent)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
             if (actionEvent.IsBefore(typeof(ModifyLifeStatAction)))
             {
@@ -27,7 +27,6 @@ namespace csbcgfdemo
                     parentCard.RemoveReaction(this);
                 }
             }
-            return new List<IAction>();
         }
     }
 }

@@ -18,6 +18,6 @@ namespace csbcgf
         /// </summary>
         /// <param name="game"></param>
         /// <param name="action"></param>
-        void Process(IGame game, IAction action);
+        void Execute(IGame game, IAction action);
     }
 }

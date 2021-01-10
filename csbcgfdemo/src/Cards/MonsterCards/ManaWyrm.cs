@@ -23,19 +23,17 @@ namespace csbcgfdemo
                 ParentCard = parentCard;
             }
 
-            public List<IAction> ReactTo(IGame gameState, IActionEvent actionEvent)
+            public void ReactTo(IGame game, IActionEvent actionEvent)
             {
-                List<IAction> reactions = new List<IAction>();
-                if (actionEvent.IsAfter(typeof(EndPlaySpellCardEvent)))
+                /*if (actionEvent.IsAfter(typeof(EndPlaySpellCardEvent)))
                 {
                     EndPlaySpellCardEvent a = (EndPlaySpellCardEvent)actionEvent.Action;
                     if (a.Card.Owner == ParentCard.Owner
                         && ParentCard.Owner.Board.Contains(ParentCard))
                     {
-                        reactions.Add(new ModifyAttackStatAction(ParentCard, 1));
+                        game.Execute(new ModifyAttackStatAction(ParentCard, 1));
                     }
-                }
-                return reactions;
+                }*/
             }
         }
     }

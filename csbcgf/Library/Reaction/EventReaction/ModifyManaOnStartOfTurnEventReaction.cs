@@ -10,15 +10,13 @@ namespace csbcgf
         {
         }
 
-        public List<IAction> ReactTo(IGame gameState, IActionEvent actionEvent)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
             if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
-                int manaDelta = gameState.ActivePlayer.ManaBaseValue + 1 - gameState.ActivePlayer.ManaValue;
-                reactions.Add(new ModifyManaStatAction(gameState.ActivePlayer, manaDelta, 1));
+                int manaDelta = game.ActivePlayer.ManaBaseValue + 1 - game.ActivePlayer.ManaValue;
+                game.Execute(new ModifyManaStatAction(game.ActivePlayer, manaDelta, 1));
             }
-            return reactions;
         }
     }
 }

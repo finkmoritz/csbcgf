@@ -54,10 +54,10 @@ namespace csbcgf
             set => lifeStat.BaseValue = value;
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGame gameState)
+        public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-            foreach (IPlayer player in gameState.NonActivePlayers)
+            foreach (IPlayer player in game.NonActivePlayers)
             {
                 player.Characters.ForEach(c => potentialTargets.Add(c));
             }

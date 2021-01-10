@@ -9,6 +9,6 @@ namespace csbcgf
         /// </summary>
         /// <param name="gameState"></param>
         /// <returns>All Actions to be performed when this spell card is played.</returns>
-        List<IAction> GetActions(IGame gameState);
+        List<IAction> GetActions(IGame game);
     }
 }

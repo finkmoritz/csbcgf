@@ -31,12 +31,9 @@ namespace csbcgf
             {
                 if (Character is IMonsterCard monsterCard)
                 {
-                    game.Execute(new List<IAction>
-                    {
-                        new RemoveCardFromBoardAction(monsterCard.Owner.Board, monsterCard),
-                        new AddCardToGraveyardAction(monsterCard.Owner.Graveyard, monsterCard)
-                    });
-                } else if (Character is IPlayer player)
+                    game.Execute(new RemoveCardFromBoardAction(monsterCard.Owner.Board, monsterCard));
+                    game.Execute(new AddCardToGraveyardAction(monsterCard.Owner.Graveyard, monsterCard));
+                } else if (Character is IPlayer)
                 {
                     game.Execute(new EndOfGameEvent());
                 }
@@ -44,7 +41,7 @@ namespace csbcgf
             
         }
 
-        public bool IsExecutable(IGame gameState)
+        public bool IsExecutable(IGame game)
         {
             return !(Character is ICardComponent)
                 && Character.LifeValue > 0;

@@ -5,11 +5,10 @@ namespace csbcgf
     public interface IReaction
     {
         /// <summary>
-        /// React on a given Action with zero or more Actions.
+        /// React on a given ActionEvent.
         /// </summary>
-        /// <param name="gameState"></param>
+        /// <param name="game"></param>
         /// <param name="actionEvent"></param>
-        /// <returns>Actions triggered by the given Action.</returns>
-        List<IAction> ReactTo(IGame gameState, IActionEvent actionEvent);
+        void ReactTo(IGame game, IActionEvent actionEvent);
     }
 }

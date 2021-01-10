@@ -29,7 +29,7 @@ namespace csbcgf
             Character.ManaValue += DeltaValue;
         }
 
-        public bool IsExecutable(IGame gameState)
+        public bool IsExecutable(IGame game)
         {
             return true;
         }

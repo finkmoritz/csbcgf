@@ -16,16 +16,11 @@ namespace csbcgf
         public void Execute(IGame game)
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Player.Deck);
-            game.Execute(new List<IAction>
-            {
-                new StartDrawCardEvent(),
-                removeAction,
-                new AddCardToHandAction(Player.Hand, () => removeAction.Card),
-                new EndDrawCardEvent(() => removeAction.Card)
-            });
+            game.Execute(removeAction);
+            game.Execute(new AddCardToHandAction(Player.Hand, removeAction.Card));
         }
 
-        public bool IsExecutable(IGame gameState)
+        public bool IsExecutable(IGame game)
         {
             return !Player.Deck.IsEmpty;
         }

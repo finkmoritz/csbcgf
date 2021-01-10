@@ -7,7 +7,7 @@
         /// </summary>
         /// <param name="gameState"></param>
         /// <returns>True if this Action can be executed on the given Game state.</returns>
-        bool IsExecutable(IGame gameState);
+        bool IsExecutable(IGame game);
 
         /// <summary>
         /// Execute this Action in order to change the Game's state.

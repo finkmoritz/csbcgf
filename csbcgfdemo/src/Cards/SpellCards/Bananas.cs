@@ -25,7 +25,7 @@ namespace csbcgfdemo
             {
             }
 
-            public override List<IAction> GetActions(IGame gameState, ICharacter target)
+            public override List<IAction> GetActions(IGame game, ICharacter target)
             {
                 return new List<IAction>
                 {
@@ -34,10 +34,10 @@ namespace csbcgfdemo
                 };
             }
 
-            public override HashSet<ICharacter> GetPotentialTargets(IGame gameState)
+            public override HashSet<ICharacter> GetPotentialTargets(IGame game)
             {
                 HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-                gameState.AllCardsOnTheBoard.ForEach(c => potentialTargets.Add((ICharacter)c));
+                game.AllCardsOnTheBoard.ForEach(c => potentialTargets.Add((ICharacter)c));
                 return potentialTargets;
             }
         }

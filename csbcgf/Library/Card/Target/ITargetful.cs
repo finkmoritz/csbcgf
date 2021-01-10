@@ -10,6 +10,6 @@ namespace csbcgf
         /// </summary>
         /// <param name="gameState"></param>
         /// <returns>All valid target Characters.</returns>
-        HashSet<ICharacter> GetPotentialTargets(IGame gameState);
+        HashSet<ICharacter> GetPotentialTargets(IGame game);
     }
 }

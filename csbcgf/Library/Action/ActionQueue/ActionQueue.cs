@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace csbcgf
@@ -26,13 +23,13 @@ namespace csbcgf
             this.isGameOver = isGameOver;
         }
 
-        public void Process(IGame game, IAction action)
+        public void Execute(IGame game, IAction action)
         {
             if (!isGameOver && action.IsExecutable(game))
             {
-                ProcessReactions(game, new BeforeActionEvent(action));
+                ExecReactions(game, new BeforeActionEvent(action));
                 action.Execute(game);
-                ProcessReactions(game, new AfterActionEvent(action));
+                ExecReactions(game, new AfterActionEvent(action));
             }
 
             if (action is EndOfGameEvent)
@@ -41,24 +38,13 @@ namespace csbcgf
             }
         }
 
-        private void ProcessReactions(IGame game, IActionEvent actionEvent)
+        private void ExecReactions(IGame game, IActionEvent actionEvent)
         {
             if (ExecuteReactions)
             {
-                ProcessReactions(game, actionEvent, game.AllCards.ConvertAll(c => (IReactive)c));
-                ProcessReactions(game, actionEvent, game.Players.ConvertAll(p => (IReactive)p));
-                ProcessReactions(game, actionEvent, new List<IReactive> { game });
-            }
-        }
-
-        private void ProcessReactions(IGame game, IActionEvent actionEvent, List<IReactive> reactives)
-        {
-            foreach (IReactive reactive in reactives)
-            {
-                foreach (IAction reaction in reactive.ReactTo(game, actionEvent))
-                {
-                    Process(game, reaction);
-                }
+                game.AllCards.ForEach(c => c.ReactTo(game, actionEvent));
+                game.Players.ForEach(p => p.ReactTo(game, actionEvent));
+                game.ReactTo(game, actionEvent);
             }
         }
     }
