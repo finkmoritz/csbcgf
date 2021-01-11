@@ -21,7 +21,7 @@ namespace csbcgfdemo
             if (actionEvent.IsBefore(typeof(ModifyLifeStatAction)))
             {
                 ModifyLifeStatAction a = (ModifyLifeStatAction)actionEvent.Action;
-                if (a.Character == parentCard && a.Delta < 0)
+                if (a.Living == parentCard && a.Delta < 0)
                 {
                     a.Delta = 0;
                     parentCard.RemoveReaction(this);

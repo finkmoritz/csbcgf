@@ -7,10 +7,10 @@ namespace csbcgf
     public class RemoveCardFromDeckAction : IAction
     {
         [JsonProperty]
-        public ICard Card { get; protected set; }
+        public ICard Card;
 
         [JsonProperty]
-        protected readonly IDeck deck;
+        public readonly IDeck deck;
 
         [JsonConstructor]
         public RemoveCardFromDeckAction(IDeck deck)

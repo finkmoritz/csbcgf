@@ -12,7 +12,7 @@ namespace csbcgf
         [JsonConstructor]
         public ModifyActivePlayerAction(IPlayer newActivePlayer)
         {
-            this.NewActivePlayer = newActivePlayer;
+            NewActivePlayer = newActivePlayer;
         }
 
         public void Execute(IGame game)

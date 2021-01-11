@@ -7,26 +7,26 @@ namespace csbcgf
     public class AddCardToGraveyardAction : IAction
     {
         [JsonProperty]
-        protected readonly IDeck graveyard;
+        public readonly IDeck Graveyard;
 
         [JsonProperty]
-        protected readonly ICard card;
+        public ICard Card;
 
         [JsonConstructor]
         public AddCardToGraveyardAction(IDeck graveyard, ICard card)
         {
-            this.graveyard = graveyard;
-            this.card = card;
+            Graveyard = graveyard;
+            Card = card;
         }
 
         public void Execute(IGame game)
         {
-            graveyard.Push(card);
+            Graveyard.Push(Card);
         }
 
         public bool IsExecutable(IGame game)
         {
-            return card != null && !graveyard.Contains(card);
+            return Card != null && !Graveyard.Contains(Card);
         }
     }
 }

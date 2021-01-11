@@ -7,31 +7,31 @@ namespace csbcgf
     public class AddCardToBoardAction : IAction
     {
         [JsonProperty]
-        protected readonly IBoard board;
+        public readonly IBoard Board;
 
         [JsonProperty]
-        protected readonly ICard card;
+        public ICard Card;
 
         [JsonProperty]
-        protected readonly int boardIndex;
+        public int BoardIndex;
 
         [JsonConstructor]
         public AddCardToBoardAction(IBoard board, ICard card, int boardIndex)
         {
-            this.board = board;
-            this.card = card;
-            this.boardIndex = boardIndex;
+            Board = board;
+            Card = card;
+            BoardIndex = boardIndex;
         }
 
         public void Execute(IGame game)
         {
-            board.AddAt(boardIndex, card);
+            Board.AddAt(BoardIndex, Card);
         }
 
         public bool IsExecutable(IGame game)
         {
-            return card != null
-                && board.IsFreeSlot(boardIndex);
+            return Card != null
+                && Board.IsFreeSlot(BoardIndex);
         }
     }
 }

@@ -7,27 +7,27 @@ namespace csbcgf
     public class ModifyReadyToAttackAction : IAction
     {
         [JsonProperty]
-        private readonly IMonsterCard monsterCard;
+        public IMonsterCard MonsterCard;
 
         [JsonProperty]
-        private readonly bool isReadyToAttack;
+        public bool IsReadyToAttack;
 
         [JsonConstructor]
         public ModifyReadyToAttackAction(IMonsterCard monsterCard, bool isReadyToAttack)
         {
-            this.monsterCard = monsterCard;
-            this.isReadyToAttack = isReadyToAttack;
+            MonsterCard = monsterCard;
+            IsReadyToAttack = isReadyToAttack;
         }
 
         public void Execute(IGame game)
         {
-            monsterCard.IsReadyToAttack = isReadyToAttack;
+            MonsterCard.IsReadyToAttack = IsReadyToAttack;
         }
 
         public bool IsExecutable(IGame game)
         {
-            return monsterCard.IsReadyToAttack != isReadyToAttack
-                && game.AllCardsOnTheBoard.Contains(monsterCard);
+            return MonsterCard.IsReadyToAttack != IsReadyToAttack
+                && game.AllCardsOnTheBoard.Contains(MonsterCard);
         }
     }
 }

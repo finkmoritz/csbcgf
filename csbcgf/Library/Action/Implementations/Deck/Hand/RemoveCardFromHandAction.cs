@@ -7,26 +7,26 @@ namespace csbcgf
     public class RemoveCardFromHandAction : IAction
     {
         [JsonProperty]
-        protected readonly IHand hand;
+        public readonly IHand Hand;
 
         [JsonProperty]
-        protected readonly ICard card;
+        public ICard Card;
 
         [JsonConstructor]
         public RemoveCardFromHandAction(IHand hand, ICard card)
         {
-            this.hand = hand;
-            this.card = card;
+            Hand = hand;
+            Card = card;
         }
 
         public void Execute(IGame game)
         {
-            hand.Remove(card);
+            Hand.Remove(Card);
         }
 
         public bool IsExecutable(IGame game)
         {
-            return hand.Contains(card);
+            return Hand.Contains(Card);
         }
     }
 }

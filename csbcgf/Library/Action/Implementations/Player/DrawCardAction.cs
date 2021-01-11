@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class DrawCardAction : IAction
     {
-        public IPlayer Player { get; }
+        [JsonProperty]
+        public IPlayer Player;
 
         public DrawCardAction(IPlayer player)
         {

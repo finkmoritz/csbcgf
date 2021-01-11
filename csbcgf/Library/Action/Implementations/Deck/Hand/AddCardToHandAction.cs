@@ -7,41 +7,26 @@ namespace csbcgf
     public class AddCardToHandAction : IAction
     {
         [JsonProperty]
-        protected readonly IHand hand;
+        public readonly IHand Hand;
 
         [JsonProperty]
-        protected readonly Func<ICard> GetCard;
-
-        public AddCardToHandAction(IHand hand, ICard card)
-        {
-            this.hand = hand;
-            GetCard = () => card;
-        }
+        public ICard Card;
 
         [JsonConstructor]
-        public AddCardToHandAction(IHand hand, Func<ICard> getCard)
+        public AddCardToHandAction(IHand hand, ICard card)
         {
-            this.hand = hand;
-            this.GetCard = getCard;
-        }
-
-        [JsonIgnore]
-        public ICard Card
-        {
-            get
-            {
-                return GetCard();
-            }
+            Hand = hand;
+            Card = card;
         }
 
         public void Execute(IGame game)
         {
-            hand.Add(Card);
+            Hand.Add(Card);
         }
 
         public bool IsExecutable(IGame game)
         {
-            return Card != null && hand.Size < hand.MaxSize;
+            return Card != null && Hand.Size < Hand.MaxSize;
         }
     }
 }

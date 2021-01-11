@@ -7,7 +7,7 @@ namespace csbcgf
     public class ModifyManaStatAction : IAction
     {
         [JsonProperty]
-        public ICharacter Character;
+        public IManaful Manaful;
 
         [JsonProperty]
         public int DeltaValue;
@@ -16,17 +16,17 @@ namespace csbcgf
         public int DeltaBaseValue;
 
         [JsonConstructor]
-        public ModifyManaStatAction(ICharacter character, int deltaValue, int deltaBaseValue)
+        public ModifyManaStatAction(IManaful manaful, int deltaValue, int deltaBaseValue)
         {
-            Character = character;
+            Manaful = manaful;
             DeltaValue = deltaValue;
             DeltaBaseValue = deltaBaseValue;
         }
 
         public void Execute(IGame game)
         {
-            Character.ManaBaseValue += DeltaBaseValue;
-            Character.ManaValue += DeltaValue;
+            Manaful.ManaBaseValue += DeltaBaseValue;
+            Manaful.ManaValue += DeltaValue;
         }
 
         public bool IsExecutable(IGame game)
