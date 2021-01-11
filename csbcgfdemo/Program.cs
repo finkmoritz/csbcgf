@@ -70,18 +70,18 @@ namespace csbcgfdemo
                 {
                     case CommandPlayMonster:
                         IMonsterCard monsterCard = (IMonsterCard)GetObjectById(game, inputParams[1]);
-                        game.ActivePlayer.PlayMonster(game, monsterCard, int.Parse(inputParams[2]));
+                        game.ActivePlayer.CastMonster(game, monsterCard, int.Parse(inputParams[2]));
                         output = "Played monster card";
                         break;
                     case CommandPlaySpell:
                         ISpellCard spellCard = (ISpellCard)GetObjectById(game, inputParams[1]);
                         if (spellCard is TargetlessSpellCard targetlessSpellCard)
                         {
-                            game.ActivePlayer.PlaySpell(game, targetlessSpellCard);
+                            game.ActivePlayer.CastSpell(game, targetlessSpellCard);
                         } else if (spellCard is TargetfulSpellCard targetfulSpellCard)
                         {
                             ICharacter target = (ICharacter)GetObjectById(game, inputParams[2]);
-                            game.ActivePlayer.PlaySpell(game, targetfulSpellCard, target);
+                            game.ActivePlayer.CastSpell(game, targetfulSpellCard, target);
                         }
                         break;
                     case CommandAttack:

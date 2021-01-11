@@ -134,9 +134,9 @@ namespace csbcgf
             game.Execute(new DrawCardAction(this));
         }
 
-        public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
+        public void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
         {
-            if (!monsterCard.IsPlayable(game))
+            if (!monsterCard.IsCastable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
@@ -153,9 +153,9 @@ namespace csbcgf
             game.Execute(new AddCardToBoardAction(Board, monsterCard, boardIndex));
         }
 
-        public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
+        public void CastSpell(IGame game, ITargetlessSpellCard spellCard)
         {
-            if (!spellCard.IsPlayable(game))
+            if (!spellCard.IsCastable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
@@ -163,13 +163,13 @@ namespace csbcgf
 
             game.Execute(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
             game.Execute(new RemoveCardFromHandAction(Hand, spellCard));
-            spellCard.GetActions(game).ForEach(a => game.Execute(a));
+            spellCard.Cast(game);
             game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 
-        public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
+        public void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
         {
-            if (!spellCard.IsPlayable(game))
+            if (!spellCard.IsCastable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
@@ -177,7 +177,7 @@ namespace csbcgf
 
             game.Execute(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
             game.Execute(new RemoveCardFromHandAction(Hand, spellCard));
-            spellCard.GetActions(game, target).ForEach(a => game.Execute(a));
+            spellCard.Cast(game, target);
             game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
         }
 

@@ -13,9 +13,9 @@ namespace csbcgfdemo
         {
         }
 
-        public override bool IsPlayable(IGameState gameState)
+        public override bool IsCastable(IGameState gameState)
         {
-            return base.IsPlayable(gameState)
+            return base.IsCastable(gameState)
                 && gameState.AllCardsOnTheBoard.Count > 0;
         }
 
@@ -25,13 +25,10 @@ namespace csbcgfdemo
             {
             }
 
-            public override List<IAction> GetActions(IGame game, ICharacter target)
+            public override void Cast(IGame game, ICharacter target)
             {
-                return new List<IAction>
-                {
-                    new ModifyAttackStatAction(target, 1),
-                    new ModifyLifeStatAction(target, 1)
-                };
+                game.Execute(new ModifyAttackStatAction(target, 1));
+                game.Execute(new ModifyLifeStatAction(target, 1));
             }
 
             public override HashSet<ICharacter> GetPotentialTargets(IGame game)

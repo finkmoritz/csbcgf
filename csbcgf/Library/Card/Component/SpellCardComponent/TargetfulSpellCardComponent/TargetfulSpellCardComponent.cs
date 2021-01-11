@@ -10,7 +10,7 @@ namespace csbcgf
         {
         }
 
-        public abstract List<IAction> GetActions(IGame game, ICharacter target);
+        public abstract void Cast(IGame game, ICharacter target);
 
         public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);
     }

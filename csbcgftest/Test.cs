@@ -54,14 +54,14 @@ namespace csbcgftest
             Assert.AreEqual(1, goblin.AttackValue);
             Assert.AreEqual(2, goblin.LifeValue);
 
-            Assert.False(goblin.IsPlayable(game));
+            Assert.False(goblin.IsCastable(game));
         }
 
         [Test()]
         public void TestGame()
         {
             IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            Assert.False(goblin.IsPlayable(game));
+            Assert.False(goblin.IsCastable(game));
 
             game.NextTurn(); //Second player's turn
 
@@ -88,11 +88,11 @@ namespace csbcgftest
             Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Size);
 
             goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            Assert.True(goblin.IsPlayable(game));
+            Assert.True(goblin.IsCastable(game));
 
             //Play monster card
             Assert.True(game.ActivePlayer.Board.IsFreeSlot(0));
-            game.ActivePlayer.PlayMonster(game, goblin, 0);
+            game.ActivePlayer.CastMonster(game, goblin, 0);
             Assert.False(game.ActivePlayer.Board.IsFreeSlot(0));
             Assert.AreEqual(1, game.ActivePlayer.Board.AllCards.Count);
 
@@ -107,7 +107,7 @@ namespace csbcgftest
             Assert.AreEqual(2, game.NonActivePlayers[0].ManaBaseValue);
 
             IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            game.ActivePlayer.PlayMonster(game, otherGoblin, 0);
+            game.ActivePlayer.CastMonster(game, otherGoblin, 0);
 
             Assert.False(goblin.IsReadyToAttack);
 
@@ -151,7 +151,7 @@ namespace csbcgftest
             Assert.True(game.NonActivePlayers[0].IsAlive);
 
             ITargetfulSpellCard fireball = (ITargetfulSpellCard)game.ActivePlayer.Hand[2];
-            game.ActivePlayer.PlaySpell(game, fireball, game.NonActivePlayers[0]);
+            game.ActivePlayer.CastSpell(game, fireball, game.NonActivePlayers[0]);
 
             Assert.AreEqual(0, game.NonActivePlayers[0].LifeValue);
             Assert.False(game.NonActivePlayers[0].IsAlive);

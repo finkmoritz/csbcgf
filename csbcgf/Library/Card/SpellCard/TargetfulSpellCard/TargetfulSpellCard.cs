@@ -40,7 +40,7 @@ namespace csbcgf
             return potentialTargets ?? new HashSet<ICharacter>();
         }
 
-        public List<IAction> GetActions(IGame game, ICharacter target)
+        public void Cast(IGame game, ICharacter target)
         {
             if (!GetPotentialTargets(game).Contains(target))
             {
@@ -48,22 +48,17 @@ namespace csbcgf
                     "on an invalid target character!");
             }
 
-            List<IAction> actions = new List<IAction>();
             foreach (ISpellCardComponent component in Components)
             {
                 if (component is ITargetlessSpellCardComponent targetlessComponent)
                 {
-                    targetlessComponent.GetActions(game).ForEach(
-                        a => actions.Add(a)
-                    );
-                } else if (component is ITargetfulSpellCardComponent targetfulComponent)
+                    targetlessComponent.Cast(game);
+                }
+                else if (component is ITargetfulSpellCardComponent targetfulComponent)
                 {
-                    targetfulComponent.GetActions(game, target).ForEach(
-                        a => actions.Add(a)
-                    );
+                    targetfulComponent.Cast(game, target);
                 }
             }
-            return actions;
         }
     }
 }

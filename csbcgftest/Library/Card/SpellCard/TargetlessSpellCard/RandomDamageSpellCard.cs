@@ -29,7 +29,7 @@ namespace csbcgftest
                 this.damage = damage;
             }
 
-            public override List<IAction> GetActions(IGame game)
+            public override List<IAction> Cast(IGame game)
             {
                 List<ICharacter> targets = new List<ICharacter>();
                 foreach (IPlayer player in game.Players)

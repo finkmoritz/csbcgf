@@ -52,10 +52,10 @@ namespace csbcgf
             }
         }
 
-        public override bool IsPlayable(IGame game)
+        public override bool IsCastable(IGame game)
         {
             return game.ActivePlayer.Hand.Contains(this)
-                && Components.TrueForAll(c => c.IsPlayable(game));
+                && Components.TrueForAll(c => c.IsCastable(game));
         }
 
         public void RemoveComponent(ICard card)

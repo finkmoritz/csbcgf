@@ -10,6 +10,6 @@ namespace csbcgf
         {
         }
 
-        public abstract List<IAction> GetActions(IGame game);
+        public abstract void Cast(IGame game);
     }
 }

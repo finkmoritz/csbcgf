@@ -118,10 +118,10 @@ namespace csbcgf
             return potentialTargets;
         }
 
-        public override bool IsPlayable(IGameState gameState)
+        public override bool IsCastable(IGameState gameState)
         {
             IBoard board = gameState.ActivePlayer.Board;
-            return base.IsPlayable(gameState)
+            return base.IsCastable(gameState)
                     && board.AllCards.Count < board.MaxSize;
         }
     }

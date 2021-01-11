@@ -90,7 +90,7 @@ namespace csbcgfdemo
             for (int i = 0; i < hand.Size; ++i)
             {
                 ICard card = hand[i];
-                Console.ForegroundColor = card.IsPlayable(gameState)
+                Console.ForegroundColor = card.IsCastable(gameState)
                         ? ColorSelectable : ColorDefault;
                 Console.Write(string.Format(
                     "Id: {0}{1}            ",

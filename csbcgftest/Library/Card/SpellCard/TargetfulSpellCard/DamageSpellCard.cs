@@ -29,7 +29,7 @@ namespace csbcgftest
                 this.damage = damage;
             }
 
-            public override List<IAction> GetActions(IGame game, ICharacter target)
+            public override List<IAction> Cast(IGame game, ICharacter target)
             {
                 return new List<IAction>
                 {
