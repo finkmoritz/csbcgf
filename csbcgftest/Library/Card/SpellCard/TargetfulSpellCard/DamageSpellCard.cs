@@ -29,12 +29,9 @@ namespace csbcgftest
                 this.damage = damage;
             }
 
-            public override List<IAction> Cast(IGame game, ICharacter target)
+            public override void Cast(IGame game, ICharacter target)
             {
-                return new List<IAction>
-                {
-                    new ModifyLifeStatAction(target, -(int)damage)
-                };
+                game.Execute(new ModifyLifeStatAction(target, -(int)damage));
             }
 
             public override HashSet<ICharacter> GetPotentialTargets(IGame game)

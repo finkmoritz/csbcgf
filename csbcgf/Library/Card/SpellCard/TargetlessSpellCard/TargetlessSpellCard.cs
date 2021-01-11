@@ -24,9 +24,13 @@ namespace csbcgf
 
         public void Cast(IGame game)
         {
-            Components.ForEach(
-                c => ((ITargetlessSpellCardComponent)c).Cast(game)
-            );
+            foreach (ICardComponent component in Components)
+            {
+                if (component is ITargetlessSpellCardComponent targetlessComponent)
+                {
+                    targetlessComponent.Cast(game);
+                }
+            }
         }
     }
 }

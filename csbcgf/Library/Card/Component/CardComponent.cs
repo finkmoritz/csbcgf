@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class CardComponent : ICardComponent
+    public class CardComponent : ICardComponent
     {
         [JsonProperty]
         protected ManaCostStat manaCostStat;
@@ -16,6 +16,11 @@ namespace csbcgf
 
         public CardComponent(int mana)
             : this(new ManaCostStat(mana, mana), new List<IReaction>(), null)
+        {
+        }
+
+        public CardComponent(int manaValue, int manaBaseValue)
+            : this(new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>(), null)
         {
         }
 

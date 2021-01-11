@@ -48,7 +48,7 @@ namespace csbcgf
                     "on an invalid target character!");
             }
 
-            foreach (ISpellCardComponent component in Components)
+            foreach (ICardComponent component in Components)
             {
                 if (component is ITargetlessSpellCardComponent targetlessComponent)
                 {

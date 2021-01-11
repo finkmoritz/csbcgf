@@ -145,6 +145,9 @@
     <Compile Include="Library\Action\Implementations\Card\SpellCard\CastSpellAction.cs" />
     <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetlessSpellAction.cs" />
     <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetfulSpellAction.cs" />
+    <Compile Include="Library\Card\Compound\ReactiveCompound.cs" />
+    <Compile Include="Library\Card\Compound\ICompound.cs" />
+    <Compile Include="Library\Card\Compound\Compound.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />

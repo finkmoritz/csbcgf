@@ -18,6 +18,14 @@ namespace csbcgf
         {
         }
 
+        public MonsterCardComponent(int manaValue, int manaBaseValue,
+            int attackValue, int attackBaseValue, int lifeValue, int lifeBaseValue)
+            : base(manaValue, manaBaseValue)
+        {
+            attackStat = new AttackStat(attackValue, attackBaseValue);
+            lifeStat = new LifeStat(lifeValue, lifeBaseValue);
+        }
+
         [JsonConstructor]
         protected MonsterCardComponent(int mana, AttackStat attackStat, LifeStat lifeStat)
             : base(mana)
