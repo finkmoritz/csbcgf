@@ -24,7 +24,7 @@ namespace csbcgf
             Board.Remove(Card);
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGameState gameState)
         {
             return Board.Contains(Card);
         }

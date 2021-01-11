@@ -23,7 +23,7 @@ namespace csbcgf
             Card = deck.Pop();
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGameState gameState)
         {
             return !deck.IsEmpty;
         }

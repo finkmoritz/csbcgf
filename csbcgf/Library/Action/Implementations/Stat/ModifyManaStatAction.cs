@@ -29,7 +29,7 @@ namespace csbcgf
             Manaful.ManaValue += DeltaValue;
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGameState gameState)
         {
             return true;
         }

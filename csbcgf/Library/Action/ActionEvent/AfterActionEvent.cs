@@ -9,7 +9,7 @@ namespace csbcgf
 
         public override bool IsAfter(Type type)
         {
-            return Action.GetType().IsAssignableFrom(type);
+            return type.IsAssignableFrom(Action.GetType());
         }
 
         public override bool IsBefore(Type type)

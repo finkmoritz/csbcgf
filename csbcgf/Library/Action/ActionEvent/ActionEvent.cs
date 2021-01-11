@@ -12,6 +12,7 @@ namespace csbcgf
         }
 
         public abstract bool IsBefore(Type type);
+
         public abstract bool IsAfter(Type type);
     }
 }

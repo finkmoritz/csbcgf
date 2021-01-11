@@ -148,9 +148,7 @@ namespace csbcgf
                     " is already occupied!");
             }
 
-            game.Execute(new ModifyManaStatAction(this, -monsterCard.ManaValue, 0));
-            game.Execute(new RemoveCardFromHandAction(Hand, monsterCard));
-            game.Execute(new AddCardToBoardAction(Board, monsterCard, boardIndex));
+            game.Execute(new CastMonsterAction(this, monsterCard, boardIndex));
         }
 
         public void CastSpell(IGame game, ITargetlessSpellCard spellCard)
@@ -161,10 +159,7 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Execute(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
-            game.Execute(new RemoveCardFromHandAction(Hand, spellCard));
-            spellCard.Cast(game);
-            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
+            game.Execute(new CastTargetlessSpellAction(this, spellCard));
         }
 
         public void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
@@ -175,10 +170,7 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Execute(new ModifyManaStatAction(this, -spellCard.ManaValue, 0));
-            game.Execute(new RemoveCardFromHandAction(Hand, spellCard));
-            spellCard.Cast(game, target);
-            game.Execute(new AddCardToGraveyardAction(Graveyard, spellCard));
+            game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGame game)

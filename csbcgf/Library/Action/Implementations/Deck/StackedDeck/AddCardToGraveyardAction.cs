@@ -24,7 +24,7 @@ namespace csbcgf
             Graveyard.Push(Card);
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGameState gameState)
         {
             return Card != null && !Graveyard.Contains(Card);
         }

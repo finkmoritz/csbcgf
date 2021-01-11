@@ -14,7 +14,7 @@ namespace csbcgf
 
         public override bool IsBefore(Type type)
         {
-            return Action.GetType().IsAssignableFrom(type);
+            return type.IsAssignableFrom(Action.GetType());
         }
     }
 }

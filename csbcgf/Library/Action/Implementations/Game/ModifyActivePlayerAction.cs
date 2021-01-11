@@ -20,15 +20,15 @@ namespace csbcgf
             game.ActivePlayer = NewActivePlayer;
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGameState gameState)
         {
-            if(!game.Players.ToList().Contains(NewActivePlayer))
+            if(!gameState.Players.Contains(NewActivePlayer))
             {
                 throw new CsbcgfException("Could not change the active " +
                     "player because the specified player is not involved " +
                     "in the game!");
             }
-            return NewActivePlayer != game.ActivePlayer;
+            return NewActivePlayer != gameState.ActivePlayer;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace csbcgf
             game.Execute(new AddCardToHandAction(Player.Hand, removeAction.Card));
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGameState gameState)
         {
             return !Player.Deck.IsEmpty;
         }

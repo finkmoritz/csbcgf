@@ -24,10 +24,10 @@ namespace csbcgf
             MonsterCard.IsReadyToAttack = IsReadyToAttack;
         }
 
-        public bool IsExecutable(IGame game)
+        public bool IsExecutable(IGameState gameState)
         {
             return MonsterCard.IsReadyToAttack != IsReadyToAttack
-                && game.AllCardsOnTheBoard.Contains(MonsterCard);
+                && gameState.AllCardsOnTheBoard.Contains(MonsterCard);
         }
     }
 }
