@@ -10,6 +10,9 @@ namespace csbcgf
         [JsonProperty]
         public IPlayer Player;
 
+        [JsonProperty]
+        public ICard DrawnCard;
+
         public DrawCardAction(IPlayer player)
         {
             Player = player;
@@ -19,7 +22,8 @@ namespace csbcgf
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Player.Deck);
             game.Execute(removeAction);
-            game.Execute(new AddCardToHandAction(Player.Hand, removeAction.Card));
+            DrawnCard = removeAction.Card;
+            game.Execute(new AddCardToHandAction(Player.Hand, DrawnCard));
         }
 
         public bool IsExecutable(IGameState gameState)

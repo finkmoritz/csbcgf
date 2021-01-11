@@ -125,9 +125,6 @@
     <Compile Include="Library\Card\Component\SpellCardComponent\TargetfulSpellCardComponent\TargetfulSpellCardComponent.cs" />
     <Compile Include="Library\Card\Component\MonsterCardComponent\MonsterCardComponent.cs" />
     <Compile Include="Library\Stat\Implementations\ManaPoolStat.cs" />
-    <Compile Include="Library\Card\Compound\ICompound.cs" />
-    <Compile Include="Library\Card\Compound\Compound.cs" />
-    <Compile Include="Library\Card\Compound\ReactiveCompound.cs" />
     <Compile Include="Library\Event\Implementations\GameEvent\EndOfGameEvent.cs" />
     <Compile Include="Library\Event\Implementations\GameEvent\StartOfGameEvent.cs" />
     <Compile Include="Library\Event\Implementations\TurnEvent\StartOfTurnEvent.cs" />
@@ -188,7 +185,6 @@
     <Folder Include="Library\Card\Component\SpellCardComponent\TargetfulSpellCardComponent\" />
     <Folder Include="Library\Card\Component\MonsterCardComponent\" />
     <Folder Include="Library\Stat\Interfaces\" />
-    <Folder Include="Library\Card\Compound\" />
     <Folder Include="Library\Event\Implementations\GameEvent\" />
     <Folder Include="Library\Event\Implementations\TurnEvent\" />
     <Folder Include="Library\Action\Implementations\Game\" />

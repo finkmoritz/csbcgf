@@ -61,9 +61,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Attack: {0:D2}/{1:D2}     ",
-                        monsterCard.AttackValue,
-                        monsterCard.AttackBaseValue
+                        "Attack: {0:D2}        ",
+                        monsterCard.AttackValue
                     ));
                 } else
                 {
@@ -78,9 +77,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Life: {0:D2}/{1:D2}       ",
-                        monsterCard.LifeValue,
-                        monsterCard.LifeBaseValue
+                        "Life: {0:D2}          ",
+                        monsterCard.LifeValue
                     ));
                 }
                 else
@@ -127,9 +125,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Attack: {0:D2}/{1:D2}     ",
-                        monsterCard.AttackValue,
-                        monsterCard.AttackBaseValue
+                        "Attack: {0:D2}        ",
+                        monsterCard.AttackValue
                     ));
                 }
                 else
@@ -145,9 +142,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Life: {0:D2}/{1:D2}       ",
-                        monsterCard.LifeValue,
-                        monsterCard.LifeBaseValue
+                        "Life: {0:D2}          ",
+                        monsterCard.LifeValue
                     ));
                 }
                 else
