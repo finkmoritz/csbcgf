@@ -77,42 +77,42 @@ namespace csbcgf
         public int AttackValue
         {
             get => attackStat.Value;
-            set => attackStat.Value = value;
+            set => attackStat.Value = Math.Max(0, value);
         }
 
         [JsonIgnore]
         public int AttackBaseValue
         {
             get => attackStat.BaseValue;
-            set => attackStat.BaseValue = value;
+            set => attackStat.BaseValue = Math.Max(0, value);
         }
 
         [JsonIgnore]
         public int LifeValue
         {
             get => lifeStat.Value;
-            set => lifeStat.Value = value;
+            set => lifeStat.Value = Math.Max(0, value);
         }
 
         [JsonIgnore]
         public int LifeBaseValue
         {
             get => lifeStat.BaseValue;
-            set => lifeStat.BaseValue = value;
+            set => lifeStat.BaseValue = Math.Max(0, value);
         }
 
         [JsonIgnore]
         public int ManaValue
         {
             get => manaPoolStat.Value;
-            set => manaPoolStat.Value = value;
+            set => manaPoolStat.Value = Math.Max(0, value);
         }
 
         [JsonIgnore]
         public int ManaBaseValue
         {
             get => manaPoolStat.BaseValue;
-            set => manaPoolStat.BaseValue = value;
+            set => manaPoolStat.BaseValue = Math.Max(0, value);
         }
 
         [JsonIgnore]

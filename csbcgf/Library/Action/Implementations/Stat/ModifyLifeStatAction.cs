@@ -23,10 +23,6 @@ namespace csbcgf
         public override void Execute(IGame game)
         {
             Living.LifeValue += Delta;
-            if(!(Living is ICardComponent) && Living.LifeValue < 0)
-            {
-                Living.LifeValue = 0;
-            }
             if(Living.LifeValue <= 0)
             {
                 if (Living is IMonsterCard monsterCard)
