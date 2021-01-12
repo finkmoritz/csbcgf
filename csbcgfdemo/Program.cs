@@ -36,13 +36,14 @@ namespace csbcgfdemo
             for (int i=0; i<2; ++i)
             {
                 IDeck deck = new Deck();
-                for (int n=0; n<4; ++n)
+                for (int n=0; n<3; ++n)
                 {
                     deck.Push(new Wisp());
                     deck.Push(new ArgentSquire());
                     deck.Push(new Bananas());
                     deck.Push(new ManaWyrm());
                     deck.Push(new FarSight());
+                    deck.Push(new KingMukla());
                 }
                 deck.Shuffle();
                 players.Add(new Player(deck));
