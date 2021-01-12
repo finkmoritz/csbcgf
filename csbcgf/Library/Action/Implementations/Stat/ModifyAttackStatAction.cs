@@ -4,27 +4,27 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class ModifyAttackStatAction : IAction
+    public class ModifyAttackStatAction : Action
     {
         [JsonProperty]
-        public ICharacter Character;
+        public IAttacking Attacking;
 
         [JsonProperty]
         public int Delta;
 
         [JsonConstructor]
-        public ModifyAttackStatAction(ICharacter character, int delta)
+        public ModifyAttackStatAction(IAttacking attacking, int delta)
         {
-            Character = character;
+            Attacking = attacking;
             Delta = delta;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
-            Character.AttackValue += Delta;
+            Attacking.AttackValue += Delta;
         }
 
-        public bool IsExecutable(IGame gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return true;
         }

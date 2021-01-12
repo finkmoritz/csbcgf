@@ -16,7 +16,7 @@ namespace csbcgfdemo
         public static void PrintGame(IGameState gameState)
         {
             Console.BackgroundColor = BackgroundColorDefault;
-            PrintPlayer(gameState.NonActivePlayers[0], 0);
+            PrintPlayer(gameState, gameState.NonActivePlayers[0], 0);
             Console.Write("\n\n");
             PrintHand(gameState, gameState.NonActivePlayers[0].Hand, 1);
             Console.Write("\n\n");
@@ -26,12 +26,14 @@ namespace csbcgfdemo
             Console.Write("\n\n");
             PrintHand(gameState, gameState.ActivePlayer.Hand, 4);
             Console.Write("\n\n");
-            PrintPlayer(gameState.ActivePlayer, 5);
+            PrintPlayer(gameState, gameState.ActivePlayer, 5);
             Console.Write("\n\n");
         }
 
-        public static void PrintPlayer(IPlayer player, int id)
+        public static void PrintPlayer(IGameState gameState, IPlayer player, int id)
         {
+            Console.ForegroundColor = ColorDefault;
+            Console.Write(string.Format("Player #{0}\n", gameState.Players.IndexOf(player)));
             Console.ForegroundColor = ColorMana;
             Console.Write(string.Format("Mana: {0:D2}/{1:D2}\n", player.ManaValue, player.ManaBaseValue));
             Console.ForegroundColor = ColorLife;
@@ -59,9 +61,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Attack: {0:D2}/{1:D2}     ",
-                        monsterCard.AttackValue,
-                        monsterCard.AttackBaseValue
+                        "Attack: {0:D2}        ",
+                        monsterCard.AttackValue
                     ));
                 } else
                 {
@@ -76,9 +77,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Life: {0:D2}/{1:D2}       ",
-                        monsterCard.LifeValue,
-                        monsterCard.LifeBaseValue
+                        "Life: {0:D2}          ",
+                        monsterCard.LifeValue
                     ));
                 }
                 else
@@ -90,7 +90,7 @@ namespace csbcgfdemo
             for (int i = 0; i < hand.Size; ++i)
             {
                 ICard card = hand[i];
-                Console.ForegroundColor = card.IsPlayable(gameState)
+                Console.ForegroundColor = card.IsCastable(gameState)
                         ? ColorSelectable : ColorDefault;
                 Console.Write(string.Format(
                     "Id: {0}{1}            ",
@@ -125,9 +125,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Attack: {0:D2}/{1:D2}     ",
-                        monsterCard.AttackValue,
-                        monsterCard.AttackBaseValue
+                        "Attack: {0:D2}        ",
+                        monsterCard.AttackValue
                     ));
                 }
                 else
@@ -143,9 +142,8 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Life: {0:D2}/{1:D2}       ",
-                        monsterCard.LifeValue,
-                        monsterCard.LifeBaseValue
+                        "Life: {0:D2}          ",
+                        monsterCard.LifeValue
                     ));
                 }
                 else

@@ -134,9 +134,9 @@ namespace csbcgf
             game.Execute(new DrawCardAction(this));
         }
 
-        public void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
+        public void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
         {
-            if (!monsterCard.IsPlayable(game))
+            if (!monsterCard.IsCastable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
@@ -148,59 +148,32 @@ namespace csbcgf
                     " is already occupied!");
             }
 
-            game.Execute(new List<IAction>
-            {
-                new StartPlayMonsterCardEvent(monsterCard, boardIndex),
-                new ModifyManaStatAction(this, -monsterCard.ManaValue, 0),
-                new RemoveCardFromHandAction(Hand, monsterCard),
-                new AddCardToBoardAction(Board, monsterCard, boardIndex),
-                new EndPlayMonsterCardEvent(monsterCard, boardIndex)
-            });
+            game.Execute(new CastMonsterAction(this, monsterCard, boardIndex));
         }
 
-        public void PlaySpell(IGame game, ITargetlessSpellCard spellCard)
+        public void CastSpell(IGame game, ITargetlessSpellCard spellCard)
         {
-            if (!spellCard.IsPlayable(game))
+            if (!spellCard.IsCastable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            List<IAction> actions = new List<IAction>
-            {
-                new StartPlayTargetlessSpellCardEvent(spellCard),
-                new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
-                new RemoveCardFromHandAction(Hand, spellCard)
-            };
-            actions.AddRange(spellCard.GetActions(game));
-            actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
-            actions.Add(new EndPlayTargetlessSpellCardEvent(spellCard));
-
-            game.Execute(actions);
+            game.Execute(new CastTargetlessSpellAction(this, spellCard));
         }
 
-        public void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
+        public void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
         {
-            if (!spellCard.IsPlayable(game))
+            if (!spellCard.IsCastable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            List<IAction> actions = new List<IAction>
-            {
-                new StartPlayTargetfulSpellCardEvent(spellCard, target),
-                new ModifyManaStatAction(this, -spellCard.ManaValue, 0),
-                new RemoveCardFromHandAction(Hand, spellCard)
-            };
-            actions.AddRange(spellCard.GetActions(game, target));
-            actions.Add(new AddCardToGraveyardAction(Graveyard, spellCard));
-            actions.Add(new EndPlayTargetfulSpellCardEvent(spellCard, target));
-
-            game.Execute(actions);
+            game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGame gameState)
+        public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             return new HashSet<ICharacter>();
         }
@@ -215,11 +188,9 @@ namespace csbcgf
             Reactions.Remove(reaction);
         }
 
-        public List<IAction> ReactTo(IGame gameState, IAction action)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(gameState, action)));
-            return reactions;
+            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
     }
 }

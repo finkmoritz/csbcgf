@@ -63,7 +63,7 @@ or be empty.
 ## ICard interface & Card class
 
 The ``ICard`` interface exposes the ManaValue property (i.e. the card's costs
-in Mana) and a method ``IsPlayable`` that checks whether this card can be
+in Mana) and a method ``IsCastable`` that checks whether this card can be
 played (i.e. cast a spell card or add a monster card to the board) by the
 active player.
 

@@ -4,30 +4,30 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class ModifyReadyToAttackAction : IAction
+    public class ModifyReadyToAttackAction : Action
     {
         [JsonProperty]
-        private readonly IMonsterCard monsterCard;
+        public IMonsterCard MonsterCard;
 
         [JsonProperty]
-        private readonly bool isReadyToAttack;
+        public bool IsReadyToAttack;
 
         [JsonConstructor]
         public ModifyReadyToAttackAction(IMonsterCard monsterCard, bool isReadyToAttack)
         {
-            this.monsterCard = monsterCard;
-            this.isReadyToAttack = isReadyToAttack;
+            MonsterCard = monsterCard;
+            IsReadyToAttack = isReadyToAttack;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
-            monsterCard.IsReadyToAttack = isReadyToAttack;
+            MonsterCard.IsReadyToAttack = IsReadyToAttack;
         }
 
-        public bool IsExecutable(IGame gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
-            return monsterCard.IsReadyToAttack != isReadyToAttack
-                && gameState.AllCardsOnTheBoard.Contains(monsterCard);
+            return MonsterCard.IsReadyToAttack != IsReadyToAttack
+                && gameState.AllCardsOnTheBoard.Contains(MonsterCard);
         }
     }
 }

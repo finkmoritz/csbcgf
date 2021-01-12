@@ -38,6 +38,7 @@
     <Compile Include="src\Cards\MonsterCards\ArgentSquire.cs" />
     <Compile Include="src\Cards\SpellCards\Bananas.cs" />
     <Compile Include="src\Cards\MonsterCards\ManaWyrm.cs" />
+    <Compile Include="src\Cards\SpellCards\FarSight.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />

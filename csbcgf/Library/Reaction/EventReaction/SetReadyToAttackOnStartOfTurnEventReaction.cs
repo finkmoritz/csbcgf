@@ -16,16 +16,14 @@ namespace csbcgf
             this.monsterCard = monsterCard;
         }
 
-        public List<IAction> ReactTo(IGame gameState, IAction action)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            if(action is StartOfTurnEvent)
+            if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
-                bool isReadyToAttack = monsterCard.Owner == gameState.ActivePlayer
-                    && gameState.ActivePlayer.Board.Contains(monsterCard);
-                reactions.Add(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
+                bool isReadyToAttack = monsterCard.Owner == game.ActivePlayer
+                    && game.ActivePlayer.Board.Contains(monsterCard);
+                game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
             }
-            return reactions;
         }
     }
 }

@@ -6,8 +6,8 @@ namespace csbcgfdemo
 {
     class MainClass
     {
-        private const string CommandPlayMonster = "PM";
-        private const string CommandPlaySpell = "PS";
+        private const string CommandCastMonster = "CM";
+        private const string CommandCastSpell = "CS";
         private const string CommandAttack = "A";
         private const string CommandEndTurn = "E";
         private const string CommandQuit = "Q";
@@ -36,12 +36,13 @@ namespace csbcgfdemo
             for (int i=0; i<2; ++i)
             {
                 IDeck deck = new Deck();
-                for (int n=0; n<5; ++n)
+                for (int n=0; n<4; ++n)
                 {
                     deck.Push(new Wisp());
                     deck.Push(new ArgentSquire());
                     deck.Push(new Bananas());
                     deck.Push(new ManaWyrm());
+                    deck.Push(new FarSight());
                 }
                 deck.Shuffle();
                 players.Add(new Player(deck));
@@ -52,8 +53,8 @@ namespace csbcgfdemo
         private static string GetOptions()
         {
             string options = "Choose command:\n";
-            options += CommandPlayMonster + " <id> <slot_index>: Play monster card from hand (with <id>) to the board (at position <slot_index>, i.e. 0-5)\n";
-            options += CommandPlaySpell + " <id> [<target_id>]: Play spell card from hand (with <id>). Cast spell on target (with <target_id>) if the spell requires a target\n";
+            options += CommandCastMonster + " <id> <slot_index>: Cast monster card from hand (with <id>) to the board (at position <slot_index>, i.e. 0-5)\n";
+            options += CommandCastSpell + " <id> [<target_id>]: Cast spell card from hand (with <id>). Cast spell on target (with <target_id>) if the spell requires a target\n";
             options += CommandAttack + " <id> <target_id>: Attack monster card (with <target_id>) with monster card (with <id>)\n";
             options += CommandEndTurn + ": End Turn\n";
             options += CommandQuit +": Quit\n";
@@ -68,26 +69,30 @@ namespace csbcgfdemo
                 string[] inputParams = input.Split(' ');
                 switch (inputParams[0].ToUpper())
                 {
-                    case CommandPlayMonster:
+                    case CommandCastMonster:
                         IMonsterCard monsterCard = (IMonsterCard)GetObjectById(game, inputParams[1]);
-                        game.ActivePlayer.PlayMonster(game, monsterCard, int.Parse(inputParams[2]));
-                        output = "Played monster card";
+                        game.ActivePlayer.CastMonster(game, monsterCard, int.Parse(inputParams[2]));
+                        output = "Cast monster card";
                         break;
-                    case CommandPlaySpell:
+                    case CommandCastSpell:
                         ISpellCard spellCard = (ISpellCard)GetObjectById(game, inputParams[1]);
                         if (spellCard is TargetlessSpellCard targetlessSpellCard)
                         {
-                            game.ActivePlayer.PlaySpell(game, targetlessSpellCard);
-                        } else if (spellCard is TargetfulSpellCard targetfulSpellCard)
+                            game.ActivePlayer.CastSpell(game, targetlessSpellCard);
+                            output = "Cast spell";
+                        }
+                        else if (spellCard is TargetfulSpellCard targetfulSpellCard)
                         {
                             ICharacter target = (ICharacter)GetObjectById(game, inputParams[2]);
-                            game.ActivePlayer.PlaySpell(game, targetfulSpellCard, target);
+                            game.ActivePlayer.CastSpell(game, targetfulSpellCard, target);
+                            output = "Cast spell onto target";
                         }
                         break;
                     case CommandAttack:
                         IMonsterCard monster = (IMonsterCard)GetObjectById(game, inputParams[1]);
                         ICharacter targetCard = (ICharacter)GetObjectById(game, inputParams[2]);
                         monster.Attack(game, targetCard);
+                        output = "Attacked";
                         break;
                     case CommandEndTurn:
                         game.NextTurn();

@@ -111,7 +111,7 @@
     <Compile Include="Library\Event\Event.cs" />
     <Compile Include="Library\Reaction\EventReaction\SetReadyToAttackOnStartOfTurnEventReaction.cs" />
     <Compile Include="Library\Action\Implementations\Card\MonsterCard\ModifyReadyToAttackAction.cs" />
-    <Compile Include="Library\Card\Playable\IPlayable.cs" />
+    <Compile Include="Library\Card\Castable\ICastable.cs" />
     <Compile Include="Library\Card\Component\SpellCardComponent\ISpellCardComponent.cs" />
     <Compile Include="Library\Card\Component\ICardComponent.cs" />
     <Compile Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\ITargetlessSpellCardComponent.cs" />
@@ -125,28 +125,9 @@
     <Compile Include="Library\Card\Component\SpellCardComponent\TargetfulSpellCardComponent\TargetfulSpellCardComponent.cs" />
     <Compile Include="Library\Card\Component\MonsterCardComponent\MonsterCardComponent.cs" />
     <Compile Include="Library\Stat\Implementations\ManaPoolStat.cs" />
-    <Compile Include="Library\Card\Compound\ICompound.cs" />
-    <Compile Include="Library\Card\Compound\Compound.cs" />
-    <Compile Include="Library\Card\Compound\ReactiveCompound.cs" />
     <Compile Include="Library\Event\Implementations\GameEvent\EndOfGameEvent.cs" />
     <Compile Include="Library\Event\Implementations\GameEvent\StartOfGameEvent.cs" />
     <Compile Include="Library\Event\Implementations\TurnEvent\StartOfTurnEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\CardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\DrawCard\EndDrawCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\DrawCard\StartDrawCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\EndPlayCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlayMonsterCardEvent\EndPlayMonsterCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlayMonsterCardEvent\StartPlayMonsterCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\EndPlaySpellCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetfulSpellCardEvent\EndPlayTargetfulSpellCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetfulSpellCardEvent\StartPlayTargetfulSpellCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetlessSpellCardEvent\EndPlayTargetlessSpellCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\PlayTargetlessSpellCardEvent\StartPlayTargetlessSpellCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\PlaySpellCardEvent\StartPlaySpellCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\PlayCard\StartPlayCardEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\AttackEvent\AttackEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\AttackEvent\StartAttackEvent.cs" />
-    <Compile Include="Library\Event\Implementations\CardEvent\AttackEvent\EndAttackEvent.cs" />
     <Compile Include="Library\Action\Implementations\Game\ModifyActivePlayerAction.cs" />
     <Compile Include="Library\Util\Serialization\StackConverter.cs" />
     <Compile Include="Library\Util\Serialization\CsbcgfJsonConvert.cs" />
@@ -156,6 +137,18 @@
     <Compile Include="Library\Action\Implementations\Player\DrawCardAction.cs" />
     <Compile Include="Library\Reaction\EventReaction\DrawCardOnStartOfTurnEventReaction.cs" />
     <Compile Include="Library\Game\IGameState.cs" />
+    <Compile Include="Library\Action\ActionEvent\ActionEvent.cs" />
+    <Compile Include="Library\Action\ActionEvent\IActionEvent.cs" />
+    <Compile Include="Library\Action\ActionEvent\BeforeActionEvent.cs" />
+    <Compile Include="Library\Action\ActionEvent\AfterActionEvent.cs" />
+    <Compile Include="Library\Action\Implementations\Card\MonsterCard\CastMonsterAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastSpellAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetlessSpellAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetfulSpellAction.cs" />
+    <Compile Include="Library\Card\Compound\ReactiveCompound.cs" />
+    <Compile Include="Library\Card\Compound\ICompound.cs" />
+    <Compile Include="Library\Card\Compound\Compound.cs" />
+    <Compile Include="Library\Action\Action.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -189,24 +182,21 @@
     <Folder Include="Library\Reaction\EventReaction\" />
     <Folder Include="Library\Action\Implementations\Card\" />
     <Folder Include="Library\Action\Implementations\Card\MonsterCard\" />
-    <Folder Include="Library\Card\Playable\" />
+    <Folder Include="Library\Card\Castable\" />
     <Folder Include="Library\Card\Component\" />
     <Folder Include="Library\Card\Component\SpellCardComponent\" />
     <Folder Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\" />
     <Folder Include="Library\Card\Component\SpellCardComponent\TargetfulSpellCardComponent\" />
     <Folder Include="Library\Card\Component\MonsterCardComponent\" />
     <Folder Include="Library\Stat\Interfaces\" />
-    <Folder Include="Library\Card\Compound\" />
     <Folder Include="Library\Event\Implementations\GameEvent\" />
     <Folder Include="Library\Event\Implementations\TurnEvent\" />
-    <Folder Include="Library\Event\Implementations\CardEvent\" />
-    <Folder Include="Library\Event\Implementations\CardEvent\AttackEvent\" />
-    <Folder Include="Library\Event\Implementations\CardEvent\DrawCard\" />
-    <Folder Include="Library\Event\Implementations\CardEvent\PlayCard\" />
     <Folder Include="Library\Action\Implementations\Game\" />
     <Folder Include="Library\Util\" />
     <Folder Include="Library\Util\Serialization\" />
     <Folder Include="Library\Action\Implementations\Player\" />
+    <Folder Include="Library\Action\ActionEvent\" />
+    <Folder Include="Library\Action\Implementations\Card\SpellCard\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

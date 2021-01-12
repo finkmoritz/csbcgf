@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using csbcgf;
 
 namespace csbcgfdemo
@@ -23,16 +22,17 @@ namespace csbcgfdemo
                 ParentCard = parentCard;
             }
 
-            public List<IAction> ReactTo(IGame gameState, IAction action)
+            public void ReactTo(IGame game, IActionEvent actionEvent)
             {
-                List<IAction> reactions = new List<IAction>();
-                if (action is EndPlaySpellCardEvent a
-                    && a.Card.Owner == ParentCard.Owner
-                    && ParentCard.Owner.Board.Contains(ParentCard))
+                if (actionEvent.IsAfter(typeof(CastSpellAction)))
                 {
-                    reactions.Add(new ModifyAttackStatAction(ParentCard, 1));
+                    CastSpellAction a = (CastSpellAction)actionEvent.Action;
+                    if (a.SpellCard.Owner == ParentCard.Owner
+                        && ParentCard.Owner.Board.Contains(ParentCard))
+                    {
+                        game.Execute(new ModifyAttackStatAction(ParentCard, 1));
+                    }
                 }
-                return reactions;
             }
         }
     }

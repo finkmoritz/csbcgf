@@ -3,15 +3,19 @@
     public interface IAction
     {
         /// <summary>
+        /// Aborted Actions will not be executed.
+        /// </summary>
+        bool IsAborted { get; set; }
+
+        /// <summary>
         /// Check if this Action can be executed on the given Game state.
         /// </summary>
         /// <param name="gameState"></param>
         /// <returns>True if this Action can be executed on the given Game state.</returns>
-        bool IsExecutable(IGame gameState);
+        bool IsExecutable(IGameState gameState);
 
         /// <summary>
         /// Execute this Action in order to change the Game's state.
-        /// Important: The Game state should only be changed within this method!
         /// </summary>
         /// <param name="game"></param>
         void Execute(IGame game);

@@ -4,44 +4,29 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class AddCardToHandAction : IAction
+    public class AddCardToHandAction : Action
     {
         [JsonProperty]
-        protected readonly IHand hand;
+        public readonly IHand Hand;
 
         [JsonProperty]
-        protected readonly Func<ICard> GetCard;
-
-        public AddCardToHandAction(IHand hand, ICard card)
-        {
-            this.hand = hand;
-            GetCard = () => card;
-        }
+        public ICard Card;
 
         [JsonConstructor]
-        public AddCardToHandAction(IHand hand, Func<ICard> getCard)
+        public AddCardToHandAction(IHand hand, ICard card)
         {
-            this.hand = hand;
-            this.GetCard = getCard;
+            Hand = hand;
+            Card = card;
         }
 
-        [JsonIgnore]
-        public ICard Card
+        public override void Execute(IGame game)
         {
-            get
-            {
-                return GetCard();
-            }
+            Hand.Add(Card);
         }
 
-        public void Execute(IGame game)
+        public override bool IsExecutable(IGameState gameState)
         {
-            hand.Add(Card);
-        }
-
-        public bool IsExecutable(IGame gameState)
-        {
-            return Card != null && hand.Size < hand.MaxSize;
+            return Card != null && Hand.Size < Hand.MaxSize;
         }
     }
 }

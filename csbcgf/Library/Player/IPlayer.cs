@@ -43,28 +43,28 @@ namespace csbcgf
         void DrawCard(IGame game);
 
         /// <summary>
-        /// Play a MonsterCard from the Player's Hand to the Board at
+        /// Cast a MonsterCard from the Player's Hand to the Board at
         /// position boardIndex.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="monsterCard"></param>
         /// <param name="boardIndex"></param>
-        void PlayMonster(IGame game, IMonsterCard monsterCard, int boardIndex);
+        void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex);
 
         /// <summary>
-        /// Play a SpellCard from the Player's Hand that needs no target.
+        /// Cast a SpellCard from the Player's Hand that needs no target.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="spellCard"></param>
-        void PlaySpell(IGame game, ITargetlessSpellCard spellCard);
+        void CastSpell(IGame game, ITargetlessSpellCard spellCard);
 
         /// <summary>
-        /// Play a SpellCard from the Player's Hand onto the specified
+        /// Cast a SpellCard from the Player's Hand onto the specified
         /// target Character.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="spellCard"></param>
         /// <param name="target"></param>
-        void PlaySpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target);
+        void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target);
     }
 }

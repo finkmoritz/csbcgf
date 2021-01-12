@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    public class ModifyActivePlayerAction : IAction
+    public class ModifyActivePlayerAction : Action
     {
         [JsonProperty]
         public IPlayer NewActivePlayer;
@@ -12,17 +12,17 @@ namespace csbcgf
         [JsonConstructor]
         public ModifyActivePlayerAction(IPlayer newActivePlayer)
         {
-            this.NewActivePlayer = newActivePlayer;
+            NewActivePlayer = newActivePlayer;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             game.ActivePlayer = NewActivePlayer;
         }
 
-        public bool IsExecutable(IGame gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
-            if(!gameState.Players.ToList().Contains(NewActivePlayer))
+            if(!gameState.Players.Contains(NewActivePlayer))
             {
                 throw new CsbcgfException("Could not change the active " +
                     "player because the specified player is not involved " +

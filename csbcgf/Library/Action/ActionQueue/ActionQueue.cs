@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace csbcgf
@@ -10,73 +7,47 @@ namespace csbcgf
     public class ActionQueue : IActionQueue
     {
         [JsonProperty]
-        protected readonly Queue<IAction> actions = new Queue<IAction>();
-
-        [JsonProperty]
-        protected bool isProcessing = false;
-
-        [JsonProperty]
         protected bool isGameOver = false;
 
         public bool ExecuteReactions { get; set; }
 
         public ActionQueue(bool executeReactions = true)
-            : this(executeReactions, false, false)
+            : this(executeReactions, false)
         {
         }
 
         [JsonConstructor]
-        protected ActionQueue(bool executeReactions, bool isProcessing, bool isGameOver)
+        protected ActionQueue(bool executeReactions, bool isGameOver)
         {
             ExecuteReactions = executeReactions;
-            this.isProcessing = isProcessing;
             this.isGameOver = isGameOver;
         }
 
-        public void Enqueue(IAction action)
+        public void Execute(IGame game, IAction action)
         {
-            if (!isGameOver)
+            if (!isGameOver && !action.IsAborted && action.IsExecutable(game))
             {
-                actions.Enqueue(action);
-
-                if (action is EndOfGameEvent)
+                ExecReactions(game, new BeforeActionEvent(action));
+                if (!action.IsAborted)
                 {
-                    isGameOver = true;
+                    action.Execute(game);
+                    ExecReactions(game, new AfterActionEvent(action));
                 }
+            }
+
+            if (action is EndOfGameEvent)
+            {
+                isGameOver = true;
             }
         }
 
-        public void Enqueue(List<IAction> actionList)
+        private void ExecReactions(IGame game, IActionEvent actionEvent)
         {
-            actionList.ForEach(a => Enqueue(a));
-        }
-
-        public void Process(IGame game)
-        {
-            if(!isProcessing && !isGameOver)
+            if (ExecuteReactions)
             {
-                try
-                {
-                    isProcessing = true;
-                    while (actions.Count > 0)
-                    {
-                        IAction action = actions.Dequeue();
-                        if (action.IsExecutable(game))
-                        {
-                            if (ExecuteReactions)
-                            {
-                                game.AllCards.ForEach(c => Enqueue(c.ReactTo(game, action)));
-                                game.Players.ToList().ForEach(p => Enqueue(p.ReactTo(game, action)));
-                                Enqueue(game.ReactTo(game, action));
-                            }
-                            action.Execute(game);
-                        }
-                    }
-                }
-                finally
-                {
-                    isProcessing = false;
-                }
+                game.AllCards.ForEach(c => c.ReactTo(game, actionEvent));
+                game.Players.ForEach(p => p.ReactTo(game, actionEvent));
+                game.ReactTo(game, actionEvent);
             }
         }
     }

@@ -16,17 +16,17 @@ namespace csbcgfdemo
             this.parentCard = parentCard;
         }
 
-        public List<IAction> ReactTo(IGame gameState, IAction action)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            if (action is ModifyLifeStatAction a
-                && a.Character == parentCard
-                && a.Delta < 0)
+            if (actionEvent.IsBefore(typeof(ModifyLifeStatAction)))
             {
-                a.Delta = 0;
-                parentCard.RemoveReaction(this);
+                ModifyLifeStatAction a = (ModifyLifeStatAction)actionEvent.Action;
+                if (a.Living == parentCard && a.Delta < 0)
+                {
+                    a.Delta = 0;
+                    parentCard.RemoveReaction(this);
+                }
             }
-            return reactions;
         }
     }
 }

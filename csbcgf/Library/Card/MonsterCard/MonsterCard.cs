@@ -8,12 +8,6 @@ namespace csbcgf
     [Serializable]
     public class MonsterCard : Card, IMonsterCard
     {
-        [JsonProperty]
-        protected AttackStat attackOffsetStat;
-
-        [JsonProperty]
-        protected LifeStat lifeOffsetStat;
-
         public bool IsReadyToAttack { get; set; }
 
         /// <summary>
@@ -22,7 +16,7 @@ namespace csbcgf
         /// </summary>
         /// <param name="components"></param>
         public MonsterCard(List<IMonsterCardComponent> components)
-            : this(components, new AttackStat(0), new LifeStat(0), false)
+            : this(components, false)
         {
         }
 
@@ -43,11 +37,9 @@ namespace csbcgf
         }
 
         [JsonConstructor]
-        protected MonsterCard(List<IMonsterCardComponent> components, AttackStat attackOffsetStat, LifeStat lifeOffsetStat, bool isReadyToAttack)
+        protected MonsterCard(List<IMonsterCardComponent> components, bool isReadyToAttack)
             : base(components.ConvertAll(c => (ICardComponent)c))
         {
-            this.attackOffsetStat = attackOffsetStat;
-            this.lifeOffsetStat = lifeOffsetStat;
             IsReadyToAttack = isReadyToAttack;
 
             AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
@@ -59,55 +51,67 @@ namespace csbcgf
         [JsonIgnore]
         public int AttackValue
         {
-            get => attackOffsetStat.Value + Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
-            set => attackOffsetStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackValue);
+            get => Math.Max(0, GetSum(c => c.AttackValue));
+            set
+            {
+                Components.Add(new MonsterCardComponent(0, 0, value - GetSum(c => c.AttackValue), 0, 0, 0));
+            }
         }
 
         [JsonIgnore]
         public int AttackBaseValue
         {
-            get => attackOffsetStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
-            set => attackOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).AttackBaseValue);
+            get => Math.Max(0, GetSum(c => c.AttackBaseValue));
+            set
+            {
+                Components.Add(new MonsterCardComponent(0, 0, 0, value - GetSum(c => c.AttackBaseValue), 0, 0));
+            }
         }
 
         [JsonIgnore]
         public int LifeValue
         {
-            get => lifeOffsetStat.Value + Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
-            set => lifeOffsetStat.Value = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeValue);
+            get => Math.Max(0, GetSum(c => c.LifeValue));
+            set
+            {
+                Components.Add(new MonsterCardComponent(0, 0, 0, 0, value - GetSum(c => c.LifeValue), 0));
+            }
         }
 
         [JsonIgnore]
         public int LifeBaseValue
         {
-            get => lifeOffsetStat.BaseValue + Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
-            set => lifeOffsetStat.BaseValue = value - Components.Sum(c => ((IMonsterCardComponent)c).LifeBaseValue);
+            get => Math.Max(0, GetSum(c => c.LifeBaseValue));
+            set
+            {
+                Components.Add(new MonsterCardComponent(0, 0, 0, 0, 0, value - GetSum(c => c.LifeBaseValue)));
+            }
         }
 
-        public void Attack(IGame gameState, ICharacter target)
+        private int GetSum(Func<IMonsterCardComponent, int> GetValue)
+        {
+            return Components.Where(c => c is IMonsterCardComponent).Sum(c => GetValue((IMonsterCardComponent)c));
+        }
+
+        public void Attack(IGame game, ICharacter target)
         {
             if(!IsReadyToAttack)
             {
                 throw new CsbcgfException("Failed to attack with a MonsterCard " +
                     "that is not ready to attack!");
             }
-            if(!GetPotentialTargets(gameState).Contains(target))
+            if(!GetPotentialTargets(game).Contains(target))
             {
                 throw new CsbcgfException("Cannot attack a target character " +
                     "that is not specified in the list of potential targets!");
             }
 
-            gameState.Execute(new List<IAction>
-            {
-                new StartAttackEvent(this, target),
-                new ModifyLifeStatAction(target, -AttackValue),
-                new ModifyLifeStatAction(this, -target.AttackValue),
-                new ModifyReadyToAttackAction(this, false),
-                new EndAttackEvent(this, target)
-            });
+            game.Execute(new ModifyLifeStatAction(target, -AttackValue));
+            game.Execute(new ModifyLifeStatAction(this, -target.AttackValue));
+            game.Execute(new ModifyReadyToAttackAction(this, false));
         }
 
-        public virtual HashSet<ICharacter> GetPotentialTargets(IGame gameState)
+        public virtual HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             if (Components.Count == 0)
             {
@@ -115,18 +119,18 @@ namespace csbcgf
             }
 
             //Compute the intersection of all potential targets
-            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(gameState);
+            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(game);
             foreach (ICardComponent component in Components)
             {
-                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(gameState));
+                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(game));
             }
             return potentialTargets;
         }
 
-        public override bool IsPlayable(IGameState gameState)
+        public override bool IsCastable(IGameState gameState)
         {
             IBoard board = gameState.ActivePlayer.Board;
-            return base.IsPlayable(gameState)
+            return base.IsCastable(gameState)
                     && board.AllCards.Count < board.MaxSize;
         }
     }

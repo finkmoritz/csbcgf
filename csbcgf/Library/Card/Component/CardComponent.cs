@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class CardComponent : ICardComponent
+    public class CardComponent : ICardComponent
     {
         [JsonProperty]
         protected ManaCostStat manaCostStat;
@@ -16,6 +16,11 @@ namespace csbcgf
 
         public CardComponent(int mana)
             : this(new ManaCostStat(mana, mana), new List<IReaction>(), null)
+        {
+        }
+
+        public CardComponent(int manaValue, int manaBaseValue)
+            : this(new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>(), null)
         {
         }
 
@@ -44,11 +49,9 @@ namespace csbcgf
             Reactions.Add(reaction);
         }
 
-        public List<IAction> ReactTo(IGame gameState, IAction action)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(gameState, action)));
-            return reactions;
+            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
 
         public void RemoveReaction(IReaction reaction)

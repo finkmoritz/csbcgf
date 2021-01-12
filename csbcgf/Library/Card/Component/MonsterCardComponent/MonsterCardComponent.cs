@@ -18,6 +18,14 @@ namespace csbcgf
         {
         }
 
+        public MonsterCardComponent(int manaValue, int manaBaseValue,
+            int attackValue, int attackBaseValue, int lifeValue, int lifeBaseValue)
+            : base(manaValue, manaBaseValue)
+        {
+            attackStat = new AttackStat(attackValue, attackBaseValue);
+            lifeStat = new LifeStat(lifeValue, lifeBaseValue);
+        }
+
         [JsonConstructor]
         protected MonsterCardComponent(int mana, AttackStat attackStat, LifeStat lifeStat)
             : base(mana)
@@ -54,10 +62,10 @@ namespace csbcgf
             set => lifeStat.BaseValue = value;
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGame gameState)
+        public HashSet<ICharacter> GetPotentialTargets(IGame game)
         {
             HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-            foreach (IPlayer player in gameState.NonActivePlayers)
+            foreach (IPlayer player in game.NonActivePlayers)
             {
                 player.Characters.ForEach(c => potentialTargets.Add(c));
             }

@@ -123,14 +123,12 @@ namespace csbcgf
 
         public void Execute(IAction action)
         {
-            actionQueue.Enqueue(action);
-            actionQueue.Process(this);
+            actionQueue.Execute(this, action);
         }
 
         public void Execute(List<IAction> actions)
         {
-            actionQueue.Enqueue(actions);
-            actionQueue.Process(this);
+            actions.ForEach(a => Execute(a));
         }
 
         public void AddReaction(IReaction reaction)
@@ -143,11 +141,9 @@ namespace csbcgf
             Reactions.Remove(reaction);
         }
 
-        public List<IAction> ReactTo(IGame gameState, IAction action)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(gameState, action)));
-            return reactions;
+            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
     }
 }

@@ -9,8 +9,12 @@ namespace csbcgf
         /// <summary>
         /// Maximum number of damage that can be taken.
         /// </summary>
+        public LifeStat(int value) : this(value, value)
+        {
+        }
+
         [JsonConstructor]
-        public LifeStat(int value) : base(value, value)
+        public LifeStat(int value, int baseValue) : base(value, baseValue)
         {
         }
     }

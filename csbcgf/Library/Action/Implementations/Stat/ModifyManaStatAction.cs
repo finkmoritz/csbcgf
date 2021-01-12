@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class ModifyManaStatAction : IAction
+    public class ModifyManaStatAction : Action
     {
         [JsonProperty]
-        public ICharacter Character;
+        public IManaful Manaful;
 
         [JsonProperty]
         public int DeltaValue;
@@ -16,20 +16,20 @@ namespace csbcgf
         public int DeltaBaseValue;
 
         [JsonConstructor]
-        public ModifyManaStatAction(ICharacter character, int deltaValue, int deltaBaseValue)
+        public ModifyManaStatAction(IManaful manaful, int deltaValue, int deltaBaseValue)
         {
-            Character = character;
+            Manaful = manaful;
             DeltaValue = deltaValue;
             DeltaBaseValue = deltaBaseValue;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
-            Character.ManaBaseValue += DeltaBaseValue;
-            Character.ManaValue += DeltaValue;
+            Manaful.ManaBaseValue += DeltaBaseValue;
+            Manaful.ManaValue += DeltaValue;
         }
 
-        public bool IsExecutable(IGame gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return true;
         }

@@ -43,11 +43,9 @@ namespace csbcgf
             reactions.Remove(reaction);
         }
 
-        public virtual List<IAction> ReactTo(IGame gameState, IAction action)
+        public virtual void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            Reactions.ForEach(r => reactions.AddRange(r.ReactTo(gameState, action)));
-            return reactions;
+            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
     }
 }

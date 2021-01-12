@@ -9,8 +9,12 @@ namespace csbcgf
         /// <summary>
         /// Potential damage to be dealt.
         /// </summary>
+        public AttackStat(int value) : this(value, value)
+        {
+        }
+
         [JsonConstructor]
-        public AttackStat(int value) : base(value, value)
+        public AttackStat(int value, int baseValue) : base(value, baseValue)
         {
         }
     }

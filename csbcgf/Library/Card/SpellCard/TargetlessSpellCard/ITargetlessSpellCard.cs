@@ -5,10 +5,9 @@ namespace csbcgf
     public interface ITargetlessSpellCard : ITargetless, ISpellCard
     {
         /// <summary>
-        /// Retrieve all Actions to be performed when this spell card is played.
+        /// Called when the spell card is cast.
         /// </summary>
         /// <param name="gameState"></param>
-        /// <returns>All Actions to be performed when this spell card is played.</returns>
-        List<IAction> GetActions(IGame gameState);
+        void Cast(IGame game);
     }
 }

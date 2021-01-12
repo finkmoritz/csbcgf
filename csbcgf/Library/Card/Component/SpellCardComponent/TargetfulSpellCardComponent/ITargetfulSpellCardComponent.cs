@@ -5,13 +5,10 @@ namespace csbcgf
     public interface ITargetfulSpellCardComponent : ISpellCardComponent, ITargetful
     {
         /// <summary>
-        /// Get all Actions to be performed by this component when the
-        /// associated SpellCard is played.
+        /// Called when the spell card is cast. Execute Actions here.
         /// </summary>
         /// <param name="gameState"></param>
         /// <param name="target"></param>
-        /// <returns>All Actions to be performed by this component when the
-        /// associated SpellCard is played.</returns>
-        List<IAction> GetActions(IGame gameState, ICharacter target);
+        void Cast(IGame game, ICharacter target);
     }
 }

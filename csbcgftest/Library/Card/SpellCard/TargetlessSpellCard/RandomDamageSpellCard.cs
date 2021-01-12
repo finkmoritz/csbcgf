@@ -29,7 +29,7 @@ namespace csbcgftest
                 this.damage = damage;
             }
 
-            public override List<IAction> GetActions(IGame game)
+            public override void Cast(IGame game)
             {
                 List<ICharacter> targets = new List<ICharacter>();
                 foreach (IPlayer player in game.Players)
@@ -37,15 +37,12 @@ namespace csbcgftest
                     targets.Add(player);
                     targets.AddRange((IEnumerable<ICharacter>)player.Board.AllCards);
                 }
-
-                List<IAction> actions = new List<IAction>();
                 Random random = new Random();
                 for (int i = 0; i < damage; ++i)
                 {
                     int randomIndex = random.Next(targets.Count);
-                    actions.Add(new ModifyLifeStatAction(targets[randomIndex], -1));
+                    game.Execute(new ModifyLifeStatAction(targets[randomIndex], -1));
                 }
-                return actions;
             }
         }
     }

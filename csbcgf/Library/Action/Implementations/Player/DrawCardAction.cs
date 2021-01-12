@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
-    public class DrawCardAction : IAction
+    public class DrawCardAction : Action
     {
-        public IPlayer Player { get; }
+        [JsonProperty]
+        public IPlayer Player;
+
+        [JsonProperty]
+        public ICard DrawnCard;
 
         public DrawCardAction(IPlayer player)
         {
             Player = player;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Player.Deck);
-            game.Execute(new List<IAction>
-            {
-                new StartDrawCardEvent(),
-                removeAction,
-                new AddCardToHandAction(Player.Hand, () => removeAction.Card),
-                new EndDrawCardEvent(() => removeAction.Card)
-            });
+            game.Execute(removeAction);
+            DrawnCard = removeAction.Card;
+            game.Execute(new AddCardToHandAction(Player.Hand, DrawnCard));
         }
 
-        public bool IsExecutable(IGame gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return !Player.Deck.IsEmpty;
         }

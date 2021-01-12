@@ -11,16 +11,14 @@ namespace csbcgf
         {
         }
 
-        public List<IAction> ReactTo(IGame gameState, IAction action)
+        public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            List<IAction> reactions = new List<IAction>();
-            if (action is EndOfTurnEvent)
+            if (actionEvent.IsAfter(typeof(EndOfTurnEvent)))
             {
-                int playerIndex = gameState.Players.ToList().IndexOf(gameState.ActivePlayer);
-                playerIndex = (playerIndex + 1) % gameState.Players.Count;
-                reactions.Add(new ModifyActivePlayerAction(gameState.Players[playerIndex]));
+                int playerIndex = game.Players.ToList().IndexOf(game.ActivePlayer);
+                playerIndex = (playerIndex + 1) % game.Players.Count;
+                game.Execute(new ModifyActivePlayerAction(game.Players[playerIndex]));
             }
-            return reactions;
         }
     }
 }
