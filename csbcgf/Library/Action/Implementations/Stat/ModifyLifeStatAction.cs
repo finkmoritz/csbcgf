@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class ModifyLifeStatAction : IAction
+    public class ModifyLifeStatAction : Action
     {
         [JsonProperty]
         public ILiving Living;
@@ -20,7 +20,7 @@ namespace csbcgf
             Delta = delta;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             Living.LifeValue += Delta;
             if(!(Living is ICardComponent) && Living.LifeValue < 0)
@@ -41,7 +41,7 @@ namespace csbcgf
             
         }
 
-        public bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return !(Living is ICardComponent)
                 && Living.LifeValue > 0;

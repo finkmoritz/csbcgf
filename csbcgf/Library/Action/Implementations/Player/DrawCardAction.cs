@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class DrawCardAction : IAction
+    public class DrawCardAction : Action
     {
         [JsonProperty]
         public IPlayer Player;
@@ -18,7 +18,7 @@ namespace csbcgf
             Player = player;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Player.Deck);
             game.Execute(removeAction);
@@ -26,7 +26,7 @@ namespace csbcgf
             game.Execute(new AddCardToHandAction(Player.Hand, DrawnCard));
         }
 
-        public bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return !Player.Deck.IsEmpty;
         }

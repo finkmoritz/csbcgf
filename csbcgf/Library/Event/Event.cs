@@ -4,19 +4,19 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class Event : IAction
+    public abstract class Event : Action
     {
         [JsonConstructor]
         public Event()
         {
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             // An event should not alter the game state.
         }
 
-        public virtual bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return true;
         }

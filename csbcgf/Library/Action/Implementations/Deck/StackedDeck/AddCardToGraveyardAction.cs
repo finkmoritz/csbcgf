@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class AddCardToGraveyardAction : IAction
+    public class AddCardToGraveyardAction : Action
     {
         [JsonProperty]
         public readonly IDeck Graveyard;
@@ -19,12 +19,12 @@ namespace csbcgf
             Card = card;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             Graveyard.Push(Card);
         }
 
-        public bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return Card != null && !Graveyard.Contains(Card);
         }

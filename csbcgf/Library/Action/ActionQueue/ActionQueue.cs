@@ -25,11 +25,14 @@ namespace csbcgf
 
         public void Execute(IGame game, IAction action)
         {
-            if (!isGameOver && action.IsExecutable(game))
+            if (!isGameOver && !action.IsAborted && action.IsExecutable(game))
             {
                 ExecReactions(game, new BeforeActionEvent(action));
-                action.Execute(game);
-                ExecReactions(game, new AfterActionEvent(action));
+                if (!action.IsAborted)
+                {
+                    action.Execute(game);
+                    ExecReactions(game, new AfterActionEvent(action));
+                }
             }
 
             if (action is EndOfGameEvent)

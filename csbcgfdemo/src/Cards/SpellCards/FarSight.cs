@@ -20,16 +20,16 @@ namespace csbcgfdemo
                 game.Execute(new FarSightAction());
             }
 
-            public class FarSightAction : IAction
+            public class FarSightAction : csbcgf.Action
             {
-                public void Execute(IGame game)
+                public override void Execute(IGame game)
                 {
                     DrawCardAction drawCardAction = new DrawCardAction(game.ActivePlayer);
                     game.Execute(drawCardAction);
                     game.Execute(new ModifyManaStatAction(drawCardAction.DrawnCard, -3, 0));
                 }
 
-                public bool IsExecutable(IGameState gameState)
+                public override bool IsExecutable(IGameState gameState)
                 {
                     return true;
                 }

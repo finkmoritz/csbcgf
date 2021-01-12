@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class AddCardToHandAction : IAction
+    public class AddCardToHandAction : Action
     {
         [JsonProperty]
         public readonly IHand Hand;
@@ -19,12 +19,12 @@ namespace csbcgf
             Card = card;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             Hand.Add(Card);
         }
 
-        public bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return Card != null && Hand.Size < Hand.MaxSize;
         }

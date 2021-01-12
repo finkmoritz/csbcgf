@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class RemoveCardFromDeckAction : IAction
+    public class RemoveCardFromDeckAction : Action
     {
         [JsonProperty]
         public ICard Card;
@@ -18,12 +18,12 @@ namespace csbcgf
             this.deck = deck;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             Card = deck.Pop();
         }
 
-        public bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return !deck.IsEmpty;
         }

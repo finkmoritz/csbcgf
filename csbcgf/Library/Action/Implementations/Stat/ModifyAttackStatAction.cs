@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class ModifyAttackStatAction : IAction
+    public class ModifyAttackStatAction : Action
     {
         [JsonProperty]
         public IAttacking Attacking;
@@ -19,12 +19,12 @@ namespace csbcgf
             Delta = delta;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             Attacking.AttackValue += Delta;
         }
 
-        public bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return true;
         }

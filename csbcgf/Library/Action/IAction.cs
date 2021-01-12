@@ -3,6 +3,11 @@
     public interface IAction
     {
         /// <summary>
+        /// Aborted Actions will not be executed.
+        /// </summary>
+        bool IsAborted { get; set; }
+
+        /// <summary>
         /// Check if this Action can be executed on the given Game state.
         /// </summary>
         /// <param name="gameState"></param>

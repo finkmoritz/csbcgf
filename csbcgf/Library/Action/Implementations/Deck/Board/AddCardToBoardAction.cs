@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class AddCardToBoardAction : IAction
+    public class AddCardToBoardAction : Action
     {
         [JsonProperty]
         public readonly IBoard Board;
@@ -23,12 +23,12 @@ namespace csbcgf
             BoardIndex = boardIndex;
         }
 
-        public void Execute(IGame game)
+        public override void Execute(IGame game)
         {
             Board.AddAt(BoardIndex, Card);
         }
 
-        public bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(IGameState gameState)
         {
             return Card != null
                 && Board.IsFreeSlot(BoardIndex);

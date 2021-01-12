@@ -148,6 +148,7 @@
     <Compile Include="Library\Card\Compound\ReactiveCompound.cs" />
     <Compile Include="Library\Card\Compound\ICompound.cs" />
     <Compile Include="Library\Card\Compound\Compound.cs" />
+    <Compile Include="Library\Action\Action.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />

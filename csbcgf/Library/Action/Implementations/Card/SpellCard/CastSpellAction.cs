@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class CastSpellAction : IAction
+    public abstract class CastSpellAction : Action
     {
         [JsonProperty]
         public IPlayer Player;
@@ -18,8 +18,8 @@ namespace csbcgf
             SpellCard = spellCard;
         }
 
-        public abstract void Execute(IGame game);
+        public override abstract void Execute(IGame game);
 
-        public abstract bool IsExecutable(IGameState gameState);
+        public override abstract bool IsExecutable(IGameState gameState);
     }
 }
