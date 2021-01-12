@@ -27,9 +27,9 @@ namespace csbcgf
             {
                 if (Living is IMonsterCard monsterCard)
                 {
-                    game.Execute(new RemoveCardFromBoardAction(monsterCard.Owner.Board, monsterCard));
-                    game.Execute(new AddCardToGraveyardAction(monsterCard.Owner.Graveyard, monsterCard));
-                } else if (Living is IPlayer)
+                    game.Execute(new DieAction(monsterCard));
+                }
+                else if (Living is IPlayer)
                 {
                     game.Execute(new EndOfGameEvent());
                 }
