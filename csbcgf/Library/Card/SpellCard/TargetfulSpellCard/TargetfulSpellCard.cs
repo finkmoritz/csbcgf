@@ -22,7 +22,7 @@ namespace csbcgf
         {
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGame game)
+        public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             //Compute the intersection of all potential targets
             HashSet<ICharacter> potentialTargets = null;
@@ -30,11 +30,11 @@ namespace csbcgf
             {
                 if (potentialTargets == null)
                 {
-                    potentialTargets = ((ITargetful)component).GetPotentialTargets(game);
+                    potentialTargets = ((ITargetful)component).GetPotentialTargets(gameState);
                 }
                 else
                 {
-                    potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(game));
+                    potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(gameState));
                 }
             }
             return potentialTargets ?? new HashSet<ICharacter>();

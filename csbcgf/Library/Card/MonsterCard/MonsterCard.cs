@@ -106,12 +106,10 @@ namespace csbcgf
                     "that is not specified in the list of potential targets!");
             }
 
-            game.Execute(new ModifyLifeStatAction(target, -AttackValue));
-            game.Execute(new ModifyLifeStatAction(this, -target.AttackValue));
-            game.Execute(new ModifyReadyToAttackAction(this, false));
+            game.Execute(new AttackAction(this, target));
         }
 
-        public virtual HashSet<ICharacter> GetPotentialTargets(IGame game)
+        public virtual HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             if (Components.Count == 0)
             {
@@ -119,10 +117,10 @@ namespace csbcgf
             }
 
             //Compute the intersection of all potential targets
-            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(game);
+            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(gameState);
             foreach (ICardComponent component in Components)
             {
-                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(game));
+                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(gameState));
             }
             return potentialTargets;
         }

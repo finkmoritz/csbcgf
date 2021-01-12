@@ -173,7 +173,7 @@ namespace csbcgf
             game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGame game)
+        public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             return new HashSet<ICharacter>();
         }

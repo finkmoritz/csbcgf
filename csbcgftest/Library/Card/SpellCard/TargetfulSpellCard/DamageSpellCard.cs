@@ -34,10 +34,10 @@ namespace csbcgftest
                 game.Execute(new ModifyLifeStatAction(target, -(int)damage));
             }
 
-            public override HashSet<ICharacter> GetPotentialTargets(IGame game)
+            public override HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
             {
                 HashSet<ICharacter> targets = new HashSet<ICharacter>();
-                foreach (IPlayer player in game.Players)
+                foreach (IPlayer player in gameState.Players)
                 {
                     targets.Add(player);
                     player.Board.AllCards.ForEach(c => targets.Add((ICharacter)c));

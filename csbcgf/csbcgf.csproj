@@ -149,6 +149,7 @@
     <Compile Include="Library\Card\Compound\ICompound.cs" />
     <Compile Include="Library\Card\Compound\Compound.cs" />
     <Compile Include="Library\Action\Action.cs" />
+    <Compile Include="Library\Action\Implementations\Card\MonsterCard\AttackAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />

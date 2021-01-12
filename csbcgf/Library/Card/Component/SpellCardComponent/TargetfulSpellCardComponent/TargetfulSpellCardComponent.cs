@@ -12,6 +12,6 @@ namespace csbcgf
 
         public abstract void Cast(IGame game, ICharacter target);
 
-        public abstract HashSet<ICharacter> GetPotentialTargets(IGame game);
+        public abstract HashSet<ICharacter> GetPotentialTargets(IGameState gameState);
     }
 }

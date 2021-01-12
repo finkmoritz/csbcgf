@@ -31,10 +31,10 @@ namespace csbcgfdemo
                 game.Execute(new ModifyLifeStatAction(target, 1));
             }
 
-            public override HashSet<ICharacter> GetPotentialTargets(IGame game)
+            public override HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
             {
                 HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-                game.AllCardsOnTheBoard.ForEach(c => potentialTargets.Add((ICharacter)c));
+                gameState.AllCardsOnTheBoard.ForEach(c => potentialTargets.Add((ICharacter)c));
                 return potentialTargets;
             }
         }
