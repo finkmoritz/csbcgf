@@ -111,7 +111,6 @@
     <Compile Include="Library\Event\Event.cs" />
     <Compile Include="Library\Reaction\EventReaction\SetReadyToAttackOnStartOfTurnEventReaction.cs" />
     <Compile Include="Library\Action\Implementations\Card\MonsterCard\ModifyReadyToAttackAction.cs" />
-    <Compile Include="Library\Card\Castable\ICastable.cs" />
     <Compile Include="Library\Card\Component\SpellCardComponent\ISpellCardComponent.cs" />
     <Compile Include="Library\Card\Component\ICardComponent.cs" />
     <Compile Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\ITargetlessSpellCardComponent.cs" />
@@ -184,7 +183,6 @@
     <Folder Include="Library\Reaction\EventReaction\" />
     <Folder Include="Library\Action\Implementations\Card\" />
     <Folder Include="Library\Action\Implementations\Card\MonsterCard\" />
-    <Folder Include="Library\Card\Castable\" />
     <Folder Include="Library\Card\Component\" />
     <Folder Include="Library\Card\Component\SpellCardComponent\" />
     <Folder Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\" />
