@@ -54,14 +54,14 @@ namespace csbcgftest
             Assert.AreEqual(1, goblin.AttackValue);
             Assert.AreEqual(2, goblin.LifeValue);
 
-            Assert.False(goblin.IsCastable(game));
+            Assert.False(goblin.IsSummonable(game));
         }
 
         [Test()]
         public void TestGame()
         {
             IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            Assert.False(goblin.IsCastable(game));
+            Assert.False(goblin.IsSummonable(game));
 
             game.NextTurn(); //Second player's turn
 
@@ -88,7 +88,7 @@ namespace csbcgftest
             Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Size);
 
             goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            Assert.True(goblin.IsCastable(game));
+            Assert.True(goblin.IsSummonable(game));
 
             //Play monster card
             Assert.True(game.ActivePlayer.Board.IsFreeSlot(0));

@@ -31,7 +31,7 @@ namespace csbcgf
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return MonsterCard.IsCastable(gameState)
+            return MonsterCard.IsSummonable(gameState)
                 && Player.Board.IsFreeSlot(BoardIndex);
         }
     }

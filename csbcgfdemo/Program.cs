@@ -6,8 +6,8 @@ namespace csbcgfdemo
 {
     class MainClass
     {
-        private const string CommandCastMonster = "CM";
-        private const string CommandCastSpell = "CS";
+        private const string CommandSummon = "S";
+        private const string CommandCast = "C";
         private const string CommandAttack = "A";
         private const string CommandEndTurn = "E";
         private const string CommandQuit = "Q";
@@ -54,8 +54,8 @@ namespace csbcgfdemo
         private static string GetOptions()
         {
             string options = "Choose command:\n";
-            options += CommandCastMonster + " <id> <slot_index>: Cast monster card from hand (with <id>) to the board (at position <slot_index>, i.e. 0-5)\n";
-            options += CommandCastSpell + " <id> [<target_id>]: Cast spell card from hand (with <id>). Cast spell on target (with <target_id>) if the spell requires a target\n";
+            options += CommandSummon + " <id> <slot_index>: Summon monster card from hand (with <id>) to the board (at position <slot_index>, i.e. 0-5)\n";
+            options += CommandCast + " <id> [<target_id>]: Cast spell card from hand (with <id>). Cast spell on target (with <target_id>) if the spell requires a target\n";
             options += CommandAttack + " <id> <target_id>: Attack monster card (with <target_id>) with monster card (with <id>)\n";
             options += CommandEndTurn + ": End Turn\n";
             options += CommandQuit +": Quit\n";
@@ -70,12 +70,12 @@ namespace csbcgfdemo
                 string[] inputParams = input.Split(' ');
                 switch (inputParams[0].ToUpper())
                 {
-                    case CommandCastMonster:
+                    case CommandSummon:
                         IMonsterCard monsterCard = (IMonsterCard)GetObjectById(game, inputParams[1]);
                         game.ActivePlayer.CastMonster(game, monsterCard, int.Parse(inputParams[2]));
                         output = "Cast monster card";
                         break;
-                    case CommandCastSpell:
+                    case CommandCast:
                         ISpellCard spellCard = (ISpellCard)GetObjectById(game, inputParams[1]);
                         if (spellCard is TargetlessSpellCard targetlessSpellCard)
                         {

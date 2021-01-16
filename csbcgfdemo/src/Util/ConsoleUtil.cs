@@ -90,8 +90,15 @@ namespace csbcgfdemo
             for (int i = 0; i < hand.Size; ++i)
             {
                 ICard card = hand[i];
-                Console.ForegroundColor = card.IsCastable(gameState)
-                        ? ColorSelectable : ColorDefault;
+                Console.ForegroundColor = ColorDefault;
+                if (card is IMonsterCard c0 && c0.IsSummonable(gameState))
+                {
+                    Console.ForegroundColor = ColorSelectable;
+                }
+                else if (card is ISpellCard c1 && c1.IsCastable(gameState))
+                {
+                    Console.ForegroundColor = ColorSelectable;
+                }
                 Console.Write(string.Format(
                     "Id: {0}{1}            ",
                     idPrefix,

@@ -9,6 +9,8 @@
         /// </summary>
         bool IsReadyToAttack { get; set; }
 
+        bool IsSummonable(IGameState gameState);
+
         /// <summary>
         /// Attack the given target Character.
         /// </summary>

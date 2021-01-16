@@ -136,7 +136,7 @@ namespace csbcgf
 
         public void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
         {
-            if (!monsterCard.IsCastable(game))
+            if (!monsterCard.IsSummonable(game))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");

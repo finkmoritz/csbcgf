@@ -125,7 +125,7 @@ namespace csbcgf
             return potentialTargets;
         }
 
-        public override bool IsCastable(IGameState gameState)
+        public bool IsSummonable(IGameState gameState)
         {
             IBoard board = gameState.ActivePlayer.Board;
             return base.IsCastable(gameState)
