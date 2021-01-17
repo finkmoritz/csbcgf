@@ -13,10 +13,20 @@ namespace csbcgf
         public ICharacter Target;
 
         [JsonConstructor]
-        public AttackAction(IMonsterCard attacker, ICharacter target)
+        public AttackAction(IMonsterCard attacker, ICharacter target, bool isAborted = false)
+            : base(isAborted)
         {
             Attacker = attacker;
             Target = target;
+        }
+
+        public override object Clone()
+        {
+            return new AttackAction(
+                (IMonsterCard)Attacker.Clone(),
+                (ICharacter)Target.Clone(),
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

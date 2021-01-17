@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace csbcgf
@@ -14,6 +13,11 @@ namespace csbcgf
         public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard)
         {
             this.monsterCard = monsterCard;
+        }
+
+        public object Clone()
+        {
+            return new SetReadyToAttackOnStartOfTurnEventReaction((IMonsterCard)monsterCard.Clone());
         }
 
         public void ReactTo(IGame game, IActionEvent actionEvent)

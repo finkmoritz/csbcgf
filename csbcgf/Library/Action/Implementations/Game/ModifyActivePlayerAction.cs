@@ -10,9 +10,18 @@ namespace csbcgf
         public IPlayer NewActivePlayer;
 
         [JsonConstructor]
-        public ModifyActivePlayerAction(IPlayer newActivePlayer)
+        public ModifyActivePlayerAction(IPlayer newActivePlayer, bool isAborted = false)
+            : base(isAborted)
         {
             NewActivePlayer = newActivePlayer;
+        }
+
+        public override object Clone()
+        {
+            return new ModifyActivePlayerAction(
+                null, // otherwise circular dependencies
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

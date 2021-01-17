@@ -1,6 +1,8 @@
-﻿namespace csbcgf
+﻿using System;
+
+namespace csbcgf
 {
-    public interface ITargetless
+    public interface ITargetless : ICloneable
     {
     }
 }

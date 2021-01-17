@@ -12,13 +12,27 @@ namespace csbcgf
         /// immediate effect on the Game's state.
         /// </summary>
         /// <param name="components"></param>
-        [JsonConstructor]
         public SpellCard(List<ISpellCardComponent> components)
-            : base(components.ConvertAll(c => (ICardComponent)c))
+            : this(components, null)
         {
         }
 
         public SpellCard() : this(new List<ISpellCardComponent>())
+        {
+        }
+
+        public SpellCard(
+            List<ISpellCardComponent> components,
+            IPlayer owner
+            ) : this(components.ConvertAll(c => (ICardComponent)c), owner)
+        {
+        }
+
+        [JsonConstructor]
+        public SpellCard(
+            List<ICardComponent> components,
+            IPlayer owner
+            ) : base(components, owner)
         {
         }
     }

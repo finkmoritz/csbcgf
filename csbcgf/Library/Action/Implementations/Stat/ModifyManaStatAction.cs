@@ -16,11 +16,26 @@ namespace csbcgf
         public int DeltaBaseValue;
 
         [JsonConstructor]
-        public ModifyManaStatAction(IManaful manaful, int deltaValue, int deltaBaseValue)
+        public ModifyManaStatAction(
+            IManaful manaful,
+            int deltaValue,
+            int deltaBaseValue,
+            bool isAborted = false
+            ) : base(isAborted)
         {
             Manaful = manaful;
             DeltaValue = deltaValue;
             DeltaBaseValue = deltaBaseValue;
+        }
+
+        public override object Clone()
+        {
+            return new ModifyManaStatAction(
+                (IManaful)Manaful.Clone(),
+                DeltaValue,
+                DeltaBaseValue,
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

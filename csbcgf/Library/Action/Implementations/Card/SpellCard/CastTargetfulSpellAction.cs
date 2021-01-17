@@ -3,16 +3,32 @@ using Newtonsoft.Json;
 
 namespace csbcgf
 {
+    [Serializable]
     public class CastTargetfulSpellAction : CastSpellAction
     {
         [JsonProperty]
         public ICharacter Target;
 
-        public CastTargetfulSpellAction(IPlayer player, ITargetfulSpellCard spellCard, ICharacter target)
-            : base(player, spellCard)
+        [JsonConstructor]
+        public CastTargetfulSpellAction(
+            IPlayer player,
+            ITargetfulSpellCard spellCard,
+            ICharacter target,
+            bool isAborted = false
+            ) : base(player, spellCard, isAborted)
         {
             SpellCard = spellCard;
             Target = target;
+        }
+
+        public override object Clone()
+        {
+            return new CastTargetfulSpellAction(
+                null, // otherwise circular dependencies
+                (ITargetfulSpellCard)SpellCard.Clone(),
+                (ICharacter)Target.Clone(),
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

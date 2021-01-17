@@ -47,5 +47,7 @@ namespace csbcgf
         {
             Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
+
+        public abstract object Clone();
     }
 }

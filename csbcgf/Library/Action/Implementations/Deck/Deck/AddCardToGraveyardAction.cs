@@ -4,26 +4,26 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class AddCardToHandAction : Action
+    public class AddCardToGraveyardAction : Action
     {
         [JsonProperty]
-        public readonly IHand Hand;
+        public readonly IDeck Graveyard;
 
         [JsonProperty]
         public ICard Card;
 
         [JsonConstructor]
-        public AddCardToHandAction(IHand hand, ICard card, bool isAborted = false)
+        public AddCardToGraveyardAction(IDeck graveyard, ICard card, bool isAborted = false)
             : base(isAborted)
         {
-            Hand = hand;
+            Graveyard = graveyard;
             Card = card;
         }
 
         public override object Clone()
         {
-            return new AddCardToHandAction(
-                (IHand)Hand.Clone(),
+            return new AddCardToGraveyardAction(
+                (IDeck)Graveyard.Clone(),
                 (ICard)Card.Clone(),
                 IsAborted
             );
@@ -31,12 +31,12 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            Hand.Add(Card);
+            Graveyard.Push(Card);
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return Card != null && Hand.Size < Hand.MaxSize;
+            return Card != null && !Graveyard.Contains(Card);
         }
     }
 }

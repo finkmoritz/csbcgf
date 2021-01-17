@@ -26,9 +26,21 @@ namespace csbcgf
             lifeStat = new LifeStat(lifeValue, lifeBaseValue);
         }
 
-        [JsonConstructor]
-        protected MonsterCardComponent(int mana, AttackStat attackStat, LifeStat lifeStat)
+        public MonsterCardComponent(int mana, AttackStat attackStat, LifeStat lifeStat)
             : base(mana)
+        {
+            this.attackStat = attackStat;
+            this.lifeStat = lifeStat;
+        }
+
+        [JsonConstructor]
+        protected MonsterCardComponent(
+            ManaCostStat manaCostStat,
+            AttackStat attackStat,
+            LifeStat lifeStat,
+            List<IReaction> reactions,
+            ICard parentCard
+            ) : base(manaCostStat, reactions, parentCard)
         {
             this.attackStat = attackStat;
             this.lifeStat = lifeStat;
@@ -60,6 +72,23 @@ namespace csbcgf
         {
             get => lifeStat.BaseValue;
             set => lifeStat.BaseValue = value;
+        }
+
+        public override object Clone()
+        {
+            List<IReaction> reactionsClone = new List<IReaction>();
+            foreach (IReaction reaction in Reactions)
+            {
+                reactionsClone.Add((IReaction)reaction.Clone());
+            }
+
+            return new MonsterCardComponent(
+                (ManaCostStat)manaCostStat.Clone(),
+                (AttackStat)attackStat.Clone(),
+                (LifeStat)lifeStat.Clone(),
+                reactionsClone,
+                null // otherwise circular dependencies
+            );
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)

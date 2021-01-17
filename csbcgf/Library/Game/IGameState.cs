@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface IGameState
+    public interface IGameState : ICloneable
     {
         /// <summary>
         /// Convenience method to retrieve the active Player.

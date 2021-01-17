@@ -1,6 +1,8 @@
-﻿namespace csbcgf
+﻿using System;
+
+namespace csbcgf
 {
-    public interface ILiving
+    public interface ILiving : ICloneable
     {
         int LifeValue { get; set; }
         int LifeBaseValue { get; set; }

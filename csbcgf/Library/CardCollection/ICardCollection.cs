@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface ICardCollection
+    public interface ICardCollection : ICloneable
     {
         /// <summary>
         /// Get all cards in this Deck.

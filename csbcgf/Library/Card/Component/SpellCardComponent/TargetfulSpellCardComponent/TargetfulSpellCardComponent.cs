@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -7,6 +8,13 @@ namespace csbcgf
     public abstract class TargetfulSpellCardComponent : CardComponent, ITargetfulSpellCardComponent
     {
         public TargetfulSpellCardComponent(int mana) : base(mana)
+        {
+        }
+
+        [JsonConstructor]
+        protected TargetfulSpellCardComponent(ManaCostStat manaCostStat,
+            List<IReaction> reactions, ICard parentCard)
+            : base(manaCostStat, reactions, parentCard)
         {
         }
 

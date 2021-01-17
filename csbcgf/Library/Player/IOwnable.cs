@@ -1,5 +1,8 @@
-﻿namespace csbcgf {
-    public interface IOwnable
+﻿using System;
+
+namespace csbcgf {
+
+    public interface IOwnable : ICloneable
     {
         /// <summary>
         /// The Owner of this Object.

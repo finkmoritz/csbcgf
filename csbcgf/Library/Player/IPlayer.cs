@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 
 namespace csbcgf
 {
-    public interface IPlayer : IManaful, ICharacter, IReactive
+    public interface IPlayer : IManaful, ICharacter, IReactive, ICloneable
     {
         /// <summary>
         /// The Player's Deck of Cards.

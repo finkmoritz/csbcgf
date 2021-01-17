@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace csbcgf
@@ -14,10 +13,16 @@ namespace csbcgf
         public int Delta;
 
         [JsonConstructor]
-        public ModifyLifeStatAction(ILiving living, int delta)
+        public ModifyLifeStatAction(ILiving living, int delta, bool isAborted = false)
+            : base(isAborted)
         {
             Living = living;
             Delta = delta;
+        }
+
+        public override object Clone()
+        {
+            return new ModifyLifeStatAction((ILiving)Living.Clone(), Delta, IsAborted);
         }
 
         public override void Execute(IGame game)

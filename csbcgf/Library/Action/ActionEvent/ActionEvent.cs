@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace csbcgf
 {
     [Serializable]
@@ -6,6 +8,7 @@ namespace csbcgf
     {
         public IAction Action { get; protected set; }
 
+        [JsonConstructor]
         public ActionEvent(IAction action)
         {
             Action = action;

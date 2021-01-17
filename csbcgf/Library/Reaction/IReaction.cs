@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface IReaction
+    public interface IReaction : ICloneable
     {
         /// <summary>
         /// React on a given ActionEvent.

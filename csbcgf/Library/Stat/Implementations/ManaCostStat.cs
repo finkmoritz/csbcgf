@@ -13,5 +13,10 @@ namespace csbcgf {
         public ManaCostStat(int value, int baseValue) : base(value, baseValue)
         {
         }
+
+        public override object Clone()
+        {
+            return new ManaCostStat(Value, BaseValue);
+        }
     }
 }

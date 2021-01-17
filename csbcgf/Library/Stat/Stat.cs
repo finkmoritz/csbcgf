@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class Stat : IStat
+    public abstract class Stat : IStat, ICloneable
     {
         public const int GlobalMin = -99;
         public const int GlobalMax = 99;
@@ -39,5 +39,7 @@ namespace csbcgf
             get => baseValue;
             set => baseValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
         }
+
+        public abstract object Clone();
     }
 }

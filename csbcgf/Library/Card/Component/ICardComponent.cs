@@ -1,6 +1,8 @@
-﻿namespace csbcgf
+﻿using System;
+
+namespace csbcgf
 {
-    public interface ICardComponent : IManaful, IReactive
+    public interface ICardComponent : IManaful, IReactive, ICloneable
     {
         /// <summary>
         /// Provides the parent Card this Component is attached to.

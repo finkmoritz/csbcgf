@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using csbcgf;
 using NUnit.Framework;
 
@@ -164,6 +165,22 @@ namespace csbcgftest
             Game deserializedGame = CsbcgfJsonConvert.Deserialize<Game>(serializedJson);
             string deserializedJson = CsbcgfJsonConvert.Serialize(deserializedGame);
             Assert.AreEqual(serializedJson, deserializedJson);
+        }
+
+        [Test()]
+        public void TestGameCloning()
+        {
+            try
+            {
+                Game gameClone = (Game)game.Clone();
+                string serializedGame = CsbcgfJsonConvert.Serialize(game);
+                string serializedGameClone = CsbcgfJsonConvert.Serialize(gameClone);
+                Assert.AreEqual(serializedGame, serializedGameClone);
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("Game.Clone() failed!\n(Check for circular dependencies)\n" + e.ToString());
+            }
         }
     }
 }

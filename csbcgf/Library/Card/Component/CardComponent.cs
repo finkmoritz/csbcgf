@@ -58,5 +58,20 @@ namespace csbcgf
         {
             Reactions.Remove(reaction);
         }
+
+        public virtual object Clone()
+        {
+            List<IReaction> reactionsClone = new List<IReaction>();
+            foreach (IReaction reaction in Reactions)
+            {
+                reactionsClone.Add((IReaction)reaction.Clone());
+            }
+
+            return new CardComponent(
+                (ManaCostStat)manaCostStat.Clone(),
+                reactionsClone,
+                null // otherwise circular dependencies
+            );
+        }
     }
 }

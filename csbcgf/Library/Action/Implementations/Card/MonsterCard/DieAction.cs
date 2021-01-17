@@ -10,9 +10,15 @@ namespace csbcgf
         public IMonsterCard MonsterCard;
 
         [JsonConstructor]
-        public DieAction(IMonsterCard monsterCard)
+        public DieAction(IMonsterCard monsterCard, bool isAborted = false)
+            : base(isAborted)
         {
             MonsterCard = monsterCard;
+        }
+
+        public override object Clone()
+        {
+            return new DieAction((IMonsterCard)MonsterCard.Clone(), IsAborted);
         }
 
         public override void Execute(IGame game)

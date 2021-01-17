@@ -9,13 +9,13 @@ namespace csbcgf
         public bool IsAborted { get; set; }
 
         [JsonConstructor]
-        public Action(bool aborted = false)
+        public Action(bool isAborted = false)
         {
-            IsAborted = aborted;
+            IsAborted = isAborted;
         }
 
         public abstract void Execute(IGame game);
-
         public abstract bool IsExecutable(IGameState gameState);
+        public abstract object Clone();
     }
 }

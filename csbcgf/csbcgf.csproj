@@ -100,9 +100,9 @@
     <Compile Include="Library\Action\Implementations\Stat\ModifyAttackStatAction.cs" />
     <Compile Include="Library\Action\Implementations\Stat\ModifyLifeStatAction.cs" />
     <Compile Include="Library\Action\Implementations\Deck\Board\RemoveCardFromBoardAction.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\StackedDeck\AddCardToGraveyardAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\Deck\AddCardToGraveyardAction.cs" />
     <Compile Include="Library\Player\IOwnable.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\StackedDeck\RemoveCardFromDeckAction.cs" />
+    <Compile Include="Library\Action\Implementations\Deck\Deck\RemoveCardFromDeckAction.cs" />
     <Compile Include="Library\Action\Implementations\Deck\Hand\AddCardToHandAction.cs" />
     <Compile Include="Library\Action\Implementations\Deck\Hand\RemoveCardFromHandAction.cs" />
     <Compile Include="Library\Action\Implementations\Deck\Board\AddCardToBoardAction.cs" />
@@ -175,7 +175,7 @@
     <Folder Include="Library\Action\Implementations\Stat\" />
     <Folder Include="Library\Action\Implementations\Deck\" />
     <Folder Include="Library\Action\Implementations\Deck\Board\" />
-    <Folder Include="Library\Action\Implementations\Deck\StackedDeck\" />
+    <Folder Include="Library\Action\Implementations\Deck\Deck\" />
     <Folder Include="Library\Action\Implementations\Deck\Hand\" />
     <Folder Include="Library\Reaction\" />
     <Folder Include="Library\Event\" />

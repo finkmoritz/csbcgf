@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface IActionQueue
+    public interface IActionQueue : ICloneable
     {
         /// <summary>
         /// Marks if the ActionQueue also executes IReactions to the

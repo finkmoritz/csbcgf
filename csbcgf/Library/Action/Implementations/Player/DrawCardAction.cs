@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace csbcgf
@@ -13,9 +12,19 @@ namespace csbcgf
         [JsonProperty]
         public ICard DrawnCard;
 
-        public DrawCardAction(IPlayer player)
+        [JsonConstructor]
+        public DrawCardAction(IPlayer player, bool isAborted = false)
+            : base(isAborted)
         {
             Player = player;
+        }
+
+        public override object Clone()
+        {
+            return new DrawCardAction(
+                null, // otherwise circular dependencies
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

@@ -56,6 +56,16 @@ namespace csbcgf
             cards.Remove(card);
         }
 
+        public override object Clone()
+        {
+            List<ICard> cardsClone = new List<ICard>();
+            foreach (ICard card in cards)
+            {
+                cardsClone.Add((ICard)card.Clone());
+            }
+            return new Hand(cardsClone);
+        }
+
         public ICard this[int index]
         {
             get => cards[index];

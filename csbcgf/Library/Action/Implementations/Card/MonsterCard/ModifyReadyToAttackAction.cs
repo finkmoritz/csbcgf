@@ -13,10 +13,23 @@ namespace csbcgf
         public bool IsReadyToAttack;
 
         [JsonConstructor]
-        public ModifyReadyToAttackAction(IMonsterCard monsterCard, bool isReadyToAttack)
+        public ModifyReadyToAttackAction(
+            IMonsterCard monsterCard,
+            bool isReadyToAttack,
+            bool isAborted = false
+            ) : base(isAborted)
         {
             MonsterCard = monsterCard;
             IsReadyToAttack = isReadyToAttack;
+        }
+
+        public override object Clone()
+        {
+            return new ModifyReadyToAttackAction(
+                (IMonsterCard)MonsterCard.Clone(),
+                IsReadyToAttack,
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

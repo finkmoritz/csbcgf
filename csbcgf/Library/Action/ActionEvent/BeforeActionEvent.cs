@@ -1,10 +1,19 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace csbcgf
 {
+    [Serializable]
     public class BeforeActionEvent : ActionEvent
     {
+        [JsonConstructor]
         public BeforeActionEvent(IAction action) : base(action)
         {
+        }
+
+        public override object Clone()
+        {
+            return new BeforeActionEvent((IAction)Action.Clone());
         }
 
         public override bool IsAfter(Type type)

@@ -192,5 +192,25 @@ namespace csbcgf
         {
             Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
+
+        public virtual object Clone()
+        {
+            List<IReaction> reactionsClone = new List<IReaction>();
+            foreach (IReaction reaction in Reactions)
+            {
+                reactionsClone.Add((IReaction)reaction.Clone());
+            }
+
+            return new Player(
+                (IDeck)Deck.Clone(),
+                (IHand)Hand.Clone(),
+                (IBoard)Board.Clone(),
+                (IDeck)Graveyard.Clone(),
+                (ManaPoolStat)manaPoolStat.Clone(),
+                (AttackStat)attackStat.Clone(),
+                (LifeStat)lifeStat.Clone(),
+                reactionsClone
+            );
+        }
     }
 }

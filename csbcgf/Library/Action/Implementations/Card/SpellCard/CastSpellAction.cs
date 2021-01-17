@@ -12,7 +12,9 @@ namespace csbcgf
         [JsonProperty]
         public ISpellCard SpellCard;
 
-        public CastSpellAction(IPlayer player, ISpellCard spellCard)
+        [JsonConstructor]
+        public CastSpellAction(IPlayer player, ISpellCard spellCard, bool isAborted = false)
+            : base(isAborted)
         {
             Player = player;
             SpellCard = spellCard;

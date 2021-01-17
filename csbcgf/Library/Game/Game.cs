@@ -145,5 +145,29 @@ namespace csbcgf
         {
             Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
+
+        public object Clone()
+        {
+            List<IPlayer> playersClone = new List<IPlayer>();
+            foreach (IPlayer player in Players)
+            {
+                IPlayer playerClone = (IPlayer)player.Clone();
+                playerClone.AllCards.ForEach(c => c.Owner = playerClone);
+                playersClone.Add(playerClone);
+            }
+
+            List<IReaction> reactionsClone = new List<IReaction>();
+            foreach (IReaction reaction in Reactions)
+            {
+                reactionsClone.Add((IReaction)reaction.Clone());
+            }
+
+            return new Game(
+                playersClone,
+                activePlayerIndex,
+                (ActionQueue)actionQueue.Clone(),
+                reactionsClone
+            );
+        }
     }
 }

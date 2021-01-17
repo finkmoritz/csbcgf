@@ -13,10 +13,20 @@ namespace csbcgf
         public ICard Card;
 
         [JsonConstructor]
-        public RemoveCardFromBoardAction(IBoard board, ICard card)
+        public RemoveCardFromBoardAction(IBoard board, ICard card, bool isAborted = false)
+            : base(isAborted)
         {
             Board = board;
             Card = card;
+        }
+
+        public override object Clone()
+        {
+            return new RemoveCardFromBoardAction(
+                (IBoard)Board.Clone(),
+                (ICard)Card.Clone(),
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

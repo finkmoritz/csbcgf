@@ -1,13 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
     public class ModifyManaOnStartOfTurnEventReaction : IReaction
     {
+        [JsonConstructor]
         public ModifyManaOnStartOfTurnEventReaction()
         {
+        }
+
+        public object Clone()
+        {
+            return new ModifyManaOnStartOfTurnEventReaction();
         }
 
         public void ReactTo(IGame game, IActionEvent actionEvent)

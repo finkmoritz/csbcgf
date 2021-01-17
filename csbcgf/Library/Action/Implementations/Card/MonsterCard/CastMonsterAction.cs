@@ -15,11 +15,24 @@ namespace csbcgf
         [JsonProperty]
         public int BoardIndex;
 
-        public CastMonsterAction(IPlayer player, IMonsterCard monsterCard, int boardIndex)
+        [JsonConstructor]
+        public CastMonsterAction(IPlayer player, IMonsterCard monsterCard,
+            int boardIndex, bool isAborted = false
+            ) : base(isAborted)
         {
             Player = player;
             MonsterCard = monsterCard;
             BoardIndex = boardIndex;
+        }
+
+        public override object Clone()
+        {
+            return new CastMonsterAction(
+                null, // otherwise circular dependencies
+                (IMonsterCard)MonsterCard.Clone(),
+                BoardIndex,
+                IsAborted
+                );
         }
 
         public override void Execute(IGame game)

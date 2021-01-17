@@ -4,7 +4,7 @@ namespace csbcgf
     [Serializable]
     public class CsbcgfException : Exception
     {
-        protected const string MessagePrefix = "csbcgf EXCEPTION: ";
+        protected const string MessagePrefix = "C# Battle Card Game Framework EXCEPTION: ";
 
         /// <summary>
         /// Library specific Exception. Usually thrown when the Game's

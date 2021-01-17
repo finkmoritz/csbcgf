@@ -50,5 +50,10 @@ namespace csbcgf
                 game.ReactTo(game, actionEvent);
             }
         }
+
+        public object Clone()
+        {
+            return new ActionQueue(ExecuteReactions, isGameOver);
+        }
     }
 }

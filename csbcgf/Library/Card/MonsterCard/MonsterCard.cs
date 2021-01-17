@@ -36,12 +36,27 @@ namespace csbcgf
         {
         }
 
+        public MonsterCard(List<IMonsterCardComponent> components, bool isReadyToAttack)
+            : this(components, null, isReadyToAttack)
+        {
+        }
+
+        public MonsterCard(
+            List<IMonsterCardComponent> components,
+            IPlayer owner,
+            bool isReadyToAttack
+            ) : this(components.ConvertAll(c => (ICardComponent)c), owner, isReadyToAttack)
+        {
+        }
+
         [JsonConstructor]
-        protected MonsterCard(List<IMonsterCardComponent> components, bool isReadyToAttack)
-            : base(components.ConvertAll(c => (ICardComponent)c))
+        public MonsterCard(
+            List<ICardComponent> components,
+            IPlayer owner,
+            bool isReadyToAttack
+            ) : base(components, owner)
         {
             IsReadyToAttack = isReadyToAttack;
-
             AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
         }
 
@@ -130,6 +145,22 @@ namespace csbcgf
             IBoard board = gameState.ActivePlayer.Board;
             return base.IsCastable(gameState)
                     && board.AllCards.Count < board.MaxSize;
+        }
+
+        public override object Clone()
+        {
+            IMonsterCard clone = new MonsterCard(
+                new List<IMonsterCardComponent>(),
+                null, // otherwise circular dependencies
+                IsReadyToAttack
+            );
+            foreach (ICardComponent c in Components)
+            {
+                ICardComponent cc = (ICardComponent)c.Clone();
+                cc.ParentCard = clone;
+                clone.AddComponent(cc);
+            }
+            return clone;
         }
     }
 }

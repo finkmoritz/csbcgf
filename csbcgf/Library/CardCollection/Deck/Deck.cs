@@ -33,6 +33,16 @@ namespace csbcgf
             get => cards.Count == 0;
         }
 
+        public override object Clone()
+        {
+            Stack<ICard> cardsClone = new Stack<ICard>();
+            foreach (ICard card in cards.Reverse())
+            {
+                cardsClone.Push((ICard)card.Clone());
+            }
+            return new Deck(cardsClone);
+        }
+
         public override bool Contains(ICard card)
         {
             return cards.Contains(card);

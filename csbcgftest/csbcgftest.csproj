@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test.cs" />
-    <Compile Include="Library\Card\SpellCard\TargetlessSpellCard\RandomDamageSpellCard.cs" />
     <Compile Include="Library\Card\SpellCard\TargetfulSpellCard\DamageSpellCard.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +72,6 @@
     <Folder Include="Library\" />
     <Folder Include="Library\Card\" />
     <Folder Include="Library\Card\SpellCard\" />
-    <Folder Include="Library\Card\SpellCard\TargetlessSpellCard\" />
     <Folder Include="Library\Card\SpellCard\TargetfulSpellCard\" />
   </ItemGroup>
   <ItemGroup>

@@ -29,5 +29,10 @@ namespace csbcgf
             get => base.BaseValue;
             set => base.BaseValue = Math.Max(0, value);
         }
+
+        public override object Clone()
+        {
+            return new ManaPoolStat(Value, BaseValue);
+        }
     }
 }

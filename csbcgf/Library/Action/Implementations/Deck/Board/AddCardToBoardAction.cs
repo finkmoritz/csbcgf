@@ -16,11 +16,22 @@ namespace csbcgf
         public int BoardIndex;
 
         [JsonConstructor]
-        public AddCardToBoardAction(IBoard board, ICard card, int boardIndex)
+        public AddCardToBoardAction(IBoard board, ICard card, int boardIndex, bool isAborted = false)
+            : base(isAborted)
         {
             Board = board;
             Card = card;
             BoardIndex = boardIndex;
+        }
+
+        public override object Clone()
+        {
+            return new AddCardToBoardAction(
+                (IBoard)Board.Clone(),
+                (ICard)Card.Clone(),
+                BoardIndex,
+                IsAborted
+            );
         }
 
         public override void Execute(IGame game)

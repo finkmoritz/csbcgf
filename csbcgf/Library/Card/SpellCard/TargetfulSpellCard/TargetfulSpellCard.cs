@@ -7,9 +7,8 @@ namespace csbcgf
     [Serializable]
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
-        [JsonConstructor]
         public TargetfulSpellCard(List<ISpellCardComponent> components)
-            : base(components)
+            : this(components, null)
         {
         }
 
@@ -19,6 +18,19 @@ namespace csbcgf
         }
 
         public TargetfulSpellCard() : this(new List<ISpellCardComponent>())
+        {
+        }
+
+        public TargetfulSpellCard(List<ISpellCardComponent> components,
+            IPlayer owner
+            ) : this(components.ConvertAll(c => (ICardComponent)c), owner)
+        {
+        }
+
+        [JsonConstructor]
+        public TargetfulSpellCard(List<ICardComponent> components,
+            IPlayer owner
+            ) : base(components, owner)
         {
         }
 
@@ -59,6 +71,21 @@ namespace csbcgf
                     targetfulComponent.Cast(game, target);
                 }
             }
+        }
+
+        public override object Clone()
+        {
+            ITargetfulSpellCard clone = new TargetfulSpellCard(
+                new List<ISpellCardComponent>(),
+                null // otherwise circular dependencies
+            );
+            foreach (ICardComponent c in Components)
+            {
+                ICardComponent cc = (ICardComponent)c.Clone();
+                cc.ParentCard = clone;
+                clone.AddComponent(cc);
+            }
+            return clone;
         }
     }
 }

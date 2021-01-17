@@ -1,6 +1,8 @@
-﻿namespace csbcgf
+﻿using System;
+
+namespace csbcgf
 {
-    public interface ICard : IOwnable, IManaful, IReactive, ICompound
+    public interface ICard : IOwnable, IManaful, IReactive, ICompound, ICloneable
     {
     }
 }

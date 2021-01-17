@@ -128,5 +128,17 @@ namespace csbcgf
         {
             return cards[index] == null;
         }
+
+        public override object Clone()
+        {
+            ICard[] cardsClone = new ICard[cards.Length];
+            for (int i = 0; i < cards.Length; ++i)
+            {
+                cardsClone[i] = cards[i] == null
+                    ? null
+                    : (ICard)cards[i].Clone();
+            }
+            return new Board(cardsClone);
+        }
     }
 }
