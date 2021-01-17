@@ -8,22 +8,14 @@ namespace csbcgf
     [Serializable]
     public abstract class Card : ReactiveCompound, ICard
     {
-        public IPlayer Owner { get; set; }
-
-        public Card(List<ICardComponent> components)
-            : this(components, null)
-        {
-        }
-
         public Card() : this(new List<ICardComponent>())
         {
         }
 
         [JsonConstructor]
-        protected Card(List<ICardComponent> components, IPlayer owner)
+        protected Card(List<ICardComponent> components)
             : base(components)
         {
-            Owner = owner;
         }
 
         [JsonIgnore]
@@ -46,8 +38,10 @@ namespace csbcgf
 
         public virtual bool IsCastable(IGameState gameState)
         {
-            return Owner == gameState.ActivePlayer
-                && Owner.Hand.Contains(this)
+            IPlayer owner = FindOwner(gameState);
+            return owner != null
+                && owner == gameState.ActivePlayer
+                && owner.Hand.Contains(this)
                 && ManaValue <= gameState.ActivePlayer.ManaValue;
         }
 
@@ -61,6 +55,18 @@ namespace csbcgf
         {
             base.RemoveComponent(cardComponent);
             cardComponent.ParentCard = null;
+        }
+
+        public IPlayer FindOwner(IGameState gameState)
+        {
+            foreach (IPlayer player in gameState.Players)
+            {
+                if (player.AllCards.Contains(this))
+                {
+                    return player;
+                }
+            }
+            return null;
         }
     }
 }

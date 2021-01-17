@@ -5,8 +5,11 @@ namespace csbcgf {
     public interface IOwnable : ICloneable
     {
         /// <summary>
-        /// The Owner of this Object.
+        /// Find the owner of this IOwnable.
         /// </summary>
-        IPlayer Owner { get; set; }
+        /// <param name="gameState"></param>
+        /// <returns>The player that owns this IOwnable or null if it
+        /// is not owned by a player.</returns>
+        IPlayer FindOwner(IGameState gameState);
     }
 }

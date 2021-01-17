@@ -12,14 +12,14 @@ namespace csbcgftest
         protected uint damage;
 
         public DamageSpellCard(uint damage)
-            : this(damage, new List<ISpellCardComponent>(), null)
+            : this(damage, new List<ISpellCardComponent>())
         {
             AddComponent(new DamageSpellCardComponent((int)damage, damage));
         }
 
         [JsonConstructor]
-        protected DamageSpellCard(uint damage, List<ISpellCardComponent> components, IPlayer owner)
-            : base(components, owner)
+        protected DamageSpellCard(uint damage, List<ISpellCardComponent> components)
+            : base(components)
         {
             this.damage = damage;
         }
@@ -28,8 +28,7 @@ namespace csbcgftest
         {
             DamageSpellCard clone = new DamageSpellCard(
                 damage,
-                new List<ISpellCardComponent>(),
-                null // otherwise circular dependency
+                new List<ISpellCardComponent>()
             );
             foreach (ISpellCardComponent c in Components)
             {

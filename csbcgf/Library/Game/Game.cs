@@ -151,9 +151,7 @@ namespace csbcgf
             List<IPlayer> playersClone = new List<IPlayer>();
             foreach (IPlayer player in Players)
             {
-                IPlayer playerClone = (IPlayer)player.Clone();
-                playerClone.AllCards.ForEach(c => c.Owner = playerClone);
-                playersClone.Add(playerClone);
+                playersClone.Add((IPlayer)player.Clone());
             }
 
             List<IReaction> reactionsClone = new List<IReaction>();

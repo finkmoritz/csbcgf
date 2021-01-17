@@ -23,13 +23,16 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            game.Execute(new RemoveCardFromBoardAction(MonsterCard.Owner.Board, MonsterCard));
-            game.Execute(new AddCardToGraveyardAction(MonsterCard.Owner.Graveyard, MonsterCard));
+            IPlayer owner = MonsterCard.FindOwner(game);
+            game.Execute(new RemoveCardFromBoardAction(owner.Board, MonsterCard));
+            game.Execute(new AddCardToGraveyardAction(owner.Graveyard, MonsterCard));
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return MonsterCard.Owner.Board.Contains(MonsterCard);
+            IPlayer owner = MonsterCard.FindOwner(gameState);
+            return owner != null
+                && owner.Board.Contains(MonsterCard);
         }
     }
 }

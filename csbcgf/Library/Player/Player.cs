@@ -48,11 +48,6 @@ namespace csbcgf
             Board = board;
             Graveyard = graveyard;
 
-            Deck.AllCards.ForEach(c => c.Owner = this);
-            Hand.AllCards.ForEach(c => c.Owner = this);
-            Board.AllCards.ForEach(c => c.Owner = this);
-            Graveyard.AllCards.ForEach(c => c.Owner = this);
-
             Reactions = reactions;
         }
 

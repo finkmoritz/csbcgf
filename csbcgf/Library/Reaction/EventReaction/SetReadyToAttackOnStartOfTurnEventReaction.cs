@@ -24,7 +24,8 @@ namespace csbcgf
         {
             if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
-                bool isReadyToAttack = monsterCard.Owner == game.ActivePlayer
+                IPlayer owner = monsterCard.FindOwner(game);
+                bool isReadyToAttack = owner == game.ActivePlayer
                     && game.ActivePlayer.Board.Contains(monsterCard);
                 game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
             }

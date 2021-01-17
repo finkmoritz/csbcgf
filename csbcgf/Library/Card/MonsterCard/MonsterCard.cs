@@ -36,25 +36,18 @@ namespace csbcgf
         {
         }
 
-        public MonsterCard(List<IMonsterCardComponent> components, bool isReadyToAttack)
-            : this(components, null, isReadyToAttack)
-        {
-        }
-
         public MonsterCard(
             List<IMonsterCardComponent> components,
-            IPlayer owner,
             bool isReadyToAttack
-            ) : this(components.ConvertAll(c => (ICardComponent)c), owner, isReadyToAttack)
+            ) : this(components.ConvertAll(c => (ICardComponent)c), isReadyToAttack)
         {
         }
 
         [JsonConstructor]
         public MonsterCard(
             List<ICardComponent> components,
-            IPlayer owner,
             bool isReadyToAttack
-            ) : base(components, owner)
+            ) : base(components)
         {
             IsReadyToAttack = isReadyToAttack;
             AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
@@ -151,7 +144,6 @@ namespace csbcgf
         {
             IMonsterCard clone = new MonsterCard(
                 new List<IMonsterCardComponent>(),
-                null, // otherwise circular dependencies
                 IsReadyToAttack
             );
             foreach (ICardComponent c in Components)
