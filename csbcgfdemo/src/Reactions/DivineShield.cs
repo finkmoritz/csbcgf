@@ -8,14 +8,14 @@ namespace csbcgfdemo
     /// Divine Shield blocks first damage.
     /// </summary>
     [Serializable]
-    public class DivineShield : IReaction
+    public class DivineShield : Reaction
     {
-        public object Clone()
+        public override object Clone()
         {
             return new DivineShield();
         }
 
-        public void ReactTo(IGame game, IActionEvent actionEvent)
+        public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             if (actionEvent.IsBefore(typeof(ModifyLifeStatAction)))
             {
@@ -28,18 +28,6 @@ namespace csbcgfdemo
                     parentCard.RemoveReaction(this);
                 }
             }
-        }
-
-        private ICard FindParentCard(IGameState gameState)
-        {
-            foreach (ICard card in gameState.AllCards)
-            {
-                if (card.Reactions.Contains(this))
-                {
-                    return card;
-                }
-            }
-            return null;
         }
     }
 }

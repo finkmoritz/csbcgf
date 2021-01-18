@@ -150,6 +150,7 @@
     <Compile Include="Library\Action\Action.cs" />
     <Compile Include="Library\Action\Implementations\Card\MonsterCard\AttackAction.cs" />
     <Compile Include="Library\Action\Implementations\Card\MonsterCard\DieAction.cs" />
+    <Compile Include="Library\Reaction\Reaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />

@@ -1,22 +1,16 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
-    public class DrawCardOnStartOfTurnEventReaction : IReaction
+    public class DrawCardOnStartOfTurnEventReaction : Reaction
     {
-        [JsonConstructor]
-        public DrawCardOnStartOfTurnEventReaction()
-        {
-        }
-
-        public object Clone()
+        public override object Clone()
         {
             return new DrawCardOnStartOfTurnEventReaction();
         }
 
-        public void ReactTo(IGame game, IActionEvent actionEvent)
+        public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {

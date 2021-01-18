@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
     [Serializable]
-    public class ModifyActivePlayerOnEndOfTurnEventReaction : IReaction
+    public class ModifyActivePlayerOnEndOfTurnEventReaction : Reaction
     {
-        [JsonConstructor]
-        public ModifyActivePlayerOnEndOfTurnEventReaction()
-        {
-        }
-
-        public object Clone()
+        public override object Clone()
         {
             return new ModifyActivePlayerOnEndOfTurnEventReaction();
         }
 
-        public void ReactTo(IGame game, IActionEvent actionEvent)
+        public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             if (actionEvent.IsAfter(typeof(EndOfTurnEvent)))
             {

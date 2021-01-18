@@ -66,5 +66,15 @@ namespace csbcgf
             }
             return null;
         }
+
+        public override ICard FindParentCard(IGameState gameState)
+        {
+            return this;
+        }
+
+        public override IPlayer FindParentPlayer(IGameState gameState)
+        {
+            return FindOwner(gameState);
+        }
     }
 }

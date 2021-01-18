@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public class CardComponent : ICardComponent
+    public class CardComponent : Reaction, ICardComponent
     {
         [JsonProperty]
         protected ManaCostStat manaCostStat;
@@ -49,7 +49,7 @@ namespace csbcgf
             Reactions.Add(reaction);
         }
 
-        public void ReactTo(IGame game, IActionEvent actionEvent)
+        public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             Reactions.ForEach(r => r.ReactTo(game, actionEvent));
         }
@@ -59,7 +59,7 @@ namespace csbcgf
             Reactions.Remove(reaction);
         }
 
-        public virtual object Clone()
+        public override object Clone()
         {
             List<IReaction> reactionsClone = new List<IReaction>();
             foreach (IReaction reaction in Reactions)

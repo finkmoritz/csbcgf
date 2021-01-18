@@ -50,7 +50,7 @@ namespace csbcgf
             ) : base(components)
         {
             IsReadyToAttack = isReadyToAttack;
-            AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
+            AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction());
         }
 
         [JsonIgnore]

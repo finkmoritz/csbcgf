@@ -17,14 +17,14 @@ namespace csbcgfdemo
         /// Whenever you cast a spell, gain +1 Attack.
         /// </summary>
         [Serializable]
-        public class ManaWyrmReaction : IReaction
+        public class ManaWyrmReaction : Reaction
         {
-            public object Clone()
+            public override object Clone()
             {
                 return new ManaWyrmReaction();
             }
 
-            public void ReactTo(IGame game, IActionEvent actionEvent)
+            public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
                 if (actionEvent.IsAfter(typeof(CastSpellAction)))
                 {
@@ -39,18 +39,6 @@ namespace csbcgfdemo
                         game.Execute(new ModifyAttackStatAction((IAttacking)parentCard, 1));
                     }
                 }
-            }
-
-            private ICard FindParentCard(IGameState gameState)
-            {
-                foreach (ICard card in gameState.AllCards)
-                {
-                    if (card.Reactions.Contains(this))
-                    {
-                        return card;
-                    }
-                }
-                return null;
             }
         }
     }

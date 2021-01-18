@@ -16,12 +16,24 @@ namespace csbcgf
         [JsonProperty]
         protected LifeStat lifeStat;
 
+        [JsonProperty]
+        protected List<IReaction> reactions;
+
         public IDeck Deck { get; protected set; }
         public IHand Hand { get; protected set; }
         public IBoard Board { get; protected set; }
         public IDeck Graveyard { get; protected set; }
 
-        public List<IReaction> Reactions { get; }
+        [JsonIgnore]
+        public List<IReaction> Reactions {
+            get
+            {
+                List<IReaction> allReactions = new List<IReaction>();
+                allReactions.AddRange(reactions);
+                AllCards.ForEach(c => allReactions.AddRange(c.Reactions));
+                return allReactions;
+            }
+        }
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
@@ -39,16 +51,15 @@ namespace csbcgf
             ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat,
             List<IReaction> reactions)
         {
-            this.manaPoolStat = manaPoolStat;
-            this.attackStat = attackStat;
-            this.lifeStat = lifeStat;
-
             Deck = deck;
             Hand = hand;
             Board = board;
             Graveyard = graveyard;
 
-            Reactions = reactions;
+            this.manaPoolStat = manaPoolStat;
+            this.attackStat = attackStat;
+            this.lifeStat = lifeStat;
+            this.reactions = reactions;
         }
 
         [JsonIgnore]
@@ -175,12 +186,12 @@ namespace csbcgf
 
         public void AddReaction(IReaction reaction)
         {
-            Reactions.Add(reaction);
+            reactions.Add(reaction);
         }
 
         public void RemoveReaction(IReaction reaction)
         {
-            Reactions.Remove(reaction);
+            reactions.Remove(reaction);
         }
 
         public void ReactTo(IGame game, IActionEvent actionEvent)
@@ -191,7 +202,7 @@ namespace csbcgf
         public virtual object Clone()
         {
             List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in Reactions)
+            foreach (IReaction reaction in reactions)
             {
                 reactionsClone.Add((IReaction)reaction.Clone());
             }
@@ -206,6 +217,17 @@ namespace csbcgf
                 (LifeStat)lifeStat.Clone(),
                 reactionsClone
             );
+        }
+
+        public ICard FindParentCard(IGameState gameState)
+        {
+            throw new CsbcgfException("Cannot use method 'FindParentCard' on " +
+                "instance of type 'Player'");
+        }
+
+        public IPlayer FindParentPlayer(IGameState gameState)
+        {
+            return this;
         }
     }
 }

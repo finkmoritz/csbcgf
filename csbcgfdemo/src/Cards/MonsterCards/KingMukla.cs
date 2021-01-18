@@ -17,14 +17,14 @@ namespace csbcgfdemo
         /// Battlecry: Give your opponent 2 Bananas.
         /// </summary>
         [Serializable]
-        public class KingMuklaBattlecryReaction : IReaction
+        public class KingMuklaBattlecryReaction : Reaction
         {
-            public object Clone()
+            public override object Clone()
             {
                 return new KingMuklaBattlecryReaction();
             }
 
-            public void ReactTo(IGame game, IActionEvent actionEvent)
+            public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
                 if (actionEvent.IsAfter(typeof(CastMonsterAction)))
                 {
@@ -41,18 +41,6 @@ namespace csbcgfdemo
                         );
                     }
                 }
-            }
-
-            private ICard FindParentCard(IGameState gameState)
-            {
-                foreach (ICard card in gameState.AllCards)
-                {
-                    if (card.Reactions.Contains(this))
-                    {
-                        return card;
-                    }
-                }
-                return null;
             }
         }
     }

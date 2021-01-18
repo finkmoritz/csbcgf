@@ -7,6 +7,7 @@ namespace csbcgf
     [Serializable]
     public abstract class ReactiveCompound : Compound, IReactive
     {
+        [JsonProperty]
         protected List<IReaction> reactions;
 
         public ReactiveCompound(List<ICardComponent> components)
@@ -26,10 +27,10 @@ namespace csbcgf
         {
             get
             {
-                List<IReaction> reactions = new List<IReaction>();
-                reactions.AddRange(this.reactions);
-                Components.ForEach(c => reactions.AddRange(c.Reactions));
-                return reactions;
+                List<IReaction> allReactions = new List<IReaction>();
+                allReactions.AddRange(reactions);
+                Components.ForEach(c => allReactions.AddRange(c.Reactions));
+                return allReactions;
             }
         }
 
@@ -49,5 +50,9 @@ namespace csbcgf
         }
 
         public abstract object Clone();
+
+        public abstract ICard FindParentCard(IGameState gameState);
+
+        public abstract IPlayer FindParentPlayer(IGameState gameState);
     }
 }

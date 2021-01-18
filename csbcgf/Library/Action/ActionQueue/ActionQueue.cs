@@ -45,8 +45,6 @@ namespace csbcgf
         {
             if (ExecuteReactions)
             {
-                game.AllCards.ForEach(c => c.ReactTo(game, actionEvent));
-                game.Players.ForEach(p => p.ReactTo(game, actionEvent));
                 game.ReactTo(game, actionEvent);
             }
         }

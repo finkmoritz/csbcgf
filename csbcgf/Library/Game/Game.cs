@@ -18,9 +18,21 @@ namespace csbcgf
         [JsonProperty]
         protected ActionQueue actionQueue;
 
+        [JsonProperty]
+        protected List<IReaction> reactions;
+
         public List<IPlayer> Players { get; protected set; }
 
-        public List<IReaction> Reactions { get; }
+        [JsonIgnore]
+        public List<IReaction> Reactions {
+            get
+            {
+                List<IReaction> allReactions = new List<IReaction>();
+                allReactions.AddRange(reactions);
+                Players.ForEach(p => allReactions.AddRange(p.Reactions));
+                return allReactions;
+            }
+        }
 
         /// <summary>
         /// Represent the current Game state and provides methods to alter
@@ -41,7 +53,7 @@ namespace csbcgf
             Players = players;
             this.activePlayerIndex = activePlayerIndex;
             this.actionQueue = actionQueue;
-            Reactions = reactions;
+            this.reactions = reactions;
         }
 
         [JsonIgnore]
@@ -133,12 +145,12 @@ namespace csbcgf
 
         public void AddReaction(IReaction reaction)
         {
-            Reactions.Add(reaction);
+            reactions.Add(reaction);
         }
 
         public void RemoveReaction(IReaction reaction)
         {
-            Reactions.Remove(reaction);
+            reactions.Remove(reaction);
         }
 
         public void ReactTo(IGame game, IActionEvent actionEvent)
@@ -155,7 +167,7 @@ namespace csbcgf
             }
 
             List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in Reactions)
+            foreach (IReaction reaction in reactions)
             {
                 reactionsClone.Add((IReaction)reaction.Clone());
             }
@@ -166,6 +178,18 @@ namespace csbcgf
                 (ActionQueue)actionQueue.Clone(),
                 reactionsClone
             );
+        }
+
+        public ICard FindParentCard(IGameState gameState)
+        {
+            throw new CsbcgfException("Cannot use method 'FindParentCard' on " +
+                "instance of type 'Game'");
+        }
+
+        public IPlayer FindParentPlayer(IGameState gameState)
+        {
+            throw new CsbcgfException("Cannot use method 'FindParentPlayer' on " +
+                "instance of type 'Game'");
         }
     }
 }
