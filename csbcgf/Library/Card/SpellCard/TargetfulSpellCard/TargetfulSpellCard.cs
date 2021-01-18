@@ -68,16 +68,12 @@ namespace csbcgf
 
         public override object Clone()
         {
-            ITargetfulSpellCard clone = new TargetfulSpellCard(
-                new List<ISpellCardComponent>()
+            List<ICardComponent> componentsClone = new List<ICardComponent>();
+            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
+
+            return new TargetfulSpellCard(
+                componentsClone
             );
-            foreach (ICardComponent c in Components)
-            {
-                ICardComponent cc = (ICardComponent)c.Clone();
-                cc.ParentCard = clone;
-                clone.AddComponent(cc);
-            }
-            return clone;
         }
     }
 }

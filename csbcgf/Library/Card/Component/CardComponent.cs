@@ -73,5 +73,20 @@ namespace csbcgf
                 null // otherwise circular dependencies
             );
         }
+
+        public ICard FindCard(IGameState gameState)
+        {
+            foreach (ICard card in gameState.AllCards)
+            {
+                foreach (ICardComponent cardComponent in card.Components)
+                {
+                    if (cardComponent == this)
+                    {
+                        return card;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

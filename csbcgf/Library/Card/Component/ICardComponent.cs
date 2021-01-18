@@ -5,9 +5,11 @@ namespace csbcgf
     public interface ICardComponent : IManaful, IReactive, ICloneable
     {
         /// <summary>
-        /// Provides the parent Card this Component is attached to.
-        /// Returns null if the Component is not assigned to a Card.
+        /// Find the ICard this ICardComponent is attached to.
         /// </summary>
-        ICard ParentCard { get; set; }
+        /// <param name="gameState"></param>
+        /// <returns>The ICard this ICardComponent is attached to or null
+        /// if it is not attached.</returns>
+        ICard FindCard(IGameState gameState);
     }
 }

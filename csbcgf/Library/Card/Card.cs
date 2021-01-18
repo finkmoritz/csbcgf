@@ -47,14 +47,12 @@ namespace csbcgf
 
         public override void AddComponent(ICardComponent cardComponent)
         {
-            cardComponent.ParentCard = this;
             base.AddComponent(cardComponent);
         }
 
         public override void RemoveComponent(ICardComponent cardComponent)
         {
             base.RemoveComponent(cardComponent);
-            cardComponent.ParentCard = null;
         }
 
         public IPlayer FindOwner(IGameState gameState)

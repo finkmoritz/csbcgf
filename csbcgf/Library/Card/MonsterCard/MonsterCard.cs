@@ -142,17 +142,13 @@ namespace csbcgf
 
         public override object Clone()
         {
-            IMonsterCard clone = new MonsterCard(
-                new List<IMonsterCardComponent>(),
+            List<ICardComponent> componentsClone = new List<ICardComponent>();
+            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
+
+            return new MonsterCard(
+                componentsClone,
                 IsReadyToAttack
             );
-            foreach (ICardComponent c in Components)
-            {
-                ICardComponent cc = (ICardComponent)c.Clone();
-                cc.ParentCard = clone;
-                clone.AddComponent(cc);
-            }
-            return clone;
         }
     }
 }

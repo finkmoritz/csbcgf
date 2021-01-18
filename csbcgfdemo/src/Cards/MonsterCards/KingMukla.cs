@@ -1,14 +1,16 @@
 ﻿using System;
 using csbcgf;
+using Newtonsoft.Json;
 
 namespace csbcgfdemo
 {
     [Serializable]
     public class KingMukla : MonsterCard
     {
+        [JsonConstructor]
         public KingMukla() : base(3, 5, 5)
         {
-            AddReaction(new KingMuklaBattlecryReaction(this));
+            AddReaction(new KingMuklaBattlecryReaction());
         }
 
         /// <summary>
@@ -17,11 +19,9 @@ namespace csbcgfdemo
         [Serializable]
         public class KingMuklaBattlecryReaction : IReaction
         {
-            public IMonsterCard ParentCard;
-
-            public KingMuklaBattlecryReaction(IMonsterCard parentCard)
+            public object Clone()
             {
-                ParentCard = parentCard;
+                return new KingMuklaBattlecryReaction();
             }
 
             public void ReactTo(IGame game, IActionEvent actionEvent)
@@ -29,7 +29,9 @@ namespace csbcgfdemo
                 if (actionEvent.IsAfter(typeof(CastMonsterAction)))
                 {
                     CastMonsterAction action = (CastMonsterAction)actionEvent.Action;
-                    if (action.MonsterCard == ParentCard)
+                    ICard parentCard = FindParentCard(game);
+
+                    if (action.MonsterCard == parentCard)
                     {
                         game.NonActivePlayers.ForEach(p =>
                             {
@@ -39,6 +41,18 @@ namespace csbcgfdemo
                         );
                     }
                 }
+            }
+
+            private ICard FindParentCard(IGameState gameState)
+            {
+                foreach (ICard card in gameState.AllCards)
+                {
+                    if (card.Reactions.Contains(this))
+                    {
+                        return card;
+                    }
+                }
+                return null;
             }
         }
     }

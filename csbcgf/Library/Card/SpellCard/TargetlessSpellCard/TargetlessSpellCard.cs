@@ -41,16 +41,12 @@ namespace csbcgf
 
         public override object Clone()
         {
-            ITargetlessSpellCard clone = new TargetlessSpellCard(
-                new List<ITargetlessSpellCardComponent>()
+            List<ICardComponent> componentsClone = new List<ICardComponent>();
+            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
+
+            return new TargetlessSpellCard(
+                componentsClone
             );
-            foreach (ICardComponent c in Components)
-            {
-                ICardComponent cc = (ICardComponent)c.Clone();
-                cc.ParentCard = clone;
-                clone.AddComponent(cc);
-            }
-            return clone;
         }
     }
 }

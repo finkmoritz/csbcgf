@@ -12,13 +12,13 @@ namespace csbcgftest
         protected uint damage;
 
         public DamageSpellCard(uint damage)
-            : this(damage, new List<ISpellCardComponent>())
+            : this(damage, new List<ICardComponent>())
         {
             AddComponent(new DamageSpellCardComponent((int)damage, damage));
         }
 
         [JsonConstructor]
-        protected DamageSpellCard(uint damage, List<ISpellCardComponent> components)
+        protected DamageSpellCard(uint damage, List<ICardComponent> components)
             : base(components)
         {
             this.damage = damage;
@@ -26,17 +26,13 @@ namespace csbcgftest
 
         public override object Clone()
         {
-            DamageSpellCard clone = new DamageSpellCard(
+            List<ICardComponent> componentsClone = new List<ICardComponent>();
+            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
+
+            return new DamageSpellCard(
                 damage,
-                new List<ISpellCardComponent>()
+                componentsClone
             );
-            foreach (ISpellCardComponent c in Components)
-            {
-                ISpellCardComponent cc = (ISpellCardComponent)c.Clone();
-                cc.ParentCard = clone;
-                clone.AddComponent(cc);
-            }
-            return clone;
         }
 
         [Serializable]

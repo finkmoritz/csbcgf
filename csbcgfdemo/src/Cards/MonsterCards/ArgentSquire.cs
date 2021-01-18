@@ -7,7 +7,7 @@ namespace csbcgfdemo
     {
         public ArgentSquire() : base(1, 1, 1)
         {
-            AddReaction(new DivineShield(this));
+            AddReaction(new DivineShield());
         }
     }
 }
