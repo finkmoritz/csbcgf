@@ -8,13 +8,13 @@ namespace csbcgf
     [Serializable]
     public abstract class Card : ReactiveCompound, ICard
     {
-        public Card() : this(new List<ICardComponent>())
+        public Card() : this(new List<ICardComponent>(), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        protected Card(List<ICardComponent> components)
-            : base(components)
+        protected Card(List<ICardComponent> components, List<IReaction> reactions)
+            : base(components, reactions)
         {
         }
 
@@ -43,16 +43,6 @@ namespace csbcgf
                 && owner == gameState.ActivePlayer
                 && owner.Hand.Contains(this)
                 && ManaValue <= gameState.ActivePlayer.ManaValue;
-        }
-
-        public override void AddComponent(ICardComponent cardComponent)
-        {
-            base.AddComponent(cardComponent);
-        }
-
-        public override void RemoveComponent(ICardComponent cardComponent)
-        {
-            base.RemoveComponent(cardComponent);
         }
 
         public IPlayer FindOwner(IGameState gameState)

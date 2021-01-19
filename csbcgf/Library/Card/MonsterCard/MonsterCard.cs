@@ -10,13 +10,8 @@ namespace csbcgf
     {
         public bool IsReadyToAttack { get; set; }
 
-        /// <summary>
-        /// Represents a certain type of Card that is played
-        /// onto the Player's Board.
-        /// </summary>
-        /// <param name="components"></param>
-        public MonsterCard(List<IMonsterCardComponent> components)
-            : this(components, false)
+        public MonsterCard()
+            : this(new List<IMonsterCardComponent>())
         {
         }
 
@@ -32,25 +27,32 @@ namespace csbcgf
         {
         }
 
-        public MonsterCard() : this(new List<IMonsterCardComponent>())
+        /// <summary>
+        /// Represents a certain type of Card that is played
+        /// onto the Player's Board.
+        /// </summary>
+        /// <param name="components"></param>
+        public MonsterCard(List<IMonsterCardComponent> components)
+            : this(components, false)
         {
         }
 
         public MonsterCard(
             List<IMonsterCardComponent> components,
             bool isReadyToAttack
-            ) : this(components.ConvertAll(c => (ICardComponent)c), isReadyToAttack)
+            ) : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>(), isReadyToAttack)
         {
+            Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction());
         }
 
         [JsonConstructor]
         public MonsterCard(
             List<ICardComponent> components,
+            List<IReaction> reactions,
             bool isReadyToAttack
-            ) : base(components)
+            ) : base(components, reactions)
         {
             IsReadyToAttack = isReadyToAttack;
-            AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction());
         }
 
         [JsonIgnore]
@@ -145,8 +147,12 @@ namespace csbcgf
             List<ICardComponent> componentsClone = new List<ICardComponent>();
             Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
 
+            List<IReaction> reactionsClone = new List<IReaction>();
+            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
+
             return new MonsterCard(
                 componentsClone,
+                reactionsClone,
                 IsReadyToAttack
             );
         }

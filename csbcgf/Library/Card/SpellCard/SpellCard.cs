@@ -7,7 +7,8 @@ namespace csbcgf
     [Serializable]
     public abstract class SpellCard : Card, ISpellCard
     {
-        public SpellCard() : this(new List<ISpellCardComponent>())
+        public SpellCard()
+            : this(new List<ISpellCardComponent>())
         {
         }
 
@@ -17,12 +18,13 @@ namespace csbcgf
         /// </summary>
         /// <param name="components"></param>
         public SpellCard(List<ISpellCardComponent> components)
-            : this(components.ConvertAll(c => (ICardComponent)c))
+            : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        public SpellCard(List<ICardComponent> components) : base(components)
+        public SpellCard(List<ICardComponent> components, List<IReaction> reactions)
+            : base(components, reactions)
         {
         }
     }

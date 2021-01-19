@@ -5,20 +5,14 @@ namespace csbcgf
     public interface IReactive : IReaction
     {
         /// <summary>
-        /// Collection of Reactions.
+        /// Reactions of this IReactive.
         /// </summary>
         List<IReaction> Reactions { get; }
 
         /// <summary>
-        /// Add a Reaction to this Reactive.
+        /// All reactions of this IReactive including its children.
         /// </summary>
-        /// <param name="reaction"></param>
-        void AddReaction(IReaction reaction);
-
-        /// <summary>
-        /// Remove a Reaction from this Reactive.
-        /// </summary>
-        /// <param name="reaction"></param>
-        void RemoveReaction(IReaction reaction);
+        /// <returns>All reactions of this IReactive including its children.</returns>
+        List<IReaction> AllReactions();
     }
 }

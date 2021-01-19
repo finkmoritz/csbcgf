@@ -12,14 +12,17 @@ namespace csbcgftest
         protected uint damage;
 
         public DamageSpellCard(uint damage)
-            : this(damage, new List<ICardComponent>())
+            : this(damage, new List<ICardComponent>(), new List<IReaction>())
         {
-            AddComponent(new DamageSpellCardComponent((int)damage, damage));
+            Components.Add(new DamageSpellCardComponent((int)damage, damage));
         }
 
         [JsonConstructor]
-        protected DamageSpellCard(uint damage, List<ICardComponent> components)
-            : base(components)
+        protected DamageSpellCard(
+            uint damage,
+            List<ICardComponent> components,
+            List<IReaction> reactions
+            ) : base(components, reactions)
         {
             this.damage = damage;
         }
@@ -29,9 +32,13 @@ namespace csbcgftest
             List<ICardComponent> componentsClone = new List<ICardComponent>();
             Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
 
+            List<IReaction> reactionsClone = new List<IReaction>();
+            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
+
             return new DamageSpellCard(
                 damage,
-                componentsClone
+                componentsClone,
+                reactionsClone
             );
         }
 
@@ -42,7 +49,7 @@ namespace csbcgftest
             private readonly uint damage;
 
             public DamageSpellCardComponent(int mana, uint damage)
-                : this(damage, new ManaCostStat(mana, mana), new List<IReaction>(), null)
+                : this(damage, new ManaCostStat(mana, mana), new List<IReaction>())
             {
             }
 
@@ -50,9 +57,8 @@ namespace csbcgftest
             public DamageSpellCardComponent(
                 uint damage,
                 ManaCostStat manaCostStat,
-                List<IReaction> reactions,
-                ICard parentCard
-                ) : base(manaCostStat, reactions, parentCard)
+                List<IReaction> reactions
+                ) : base(manaCostStat, reactions)
             {
                 this.damage = damage;
             }
@@ -84,8 +90,7 @@ namespace csbcgftest
                 return new DamageSpellCardComponent(
                     damage,
                     (ManaCostStat)manaCostStat.Clone(),
-                    reactionsClone,
-                    null // otherwise circular dependency
+                    reactionsClone
                 );
             }
         }

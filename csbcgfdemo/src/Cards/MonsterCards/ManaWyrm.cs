@@ -10,7 +10,7 @@ namespace csbcgfdemo
         [JsonConstructor]
         public ManaWyrm() : base(2, 1, 3)
         {
-            AddReaction(new ManaWyrmReaction());
+            Reactions.Add(new ManaWyrmReaction());
         }
 
         /// <summary>

@@ -16,24 +16,12 @@ namespace csbcgf
         [JsonProperty]
         protected LifeStat lifeStat;
 
-        [JsonProperty]
-        protected List<IReaction> reactions;
+        public List<IReaction> Reactions { get; }
 
         public IDeck Deck { get; protected set; }
         public IHand Hand { get; protected set; }
         public IBoard Board { get; protected set; }
         public IDeck Graveyard { get; protected set; }
-
-        [JsonIgnore]
-        public List<IReaction> Reactions {
-            get
-            {
-                List<IReaction> allReactions = new List<IReaction>();
-                allReactions.AddRange(reactions);
-                AllCards.ForEach(c => allReactions.AddRange(c.Reactions));
-                return allReactions;
-            }
-        }
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
@@ -59,7 +47,7 @@ namespace csbcgf
             this.manaPoolStat = manaPoolStat;
             this.attackStat = attackStat;
             this.lifeStat = lifeStat;
-            this.reactions = reactions;
+            Reactions = reactions;
         }
 
         [JsonIgnore]
@@ -135,6 +123,13 @@ namespace csbcgf
             }
         }
 
+        public List<IReaction> AllReactions()
+        {
+            List<IReaction> allReactions = new List<IReaction>(Reactions);
+            AllCards.ForEach(c => allReactions.AddRange(c.AllReactions()));
+            return allReactions;
+        }
+
         public void DrawCard(IGame game)
         {
             game.Execute(new DrawCardAction(this));
@@ -184,25 +179,15 @@ namespace csbcgf
             return new HashSet<ICharacter>();
         }
 
-        public void AddReaction(IReaction reaction)
-        {
-            reactions.Add(reaction);
-        }
-
-        public void RemoveReaction(IReaction reaction)
-        {
-            reactions.Remove(reaction);
-        }
-
         public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
+            AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
         public virtual object Clone()
         {
             List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in reactions)
+            foreach (IReaction reaction in Reactions)
             {
                 reactionsClone.Add((IReaction)reaction.Clone());
             }

@@ -10,7 +10,7 @@ namespace csbcgfdemo
         [JsonConstructor]
         public KingMukla() : base(3, 5, 5)
         {
-            AddReaction(new KingMuklaBattlecryReaction());
+            Reactions.Add(new KingMuklaBattlecryReaction());
         }
 
         /// <summary>

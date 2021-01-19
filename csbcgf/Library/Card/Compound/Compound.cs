@@ -5,25 +5,16 @@ using Newtonsoft.Json;
 namespace csbcgf
 {
     [Serializable]
-    public abstract class Compound
+    public abstract class Compound : ICompound
     {
         public List<ICardComponent> Components { get; }
 
         [JsonConstructor]
         public Compound(List<ICardComponent> components)
         {
-            Components = new List<ICardComponent>();
-            components.ForEach(c => AddComponent(c));
+            Components = components;
         }
 
-        public virtual void AddComponent(ICardComponent cardComponent)
-        {
-            Components.Add(cardComponent);
-        }
-
-        public virtual void RemoveComponent(ICardComponent cardComponent)
-        {
-            Components.Remove(cardComponent);
-        }
+        public abstract object Clone();
     }
 }

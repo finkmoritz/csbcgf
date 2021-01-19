@@ -28,16 +28,6 @@ namespace csbcgf
         {
         }
 
-        /*override public List<IReaction> Reactions
-        {
-            get;
-            /*{
-                List<IReaction> reactions = new List<IReaction>();
-                Components.ForEach(c => reactions.AddRange(c.Reactions));
-                return reactions;
-            }
-        }*/
-
         public virtual void AddComponent(ICard card)
         {
             if(card is CompoundCard)

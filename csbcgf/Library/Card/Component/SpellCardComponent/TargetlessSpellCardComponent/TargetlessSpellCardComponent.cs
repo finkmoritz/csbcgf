@@ -13,8 +13,8 @@ namespace csbcgf
 
         [JsonConstructor]
         protected TargetlessSpellCardComponent(ManaCostStat manaCostStat,
-            List<IReaction> reactions, ICard parentCard)
-            : base(manaCostStat, reactions, parentCard)
+            List<IReaction> reactions)
+            : base(manaCostStat, reactions)
         {
         }
 

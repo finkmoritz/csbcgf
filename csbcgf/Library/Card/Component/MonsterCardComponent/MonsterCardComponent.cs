@@ -38,9 +38,8 @@ namespace csbcgf
             ManaCostStat manaCostStat,
             AttackStat attackStat,
             LifeStat lifeStat,
-            List<IReaction> reactions,
-            ICard parentCard
-            ) : base(manaCostStat, reactions, parentCard)
+            List<IReaction> reactions
+            ) : base(manaCostStat, reactions)
         {
             this.attackStat = attackStat;
             this.lifeStat = lifeStat;
@@ -86,8 +85,7 @@ namespace csbcgf
                 (ManaCostStat)manaCostStat.Clone(),
                 (AttackStat)attackStat.Clone(),
                 (LifeStat)lifeStat.Clone(),
-                reactionsClone,
-                null // otherwise circular dependencies
+                reactionsClone
             );
         }
 

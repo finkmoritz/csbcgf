@@ -12,24 +12,21 @@ namespace csbcgf
 
         public List<IReaction> Reactions { get; }
 
-        public ICard ParentCard { get; set; }
-
         public CardComponent(int mana)
-            : this(new ManaCostStat(mana, mana), new List<IReaction>(), null)
+            : this(new ManaCostStat(mana, mana), new List<IReaction>())
         {
         }
 
         public CardComponent(int manaValue, int manaBaseValue)
-            : this(new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>(), null)
+            : this(new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        protected CardComponent(ManaCostStat manaCostStat, List<IReaction> reactions, ICard parentCard)
+        protected CardComponent(ManaCostStat manaCostStat, List<IReaction> reactions)
         {
             this.manaCostStat = manaCostStat;
             Reactions = reactions;
-            ParentCard = parentCard;
         }
 
         [JsonIgnore]
@@ -44,19 +41,14 @@ namespace csbcgf
             set => manaCostStat.BaseValue = value;
         }
 
-        public void AddReaction(IReaction reaction)
+        public List<IReaction> AllReactions()
         {
-            Reactions.Add(reaction);
+            return new List<IReaction>(Reactions);
         }
 
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
-        }
-
-        public void RemoveReaction(IReaction reaction)
-        {
-            Reactions.Remove(reaction);
+            AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
         public override object Clone()
@@ -69,8 +61,7 @@ namespace csbcgf
 
             return new CardComponent(
                 (ManaCostStat)manaCostStat.Clone(),
-                reactionsClone,
-                null // otherwise circular dependencies
+                reactionsClone
             );
         }
 

@@ -18,21 +18,9 @@ namespace csbcgf
         [JsonProperty]
         protected ActionQueue actionQueue;
 
-        [JsonProperty]
-        protected List<IReaction> reactions;
+        public List<IReaction> Reactions { get; }
 
         public List<IPlayer> Players { get; protected set; }
-
-        [JsonIgnore]
-        public List<IReaction> Reactions {
-            get
-            {
-                List<IReaction> allReactions = new List<IReaction>();
-                allReactions.AddRange(reactions);
-                Players.ForEach(p => allReactions.AddRange(p.Reactions));
-                return allReactions;
-            }
-        }
 
         /// <summary>
         /// Represent the current Game state and provides methods to alter
@@ -42,9 +30,9 @@ namespace csbcgf
         public Game(List<IPlayer> players)
             : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())
         {
-            AddReaction(new ModifyActivePlayerOnEndOfTurnEventReaction());
-            AddReaction(new ModifyManaOnStartOfTurnEventReaction());
-            AddReaction(new DrawCardOnStartOfTurnEventReaction());
+            Reactions.Add(new ModifyActivePlayerOnEndOfTurnEventReaction());
+            Reactions.Add(new ModifyManaOnStartOfTurnEventReaction());
+            Reactions.Add(new DrawCardOnStartOfTurnEventReaction());
         }
 
         [JsonConstructor]
@@ -53,7 +41,7 @@ namespace csbcgf
             Players = players;
             this.activePlayerIndex = activePlayerIndex;
             this.actionQueue = actionQueue;
-            this.reactions = reactions;
+            Reactions = reactions;
         }
 
         [JsonIgnore]
@@ -103,6 +91,13 @@ namespace csbcgf
             }
         }
 
+        public List<IReaction> AllReactions()
+        {
+            List<IReaction> allReactions = new List<IReaction>(Reactions);
+            Players.ForEach(p => allReactions.AddRange(p.AllReactions()));
+            return allReactions;
+        }
+
         public void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
         {
             //Do not trigger any reactions during setup
@@ -143,19 +138,9 @@ namespace csbcgf
             actions.ForEach(a => Execute(a));
         }
 
-        public void AddReaction(IReaction reaction)
-        {
-            reactions.Add(reaction);
-        }
-
-        public void RemoveReaction(IReaction reaction)
-        {
-            reactions.Remove(reaction);
-        }
-
         public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            Reactions.ForEach(r => r.ReactTo(game, actionEvent));
+            AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
         public object Clone()
@@ -167,7 +152,7 @@ namespace csbcgf
             }
 
             List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in reactions)
+            foreach (IReaction reaction in Reactions)
             {
                 reactionsClone.Add((IReaction)reaction.Clone());
             }

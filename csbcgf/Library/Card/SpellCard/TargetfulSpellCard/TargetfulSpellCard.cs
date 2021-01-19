@@ -7,23 +7,24 @@ namespace csbcgf
     [Serializable]
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
+        public TargetfulSpellCard()
+            : this(new List<ISpellCardComponent>())
+        {
+        }
+
         public TargetfulSpellCard(ISpellCardComponent component)
             : this(new List<ISpellCardComponent> { component })
         {
         }
 
-        public TargetfulSpellCard() : this(new List<ISpellCardComponent>())
-        {
-        }
-
         public TargetfulSpellCard(List<ISpellCardComponent> components)
-            : this(components.ConvertAll(c => (ICardComponent)c))
+            : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        public TargetfulSpellCard(List<ICardComponent> components)
-            : base(components)
+        public TargetfulSpellCard(List<ICardComponent> components, List<IReaction> reactions)
+            : base(components, reactions)
         {
         }
 
@@ -71,8 +72,12 @@ namespace csbcgf
             List<ICardComponent> componentsClone = new List<ICardComponent>();
             Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
 
+            List<IReaction> reactionsClone = new List<IReaction>();
+            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
+
             return new TargetfulSpellCard(
-                componentsClone
+                componentsClone,
+                reactionsClone
             );
         }
     }
