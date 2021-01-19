@@ -30,8 +30,8 @@ namespace csbcgfdemo
                 {
                     CastSpellAction a = (CastSpellAction)actionEvent.Action;
                     ICard parentCard = FindParentCard(game);
-                    IPlayer spellCardOwner = a.SpellCard.FindOwner(game);
-                    IPlayer manaWyrmOwner = parentCard.FindOwner(game);
+                    IPlayer spellCardOwner = a.SpellCard.FindParentPlayer(game);
+                    IPlayer manaWyrmOwner = parentCard.FindParentPlayer(game);
 
                     if (spellCardOwner == manaWyrmOwner
                         && manaWyrmOwner.Board.Contains(parentCard))

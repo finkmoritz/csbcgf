@@ -15,7 +15,7 @@ namespace csbcgf
             if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
                 IMonsterCard monsterCard = (IMonsterCard)FindParentCard(game);
-                IPlayer owner = monsterCard.FindOwner(game);
+                IPlayer owner = monsterCard.FindParentPlayer(game);
                 bool isReadyToAttack = owner == game.ActivePlayer
                     && game.ActivePlayer.Board.Contains(monsterCard);
 

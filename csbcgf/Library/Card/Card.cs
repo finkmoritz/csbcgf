@@ -38,23 +38,11 @@ namespace csbcgf
 
         public virtual bool IsCastable(IGameState gameState)
         {
-            IPlayer owner = FindOwner(gameState);
+            IPlayer owner = FindParentPlayer(gameState);
             return owner != null
                 && owner == gameState.ActivePlayer
                 && owner.Hand.Contains(this)
                 && ManaValue <= gameState.ActivePlayer.ManaValue;
-        }
-
-        public IPlayer FindOwner(IGameState gameState)
-        {
-            foreach (IPlayer player in gameState.Players)
-            {
-                if (player.AllCards.Contains(this))
-                {
-                    return player;
-                }
-            }
-            return null;
         }
 
         public override ICard FindParentCard(IGameState gameState)
@@ -64,7 +52,14 @@ namespace csbcgf
 
         public override IPlayer FindParentPlayer(IGameState gameState)
         {
-            return FindOwner(gameState);
+            foreach (IPlayer player in gameState.Players)
+            {
+                if (player.AllCards.Contains(this))
+                {
+                    return player;
+                }
+            }
+            return null;
         }
     }
 }
