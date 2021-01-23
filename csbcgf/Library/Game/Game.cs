@@ -26,6 +26,14 @@ namespace csbcgf
         /// Represent the current Game state and provides methods to alter
         /// this Game state.
         /// </summary>
+        public Game() : this(new List<IPlayer>())
+        {
+        }
+
+        /// <summary>
+        /// Represent the current Game state and provides methods to alter
+        /// this Game state.
+        /// </summary>
         /// <param name="players"></param>
         public Game(List<IPlayer> players)
             : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())

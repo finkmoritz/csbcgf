@@ -26,6 +26,13 @@ namespace csbcgf
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
+        public Player() : this(new Deck())
+        {
+        }
+
+        /// <summary>
+        /// Represents a Player and all his/her associated Cards.
+        /// </summary>
         /// <param name="deck"></param>
         public Player(IDeck deck)
             : this(deck, new Hand(), new Board(), new Deck(),
