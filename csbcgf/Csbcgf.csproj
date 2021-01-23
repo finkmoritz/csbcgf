@@ -150,6 +150,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BattleCardGame\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.targets')" />
 </Project>
