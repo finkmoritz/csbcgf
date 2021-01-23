@@ -7,45 +7,47 @@ namespace csbcgf
     public class CastMonsterAction : Action
     {
         [JsonProperty]
-        public IPlayer Player;
-
-        [JsonProperty]
         public IMonsterCard MonsterCard;
 
         [JsonProperty]
-        public int BoardIndex;
+        public ICardCollection Source;
+
+        [JsonProperty]
+        public ICardCollection Destination;
 
         [JsonConstructor]
-        public CastMonsterAction(IPlayer player, IMonsterCard monsterCard,
-            int boardIndex, bool isAborted = false
+        public CastMonsterAction(
+            IMonsterCard monsterCard,
+            ICardCollection source,
+            ICardCollection destination,
+            bool isAborted = false
             ) : base(isAborted)
         {
-            Player = player;
             MonsterCard = monsterCard;
-            BoardIndex = boardIndex;
+            Source = source;
+            Destination = destination;
         }
 
         public override object Clone()
         {
             return new CastMonsterAction(
-                null, // otherwise circular dependencies
                 (IMonsterCard)MonsterCard.Clone(),
-                BoardIndex,
+                null, // otherwise circular dependencies
+                null, // otherwise circular dependencies
                 IsAborted
                 );
         }
 
         public override void Execute(IGame game)
         {
-            game.Execute(new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0));
-            game.Execute(new RemoveCardFromHandAction(Player.Hand, MonsterCard));
-            game.Execute(new AddCardToBoardAction(Player.Board, MonsterCard, BoardIndex));
+            IPlayer player = MonsterCard.FindParentPlayer(game);
+            game.Execute(new ModifyManaStatAction(player, -MonsterCard.ManaValue, 0));
+            game.Execute(new TransferCardAction(MonsterCard, Source, Destination));
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return MonsterCard.IsSummonable(gameState)
-                && Player.Board.IsFreeSlot(BoardIndex);
+            return MonsterCard.IsSummonable(gameState);
         }
     }
 }

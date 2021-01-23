@@ -6,15 +6,15 @@ namespace csbcgf
     public interface ICardCollection : ICloneable
     {
         /// <summary>
-        /// Get all cards in this Deck.
+        /// Get all cards in this collection.
         /// </summary>
         List<ICard> AllCards { get; }
 
         /// <summary>
-        /// Number of Cards currently in this Deck.
+        /// Number of Cards currently in this collection.
         /// </summary>
         /// <returns>The number of Cards in this Deck.</returns>
-        int Size { get; }
+        int Count { get; }
 
         /// <summary>
         /// Checks if this Deck contains any Cards.
@@ -23,10 +23,24 @@ namespace csbcgf
         bool IsEmpty { get; }
 
         /// <summary>
-        /// Checks if this Deck contains the given Card.
+        /// Add the specified card to this collection.
         /// </summary>
         /// <param name="card"></param>
-        /// <returns>True if this Deck contains the given Card.</returns>
+        void Add(ICard card);
+
+        /// <summary>
+        /// Remove the specified card from this collection.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns>True if the card was successfully removed from this
+        /// collection.</returns>
+        bool Remove(ICard card);
+
+        /// <summary>
+        /// Checks if this collection contains the given Card.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns>True if this collection contains the given Card.</returns>
         bool Contains(ICard card);
     }
 }

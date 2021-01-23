@@ -25,7 +25,7 @@ namespace csbcgf
         public override List<ICard> AllCards => new List<ICard>(cards);
 
         [JsonIgnore]
-        public override int Size => cards.Count;
+        public override int Count => cards.Count;
 
         [JsonIgnore]
         public override bool IsEmpty

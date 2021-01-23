@@ -70,7 +70,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public override int Size
+        public override int Count
         {
             get
             {

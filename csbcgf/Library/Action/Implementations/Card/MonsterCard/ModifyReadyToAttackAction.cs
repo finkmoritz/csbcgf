@@ -39,8 +39,8 @@ namespace csbcgf
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return MonsterCard.IsReadyToAttack != IsReadyToAttack
-                && gameState.AllCardsOnTheBoard.Contains(MonsterCard);
+            return MonsterCard.IsReadyToAttack != IsReadyToAttack;
+                //&& gameState.AllCardsOnTheBoard.Contains(MonsterCard); //TODO
         }
     }
 }

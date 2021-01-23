@@ -7,17 +7,25 @@ namespace csbcgf
     public abstract class CastSpellAction : Action
     {
         [JsonProperty]
-        public IPlayer Player;
-
-        [JsonProperty]
         public ISpellCard SpellCard;
 
+        [JsonProperty]
+        public ICardCollection Source;
+
+        [JsonProperty]
+        public ICardCollection Destination;
+
         [JsonConstructor]
-        public CastSpellAction(IPlayer player, ISpellCard spellCard, bool isAborted = false)
-            : base(isAborted)
+        public CastSpellAction(
+            ISpellCard spellCard,
+            ICardCollection source,
+            ICardCollection destination,
+            bool isAborted = false
+        ) : base(isAborted)
         {
-            Player = player;
             SpellCard = spellCard;
+            Source = source;
+            Destination = destination;
         }
 
         public override abstract void Execute(IGame game);

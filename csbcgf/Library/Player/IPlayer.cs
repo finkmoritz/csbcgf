@@ -7,57 +7,34 @@ namespace csbcgf
     public interface IPlayer : IManaful, ICharacter, IReactive, ICloneable
     {
         /// <summary>
-        /// The Player's Deck of Cards.
+        /// Get CardCollections of this Player.
         /// </summary>
-        IDeck Deck { get; }
+        Dictionary<string, ICardCollection> CardCollections { get; }
 
         /// <summary>
-        /// The Player's Hand Cards.
-        /// </summary>
-        IHand Hand { get; }
-
-        /// <summary>
-        /// The Player's Cards on the Board.
-        /// </summary>
-        IBoard Board { get; }
-
-        /// <summary>
-        /// The Player's Cards that have been removed from the Game.
-        /// </summary>
-        IDeck Graveyard { get; }
-
-        /// <summary>
-        /// Get all Cards from the Player's Decks.
+        /// Get all Cards from the Player's CardCollections.
         /// </summary>
         List<ICard> AllCards { get; }
-
-        /// <summary>
-        /// Convenience property to retrieve this player's characters, i.e.
-        /// the player himself and all cards on his/her board.
-        /// </summary>
-        List<ICharacter> Characters { get; }
 
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.
         /// </summary>
         /// <param name="game"></param>
-        void DrawCard(IGame game);
+        //void DrawCard(IGame game); //TODO
 
         /// <summary>
-        /// Cast a MonsterCard from the Player's Hand to the Board at
-        /// position boardIndex.
+        /// Cast a MonsterCard from the Player's Hand to the Board.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="monsterCard"></param>
-        /// <param name="boardIndex"></param>
-        void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex);
+        //void CastMonster(IGame game, IMonsterCard monsterCard); //TODO
 
         /// <summary>
         /// Cast a SpellCard from the Player's Hand that needs no target.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="spellCard"></param>
-        void CastSpell(IGame game, ITargetlessSpellCard spellCard);
+        //void CastSpell(IGame game, ITargetlessSpellCard spellCard); //TODO
 
         /// <summary>
         /// Cast a SpellCard from the Player's Hand onto the specified
@@ -66,6 +43,6 @@ namespace csbcgf
         /// <param name="game"></param>
         /// <param name="spellCard"></param>
         /// <param name="target"></param>
-        void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target);
+        //void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target); //TODO
     }
 }

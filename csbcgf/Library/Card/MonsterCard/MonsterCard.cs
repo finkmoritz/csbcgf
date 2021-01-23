@@ -42,7 +42,7 @@ namespace csbcgf
             bool isReadyToAttack
             ) : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>(), isReadyToAttack)
         {
-            Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction());
+            // Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction()); //TODO
         }
 
         [JsonConstructor]
@@ -137,9 +137,7 @@ namespace csbcgf
 
         public bool IsSummonable(IGameState gameState)
         {
-            IBoard board = gameState.ActivePlayer.Board;
-            return base.IsCastable(gameState)
-                    && board.AllCards.Count < board.MaxSize;
+            return base.IsCastable(gameState);
         }
 
         public override object Clone()

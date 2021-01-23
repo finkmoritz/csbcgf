@@ -28,7 +28,7 @@ namespace csbcgf
         public override void Execute(IGame game)
         {
             Living.LifeValue += Delta;
-            if(Living.LifeValue <= 0)
+            /*if(Living.LifeValue <= 0)
             {
                 if (Living is IMonsterCard monsterCard)
                 {
@@ -38,7 +38,7 @@ namespace csbcgf
                 {
                     game.Execute(new EndOfGameEvent());
                 }
-            }
+            }*/ //TODO
             
         }
 

@@ -36,7 +36,7 @@ namespace csbcgf
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return Card != null && Hand.Size < Hand.MaxSize;
+            return Card != null && Hand.Count < Hand.MaxSize;
         }
     }
 }

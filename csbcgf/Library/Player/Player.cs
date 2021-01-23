@@ -18,43 +18,44 @@ namespace csbcgf
 
         public List<IReaction> Reactions { get; }
 
-        public IDeck Deck { get; protected set; }
-        public IHand Hand { get; protected set; }
-        public IBoard Board { get; protected set; }
-        public IDeck Graveyard { get; protected set; }
+        public Dictionary<string, ICardCollection> CardCollections { get; }
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
-        public Player() : this(new Deck())
+        public Player()
+            : this(
+                  new ManaPoolStat(0, 0),
+                  new AttackStat(0),
+                  new LifeStat(0),
+                  new List<IReaction>(),
+                  new Dictionary<string, ICardCollection>())
         {
         }
 
-        /// <summary>
-        /// Represents a Player and all his/her associated Cards.
-        /// </summary>
-        /// <param name="deck"></param>
-        public Player(IDeck deck)
-            : this(deck, new Hand(), new Board(), new Deck(),
-                  new ManaPoolStat(0, 0), new AttackStat(0), new LifeStat(0),
-                  new List<IReaction>())
+        public Player(int mana, int attack, int life)
+            : this(
+                  new ManaPoolStat(mana, mana),
+                  new AttackStat(attack),
+                  new LifeStat(life),
+                  new List<IReaction>(),
+                  new Dictionary<string, ICardCollection>())
         {
         }
 
         [JsonConstructor]
-        protected Player(IDeck deck, IHand hand, IBoard board, IDeck graveyard,
-            ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat,
-            List<IReaction> reactions)
+        protected Player(
+            ManaPoolStat manaPoolStat,
+            AttackStat attackStat,
+            LifeStat lifeStat,
+            List<IReaction> reactions,
+            Dictionary<string, ICardCollection> cardCollections)
         {
-            Deck = deck;
-            Hand = hand;
-            Board = board;
-            Graveyard = graveyard;
-
             this.manaPoolStat = manaPoolStat;
             this.attackStat = attackStat;
             this.lifeStat = lifeStat;
             Reactions = reactions;
+            CardCollections = cardCollections;
         }
 
         [JsonIgnore]
@@ -66,10 +67,10 @@ namespace csbcgf
             get
             {
                 List<ICard> allCards = new List<ICard>();
-                allCards.AddRange(Deck.AllCards);
-                allCards.AddRange(Hand.AllCards);
-                allCards.AddRange(Board.AllCards);
-                allCards.AddRange(Graveyard.AllCards);
+                foreach (ICardCollection cc in CardCollections.Values)
+                {
+                    allCards.AddRange(cc.AllCards);
+                }
                 return allCards;
             }
         }
@@ -116,20 +117,6 @@ namespace csbcgf
             set => manaPoolStat.BaseValue = Math.Max(0, value);
         }
 
-        [JsonIgnore]
-        public List<ICharacter> Characters
-        {
-            get
-            {
-                List<ICharacter> characters = new List<ICharacter>
-                {
-                    this
-                };
-                Board.AllCards.ForEach(c => characters.Add((ICharacter)c));
-                return characters;
-            }
-        }
-
         public List<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
@@ -137,12 +124,12 @@ namespace csbcgf
             return allReactions;
         }
 
-        public void DrawCard(IGame game)
+        /*public void DrawCard(IGame game)
         {
             game.Execute(new DrawCardAction(this));
         }
 
-        public void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
+        public void CastMonster(IGame game, IMonsterCard monsterCard)
         {
             if (!monsterCard.IsSummonable(game))
             {
@@ -150,13 +137,7 @@ namespace csbcgf
                     "not playable!");
             }
 
-            if (!Board.IsFreeSlot(boardIndex))
-            {
-                throw new CsbcgfException("Slot with index " + boardIndex +
-                    " is already occupied!");
-            }
-
-            game.Execute(new CastMonsterAction(this, monsterCard, boardIndex));
+            game.Execute(new CastMonsterAction(this, monsterCard));
         }
 
         public void CastSpell(IGame game, ITargetlessSpellCard spellCard)
@@ -179,7 +160,7 @@ namespace csbcgf
             }
 
             game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
-        }
+        }*/ //TODO
 
         public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
@@ -199,15 +180,18 @@ namespace csbcgf
                 reactionsClone.Add((IReaction)reaction.Clone());
             }
 
+            Dictionary<string, ICardCollection> cardCollectionsClone = new Dictionary<string, ICardCollection>();
+            foreach (KeyValuePair<string, ICardCollection> kv in CardCollections)
+            {
+                cardCollectionsClone.Add(kv.Key, (ICardCollection)kv.Value.Clone());
+            }
+
             return new Player(
-                (IDeck)Deck.Clone(),
-                (IHand)Hand.Clone(),
-                (IBoard)Board.Clone(),
-                (IDeck)Graveyard.Clone(),
                 (ManaPoolStat)manaPoolStat.Clone(),
                 (AttackStat)attackStat.Clone(),
                 (LifeStat)lifeStat.Clone(),
-                reactionsClone
+                reactionsClone,
+                cardCollectionsClone
             );
         }
 

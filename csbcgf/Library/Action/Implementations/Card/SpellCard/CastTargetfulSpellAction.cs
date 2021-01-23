@@ -11,11 +11,12 @@ namespace csbcgf
 
         [JsonConstructor]
         public CastTargetfulSpellAction(
-            IPlayer player,
             ITargetfulSpellCard spellCard,
+            ICardCollection source,
+            ICardCollection destination,
             ICharacter target,
             bool isAborted = false
-            ) : base(player, spellCard, isAborted)
+            ) : base(spellCard, source, destination, isAborted)
         {
             SpellCard = spellCard;
             Target = target;
@@ -24,8 +25,9 @@ namespace csbcgf
         public override object Clone()
         {
             return new CastTargetfulSpellAction(
-                null, // otherwise circular dependencies
                 (ITargetfulSpellCard)SpellCard.Clone(),
+                null, // otherwise circular dependencies
+                null, // otherwise circular dependencies
                 (ICharacter)Target.Clone(),
                 IsAborted
             );
@@ -33,10 +35,11 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            game.Execute(new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0));
-            game.Execute(new RemoveCardFromHandAction(Player.Hand, SpellCard));
+            IPlayer player = SpellCard.FindParentPlayer(game);
+            game.Execute(new ModifyManaStatAction(player, -SpellCard.ManaValue, 0));
+            game.Execute(new RemoveCardFromCardCollectionAction(SpellCard, Source));
             ((ITargetfulSpellCard)SpellCard).Cast(game, Target);
-            game.Execute(new AddCardToGraveyardAction(Player.Graveyard, SpellCard));
+            game.Execute(new AddCardToCardCollectionAction(SpellCard, Destination));
         }
 
         public override bool IsExecutable(IGameState gameState)

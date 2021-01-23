@@ -84,12 +84,6 @@
     <Compile Include="Library\Card\MonsterCard\MonsterCard.cs" />
     <Compile Include="Library\Card\SpellCard\ISpellCard.cs" />
     <Compile Include="Library\Card\SpellCard\SpellCard.cs" />
-    <Compile Include="Library\CardCollection\Board\Board.cs" />
-    <Compile Include="Library\CardCollection\Board\IBoard.cs" />
-    <Compile Include="Library\CardCollection\Hand\Hand.cs" />
-    <Compile Include="Library\CardCollection\Hand\IHand.cs" />
-    <Compile Include="Library\CardCollection\Deck\IDeck.cs" />
-    <Compile Include="Library\CardCollection\Deck\Deck.cs" />
     <Compile Include="Library\Stat\Implementations\AttackStat.cs" />
     <Compile Include="Library\Stat\Implementations\LifeStat.cs" />
     <Compile Include="Library\Stat\Implementations\ManaCostStat.cs" />
@@ -107,18 +101,10 @@
     <Compile Include="Library\Action\Implementations\Stat\ModifyManaStatAction.cs" />
     <Compile Include="Library\Action\Implementations\Stat\ModifyAttackStatAction.cs" />
     <Compile Include="Library\Action\Implementations\Stat\ModifyLifeStatAction.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\Board\RemoveCardFromBoardAction.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\Deck\AddCardToGraveyardAction.cs" />
     <Compile Include="Library\Player\IOwnable.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\Deck\RemoveCardFromDeckAction.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\Hand\AddCardToHandAction.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\Hand\RemoveCardFromHandAction.cs" />
-    <Compile Include="Library\Action\Implementations\Deck\Board\AddCardToBoardAction.cs" />
     <Compile Include="Library\Reaction\IReaction.cs" />
     <Compile Include="Library\Reaction\IReactive.cs" />
     <Compile Include="Library\Event\Event.cs" />
-    <Compile Include="Library\Reaction\EventReaction\SetReadyToAttackOnStartOfTurnEventReaction.cs" />
-    <Compile Include="Library\Action\Implementations\Card\MonsterCard\ModifyReadyToAttackAction.cs" />
     <Compile Include="Library\Card\Component\SpellCardComponent\ISpellCardComponent.cs" />
     <Compile Include="Library\Card\Component\ICardComponent.cs" />
     <Compile Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\ITargetlessSpellCardComponent.cs" />
@@ -139,26 +125,25 @@
     <Compile Include="Library\Util\Serialization\StackConverter.cs" />
     <Compile Include="Library\Util\Serialization\CsbcgfJsonConvert.cs" />
     <Compile Include="Library\Event\Implementations\TurnEvent\EndOfTurnEvent.cs" />
-    <Compile Include="Library\Reaction\EventReaction\ModifyActivePlayerOnEndOfTurnEventReaction.cs" />
-    <Compile Include="Library\Reaction\EventReaction\ModifyManaOnStartOfTurnEventReaction.cs" />
-    <Compile Include="Library\Action\Implementations\Player\DrawCardAction.cs" />
-    <Compile Include="Library\Reaction\EventReaction\DrawCardOnStartOfTurnEventReaction.cs" />
     <Compile Include="Library\Game\IGameState.cs" />
     <Compile Include="Library\Action\ActionEvent\ActionEvent.cs" />
     <Compile Include="Library\Action\ActionEvent\IActionEvent.cs" />
     <Compile Include="Library\Action\ActionEvent\BeforeActionEvent.cs" />
     <Compile Include="Library\Action\ActionEvent\AfterActionEvent.cs" />
-    <Compile Include="Library\Action\Implementations\Card\MonsterCard\CastMonsterAction.cs" />
-    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastSpellAction.cs" />
-    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetlessSpellAction.cs" />
-    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetfulSpellAction.cs" />
     <Compile Include="Library\Card\Compound\ReactiveCompound.cs" />
     <Compile Include="Library\Card\Compound\ICompound.cs" />
     <Compile Include="Library\Card\Compound\Compound.cs" />
     <Compile Include="Library\Action\Action.cs" />
-    <Compile Include="Library\Action\Implementations\Card\MonsterCard\AttackAction.cs" />
-    <Compile Include="Library\Action\Implementations\Card\MonsterCard\DieAction.cs" />
     <Compile Include="Library\Reaction\Reaction.cs" />
+    <Compile Include="Library\Action\Implementations\CardCollection\AddCardToCardCollectionAction.cs" />
+    <Compile Include="Library\Action\Implementations\CardCollection\RemoveCardFromCardCollectionAction.cs" />
+    <Compile Include="Library\Action\Implementations\CardCollection\TransferCardAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\MonsterCard\AttackAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\MonsterCard\ModifyReadyToAttackAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\MonsterCard\CastMonsterAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastSpellAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetfulSpellAction.cs" />
+    <Compile Include="Library\Action\Implementations\Card\SpellCard\CastTargetlessSpellAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Library\" />
@@ -169,9 +154,6 @@
     <Folder Include="Library\Stat\" />
     <Folder Include="Library\Card\MonsterCard\" />
     <Folder Include="Library\Card\SpellCard\" />
-    <Folder Include="Library\CardCollection\Board\" />
-    <Folder Include="Library\CardCollection\Hand\" />
-    <Folder Include="Library\CardCollection\Deck\" />
     <Folder Include="Library\Stat\Implementations\" />
     <Folder Include="Library\Exception\" />
     <Folder Include="Library\Character\" />
@@ -182,16 +164,9 @@
     <Folder Include="Library\Action\ActionQueue\" />
     <Folder Include="Library\Action\Implementations\" />
     <Folder Include="Library\Action\Implementations\Stat\" />
-    <Folder Include="Library\Action\Implementations\Deck\" />
-    <Folder Include="Library\Action\Implementations\Deck\Board\" />
-    <Folder Include="Library\Action\Implementations\Deck\Deck\" />
-    <Folder Include="Library\Action\Implementations\Deck\Hand\" />
     <Folder Include="Library\Reaction\" />
     <Folder Include="Library\Event\" />
     <Folder Include="Library\Event\Implementations\" />
-    <Folder Include="Library\Reaction\EventReaction\" />
-    <Folder Include="Library\Action\Implementations\Card\" />
-    <Folder Include="Library\Action\Implementations\Card\MonsterCard\" />
     <Folder Include="Library\Card\Component\" />
     <Folder Include="Library\Card\Component\SpellCardComponent\" />
     <Folder Include="Library\Card\Component\SpellCardComponent\TargetlessSpellCardComponent\" />
@@ -203,8 +178,10 @@
     <Folder Include="Library\Action\Implementations\Game\" />
     <Folder Include="Library\Util\" />
     <Folder Include="Library\Util\Serialization\" />
-    <Folder Include="Library\Action\Implementations\Player\" />
     <Folder Include="Library\Action\ActionEvent\" />
+    <Folder Include="Library\Action\Implementations\CardCollection\" />
+    <Folder Include="Library\Action\Implementations\Card\" />
+    <Folder Include="Library\Action\Implementations\Card\MonsterCard\" />
     <Folder Include="Library\Action\Implementations\Card\SpellCard\" />
   </ItemGroup>
   <ItemGroup>

@@ -41,7 +41,6 @@ namespace csbcgf
             IPlayer owner = FindParentPlayer(gameState);
             return owner != null
                 && owner == gameState.ActivePlayer
-                && owner.Hand.Contains(this)
                 && ManaValue <= gameState.ActivePlayer.ManaValue;
         }
 

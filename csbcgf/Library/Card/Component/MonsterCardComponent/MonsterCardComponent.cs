@@ -89,14 +89,18 @@ namespace csbcgf
             );
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public virtual HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
+            throw new NotImplementedException("Please implement the " +
+                "GetPotentialTargets method of this MonsterCardComponent!");
+        }
+        /*{
             HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
             foreach (IPlayer player in gameState.NonActivePlayers)
             {
                 player.Characters.ForEach(c => potentialTargets.Add(c));
             }
             return potentialTargets;
-        }
+        }*/ //TODO
     }
 }

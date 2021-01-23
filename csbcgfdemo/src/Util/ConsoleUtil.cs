@@ -45,7 +45,7 @@ namespace csbcgfdemo
         public static void PrintHand(IGameState gameState, IHand hand, int idPrefix)
         {
             Console.ForegroundColor = ColorMana;
-            for (int i=0; i<hand.Size; ++i)
+            for (int i=0; i<hand.Count; ++i)
             {
                 ICard card = hand[i];
                 Console.Write(string.Format(
@@ -55,7 +55,7 @@ namespace csbcgfdemo
             }
             Console.WriteLine();
             Console.ForegroundColor = ColorAttack;
-            for (int i = 0; i < hand.Size; ++i)
+            for (int i = 0; i < hand.Count; ++i)
             {
                 ICard card = hand[i];
                 if (card is IMonsterCard monsterCard)
@@ -71,7 +71,7 @@ namespace csbcgfdemo
             }
             Console.WriteLine();
             Console.ForegroundColor = ColorLife;
-            for (int i = 0; i < hand.Size; ++i)
+            for (int i = 0; i < hand.Count; ++i)
             {
                 ICard card = hand[i];
                 if (card is IMonsterCard monsterCard)
@@ -87,7 +87,7 @@ namespace csbcgfdemo
                 }
             }
             Console.WriteLine();
-            for (int i = 0; i < hand.Size; ++i)
+            for (int i = 0; i < hand.Count; ++i)
             {
                 ICard card = hand[i];
                 Console.ForegroundColor = ColorDefault;

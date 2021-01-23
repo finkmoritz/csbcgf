@@ -38,9 +38,9 @@ namespace csbcgf
         public Game(List<IPlayer> players)
             : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())
         {
-            Reactions.Add(new ModifyActivePlayerOnEndOfTurnEventReaction());
-            Reactions.Add(new ModifyManaOnStartOfTurnEventReaction());
-            Reactions.Add(new DrawCardOnStartOfTurnEventReaction());
+            //Reactions.Add(new ModifyActivePlayerOnEndOfTurnEventReaction()); //TODO
+            //Reactions.Add(new ModifyManaOnStartOfTurnEventReaction()); //TODO
+            //Reactions.Add(new DrawCardOnStartOfTurnEventReaction()); //TODO
         }
 
         [JsonConstructor]
@@ -85,20 +85,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
-        public List<ICard> AllCardsOnTheBoard
-        {
-            get
-            {
-                List<ICard> allCards = new List<ICard>();
-                foreach (IPlayer player in Players)
-                {
-                    allCards.AddRange(player.Board.AllCards);
-                }
-                return allCards;
-            }
-        }
-
         public List<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
@@ -109,7 +95,7 @@ namespace csbcgf
         public void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
         {
             //Do not trigger any reactions during setup
-            actionQueue.ExecuteReactions = false;
+            /*actionQueue.ExecuteReactions = false;
 
             foreach (IPlayer player in Players)
             {
@@ -124,7 +110,7 @@ namespace csbcgf
                 }
             }
 
-            actionQueue.ExecuteReactions = true;
+            actionQueue.ExecuteReactions = true;*/ //TODO
 
             Execute(new StartOfGameEvent());
             Execute(new StartOfTurnEvent());

@@ -8,28 +8,31 @@ namespace csbcgf
     {
         [JsonConstructor]
         public CastTargetlessSpellAction(
-            IPlayer player,
             ITargetlessSpellCard spellCard,
+            ICardCollection source,
+            ICardCollection destination,
             bool isAborted = false
-            ) : base(player, spellCard, isAborted)
+            ) : base(spellCard, source, destination, isAborted)
         {
         }
 
         public override object Clone()
         {
             return new CastTargetlessSpellAction(
-                null, // otherwise circular dependencies
                 (ITargetlessSpellCard)SpellCard.Clone(),
+                null, // otherwise circular dependencies
+                null, // otherwise circular dependencies
                 IsAborted
             );
         }
 
         public override void Execute(IGame game)
         {
-            game.Execute(new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0));
-            game.Execute(new RemoveCardFromHandAction(Player.Hand, SpellCard));
+            IPlayer player = SpellCard.FindParentPlayer(game);
+            game.Execute(new ModifyManaStatAction(player, -SpellCard.ManaValue, 0));
+            game.Execute(new RemoveCardFromCardCollectionAction(SpellCard, Source));
             ((ITargetlessSpellCard)SpellCard).Cast(game);
-            game.Execute(new AddCardToGraveyardAction(Player.Graveyard, SpellCard));
+            game.Execute(new AddCardToCardCollectionAction(SpellCard, Destination));
         }
 
         public override bool IsExecutable(IGameState gameState)

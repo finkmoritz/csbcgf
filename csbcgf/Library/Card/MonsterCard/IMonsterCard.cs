@@ -9,6 +9,11 @@
         /// </summary>
         bool IsReadyToAttack { get; set; }
 
+        /// <summary>
+        /// Checks if this MonsterCard can be summoned.
+        /// </summary>
+        /// <param name="gameState"></param>
+        /// <returns>True if this MonsterCard can be summoned.</returns>
         bool IsSummonable(IGameState gameState);
 
         /// <summary>

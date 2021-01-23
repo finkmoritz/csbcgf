@@ -26,10 +26,5 @@ namespace csbcgf
         /// Get all Cards involved in the Game.
         /// </summary>
         List<ICard> AllCards { get; }
-
-        /// <summary>
-        /// Convenience method to retrieve all Cards on the Boards of all players.
-        /// </summary>
-        List<ICard> AllCardsOnTheBoard { get; }
     }
 }

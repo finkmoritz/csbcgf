@@ -36,7 +36,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public override int Size => cards.Count;
+        public override int Count => cards.Count;
 
         public override bool Contains(ICard card)
         {

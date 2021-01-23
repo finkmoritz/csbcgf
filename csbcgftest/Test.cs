@@ -45,10 +45,10 @@ namespace csbcgftest
             Assert.AreEqual(1, game.ActivePlayer.ManaBaseValue);
             Assert.AreEqual(0, game.NonActivePlayers[0].ManaBaseValue);
 
-            Assert.AreEqual(3, game.ActivePlayer.Deck.Size);
-            Assert.AreEqual(4, game.NonActivePlayers[0].Deck.Size);
-            Assert.AreEqual(2, game.ActivePlayer.Hand.Size);
-            Assert.AreEqual(1, game.NonActivePlayers[0].Hand.Size);
+            Assert.AreEqual(3, game.ActivePlayer.Deck.Count);
+            Assert.AreEqual(4, game.NonActivePlayers[0].Deck.Count);
+            Assert.AreEqual(2, game.ActivePlayer.Hand.Count);
+            Assert.AreEqual(1, game.NonActivePlayers[0].Hand.Count);
 
             IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             Assert.AreEqual(2, goblin.ManaValue);
@@ -71,10 +71,10 @@ namespace csbcgftest
             Assert.AreEqual(1, game.ActivePlayer.ManaBaseValue);
             Assert.AreEqual(1, game.NonActivePlayers[0].ManaBaseValue);
 
-            Assert.AreEqual(3, game.ActivePlayer.Deck.Size);
-            Assert.AreEqual(3, game.NonActivePlayers[0].Deck.Size);
-            Assert.AreEqual(2, game.ActivePlayer.Hand.Size);
-            Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Size);
+            Assert.AreEqual(3, game.ActivePlayer.Deck.Count);
+            Assert.AreEqual(3, game.NonActivePlayers[0].Deck.Count);
+            Assert.AreEqual(2, game.ActivePlayer.Hand.Count);
+            Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Count);
 
             game.NextTurn(); //First player's turn again
 
@@ -83,10 +83,10 @@ namespace csbcgftest
             Assert.AreEqual(2, game.ActivePlayer.ManaBaseValue);
             Assert.AreEqual(1, game.NonActivePlayers[0].ManaBaseValue);
 
-            Assert.AreEqual(2, game.ActivePlayer.Deck.Size);
-            Assert.AreEqual(3, game.NonActivePlayers[0].Deck.Size);
-            Assert.AreEqual(3, game.ActivePlayer.Hand.Size);
-            Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Size);
+            Assert.AreEqual(2, game.ActivePlayer.Deck.Count);
+            Assert.AreEqual(3, game.NonActivePlayers[0].Deck.Count);
+            Assert.AreEqual(3, game.ActivePlayer.Hand.Count);
+            Assert.AreEqual(2, game.NonActivePlayers[0].Hand.Count);
 
             goblin = (IMonsterCard)game.ActivePlayer.Hand[0];
             Assert.True(goblin.IsSummonable(game));
@@ -142,8 +142,8 @@ namespace csbcgftest
             Assert.False(game.ActivePlayer.Board.IsEmpty);
             Assert.False(game.NonActivePlayers[0].Board.IsEmpty);
             goblin.Attack(game, otherGoblin);
-            Assert.AreEqual(1, game.ActivePlayer.Graveyard.Size);
-            Assert.AreEqual(1, game.NonActivePlayers[0].Graveyard.Size);
+            Assert.AreEqual(1, game.ActivePlayer.Graveyard.Count);
+            Assert.AreEqual(1, game.NonActivePlayers[0].Graveyard.Count);
             Assert.True(game.ActivePlayer.Board.IsEmpty);
             Assert.True(game.NonActivePlayers[0].Board.IsEmpty);
 
