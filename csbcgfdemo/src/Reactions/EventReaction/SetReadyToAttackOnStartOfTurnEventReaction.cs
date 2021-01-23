@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace csbcgf
+namespace Csbcgf.Core
 {
     [Serializable]
     public class SetReadyToAttackOnStartOfTurnEventReaction : Reaction

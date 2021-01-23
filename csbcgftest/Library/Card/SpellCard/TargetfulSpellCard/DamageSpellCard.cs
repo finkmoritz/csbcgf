@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using csbcgf;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
-namespace csbcgftest
+namespace Csbcgf.Coretest
 {
     [Serializable]
     public class DamageSpellCard : TargetfulSpellCard

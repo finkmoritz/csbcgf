@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace csbcgf
+namespace Csbcgf.Core
 {
     [Serializable]
     public class DrawCardAction : Action

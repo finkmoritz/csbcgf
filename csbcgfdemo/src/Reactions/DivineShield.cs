@@ -1,8 +1,8 @@
 ﻿using System;
-using csbcgf;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
-namespace csbcgfdemo
+namespace Csbcgf.Coredemo
 {
     /// <summary>
     /// Divine Shield blocks first damage.

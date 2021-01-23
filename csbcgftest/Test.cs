@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using csbcgf;
+using Csbcgf.Core;
 using NUnit.Framework;
 
-namespace csbcgftest
+namespace Csbcgf.Coretest
 {
     [TestFixture()]
     public class Test

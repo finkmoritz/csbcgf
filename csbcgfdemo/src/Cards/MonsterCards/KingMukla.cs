@@ -1,8 +1,8 @@
 ﻿using System;
-using csbcgf;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
-namespace csbcgfdemo
+namespace Csbcgf.Coredemo
 {
     [Serializable]
     public class KingMukla : MonsterCard

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using csbcgf;
+using Csbcgf.Core;
 
-namespace csbcgfdemo
+namespace Csbcgf.Coredemo
 {
     public static class ConsoleUtil
     {

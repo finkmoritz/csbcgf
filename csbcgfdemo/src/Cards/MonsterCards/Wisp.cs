@@ -1,7 +1,7 @@
 ﻿using System;
-using csbcgf;
+using Csbcgf.Core;
 
-namespace csbcgfdemo
+namespace Csbcgf.Coredemo
 {
     public class Wisp : MonsterCard
     {

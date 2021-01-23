@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using csbcgf;
+using Csbcgf.Core;
 
-namespace csbcgfdemo
+namespace Csbcgf.Coredemo
 {
     /// <summary>
     /// Bananas give a minion +1/+1.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace csbcgf
+namespace Csbcgf.Core
 {
     [Serializable]
     public class ModifyActivePlayerOnEndOfTurnEventReaction : Reaction
