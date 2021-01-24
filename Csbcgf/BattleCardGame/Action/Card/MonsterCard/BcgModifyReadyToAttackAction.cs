@@ -40,8 +40,9 @@ namespace Csbcgf.BattleCardGame
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return MonsterCard.IsReadyToAttack != IsReadyToAttack;
-                //&& gameState.AllCardsOnTheBoard.Contains(MonsterCard); //TODO
+            IPlayer activePlayer = gameState.ActivePlayer;
+            return MonsterCard.IsReadyToAttack != IsReadyToAttack
+                && activePlayer.CardCollections[BcgPlayer.CardCollectionKeyBoard].Contains(MonsterCard);
         }
     }
 }

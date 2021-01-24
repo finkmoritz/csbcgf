@@ -25,15 +25,18 @@ namespace Csbcgf.BattleCardGame
         public override void Execute(IGame game)
         {
             IPlayer owner = MonsterCard.FindParentPlayer(game);
-            //game.Execute(new RemoveCardFromBoardAction(owner.Board, MonsterCard)); //TODO
-            //game.Execute(new AddCardToGraveyardAction(owner.Graveyard, MonsterCard)); //TODO
+            game.Execute(new TransferCardAction(
+                MonsterCard,
+                owner.CardCollections[BcgPlayer.CardCollectionKeyBoard],
+                owner.CardCollections[BcgPlayer.CardCollectionKeyGraveyard]
+            ));
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
             IPlayer owner = MonsterCard.FindParentPlayer(gameState);
-            return owner != null;
-                //&& owner.Board.Contains(MonsterCard); //TODO
+            return owner != null
+                && owner.CardCollections[BcgPlayer.CardCollectionKeyBoard].Contains(MonsterCard);
         }
     }
 }
