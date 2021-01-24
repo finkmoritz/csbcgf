@@ -1,10 +1,11 @@
 ﻿using System;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgModifyAttackStatAction : Action
+    public class BcgModifyAttackStatAction : Core.Action
     {
         [JsonProperty]
         public IBcgAttacking Attacking;

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace Csbcgf.BattleCardGame
+﻿namespace Csbcgf.BattleCardGame
 {
-    public interface ITargetlessSpellCard : ITargetless, ISpellCard
+    public interface IBcgTargetlessSpellCard : IBcgTargetless, IBcgSpellCard
     {
         /// <summary>
         /// Called when the spell card is cast.
         /// </summary>
         /// <param name="gameState"></param>
-        void Cast(IGame game);
+        void Cast(IBcgGame game);
     }
 }

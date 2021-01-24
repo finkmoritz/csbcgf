@@ -1,9 +1,9 @@
 ﻿using System;
 using Csbcgf.Core;
 
-namespace csbcgf.BattleCardGame
+namespace Csbcgf.BattleCardGame
 {
-    public interface IBcgPlayer : IPlayer
+    public interface IBcgPlayer : IBcgPlayer
     {
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.

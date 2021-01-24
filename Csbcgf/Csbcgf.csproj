@@ -130,7 +130,6 @@
     <Compile Include="BattleCardGame\Stat\Interfaces\IBcgLiving.cs" />
     <Compile Include="BattleCardGame\Stat\Interfaces\IBcgManaful.cs" />
     <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgAttackAction.cs" />
-    <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgCastMonsterAction.cs" />
     <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgModifyReadyToAttackAction.cs" />
     <Compile Include="BattleCardGame\Action\Card\SpellCard\BcgCastSpellAction.cs" />
     <Compile Include="BattleCardGame\Action\Card\SpellCard\BcgCastTargetfulSpellAction.cs" />
@@ -155,6 +154,9 @@
     <Compile Include="BattleCardGame\Card\SpellCard\IBcgSpellCard.cs" />
     <Compile Include="BattleCardGame\Card\Target\IBcgTargetful.cs" />
     <Compile Include="BattleCardGame\Card\Target\IBcgTargetless.cs" />
+    <Compile Include="BattleCardGame\Card\BcgCard.cs" />
+    <Compile Include="BattleCardGame\Card\IBcgCard.cs" />
+    <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgSummonMonsterAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

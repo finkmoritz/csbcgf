@@ -1,7 +1,7 @@
 ﻿using System;
 using Csbcgf.Core;
 
-namespace csbcgf.BattleCardGame
+namespace Csbcgf.BattleCardGame
 {
     public interface IBcgGame : IBcgGameState, IGame
     {

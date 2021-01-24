@@ -1,34 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class TargetlessSpellCard : SpellCard, ITargetlessSpellCard
+    public class BcgTargetlessSpellCard : BcgSpellCard, IBcgTargetlessSpellCard
     {
-        public TargetlessSpellCard()
+        public BcgTargetlessSpellCard()
             : this(new List<IBcgTargetlessSpellCardComponent>())
         {
         }
 
-        public TargetlessSpellCard(IBcgTargetlessSpellCardComponent component)
+        public BcgTargetlessSpellCard(IBcgTargetlessSpellCardComponent component)
             : this(new List<IBcgTargetlessSpellCardComponent> { component })
         {
         }
 
-        public TargetlessSpellCard(List<IBcgTargetlessSpellCardComponent> components)
+        public BcgTargetlessSpellCard(List<IBcgTargetlessSpellCardComponent> components)
             : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        public TargetlessSpellCard(List<ICardComponent> components, List<IReaction> reactions)
+        public BcgTargetlessSpellCard(List<ICardComponent> components, List<IReaction> reactions)
             : base(components, reactions)
         {
         }
 
-        public void Cast(IGame game)
+        public void Cast(IBcgGame game)
         {
             foreach (ICardComponent component in Components)
             {
@@ -47,7 +48,7 @@ namespace Csbcgf.BattleCardGame
             List<IReaction> reactionsClone = new List<IReaction>();
             Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
 
-            return new TargetlessSpellCard(
+            return new BcgTargetlessSpellCard(
                 componentsClone,
                 reactionsClone
             );

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public abstract class SpellCard : Card, ISpellCard
+    public abstract class BcgSpellCard : BcgCard, IBcgSpellCard
     {
-        public SpellCard()
+        public BcgSpellCard()
             : this(new List<IBcgSpellCardComponent>())
         {
         }
@@ -17,13 +18,13 @@ namespace Csbcgf.BattleCardGame
         /// immediate effect on the Game's state.
         /// </summary>
         /// <param name="components"></param>
-        public SpellCard(List<IBcgSpellCardComponent> components)
+        public BcgSpellCard(List<IBcgSpellCardComponent> components)
             : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        public SpellCard(List<ICardComponent> components, List<IReaction> reactions)
+        public BcgSpellCard(List<ICardComponent> components, List<IReaction> reactions)
             : base(components, reactions)
         {
         }

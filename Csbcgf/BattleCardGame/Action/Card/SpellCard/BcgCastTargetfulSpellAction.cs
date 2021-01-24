@@ -1,4 +1,5 @@
 ﻿using System;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
@@ -7,14 +8,14 @@ namespace Csbcgf.BattleCardGame
     public class BcgCastTargetfulSpellAction : BcgCastSpellAction
     {
         [JsonProperty]
-        public ICharacter Target;
+        public IBcgCharacter Target;
 
         [JsonConstructor]
         public BcgCastTargetfulSpellAction(
-            ITargetfulSpellCard spellCard,
+            IBcgTargetfulSpellCard spellCard,
             ICardCollection source,
             ICardCollection destination,
-            ICharacter target,
+            IBcgCharacter target,
             bool isAborted = false
             ) : base(spellCard, source, destination, isAborted)
         {
@@ -25,20 +26,20 @@ namespace Csbcgf.BattleCardGame
         public override object Clone()
         {
             return new BcgCastTargetfulSpellAction(
-                (ITargetfulSpellCard)SpellCard.Clone(),
+                (IBcgTargetfulSpellCard)SpellCard.Clone(),
                 null, // otherwise circular dependencies
                 null, // otherwise circular dependencies
-                (ICharacter)Target.Clone(),
+                (IBcgCharacter)Target.Clone(),
                 IsAborted
             );
         }
 
         public override void Execute(IGame game)
         {
-            IPlayer player = SpellCard.FindParentPlayer(game);
+            IBcgPlayer player = SpellCard.FindParentPlayer(game);
             game.Execute(new BcgModifyManaStatAction(player, -SpellCard.ManaValue, 0));
             game.Execute(new RemoveCardFromCardCollectionAction(SpellCard, Source));
-            ((ITargetfulSpellCard)SpellCard).Cast(game, Target);
+            ((IBcgTargetfulSpellCard)SpellCard).Cast(game, Target);
             game.Execute(new AddCardToCardCollectionAction(SpellCard, Destination));
         }
 

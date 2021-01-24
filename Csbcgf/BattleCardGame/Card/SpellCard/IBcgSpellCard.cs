@@ -1,7 +1,7 @@
 ﻿namespace Csbcgf.BattleCardGame
 {
-    public interface ISpellCard : ICard
+    public interface IBcgSpellCard : IBcgCard
     {
-        bool IsCastable(IGameState gameState);
+        bool IsCastable(IBcgGameState gameState);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Csbcgf.BattleCardGame
 {
-    public interface ITargetfulSpellCard : ITargetful, ISpellCard
+    public interface IBcgTargetfulSpellCard : IBcgTargetful, IBcgSpellCard
     {
         /// <summary>
         /// Called when the spell card is cast.
         /// </summary>
         /// <param name="gameState"></param>
         /// <param name="target"></param>
-        void Cast(IGame game, ICharacter target);
+        void Cast(IBcgGame game, IBcgCharacter target);
     }
 }

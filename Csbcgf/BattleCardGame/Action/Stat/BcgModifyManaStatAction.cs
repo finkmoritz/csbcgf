@@ -1,10 +1,11 @@
 ﻿using System;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgModifyManaStatAction : Action
+    public class BcgModifyManaStatAction : Core.Action
     {
         [JsonProperty]
         public IBcgManaful Manaful;

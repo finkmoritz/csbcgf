@@ -1,13 +1,14 @@
 ﻿using System;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgCastMonsterAction : Action
+    public class BcgSummonMonsterAction : Core.Action
     {
         [JsonProperty]
-        public IMonsterCard MonsterCard;
+        public IBcgMonsterCard MonsterCard;
 
         [JsonProperty]
         public ICardCollection Source;
@@ -16,8 +17,8 @@ namespace Csbcgf.BattleCardGame
         public ICardCollection Destination;
 
         [JsonConstructor]
-        public BcgCastMonsterAction(
-            IMonsterCard monsterCard,
+        public BcgSummonMonsterAction(
+            IBcgMonsterCard monsterCard,
             ICardCollection source,
             ICardCollection destination,
             bool isAborted = false
@@ -30,8 +31,8 @@ namespace Csbcgf.BattleCardGame
 
         public override object Clone()
         {
-            return new BcgCastMonsterAction(
-                (IMonsterCard)MonsterCard.Clone(),
+            return new BcgSummonMonsterAction(
+                (IBcgMonsterCard)MonsterCard.Clone(),
                 null, // otherwise circular dependencies
                 null, // otherwise circular dependencies
                 IsAborted
@@ -40,7 +41,7 @@ namespace Csbcgf.BattleCardGame
 
         public override void Execute(IGame game)
         {
-            IPlayer player = MonsterCard.FindParentPlayer(game);
+            IBcgPlayer player = MonsterCard.FindParentPlayer(game);
             game.Execute(new BcgModifyManaStatAction(player, -MonsterCard.ManaValue, 0));
             game.Execute(new TransferCardAction(MonsterCard, Source, Destination));
         }

@@ -1,6 +1,6 @@
 ﻿namespace Csbcgf.BattleCardGame
 {
-    public interface IBcgMonsterCardComponent : ICardComponent, IBcgAttacking, IBcgLiving
+    public interface IBcgMonsterCardComponent : IBcgCardComponent, IBcgAttacking, IBcgLiving
     {
     }
 }

@@ -1,19 +1,20 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Csbcgf.Core;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgAttackAction : Action
+    public class BcgAttackAction : Core.Action
     {
         [JsonProperty]
-        public IMonsterCard Attacker;
+        public IBcgMonsterCard Attacker;
 
         [JsonProperty]
-        public ICharacter Target;
+        public IBcgCharacter Target;
 
         [JsonConstructor]
-        public BcgAttackAction(IMonsterCard attacker, ICharacter target, bool isAborted = false)
+        public BcgAttackAction(IBcgMonsterCard attacker, IBcgCharacter target, bool isAborted = false)
             : base(isAborted)
         {
             Attacker = attacker;
@@ -23,8 +24,8 @@ namespace Csbcgf.BattleCardGame
         public override object Clone()
         {
             return new BcgAttackAction(
-                (IMonsterCard)Attacker.Clone(),
-                (ICharacter)Target.Clone(),
+                (IBcgMonsterCard)Attacker.Clone(),
+                (IBcgCharacter)Target.Clone(),
                 IsAborted
             );
         }

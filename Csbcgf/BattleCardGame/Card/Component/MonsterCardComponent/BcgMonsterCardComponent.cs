@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgMonsterCardComponent : CardComponent, IBcgMonsterCardComponent
+    public class BcgMonsterCardComponent : BcgCardComponent, IBcgMonsterCardComponent
     {
         [JsonProperty]
         protected BcgAttackStat attackStat;
@@ -89,18 +90,14 @@ namespace Csbcgf.BattleCardGame
             );
         }
 
-        public virtual HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public virtual HashSet<IBcgCharacter> GetPotentialTargets(IBcgGameState gameState)
         {
-            throw new NotImplementedException("Please implement the " +
-                "GetPotentialTargets method of this MonsterCardComponent!");
-        }
-        /*{
-            HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-            foreach (IPlayer player in gameState.NonActivePlayers)
+            HashSet<IBcgCharacter> potentialTargets = new HashSet<IBcgCharacter>();
+            foreach (IBcgPlayer player in gameState.NonActivePlayers)
             {
                 player.Characters.ForEach(c => potentialTargets.Add(c));
             }
             return potentialTargets;
-        }*/ //TODO
+        }
     }
 }

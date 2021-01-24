@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public abstract class BcgTargetfulSpellCardComponent : CardComponent, IBcgTargetfulSpellCardComponent
+    public abstract class BcgTargetfulSpellCardComponent : BcgCardComponent, IBcgTargetfulSpellCardComponent
     {
         public BcgTargetfulSpellCardComponent(int mana) : base(mana)
         {
@@ -18,8 +19,8 @@ namespace Csbcgf.BattleCardGame
         {
         }
 
-        public abstract void Cast(IGame game, ICharacter target);
+        public abstract void Cast(IGame game, IBcgCharacter target);
 
-        public abstract HashSet<ICharacter> GetPotentialTargets(IGameState gameState);
+        public abstract HashSet<IBcgCharacter> GetPotentialTargets(IGameState gameState);
     }
 }

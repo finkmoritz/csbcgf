@@ -1,5 +1,4 @@
 ﻿using System;
-using csbcgf.BattleCardGame;
 using Csbcgf.Core;
 
 namespace Csbcgf.BattleCardGame

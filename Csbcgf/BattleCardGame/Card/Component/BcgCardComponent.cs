@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgCardComponent : CardComponent, IBcgCardComponent
+    public class BcgCardComponent : BcgCardComponent, IBcgCardComponent
     {
         [JsonProperty]
         protected BcgManaCostStat manaCostStat;

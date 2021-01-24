@@ -1,13 +1,14 @@
 ﻿using System;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public abstract class BcgCastSpellAction : Action
+    public abstract class BcgCastSpellAction : Core.Action
     {
         [JsonProperty]
-        public ISpellCard SpellCard;
+        public IBcgSpellCard SpellCard;
 
         [JsonProperty]
         public ICardCollection Source;
@@ -17,7 +18,7 @@ namespace Csbcgf.BattleCardGame
 
         [JsonConstructor]
         public BcgCastSpellAction(
-            ISpellCard spellCard,
+            IBcgSpellCard spellCard,
             ICardCollection source,
             ICardCollection destination,
             bool isAborted = false

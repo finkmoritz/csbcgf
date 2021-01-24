@@ -1,6 +1,6 @@
 ﻿namespace Csbcgf.BattleCardGame
 {
-    public interface IMonsterCard : ICard, ICharacter, ITargetful
+    public interface IBcgMonsterCard : IBcgCard, IBcgCharacter, IBcgTargetful
     {
         /// <summary>
         /// Marks if this MonsterCard is ready to attack. Normally, MonsterCards
@@ -14,13 +14,13 @@
         /// </summary>
         /// <param name="gameState"></param>
         /// <returns>True if this MonsterCard can be summoned.</returns>
-        bool IsSummonable(IGameState gameState);
+        bool IsSummonable(IBcgGameState gameState);
 
         /// <summary>
         /// Attack the given target Character.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="target"></param>
-        void Attack(IGame game, ICharacter target);
+        void Attack(IBcgGame game, IBcgCharacter target);
     }
 }

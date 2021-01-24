@@ -2,7 +2,7 @@
 
 namespace Csbcgf.BattleCardGame
 {
-    public interface ITargetless : ICloneable
+    public interface IBcgTargetless : ICloneable
     {
     }
 }

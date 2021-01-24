@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using csbcgf.BattleCardGame;
 using Csbcgf.Core;
 using Newtonsoft.Json;
 
@@ -10,11 +9,11 @@ namespace Csbcgf.BattleCardGame
     public class BcgGame : Game, IBcgGame
     {
         public BcgGame()
-            : this(new List<IPlayer>())
+            : this(new List<IBcgPlayer>())
         {
         }
 
-        public BcgGame(List<IPlayer> players)
+        public BcgGame(List<IBcgPlayer> players)
             : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())
         {
             Reactions.Add(new BcgModifyActivePlayerOnEndOfTurnEventReaction());
@@ -24,7 +23,7 @@ namespace Csbcgf.BattleCardGame
 
         [JsonConstructor]
         public BcgGame(
-            List<IPlayer> players,
+            List<IBcgPlayer> players,
             int activePlayerIndex,
             ActionQueue actionQueue,
             List<IReaction> reactions
@@ -37,7 +36,7 @@ namespace Csbcgf.BattleCardGame
             //Do not trigger any reactions during setup
             actionQueue.ExecuteReactions = false;
 
-            foreach (IPlayer player in Players)
+            foreach (IBcgPlayer player in Players)
             {
                 player.ManaValue = 0;
                 player.ManaBaseValue = 0;

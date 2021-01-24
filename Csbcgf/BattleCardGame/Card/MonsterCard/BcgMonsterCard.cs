@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class MonsterCard : Card, IMonsterCard
+    public class BcgMonsterCard : BcgCard, IBcgMonsterCard
     {
         public bool IsReadyToAttack { get; set; }
 
-        public MonsterCard()
+        public BcgMonsterCard()
             : this(new List<IBcgMonsterCardComponent>())
         {
         }
@@ -22,7 +23,7 @@ namespace Csbcgf.BattleCardGame
         /// <param name="mana"></param>
         /// <param name="attack"></param>
         /// <param name="life"></param>
-        public MonsterCard(int mana, int attack, int life)
+        public BcgMonsterCard(int mana, int attack, int life)
             : this(new List<IBcgMonsterCardComponent> { new BcgMonsterCardComponent(mana, attack, life) })
         {
         }
@@ -32,21 +33,21 @@ namespace Csbcgf.BattleCardGame
         /// onto the Player's Board.
         /// </summary>
         /// <param name="components"></param>
-        public MonsterCard(List<IBcgMonsterCardComponent> components)
+        public BcgMonsterCard(List<IBcgMonsterCardComponent> components)
             : this(components, false)
         {
         }
 
-        public MonsterCard(
+        public BcgMonsterCard(
             List<IBcgMonsterCardComponent> components,
             bool isReadyToAttack
             ) : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>(), isReadyToAttack)
         {
-            // Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction()); //TODO
+            Reactions.Add(new BcgSetReadyToAttackOnStartOfTurnEventReaction());
         }
 
         [JsonConstructor]
-        public MonsterCard(
+        public BcgMonsterCard(
             List<ICardComponent> components,
             List<IReaction> reactions,
             bool isReadyToAttack
@@ -64,7 +65,7 @@ namespace Csbcgf.BattleCardGame
             get => Math.Max(0, GetSum(c => c.AttackValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, value - GetSum(c => c.AttackValue), 0, 0, 0));
+                Components.Add(new BcgMonsterCardComponent(0, 0, value - GetSum(c => c.AttackValue), 0, 0, 0));
             }
         }
 
@@ -74,7 +75,7 @@ namespace Csbcgf.BattleCardGame
             get => Math.Max(0, GetSum(c => c.AttackBaseValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, value - GetSum(c => c.AttackBaseValue), 0, 0));
+                Components.Add(new BcgMonsterCardComponent(0, 0, 0, value - GetSum(c => c.AttackBaseValue), 0, 0));
             }
         }
 
@@ -84,7 +85,7 @@ namespace Csbcgf.BattleCardGame
             get => Math.Max(0, GetSum(c => c.LifeValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, 0, value - GetSum(c => c.LifeValue), 0));
+                Components.Add(new BcgMonsterCardComponent(0, 0, 0, 0, value - GetSum(c => c.LifeValue), 0));
             }
         }
 
@@ -94,7 +95,7 @@ namespace Csbcgf.BattleCardGame
             get => Math.Max(0, GetSum(c => c.LifeBaseValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, 0, 0, value - GetSum(c => c.LifeBaseValue)));
+                Components.Add(new BcgMonsterCardComponent(0, 0, 0, 0, 0, value - GetSum(c => c.LifeBaseValue)));
             }
         }
 
@@ -103,7 +104,7 @@ namespace Csbcgf.BattleCardGame
             return Components.Where(c => c is IBcgMonsterCardComponent).Sum(c => GetValue((IBcgMonsterCardComponent)c));
         }
 
-        public void Attack(IGame game, ICharacter target)
+        public void Attack(IBcgGame game, IBcgCharacter target)
         {
             if(!IsReadyToAttack)
             {
@@ -119,36 +120,36 @@ namespace Csbcgf.BattleCardGame
             game.Execute(new BcgAttackAction(this, target));
         }
 
-        public virtual HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public virtual HashSet<IBcgCharacter> GetPotentialTargets(IBcgGameState gameState)
         {
             if (Components.Count == 0)
             {
-                return new HashSet<ICharacter>();
+                return new HashSet<IBcgCharacter>();
             }
 
             //Compute the intersection of all potential targets
-            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(gameState);
-            foreach (ICardComponent component in Components)
+            HashSet<IBcgCharacter> potentialTargets = ((IBcgTargetful)Components[0]).GetPotentialTargets(gameState);
+            foreach (IBcgCardComponent component in Components)
             {
-                potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(gameState));
+                potentialTargets.IntersectWith(((IBcgTargetful)component).GetPotentialTargets(gameState));
             }
             return potentialTargets;
         }
 
-        public bool IsSummonable(IGameState gameState)
+        public bool IsSummonable(IBcgGameState gameState)
         {
             return base.IsCastable(gameState);
         }
 
         public override object Clone()
         {
-            List<ICardComponent> componentsClone = new List<ICardComponent>();
-            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
+            List<IBcgCardComponent> componentsClone = new List<IBcgCardComponent>();
+            Components.ForEach(c => componentsClone.Add((IBcgCardComponent)c.Clone()));
 
             List<IReaction> reactionsClone = new List<IReaction>();
             Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
 
-            return new MonsterCard(
+            return new BcgMonsterCard(
                 componentsClone,
                 reactionsClone,
                 IsReadyToAttack

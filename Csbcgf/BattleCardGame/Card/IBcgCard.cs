@@ -3,7 +3,7 @@ using Csbcgf.Core;
 
 namespace Csbcgf.BattleCardGame
 {
-    public interface IBcgGameState : IGameState
+    public interface IBcgCard : IBcgManaful, ICard
     {
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Csbcgf.Core;
 using Newtonsoft.Json;
 
 namespace Csbcgf.BattleCardGame
@@ -30,11 +31,11 @@ namespace Csbcgf.BattleCardGame
             Living.LifeValue += Delta;
             if(Living.LifeValue <= 0)
             {
-                if (Living is IMonsterCard monsterCard)
+                if (Living is IBcgMonsterCard monsterCard)
                 {
-                    game.Execute(new DieAction(monsterCard));
+                    game.Execute(new BcgDieAction(monsterCard));
                 }
-                else if (Living is IPlayer)
+                else if (Living is IBcgPlayer)
                 {
                     game.Execute(new EndOfGameEvent());
                 }
