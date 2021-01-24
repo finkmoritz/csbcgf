@@ -38,13 +38,14 @@ namespace Csbcgf.Core
         public Game(List<IPlayer> players)
             : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())
         {
-            //Reactions.Add(new ModifyActivePlayerOnEndOfTurnEventReaction()); //TODO
-            //Reactions.Add(new ModifyManaOnStartOfTurnEventReaction()); //TODO
-            //Reactions.Add(new DrawCardOnStartOfTurnEventReaction()); //TODO
         }
 
         [JsonConstructor]
-        public Game(List<IPlayer> players, int activePlayerIndex, ActionQueue actionQueue, List<IReaction> reactions)
+        public Game(
+            List<IPlayer> players,
+            int activePlayerIndex,
+            ActionQueue actionQueue,
+            List<IReaction> reactions)
         {
             Players = players;
             this.activePlayerIndex = activePlayerIndex;
@@ -92,26 +93,8 @@ namespace Csbcgf.Core
             return allReactions;
         }
 
-        public void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
+        public virtual void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
         {
-            //Do not trigger any reactions during setup
-            /*actionQueue.ExecuteReactions = false;
-
-            foreach (IPlayer player in Players)
-            {
-                player.ManaValue = 0;
-                player.ManaBaseValue = 0;
-                player.LifeValue = initialPlayerLife;
-                player.LifeBaseValue = initialPlayerLife;
-
-                for (int i = 0; i < initialHandSize; ++i)
-                {
-                    player.DrawCard(this);
-                }
-            }
-
-            actionQueue.ExecuteReactions = true;*/ //TODO
-
             Execute(new StartOfGameEvent());
             Execute(new StartOfTurnEvent());
         }

@@ -26,9 +26,9 @@ namespace Csbcgf.Coredemo
 
             public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
-                if (actionEvent.IsAfter(typeof(CastMonsterAction)))
+                if (actionEvent.IsAfter(typeof(BcgCastMonsterAction)))
                 {
-                    CastMonsterAction action = (CastMonsterAction)actionEvent.Action;
+                    BcgCastMonsterAction action = (BcgCastMonsterAction)actionEvent.Action;
                     ICard parentCard = FindParentCard(game);
 
                     if (action.MonsterCard == parentCard)

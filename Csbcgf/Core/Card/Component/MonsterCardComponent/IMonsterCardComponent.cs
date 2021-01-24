@@ -1,6 +1,6 @@
 ﻿namespace Csbcgf.Core
 {
-    public interface IMonsterCardComponent : ICardComponent, IAttacking, ILiving
+    public interface IMonsterCardComponent : ICardComponent, IBcgAttacking, IBcgLiving
     {
     }
 }

@@ -12,7 +12,7 @@ namespace Csbcgf.Core
         }
 
         [JsonConstructor]
-        protected TargetlessSpellCardComponent(ManaCostStat manaCostStat,
+        protected TargetlessSpellCardComponent(BcgManaCostStat manaCostStat,
             List<IReaction> reactions)
             : base(manaCostStat, reactions)
         {

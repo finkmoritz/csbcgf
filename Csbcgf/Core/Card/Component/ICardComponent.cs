@@ -2,7 +2,7 @@
 
 namespace Csbcgf.Core
 {
-    public interface ICardComponent : IManaful, IReactive, ICloneable
+    public interface ICardComponent : IBcgManaful, IReactive, ICloneable
     {
         /// <summary>
         /// Find the ICard this ICardComponent is attached to.

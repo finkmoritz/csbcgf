@@ -2,7 +2,7 @@
 
 namespace Csbcgf.Core
 {
-    public interface ICard : IManaful, IReactive, ICompound, ICloneable
+    public interface ICard : IBcgManaful, IReactive, ICompound, ICloneable
     {
     }
 }

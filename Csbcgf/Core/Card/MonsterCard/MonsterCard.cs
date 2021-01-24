@@ -116,7 +116,7 @@ namespace Csbcgf.Core
                     "that is not specified in the list of potential targets!");
             }
 
-            game.Execute(new AttackAction(this, target));
+            game.Execute(new BcgAttackAction(this, target));
         }
 
         public virtual HashSet<ICharacter> GetPotentialTargets(IGameState gameState)

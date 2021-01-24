@@ -49,14 +49,14 @@ namespace Csbcgf.Coretest
             private readonly uint damage;
 
             public DamageSpellCardComponent(int mana, uint damage)
-                : this(damage, new ManaCostStat(mana, mana), new List<IReaction>())
+                : this(damage, new BcgManaCostStat(mana, mana), new List<IReaction>())
             {
             }
 
             [JsonConstructor]
             public DamageSpellCardComponent(
                 uint damage,
-                ManaCostStat manaCostStat,
+                BcgManaCostStat manaCostStat,
                 List<IReaction> reactions
                 ) : base(manaCostStat, reactions)
             {
@@ -65,7 +65,7 @@ namespace Csbcgf.Coretest
 
             public override void Cast(IGame game, ICharacter target)
             {
-                game.Execute(new ModifyLifeStatAction(target, -(int)damage));
+                game.Execute(new BcgModifyLifeStatAction(target, -(int)damage));
             }
 
             public override HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
@@ -89,7 +89,7 @@ namespace Csbcgf.Coretest
 
                 return new DamageSpellCardComponent(
                     damage,
-                    (ManaCostStat)manaCostStat.Clone(),
+                    (BcgManaCostStat)manaCostStat.Clone(),
                     reactionsClone
                 );
             }

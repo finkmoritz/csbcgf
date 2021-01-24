@@ -8,22 +8,22 @@ namespace Csbcgf.Core
     public class CardComponent : Reaction, ICardComponent
     {
         [JsonProperty]
-        protected ManaCostStat manaCostStat;
+        protected BcgManaCostStat manaCostStat;
 
         public List<IReaction> Reactions { get; }
 
         public CardComponent(int mana)
-            : this(new ManaCostStat(mana, mana), new List<IReaction>())
+            : this(new BcgManaCostStat(mana, mana), new List<IReaction>())
         {
         }
 
         public CardComponent(int manaValue, int manaBaseValue)
-            : this(new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>())
+            : this(new BcgManaCostStat(manaValue, manaBaseValue), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        protected CardComponent(ManaCostStat manaCostStat, List<IReaction> reactions)
+        protected CardComponent(BcgManaCostStat manaCostStat, List<IReaction> reactions)
         {
             this.manaCostStat = manaCostStat;
             Reactions = reactions;
@@ -60,7 +60,7 @@ namespace Csbcgf.Core
             }
 
             return new CardComponent(
-                (ManaCostStat)manaCostStat.Clone(),
+                (BcgManaCostStat)manaCostStat.Clone(),
                 reactionsClone
             );
         }

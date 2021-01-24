@@ -8,13 +8,13 @@ namespace Csbcgf.Core
     public class MonsterCardComponent : CardComponent, IMonsterCardComponent
     {
         [JsonProperty]
-        protected AttackStat attackStat;
+        protected BcgAttackStat attackStat;
 
         [JsonProperty]
-        protected LifeStat lifeStat;
+        protected BcgLifeStat lifeStat;
 
         public MonsterCardComponent(int mana, int attack, int life)
-            : this(mana, new AttackStat(attack), new LifeStat(life))
+            : this(mana, new BcgAttackStat(attack), new BcgLifeStat(life))
         {
         }
 
@@ -22,11 +22,11 @@ namespace Csbcgf.Core
             int attackValue, int attackBaseValue, int lifeValue, int lifeBaseValue)
             : base(manaValue, manaBaseValue)
         {
-            attackStat = new AttackStat(attackValue, attackBaseValue);
-            lifeStat = new LifeStat(lifeValue, lifeBaseValue);
+            attackStat = new BcgAttackStat(attackValue, attackBaseValue);
+            lifeStat = new BcgLifeStat(lifeValue, lifeBaseValue);
         }
 
-        public MonsterCardComponent(int mana, AttackStat attackStat, LifeStat lifeStat)
+        public MonsterCardComponent(int mana, BcgAttackStat attackStat, BcgLifeStat lifeStat)
             : base(mana)
         {
             this.attackStat = attackStat;
@@ -35,9 +35,9 @@ namespace Csbcgf.Core
 
         [JsonConstructor]
         protected MonsterCardComponent(
-            ManaCostStat manaCostStat,
-            AttackStat attackStat,
-            LifeStat lifeStat,
+            BcgManaCostStat manaCostStat,
+            BcgAttackStat attackStat,
+            BcgLifeStat lifeStat,
             List<IReaction> reactions
             ) : base(manaCostStat, reactions)
         {
@@ -82,9 +82,9 @@ namespace Csbcgf.Core
             }
 
             return new MonsterCardComponent(
-                (ManaCostStat)manaCostStat.Clone(),
-                (AttackStat)attackStat.Clone(),
-                (LifeStat)lifeStat.Clone(),
+                (BcgManaCostStat)manaCostStat.Clone(),
+                (BcgAttackStat)attackStat.Clone(),
+                (BcgLifeStat)lifeStat.Clone(),
                 reactionsClone
             );
         }

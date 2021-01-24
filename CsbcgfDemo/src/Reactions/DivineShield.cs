@@ -17,9 +17,9 @@ namespace Csbcgf.Coredemo
 
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            if (actionEvent.IsBefore(typeof(ModifyLifeStatAction)))
+            if (actionEvent.IsBefore(typeof(BcgModifyLifeStatAction)))
             {
-                ModifyLifeStatAction a = (ModifyLifeStatAction)actionEvent.Action;
+                BcgModifyLifeStatAction a = (BcgModifyLifeStatAction)actionEvent.Action;
                 ICard parentCard = FindParentCard(game);
 
                 if (a.Living == parentCard && a.Delta < 0)

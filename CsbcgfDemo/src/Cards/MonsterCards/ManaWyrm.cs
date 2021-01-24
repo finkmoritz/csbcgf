@@ -26,9 +26,9 @@ namespace Csbcgf.Coredemo
 
             public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
-                if (actionEvent.IsAfter(typeof(CastSpellAction)))
+                if (actionEvent.IsAfter(typeof(BcgCastSpellAction)))
                 {
-                    CastSpellAction a = (CastSpellAction)actionEvent.Action;
+                    BcgCastSpellAction a = (BcgCastSpellAction)actionEvent.Action;
                     ICard parentCard = FindParentCard(game);
                     IPlayer spellCardOwner = a.SpellCard.FindParentPlayer(game);
                     IPlayer manaWyrmOwner = parentCard.FindParentPlayer(game);
@@ -36,7 +36,7 @@ namespace Csbcgf.Coredemo
                     if (spellCardOwner == manaWyrmOwner
                         && manaWyrmOwner.Board.Contains(parentCard))
                     {
-                        game.Execute(new ModifyAttackStatAction((IAttacking)parentCard, 1));
+                        game.Execute(new BcgModifyAttackStatAction((IBcgAttacking)parentCard, 1));
                     }
                 }
             }

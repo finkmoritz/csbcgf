@@ -37,7 +37,7 @@ namespace Csbcgf.Coredemo
                 {
                     DrawCardAction drawCardAction = new DrawCardAction(game.ActivePlayer);
                     game.Execute(drawCardAction);
-                    game.Execute(new ModifyManaStatAction(drawCardAction.DrawnCard, -3, 0));
+                    game.Execute(new BcgModifyManaStatAction(drawCardAction.DrawnCard, -3, 0));
                 }
 
                 public override bool IsExecutable(IGameState gameState)

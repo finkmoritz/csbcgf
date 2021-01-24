@@ -4,7 +4,7 @@ using System;
 
 namespace Csbcgf.Core
 {
-    public interface ICharacter : IManaful, IAttacking, ILiving, ICloneable
+    public interface ICharacter : IBcgManaful, IBcgAttacking, IBcgLiving, ICloneable
     {
         /// <summary>
         /// Indicates if this Character is still alive.

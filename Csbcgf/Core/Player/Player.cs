@@ -8,13 +8,13 @@ namespace Csbcgf.Core
     public class Player : IPlayer
     {
         [JsonProperty]
-        protected ManaPoolStat manaPoolStat;
+        protected BcgManaPoolStat manaPoolStat;
 
         [JsonProperty]
-        protected AttackStat attackStat;
+        protected BcgAttackStat attackStat;
 
         [JsonProperty]
-        protected LifeStat lifeStat;
+        protected BcgLifeStat lifeStat;
 
         public List<IReaction> Reactions { get; }
 
@@ -25,9 +25,9 @@ namespace Csbcgf.Core
         /// </summary>
         public Player()
             : this(
-                  new ManaPoolStat(0, 0),
-                  new AttackStat(0),
-                  new LifeStat(0),
+                  new BcgManaPoolStat(0, 0),
+                  new BcgAttackStat(0),
+                  new BcgLifeStat(0),
                   new List<IReaction>(),
                   new Dictionary<string, ICardCollection>())
         {
@@ -35,9 +35,9 @@ namespace Csbcgf.Core
 
         public Player(int mana, int attack, int life)
             : this(
-                  new ManaPoolStat(mana, mana),
-                  new AttackStat(attack),
-                  new LifeStat(life),
+                  new BcgManaPoolStat(mana, mana),
+                  new BcgAttackStat(attack),
+                  new BcgLifeStat(life),
                   new List<IReaction>(),
                   new Dictionary<string, ICardCollection>())
         {
@@ -45,9 +45,9 @@ namespace Csbcgf.Core
 
         [JsonConstructor]
         protected Player(
-            ManaPoolStat manaPoolStat,
-            AttackStat attackStat,
-            LifeStat lifeStat,
+            BcgManaPoolStat manaPoolStat,
+            BcgAttackStat attackStat,
+            BcgLifeStat lifeStat,
             List<IReaction> reactions,
             Dictionary<string, ICardCollection> cardCollections)
         {
@@ -124,44 +124,6 @@ namespace Csbcgf.Core
             return allReactions;
         }
 
-        /*public void DrawCard(IGame game)
-        {
-            game.Execute(new DrawCardAction(this));
-        }
-
-        public void CastMonster(IGame game, IMonsterCard monsterCard)
-        {
-            if (!monsterCard.IsSummonable(game))
-            {
-                throw new CsbcgfException("Tried to play a card that is " +
-                    "not playable!");
-            }
-
-            game.Execute(new CastMonsterAction(this, monsterCard));
-        }
-
-        public void CastSpell(IGame game, ITargetlessSpellCard spellCard)
-        {
-            if (!spellCard.IsCastable(game))
-            {
-                throw new CsbcgfException("Tried to play a card that is " +
-                    "not playable!");
-            }
-
-            game.Execute(new CastTargetlessSpellAction(this, spellCard));
-        }
-
-        public void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
-        {
-            if (!spellCard.IsCastable(game))
-            {
-                throw new CsbcgfException("Tried to play a card that is " +
-                    "not playable!");
-            }
-
-            game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
-        }*/ //TODO
-
         public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             return new HashSet<ICharacter>();
@@ -187,9 +149,9 @@ namespace Csbcgf.Core
             }
 
             return new Player(
-                (ManaPoolStat)manaPoolStat.Clone(),
-                (AttackStat)attackStat.Clone(),
-                (LifeStat)lifeStat.Clone(),
+                (BcgManaPoolStat)manaPoolStat.Clone(),
+                (BcgAttackStat)attackStat.Clone(),
+                (BcgLifeStat)lifeStat.Clone(),
                 reactionsClone,
                 cardCollectionsClone
             );
