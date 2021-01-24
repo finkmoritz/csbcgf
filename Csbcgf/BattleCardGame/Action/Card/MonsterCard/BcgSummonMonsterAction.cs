@@ -41,14 +41,14 @@ namespace Csbcgf.BattleCardGame
 
         public override void Execute(IGame game)
         {
-            IBcgPlayer player = MonsterCard.FindParentPlayer(game);
+            IBcgPlayer player = (IBcgPlayer)MonsterCard.FindParentPlayer(game);
             game.Execute(new BcgModifyManaStatAction(player, -MonsterCard.ManaValue, 0));
             game.Execute(new TransferCardAction(MonsterCard, Source, Destination));
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return MonsterCard.IsSummonable(gameState);
+            return MonsterCard.IsSummonable((IBcgGameState)gameState);
         }
     }
 }

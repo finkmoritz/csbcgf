@@ -19,8 +19,8 @@ namespace Csbcgf.BattleCardGame
         {
         }
 
-        public abstract void Cast(IGame game, IBcgCharacter target);
+        public abstract void Cast(IBcgGame game, IBcgCharacter target);
 
-        public abstract HashSet<IBcgCharacter> GetPotentialTargets(IGameState gameState);
+        public abstract HashSet<IBcgCharacter> GetPotentialTargets(IBcgGameState gameState);
     }
 }

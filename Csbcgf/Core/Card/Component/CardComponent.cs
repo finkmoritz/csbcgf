@@ -7,38 +7,17 @@ namespace Csbcgf.Core
     [Serializable]
     public class CardComponent : Reaction, ICardComponent
     {
-        [JsonProperty]
-        protected BcgManaCostStat manaCostStat;
-
         public List<IReaction> Reactions { get; }
 
-        public CardComponent(int mana)
-            : this(new BcgManaCostStat(mana, mana), new List<IReaction>())
-        {
-        }
-
-        public CardComponent(int manaValue, int manaBaseValue)
-            : this(new BcgManaCostStat(manaValue, manaBaseValue), new List<IReaction>())
+        public CardComponent()
+            : this(new List<IReaction>())
         {
         }
 
         [JsonConstructor]
-        protected CardComponent(BcgManaCostStat manaCostStat, List<IReaction> reactions)
+        protected CardComponent(List<IReaction> reactions)
         {
-            this.manaCostStat = manaCostStat;
             Reactions = reactions;
-        }
-
-        [JsonIgnore]
-        public int ManaValue {
-            get => manaCostStat.Value;
-            set => manaCostStat.Value = value;
-        }
-
-        [JsonIgnore]
-        public int ManaBaseValue {
-            get => manaCostStat.BaseValue;
-            set => manaCostStat.BaseValue = value;
         }
 
         public List<IReaction> AllReactions()
@@ -59,10 +38,7 @@ namespace Csbcgf.Core
                 reactionsClone.Add((IReaction)reaction.Clone());
             }
 
-            return new CardComponent(
-                (BcgManaCostStat)manaCostStat.Clone(),
-                reactionsClone
-            );
+            return new CardComponent(reactionsClone);
         }
 
         public ICard FindCard(IGameState gameState)

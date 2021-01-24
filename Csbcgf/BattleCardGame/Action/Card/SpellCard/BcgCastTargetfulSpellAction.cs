@@ -36,16 +36,16 @@ namespace Csbcgf.BattleCardGame
 
         public override void Execute(IGame game)
         {
-            IBcgPlayer player = SpellCard.FindParentPlayer(game);
+            IBcgPlayer player = (IBcgPlayer)SpellCard.FindParentPlayer(game);
             game.Execute(new BcgModifyManaStatAction(player, -SpellCard.ManaValue, 0));
             game.Execute(new RemoveCardFromCardCollectionAction(SpellCard, Source));
-            ((IBcgTargetfulSpellCard)SpellCard).Cast(game, Target);
+            ((IBcgTargetfulSpellCard)SpellCard).Cast((IBcgGame)game, Target);
             game.Execute(new AddCardToCardCollectionAction(SpellCard, Destination));
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return SpellCard.IsCastable(gameState);
+            return SpellCard.IsCastable((IBcgGameState)gameState);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Csbcgf.BattleCardGame
             int activePlayerIndex,
             ActionQueue actionQueue,
             List<IReaction> reactions
-            ) : base(players, activePlayerIndex, actionQueue, reactions)
+            ) : base(players.ConvertAll(p => (IPlayer)p), activePlayerIndex, actionQueue, reactions)
         {
         }
 

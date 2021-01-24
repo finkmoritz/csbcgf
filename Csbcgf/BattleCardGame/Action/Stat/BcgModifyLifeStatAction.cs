@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgModifyLifeStatAction : Action
+    public class BcgModifyLifeStatAction : Core.Action
     {
         [JsonProperty]
         public IBcgLiving Living;

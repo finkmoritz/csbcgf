@@ -9,7 +9,13 @@ namespace Csbcgf.BattleCardGame
     [Serializable]
     public abstract class BcgCard : Card, IBcgCard
     {
-        public BcgCard() : this(new List<ICardComponent>(), new List<IReaction>())
+        public BcgCard()
+            : this(new List<IBcgCardComponent>(), new List<IReaction>())
+        {
+        }
+
+        public BcgCard(List<IBcgCardComponent> components, List<IReaction> reactions)
+            : this(components.ConvertAll(c => (ICardComponent)c), reactions)
         {
         }
 
@@ -21,45 +27,33 @@ namespace Csbcgf.BattleCardGame
 
         [JsonIgnore]
         public int ManaValue {
-            get => Math.Max(0, Components.Sum(c => c.ManaValue));
+            get => Math.Max(0, Components.Sum(c => ((BcgCardComponent)c).ManaValue));
             set
             {
-                Components.Add(new CardComponent(value - Components.Sum(c => c.ManaValue), 0));
+                Components.Add(new BcgCardComponent(value - Components.Sum(c => ((BcgCardComponent)c).ManaValue), 0));
             }
         }
 
         [JsonIgnore]
         public int ManaBaseValue {
-            get => Math.Max(0, Components.Sum(c => c.ManaBaseValue));
+            get => Math.Max(0, Components.Sum(c => ((BcgCardComponent)c).ManaBaseValue));
             set
             {
-                Components.Add(new CardComponent(0, value - Components.Sum(c => c.ManaBaseValue)));
+                Components.Add(new BcgCardComponent(0, value - Components.Sum(c => ((BcgCardComponent)c).ManaBaseValue)));
             }
         }
 
-        public virtual bool IsCastable(IGameState gameState)
+        public virtual bool IsCastable(IBcgGameState gameState)
         {
-            IBcgPlayer owner = FindParentPlayer(gameState);
+            IBcgPlayer owner = (IBcgPlayer)FindParentPlayer(gameState);
             return owner != null
                 && owner == gameState.ActivePlayer
-                && ManaValue <= gameState.ActivePlayer.ManaValue;
+                && ManaValue <= owner.ManaValue;
         }
 
         public override ICard FindParentCard(IGameState gameState)
         {
             return this;
-        }
-
-        public override IBcgPlayer FindParentPlayer(IGameState gameState)
-        {
-            foreach (IBcgPlayer player in gameState.Players)
-            {
-                if (player.AllCards.Contains(this))
-                {
-                    return player;
-                }
-            }
-            return null;
         }
     }
 }

@@ -95,7 +95,11 @@ namespace Csbcgf.BattleCardGame
             HashSet<IBcgCharacter> potentialTargets = new HashSet<IBcgCharacter>();
             foreach (IBcgPlayer player in gameState.NonActivePlayers)
             {
-                player.Characters.ForEach(c => potentialTargets.Add(c));
+                potentialTargets.Add(player);
+                foreach (ICard card in player.CardCollections[BcgPlayer.CardCollectionKeyBoard])
+                {
+                    potentialTargets.Add((IBcgCharacter)card);
+                }
             }
             return potentialTargets;
         }

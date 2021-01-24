@@ -19,6 +19,6 @@ namespace Csbcgf.BattleCardGame
         {
         }
 
-        public abstract void Cast(IGame game);
+        public abstract void Cast(IBcgGame game);
     }
 }

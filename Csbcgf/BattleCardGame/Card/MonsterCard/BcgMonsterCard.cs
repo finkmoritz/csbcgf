@@ -143,8 +143,8 @@ namespace Csbcgf.BattleCardGame
 
         public override object Clone()
         {
-            List<IBcgCardComponent> componentsClone = new List<IBcgCardComponent>();
-            Components.ForEach(c => componentsClone.Add((IBcgCardComponent)c.Clone()));
+            List<ICardComponent> componentsClone = new List<ICardComponent>();
+            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
 
             List<IReaction> reactionsClone = new List<IReaction>();
             Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));

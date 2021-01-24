@@ -6,12 +6,10 @@ using Newtonsoft.Json;
 namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class BcgCardComponent : BcgCardComponent, IBcgCardComponent
+    public class BcgCardComponent : CardComponent, ICardComponent
     {
         [JsonProperty]
         protected BcgManaCostStat manaCostStat;
-
-        public List<IReaction> Reactions { get; }
 
         public BcgCardComponent(int mana)
             : this(new BcgManaCostStat(mana, mana), new List<IReaction>())
@@ -25,9 +23,9 @@ namespace Csbcgf.BattleCardGame
 
         [JsonConstructor]
         protected BcgCardComponent(BcgManaCostStat manaCostStat, List<IReaction> reactions)
+            : base(reactions)
         {
             this.manaCostStat = manaCostStat;
-            Reactions = reactions;
         }
 
         [JsonIgnore]
@@ -40,11 +38,6 @@ namespace Csbcgf.BattleCardGame
         public int ManaBaseValue {
             get => manaCostStat.BaseValue;
             set => manaCostStat.BaseValue = value;
-        }
-
-        public List<IReaction> AllReactions()
-        {
-            return new List<IReaction>(Reactions);
         }
 
         public override void ReactTo(IGame game, IActionEvent actionEvent)
@@ -60,25 +53,10 @@ namespace Csbcgf.BattleCardGame
                 reactionsClone.Add((IReaction)reaction.Clone());
             }
 
-            return new CardComponent(
+            return new BcgCardComponent(
                 (BcgManaCostStat)manaCostStat.Clone(),
                 reactionsClone
             );
-        }
-
-        public ICard FindCard(IGameState gameState)
-        {
-            foreach (ICard card in gameState.AllCards)
-            {
-                foreach (ICardComponent cardComponent in card.Components)
-                {
-                    if (cardComponent == this)
-                    {
-                        return card;
-                    }
-                }
-            }
-            return null;
         }
     }
 }

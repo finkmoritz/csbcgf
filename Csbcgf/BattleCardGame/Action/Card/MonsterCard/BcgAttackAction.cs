@@ -40,7 +40,7 @@ namespace Csbcgf.BattleCardGame
         public override bool IsExecutable(IGameState gameState)
         {
             return Attacker.IsReadyToAttack
-                && Attacker.GetPotentialTargets(gameState).Contains(Target);
+                && Attacker.GetPotentialTargets((IBcgGameState)gameState).Contains(Target);
         }
     }
 }

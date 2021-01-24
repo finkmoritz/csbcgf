@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace Csbcgf.Core
 {
-    public interface IPlayer : IBcgManaful, ICharacter, IReactive, ICloneable
+    public interface IPlayer : IReactive, ICloneable
     {
         /// <summary>
         /// Get CardCollections of this Player.

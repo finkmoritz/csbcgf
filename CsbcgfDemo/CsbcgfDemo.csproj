@@ -43,7 +43,6 @@
     <Compile Include="src\Cards\MonsterCards\ManaWyrm.cs" />
     <Compile Include="src\Cards\SpellCards\FarSight.cs" />
     <Compile Include="src\Cards\MonsterCards\KingMukla.cs" />
-    <Compile Include="src\Actions\MonsterCard\DieAction.cs" />
     <Compile Include="src\Actions\Player\DrawCardAction.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +53,6 @@
     <Folder Include="src\Reactions\" />
     <Folder Include="src\Cards\SpellCards\" />
     <Folder Include="src\Actions\" />
-    <Folder Include="src\Actions\MonsterCard\" />
     <Folder Include="src\Actions\Player\" />
   </ItemGroup>
   <ItemGroup>

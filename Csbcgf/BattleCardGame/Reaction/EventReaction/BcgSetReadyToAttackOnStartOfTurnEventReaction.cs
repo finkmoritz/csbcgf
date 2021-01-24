@@ -16,9 +16,9 @@ namespace Csbcgf.BattleCardGame
             if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
                 IBcgMonsterCard monsterCard = (IBcgMonsterCard)FindParentCard(game);
-                IBcgPlayer owner = monsterCard.FindParentPlayer(game);
+                IBcgPlayer owner = (IBcgPlayer)monsterCard.FindParentPlayer(game);
                 bool isReadyToAttack = owner == game.ActivePlayer
-                    && game.ActivePlayer.Board.Contains(monsterCard);
+                    && owner.CardCollections[BcgPlayer.CardCollectionKeyBoard].Contains(monsterCard);
 
                 game.Execute(new BcgModifyReadyToAttackAction(monsterCard, isReadyToAttack));
             }

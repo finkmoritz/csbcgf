@@ -15,8 +15,9 @@ namespace Csbcgf.BattleCardGame
         {
             if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
-                int manaDelta = game.ActivePlayer.ManaBaseValue + 1 - game.ActivePlayer.ManaValue;
-                game.Execute(new BcgModifyManaStatAction(game.ActivePlayer, manaDelta, 1));
+                IBcgPlayer activePlayer = (IBcgPlayer)game.ActivePlayer;
+                int manaDelta = activePlayer.ManaBaseValue + 1 - activePlayer.ManaValue;
+                game.Execute(new BcgModifyManaStatAction(activePlayer, manaDelta, 1));
             }
         }
     }

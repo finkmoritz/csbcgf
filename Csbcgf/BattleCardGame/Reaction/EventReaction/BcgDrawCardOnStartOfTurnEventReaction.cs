@@ -15,7 +15,7 @@ namespace Csbcgf.BattleCardGame
         {
             if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
-                game.Execute(new BcgDrawCardAction(game.ActivePlayer));
+                game.Execute(new BcgDrawCardAction((IBcgPlayer)game.ActivePlayer));
             }
         }
     }

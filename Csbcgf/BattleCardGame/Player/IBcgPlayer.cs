@@ -3,7 +3,7 @@ using Csbcgf.Core;
 
 namespace Csbcgf.BattleCardGame
 {
-    public interface IBcgPlayer : IBcgPlayer
+    public interface IBcgPlayer : IPlayer, IBcgManaful, IBcgCharacter
     {
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.
