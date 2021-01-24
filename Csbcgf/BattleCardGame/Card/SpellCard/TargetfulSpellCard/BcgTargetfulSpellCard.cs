@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
     [Serializable]
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
         public TargetfulSpellCard()
-            : this(new List<ISpellCardComponent>())
+            : this(new List<IBcgSpellCardComponent>())
         {
         }
 
-        public TargetfulSpellCard(ISpellCardComponent component)
-            : this(new List<ISpellCardComponent> { component })
+        public TargetfulSpellCard(IBcgSpellCardComponent component)
+            : this(new List<IBcgSpellCardComponent> { component })
         {
         }
 
-        public TargetfulSpellCard(List<ISpellCardComponent> components)
+        public TargetfulSpellCard(List<IBcgSpellCardComponent> components)
             : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>())
         {
         }
@@ -56,11 +56,11 @@ namespace Csbcgf.Core
 
             foreach (ICardComponent component in Components)
             {
-                if (component is ITargetlessSpellCardComponent targetlessComponent)
+                if (component is IBcgTargetlessSpellCardComponent targetlessComponent)
                 {
                     targetlessComponent.Cast(game);
                 }
-                else if (component is ITargetfulSpellCardComponent targetfulComponent)
+                else if (component is IBcgTargetfulSpellCardComponent targetfulComponent)
                 {
                     targetfulComponent.Cast(game, target);
                 }

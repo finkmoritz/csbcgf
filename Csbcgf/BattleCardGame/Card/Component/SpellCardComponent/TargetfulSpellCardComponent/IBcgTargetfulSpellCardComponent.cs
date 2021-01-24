@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
-    public interface ITargetfulSpellCard : ITargetful, ISpellCard
+    public interface IBcgTargetfulSpellCardComponent : IBcgSpellCardComponent, ITargetful
     {
         /// <summary>
-        /// Called when the spell card is cast.
+        /// Called when the spell card is cast. Execute Actions here.
         /// </summary>
         /// <param name="gameState"></param>
         /// <param name="target"></param>

@@ -43,7 +43,7 @@ namespace Csbcgf.Coretest
         }
 
         [Serializable]
-        public class DamageSpellCardComponent : TargetfulSpellCardComponent
+        public class DamageSpellCardComponent : BcgTargetfulSpellCardComponent
         {
             [JsonProperty]
             private readonly uint damage;

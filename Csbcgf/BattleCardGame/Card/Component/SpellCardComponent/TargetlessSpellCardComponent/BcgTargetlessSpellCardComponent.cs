@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public abstract class TargetlessSpellCardComponent : CardComponent, ITargetlessSpellCardComponent
+    public abstract class BcgTargetlessSpellCardComponent : CardComponent, IBcgTargetlessSpellCardComponent
     {
-        public TargetlessSpellCardComponent(int mana) : base(mana)
+        public BcgTargetlessSpellCardComponent(int mana) : base(mana)
         {
         }
 
         [JsonConstructor]
-        protected TargetlessSpellCardComponent(BcgManaCostStat manaCostStat,
+        protected BcgTargetlessSpellCardComponent(BcgManaCostStat manaCostStat,
             List<IReaction> reactions)
             : base(manaCostStat, reactions)
         {

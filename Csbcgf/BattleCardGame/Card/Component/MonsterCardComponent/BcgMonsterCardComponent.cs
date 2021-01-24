@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
     [Serializable]
-    public class MonsterCardComponent : CardComponent, IMonsterCardComponent
+    public class BcgMonsterCardComponent : CardComponent, IBcgMonsterCardComponent
     {
         [JsonProperty]
         protected BcgAttackStat attackStat;
@@ -13,12 +13,12 @@ namespace Csbcgf.Core
         [JsonProperty]
         protected BcgLifeStat lifeStat;
 
-        public MonsterCardComponent(int mana, int attack, int life)
+        public BcgMonsterCardComponent(int mana, int attack, int life)
             : this(mana, new BcgAttackStat(attack), new BcgLifeStat(life))
         {
         }
 
-        public MonsterCardComponent(int manaValue, int manaBaseValue,
+        public BcgMonsterCardComponent(int manaValue, int manaBaseValue,
             int attackValue, int attackBaseValue, int lifeValue, int lifeBaseValue)
             : base(manaValue, manaBaseValue)
         {
@@ -26,7 +26,7 @@ namespace Csbcgf.Core
             lifeStat = new BcgLifeStat(lifeValue, lifeBaseValue);
         }
 
-        public MonsterCardComponent(int mana, BcgAttackStat attackStat, BcgLifeStat lifeStat)
+        public BcgMonsterCardComponent(int mana, BcgAttackStat attackStat, BcgLifeStat lifeStat)
             : base(mana)
         {
             this.attackStat = attackStat;
@@ -34,7 +34,7 @@ namespace Csbcgf.Core
         }
 
         [JsonConstructor]
-        protected MonsterCardComponent(
+        protected BcgMonsterCardComponent(
             BcgManaCostStat manaCostStat,
             BcgAttackStat attackStat,
             BcgLifeStat lifeStat,
@@ -81,7 +81,7 @@ namespace Csbcgf.Core
                 reactionsClone.Add((IReaction)reaction.Clone());
             }
 
-            return new MonsterCardComponent(
+            return new BcgMonsterCardComponent(
                 (BcgManaCostStat)manaCostStat.Clone(),
                 (BcgAttackStat)attackStat.Clone(),
                 (BcgLifeStat)lifeStat.Clone(),

@@ -19,7 +19,7 @@ namespace Csbcgf.Coredemo
                 && gameState.AllCardsOnTheBoard.Count > 0;
         }
 
-        public class BananasComponent : TargetfulSpellCardComponent
+        public class BananasComponent : BcgTargetfulSpellCardComponent
         {
             public BananasComponent() : base(1)
             {

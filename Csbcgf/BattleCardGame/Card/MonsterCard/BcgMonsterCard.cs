@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
     [Serializable]
     public class MonsterCard : Card, IMonsterCard
@@ -11,7 +11,7 @@ namespace Csbcgf.Core
         public bool IsReadyToAttack { get; set; }
 
         public MonsterCard()
-            : this(new List<IMonsterCardComponent>())
+            : this(new List<IBcgMonsterCardComponent>())
         {
         }
 
@@ -23,7 +23,7 @@ namespace Csbcgf.Core
         /// <param name="attack"></param>
         /// <param name="life"></param>
         public MonsterCard(int mana, int attack, int life)
-            : this(new List<IMonsterCardComponent> { new MonsterCardComponent(mana, attack, life) })
+            : this(new List<IBcgMonsterCardComponent> { new BcgMonsterCardComponent(mana, attack, life) })
         {
         }
 
@@ -32,13 +32,13 @@ namespace Csbcgf.Core
         /// onto the Player's Board.
         /// </summary>
         /// <param name="components"></param>
-        public MonsterCard(List<IMonsterCardComponent> components)
+        public MonsterCard(List<IBcgMonsterCardComponent> components)
             : this(components, false)
         {
         }
 
         public MonsterCard(
-            List<IMonsterCardComponent> components,
+            List<IBcgMonsterCardComponent> components,
             bool isReadyToAttack
             ) : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>(), isReadyToAttack)
         {
@@ -98,9 +98,9 @@ namespace Csbcgf.Core
             }
         }
 
-        private int GetSum(Func<IMonsterCardComponent, int> GetValue)
+        private int GetSum(Func<IBcgMonsterCardComponent, int> GetValue)
         {
-            return Components.Where(c => c is IMonsterCardComponent).Sum(c => GetValue((IMonsterCardComponent)c));
+            return Components.Where(c => c is IBcgMonsterCardComponent).Sum(c => GetValue((IBcgMonsterCardComponent)c));
         }
 
         public void Attack(IGame game, ICharacter target)

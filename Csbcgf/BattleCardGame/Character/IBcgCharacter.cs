@@ -1,10 +1,8 @@
-﻿
+﻿using System;
 
-using System;
-
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
-    public interface ICharacter : IBcgManaful, IBcgAttacking, IBcgLiving, ICloneable
+    public interface IBcgCharacter : IBcgManaful, IBcgAttacking, IBcgLiving, ICloneable
     {
         /// <summary>
         /// Indicates if this Character is still alive.

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
-    public interface ITargetlessSpellCardComponent : ISpellCardComponent, ITargetless
+    public interface IBcgTargetlessSpellCardComponent : IBcgSpellCardComponent, ITargetless
     {
         /// <summary>
         /// Called when spell card is cast. Execute Actions here.

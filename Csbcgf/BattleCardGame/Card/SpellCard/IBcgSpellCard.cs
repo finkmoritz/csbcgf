@@ -1,4 +1,4 @@
-﻿namespace Csbcgf.Core
+﻿namespace Csbcgf.BattleCardGame
 {
     public interface ISpellCard : ICard
     {

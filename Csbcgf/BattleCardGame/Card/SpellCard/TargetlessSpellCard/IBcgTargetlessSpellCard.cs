@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
     public interface ITargetlessSpellCard : ITargetless, ISpellCard
     {

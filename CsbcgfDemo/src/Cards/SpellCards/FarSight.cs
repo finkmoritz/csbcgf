@@ -13,7 +13,7 @@ namespace Csbcgf.Coredemo
         }
 
         [Serializable]
-        public class FarSightComponent : TargetlessSpellCardComponent
+        public class FarSightComponent : BcgTargetlessSpellCardComponent
         {
             [JsonConstructor]
             public FarSightComponent() : base(3)

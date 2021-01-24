@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
     public interface ITargetful : ICloneable
     {

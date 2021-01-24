@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Csbcgf.Core
+namespace Csbcgf.BattleCardGame
 {
-    public interface ICardComponent : IReactive, ICloneable
+    public interface IBcgCardComponent : IBcgManaful, ICardComponent
     {
         /// <summary>
         /// Find the ICard this ICardComponent is attached to.
