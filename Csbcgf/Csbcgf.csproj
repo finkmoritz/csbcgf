@@ -94,10 +94,6 @@
     <Compile Include="Core\Action\ActionEvent\BeforeActionEvent.cs" />
     <Compile Include="Core\Action\ActionQueue\IActionQueue.cs" />
     <Compile Include="Core\Action\ActionQueue\ActionQueue.cs" />
-    <Compile Include="Core\Action\Implementations\CardCollection\AddCardToCardCollectionAction.cs" />
-    <Compile Include="Core\Action\Implementations\CardCollection\RemoveCardFromCardCollectionAction.cs" />
-    <Compile Include="Core\Action\Implementations\CardCollection\TransferCardAction.cs" />
-    <Compile Include="Core\Action\Implementations\Game\ModifyActivePlayerAction.cs" />
     <Compile Include="Core\Exception\CsbcgfException.cs" />
     <Compile Include="Core\Event\Event.cs" />
     <Compile Include="Core\Event\Implementations\GameEvent\StartOfGameEvent.cs" />
@@ -109,10 +105,6 @@
     <Compile Include="Core\Util\Serialization\CsbcgfJsonConvert.cs" />
     <Compile Include="Core\Util\Serialization\StackConverter.cs" />
     <Compile Include="BattleCardGame\Game\BcgGame.cs" />
-    <Compile Include="BattleCardGame\Reaction\EventReaction\BcgDrawCardOnStartOfTurnEventReaction.cs" />
-    <Compile Include="BattleCardGame\Reaction\EventReaction\BcgModifyActivePlayerOnEndOfTurnEventReaction.cs" />
-    <Compile Include="BattleCardGame\Reaction\EventReaction\BcgModifyManaOnStartOfTurnEventReaction.cs" />
-    <Compile Include="BattleCardGame\Reaction\EventReaction\BcgSetReadyToAttackOnStartOfTurnEventReaction.cs" />
     <Compile Include="BattleCardGame\Player\BcgPlayer.cs" />
     <Compile Include="BattleCardGame\Game\IBcgGame.cs" />
     <Compile Include="BattleCardGame\Game\IBcgGameState.cs" />
@@ -129,8 +121,6 @@
     <Compile Include="BattleCardGame\Stat\Interfaces\IBcgAttacking.cs" />
     <Compile Include="BattleCardGame\Stat\Interfaces\IBcgLiving.cs" />
     <Compile Include="BattleCardGame\Stat\Interfaces\IBcgManaful.cs" />
-    <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgAttackAction.cs" />
-    <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgModifyReadyToAttackAction.cs" />
     <Compile Include="BattleCardGame\Action\Card\SpellCard\BcgCastSpellAction.cs" />
     <Compile Include="BattleCardGame\Action\Card\SpellCard\BcgCastTargetfulSpellAction.cs" />
     <Compile Include="BattleCardGame\Action\Card\SpellCard\BcgCastTargetlessSpellAction.cs" />
@@ -156,11 +146,25 @@
     <Compile Include="BattleCardGame\Card\Target\IBcgTargetless.cs" />
     <Compile Include="BattleCardGame\Card\BcgCard.cs" />
     <Compile Include="BattleCardGame\Card\IBcgCard.cs" />
-    <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgSummonMonsterAction.cs" />
-    <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgDieAction.cs" />
     <Compile Include="BattleCardGame\CardCollection\BcgCardCollection.cs" />
     <Compile Include="BattleCardGame\CardCollection\IBcgCardCollection.cs" />
-    <Compile Include="BattleCardGame\Action\Player\BcgDrawCardAction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Game\SimpleBcgGame.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Player\SimpleBcgPlayer.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Reaction\EventReaction\BcgDrawCardOnStartOfTurnEventReaction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Reaction\EventReaction\BcgModifyActivePlayerOnEndOfTurnEventReaction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Reaction\EventReaction\BcgModifyManaOnStartOfTurnEventReaction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Reaction\EventReaction\BcgSetReadyToAttackOnStartOfTurnEventReaction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Action\Player\DrawCardAction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Action\Game\ModifyActivePlayerAction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Action\Card\MonsterCard\BcgDieAction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Action\Card\MonsterCard\BcgModifyReadyToAttackAction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Action\Card\MonsterCard\BcgSummonMonsterAction.cs" />
+    <Compile Include="BattleCardGame\Action\CardCollection\AddCardToCardCollectionAction.cs" />
+    <Compile Include="BattleCardGame\Action\CardCollection\RemoveCardFromCardCollectionAction.cs" />
+    <Compile Include="BattleCardGame\Action\CardCollection\TransferCardAction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Reaction\ModifyLifeStatReaction.cs" />
+    <Compile Include="BattleCardGame\SimpleBattleCardGame\Card\MonsterCard\SimpleBcgMonsterCard.cs" />
+    <Compile Include="BattleCardGame\Action\Card\MonsterCard\BcgAttackAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -168,8 +172,6 @@
   <ItemGroup>
     <Folder Include="BattleCardGame\" />
     <Folder Include="BattleCardGame\Game\" />
-    <Folder Include="BattleCardGame\Reaction\" />
-    <Folder Include="BattleCardGame\Reaction\EventReaction\" />
     <Folder Include="BattleCardGame\Player\" />
     <Folder Include="BattleCardGame\Action\" />
     <Folder Include="BattleCardGame\Action\Stat\" />
@@ -191,7 +193,19 @@
     <Folder Include="BattleCardGame\Card\SpellCard\TargetfulSpellCard\" />
     <Folder Include="BattleCardGame\Card\SpellCard\TargetlessSpellCard\" />
     <Folder Include="BattleCardGame\CardCollection\" />
-    <Folder Include="BattleCardGame\Action\Player\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Game\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Player\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Reaction\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Reaction\EventReaction\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Action\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Action\Game\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Action\Card\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Action\Card\MonsterCard\" />
+    <Folder Include="BattleCardGame\Action\CardCollection\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Card\" />
+    <Folder Include="BattleCardGame\SimpleBattleCardGame\Card\MonsterCard\" />
+    <Folder Include="BattleCardGame\Action\Card\MonsterCard\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.targets')" />

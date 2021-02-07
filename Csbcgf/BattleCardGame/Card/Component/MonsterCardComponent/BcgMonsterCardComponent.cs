@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Csbcgf.BattleCardGame.SimpleBattleCardGame;
 using Csbcgf.Core;
 using Newtonsoft.Json;
 
@@ -92,11 +93,12 @@ namespace Csbcgf.BattleCardGame
 
         public virtual HashSet<IBcgCharacter> GetPotentialTargets(IBcgGameState gameState)
         {
+            SimpleBcgGame game = (SimpleBcgGame)gameState;
             HashSet<IBcgCharacter> potentialTargets = new HashSet<IBcgCharacter>();
-            foreach (IBcgPlayer player in gameState.NonActivePlayers)
+            foreach (IBcgPlayer player in game.NonActivePlayers)
             {
                 potentialTargets.Add(player);
-                foreach (ICard card in player.CardCollections[BcgPlayer.CardCollectionKeyBoard])
+                foreach (ICard card in player.CardCollections[SimpleBcgPlayer.CardCollectionKeyBoard])
                 {
                     potentialTargets.Add((IBcgCharacter)card);
                 }

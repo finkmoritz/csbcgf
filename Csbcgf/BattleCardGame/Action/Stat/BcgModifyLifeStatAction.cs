@@ -29,18 +29,6 @@ namespace Csbcgf.BattleCardGame
         public override void Execute(IGame game)
         {
             Living.LifeValue += Delta;
-            if(Living.LifeValue <= 0)
-            {
-                if (Living is IBcgMonsterCard monsterCard)
-                {
-                    game.Execute(new BcgDieAction(monsterCard));
-                }
-                else if (Living is IBcgPlayer)
-                {
-                    game.Execute(new EndOfGameEvent());
-                }
-            }
-            
         }
 
         public override bool IsExecutable(IGameState gameState)

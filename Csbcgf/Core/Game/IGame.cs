@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace Csbcgf.Core
+﻿namespace Csbcgf.Core
 {
     public interface IGame : IGameState, IReactive
     {
         /// <summary>
         /// Start the game.
         /// </summary>
-        void StartGame(int initialHandSize, int initialPlayerLife);
+        void StartGame();
 
         /// <summary>
         /// Start the next turn.

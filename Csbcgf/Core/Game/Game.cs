@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace Csbcgf.Core
@@ -8,13 +7,6 @@ namespace Csbcgf.Core
     [Serializable]
     public class Game : IGame
     {
-        /// <summary>
-        /// Index of the active Player. Refers to the Players array.
-        /// Also see the ActivePlayer accessor.
-        /// </summary>
-        [JsonProperty]
-        protected int activePlayerIndex;
-
         [JsonProperty]
         protected ActionQueue actionQueue;
 
@@ -36,40 +28,19 @@ namespace Csbcgf.Core
         /// </summary>
         /// <param name="players"></param>
         public Game(List<IPlayer> players)
-            : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())
+            : this(players, new ActionQueue(false), new List<IReaction>())
         {
         }
 
         [JsonConstructor]
         public Game(
             List<IPlayer> players,
-            int activePlayerIndex,
             ActionQueue actionQueue,
             List<IReaction> reactions)
         {
             Players = players;
-            this.activePlayerIndex = activePlayerIndex;
             this.actionQueue = actionQueue;
             Reactions = reactions;
-        }
-
-        [JsonIgnore]
-        public IPlayer ActivePlayer
-        {
-            get => Players[activePlayerIndex];
-            set
-            {
-                activePlayerIndex = Players.IndexOf(value);
-            }
-        }
-
-        [JsonIgnore]
-        public List<IPlayer> NonActivePlayers
-        {
-            get
-            {
-                return Players.Where(p => p != ActivePlayer).ToList();
-            }
         }
 
         [JsonIgnore]
@@ -93,7 +64,7 @@ namespace Csbcgf.Core
             return allReactions;
         }
 
-        public virtual void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
+        public virtual void StartGame()
         {
             Execute(new StartOfGameEvent());
             Execute(new StartOfTurnEvent());
@@ -136,7 +107,6 @@ namespace Csbcgf.Core
 
             return new Game(
                 playersClone,
-                activePlayerIndex,
                 (ActionQueue)actionQueue.Clone(),
                 reactionsClone
             );

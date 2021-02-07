@@ -6,18 +6,6 @@ namespace Csbcgf.Core
     public interface IGameState : ICloneable
     {
         /// <summary>
-        /// Convenience method to retrieve the active Player.
-        /// Equivalent to using
-        /// <code>Players[ActivePlayerIndex]</code>
-        /// </summary>
-        IPlayer ActivePlayer { get; set; }
-
-        /// <summary>
-        /// Convenience method to retrieve the non-active Players.
-        /// </summary>
-        List<IPlayer> NonActivePlayers { get; }
-
-        /// <summary>
         /// List of Players involved in the Game.
         /// </summary>
         List<IPlayer> Players { get; }

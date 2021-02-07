@@ -34,7 +34,6 @@ namespace Csbcgf.BattleCardGame
         {
             game.Execute(new BcgModifyLifeStatAction(Target, -Attacker.AttackValue));
             game.Execute(new BcgModifyLifeStatAction(Attacker, -Target.AttackValue));
-            game.Execute(new BcgModifyReadyToAttackAction(Attacker, false));
         }
 
         public override bool IsExecutable(IGameState gameState)

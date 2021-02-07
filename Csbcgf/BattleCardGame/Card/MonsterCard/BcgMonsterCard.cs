@@ -43,7 +43,6 @@ namespace Csbcgf.BattleCardGame
             bool isReadyToAttack
             ) : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>(), isReadyToAttack)
         {
-            Reactions.Add(new BcgSetReadyToAttackOnStartOfTurnEventReaction());
         }
 
         [JsonConstructor]
@@ -104,7 +103,7 @@ namespace Csbcgf.BattleCardGame
             return Components.Where(c => c is IBcgMonsterCardComponent).Sum(c => GetValue((IBcgMonsterCardComponent)c));
         }
 
-        public void Attack(IBcgGame game, IBcgCharacter target)
+        public virtual void Attack(IBcgGame game, IBcgCharacter target)
         {
             if(!IsReadyToAttack)
             {

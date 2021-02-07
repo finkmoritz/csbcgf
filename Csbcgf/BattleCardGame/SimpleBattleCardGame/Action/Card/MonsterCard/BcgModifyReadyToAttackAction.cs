@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Csbcgf.Core;
 
-namespace Csbcgf.BattleCardGame
+namespace Csbcgf.BattleCardGame.SimpleBattleCardGame
 {
     [Serializable]
     public class BcgModifyReadyToAttackAction : Core.Action
@@ -40,9 +40,9 @@ namespace Csbcgf.BattleCardGame
 
         public override bool IsExecutable(IGameState gameState)
         {
-            IPlayer activePlayer = gameState.ActivePlayer;
+            IPlayer activePlayer = ((SimpleBcgGame)gameState).ActivePlayer;
             return MonsterCard.IsReadyToAttack != IsReadyToAttack
-                && activePlayer.CardCollections[BcgPlayer.CardCollectionKeyBoard].Contains(MonsterCard);
+                && activePlayer.CardCollections[SimpleBcgPlayer.CardCollectionKeyBoard].Contains(MonsterCard);
         }
     }
 }

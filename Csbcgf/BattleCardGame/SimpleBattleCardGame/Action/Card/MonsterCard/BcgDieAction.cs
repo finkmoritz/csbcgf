@@ -2,7 +2,7 @@
 using Csbcgf.Core;
 using Newtonsoft.Json;
 
-namespace Csbcgf.BattleCardGame
+namespace Csbcgf.BattleCardGame.SimpleBattleCardGame
 {
     [Serializable]
     public class BcgDieAction : Core.Action
@@ -27,8 +27,8 @@ namespace Csbcgf.BattleCardGame
             IPlayer owner = MonsterCard.FindParentPlayer(game);
             game.Execute(new TransferCardAction(
                 MonsterCard,
-                owner.CardCollections[BcgPlayer.CardCollectionKeyBoard],
-                owner.CardCollections[BcgPlayer.CardCollectionKeyGraveyard]
+                owner.CardCollections[SimpleBcgPlayer.CardCollectionKeyBoard],
+                owner.CardCollections[SimpleBcgPlayer.CardCollectionKeyGraveyard]
             ));
         }
 
@@ -36,7 +36,7 @@ namespace Csbcgf.BattleCardGame
         {
             IPlayer owner = MonsterCard.FindParentPlayer(gameState);
             return owner != null
-                && owner.CardCollections[BcgPlayer.CardCollectionKeyBoard].Contains(MonsterCard);
+                && owner.CardCollections[SimpleBcgPlayer.CardCollectionKeyBoard].Contains(MonsterCard);
         }
     }
 }

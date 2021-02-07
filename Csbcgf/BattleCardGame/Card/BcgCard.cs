@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Csbcgf.BattleCardGame.SimpleBattleCardGame;
 using Csbcgf.Core;
 using Newtonsoft.Json;
 
@@ -45,9 +46,10 @@ namespace Csbcgf.BattleCardGame
 
         public virtual bool IsCastable(IBcgGameState gameState)
         {
+            SimpleBcgGame game = (SimpleBcgGame)gameState;
             IBcgPlayer owner = (IBcgPlayer)FindParentPlayer(gameState);
             return owner != null
-                && owner == gameState.ActivePlayer
+                && owner == game.ActivePlayer
                 && ManaValue <= owner.ManaValue;
         }
 

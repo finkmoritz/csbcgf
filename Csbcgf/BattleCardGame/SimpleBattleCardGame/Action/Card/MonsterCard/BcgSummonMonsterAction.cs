@@ -2,7 +2,7 @@
 using Csbcgf.Core;
 using Newtonsoft.Json;
 
-namespace Csbcgf.BattleCardGame
+namespace Csbcgf.BattleCardGame.SimpleBattleCardGame
 {
     [Serializable]
     public class BcgSummonMonsterAction : Core.Action
