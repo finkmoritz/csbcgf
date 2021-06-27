@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using csbcgf;
 
 namespace csbcgftutorial
@@ -20,11 +21,51 @@ namespace csbcgftutorial
             Console.WriteLine("Mana pool stat of player 1 = " + myPlayer1.ManaValue
                 + " / " + myPlayer1.ManaBaseValue);
 
-            IMonsterCard myMonsterCard = new MonsterCard(
-                mana: 1,
-                attack: 1,
-                life: 1
-            );
+
+            List<IPlayer> players = new List<IPlayer>();
+            for (int i = 0; i < 2; ++i)
+            {
+                IDeck deck = new Deck();
+
+                for (int j = 0; j < 20; ++j)
+                {
+                    IMonsterCard myMonsterCard = new MonsterCard(mana: 1, attack: 1, life: 1);
+                    deck.Push(myMonsterCard);
+                }
+
+                players.Add(new Player(deck));
+            }
+
+            IGame game = new Game(players);
+            game.StartGame(initialHandSize: 1, initialPlayerLife: 2);
+
+            IPlayer activePlayer = game.ActivePlayer;
+            Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
+            IMonsterCard goblin = (IMonsterCard)activePlayer.Hand[0];
+            if(goblin.IsSummonable(game))
+            {
+                activePlayer.CastMonster(game, goblin, 0);
+                Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
+            }
+
+            game.NextTurn();
+
+            activePlayer = game.ActivePlayer;
+            IMonsterCard anotherGoblin = (IMonsterCard)activePlayer.Hand[0];
+            activePlayer.CastMonster(game, anotherGoblin, 0);
+
+            game.NextTurn();
+
+            if(goblin.IsReadyToAttack)
+            {
+                goblin.Attack(game, game.NonActivePlayers[0]);
+            }
+            
+            game.NextTurn();
+
+            anotherGoblin.Attack(game, goblin);
+
+            Console.WriteLine("First player is still alive: " + game.Players[0].IsAlive);
         }
     }
 }
