@@ -61,11 +61,14 @@ namespace csbcgftutorial
                 goblin.Attack(game, game.NonActivePlayers[0]);
             }
             
-            game.NextTurn();
-
-            anotherGoblin.Attack(game, goblin);
-
             Console.WriteLine("First player is still alive: " + game.Players[0].IsAlive);
+
+            Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 1
+            ICardComponent extraLifeComponent = new MonsterCardComponent(0, 0, 1);
+            goblin.Components.Add(extraLifeComponent);
+            Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 2
+            goblin.Components.Remove(extraLifeComponent);
+            Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 1
         }
     }
 }
