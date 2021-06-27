@@ -1,10 +1,12 @@
-﻿# C# Battle Card Game Framework (CSBCGF)
+# C# Battle Card Game Framework (CSBCGF)
 
 ## Overview
 
 The C# Battle Card Game Framework facilitates the process of developing a custom
 battle card game (such as Magic The Gathering, Pokémon and Hearthstone) in C#.
 It already provides a basic event-driven game loop and classes to derive from.
+
+(see also the [Official CSBCGF Homepage](https://finkmoritz.github.io/pages/csbcgf/index.html))
 
 ## Contents
 
