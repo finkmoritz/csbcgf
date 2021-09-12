@@ -4,7 +4,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>csbcgf</RootNamespace>
     <AssemblyName>csbcgf</AssemblyName>
-    <TargetFrameworks>net5.0</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageId>csbcgf</PackageId>
     <PackageVersion>0.1</PackageVersion>
     <Authors>Moritz Fink</Authors>
@@ -17,9 +17,6 @@
     <Compile Include=".\**\*.cs" />  
     <EmbeddedResource Include=".\**\*.resx" />  
   </ItemGroup>  
-  <ItemGroup>
-    <None Include="packages.config"/>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
   </ItemGroup>
