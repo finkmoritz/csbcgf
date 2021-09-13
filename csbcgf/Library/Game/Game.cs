@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class Game : IGame
     {
         /// <summary>
         /// Index of the active Player. Refers to the Players array.
         /// Also see the ActivePlayer accessor.
         /// </summary>
-        [JsonProperty]
         protected int activePlayerIndex;
 
-        [JsonProperty]
         protected ActionQueue actionQueue;
 
         public List<IReaction> Reactions { get; }
@@ -43,7 +39,6 @@ namespace csbcgf
             Reactions.Add(new DrawCardOnStartOfTurnEventReaction());
         }
 
-        [JsonConstructor]
         public Game(List<IPlayer> players, int activePlayerIndex, ActionQueue actionQueue, List<IReaction> reactions)
         {
             Players = players;
@@ -52,7 +47,6 @@ namespace csbcgf
             Reactions = reactions;
         }
 
-        [JsonIgnore]
         public IPlayer ActivePlayer
         {
             get => Players[activePlayerIndex];
@@ -62,7 +56,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public List<IPlayer> NonActivePlayers
         {
             get
@@ -71,7 +64,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public List<ICard> AllCards
         {
             get
@@ -85,7 +77,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public List<ICard> AllCardsOnTheBoard
         {
             get

@@ -1,33 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class Deck : CardCollection, IDeck
     {
-        [JsonProperty]
         protected Stack<ICard> cards;
 
         public Deck() : this(new Stack<ICard>())
         {
         }
 
-        [JsonConstructor]
         protected Deck(Stack<ICard> cards)
         {
             this.cards = cards;
         }
 
-        [JsonIgnore]
         public override List<ICard> AllCards => new List<ICard>(cards);
 
-        [JsonIgnore]
         public override int Size => cards.Count;
 
-        [JsonIgnore]
         public override bool IsEmpty
         {
             get => cards.Count == 0;

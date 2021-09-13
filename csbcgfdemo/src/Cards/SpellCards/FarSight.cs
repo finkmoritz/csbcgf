@@ -1,21 +1,16 @@
 ﻿using System;
 using csbcgf;
-using Newtonsoft.Json;
 
 namespace csbcgfdemo
 {
-    [Serializable]
     public class FarSight : TargetlessSpellCard
     {
-        [JsonConstructor]
         public FarSight() : base(new FarSightComponent())
         {
         }
 
-        [Serializable]
         public class FarSightComponent : TargetlessSpellCardComponent
         {
-            [JsonConstructor]
             public FarSightComponent() : base(3)
             {
             }
@@ -25,7 +20,6 @@ namespace csbcgfdemo
                 game.Execute(new FarSightAction());
             }
 
-            [Serializable]
             public class FarSightAction : csbcgf.Action
             {
                 public override object Clone()

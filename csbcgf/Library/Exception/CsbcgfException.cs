@@ -1,7 +1,7 @@
 ﻿using System;
+
 namespace csbcgf
 {
-    [Serializable]
     public class CsbcgfException : Exception
     {
         protected const string MessagePrefix = "C# Battle Card Game Framework EXCEPTION: ";

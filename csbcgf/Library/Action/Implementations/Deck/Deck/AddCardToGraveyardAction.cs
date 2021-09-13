@@ -1,18 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class AddCardToGraveyardAction : Action
     {
-        [JsonProperty]
         public readonly IDeck Graveyard;
 
-        [JsonProperty]
         public ICard Card;
 
-        [JsonConstructor]
         public AddCardToGraveyardAction(IDeck graveyard, ICard card, bool isAborted = false)
             : base(isAborted)
         {

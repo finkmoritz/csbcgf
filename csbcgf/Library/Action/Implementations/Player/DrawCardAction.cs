@@ -1,18 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class DrawCardAction : Action
     {
-        [JsonProperty]
         public IPlayer Player;
 
-        [JsonProperty]
         public ICard DrawnCard;
 
-        [JsonConstructor]
         public DrawCardAction(IPlayer player, bool isAborted = false)
             : base(isAborted)
         {

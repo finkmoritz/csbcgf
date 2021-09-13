@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace csbcgf
 {
-    [Serializable]
     public class ModifyActivePlayerOnEndOfTurnEventReaction : Reaction
     {
         public override object Clone()

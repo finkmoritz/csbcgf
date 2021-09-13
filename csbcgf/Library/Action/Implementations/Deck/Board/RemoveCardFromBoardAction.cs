@@ -1,18 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class RemoveCardFromBoardAction : Action
     {
-        [JsonProperty]
         public readonly IBoard Board;
 
-        [JsonProperty]
         public ICard Card;
 
-        [JsonConstructor]
         public RemoveCardFromBoardAction(IBoard board, ICard card, bool isAborted = false)
             : base(isAborted)
         {

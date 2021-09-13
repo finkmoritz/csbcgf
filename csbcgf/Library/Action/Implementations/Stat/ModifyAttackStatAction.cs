@@ -1,18 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class ModifyAttackStatAction : Action
     {
-        [JsonProperty]
         public IAttacking Attacking;
 
-        [JsonProperty]
         public int Delta;
 
-        [JsonConstructor]
         public ModifyAttackStatAction(IAttacking attacking, int delta, bool isAborted = false)
             : base(isAborted)
         {

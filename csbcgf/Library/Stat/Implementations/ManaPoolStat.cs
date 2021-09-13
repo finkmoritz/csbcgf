@@ -1,9 +1,7 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class ManaPoolStat : Stat
     {
         /// <summary>
@@ -11,19 +9,16 @@ namespace csbcgf
         /// </summary>
         /// <param name="value"></param>
         /// <param name="baseValue"></param>
-        [JsonConstructor]
         public ManaPoolStat(int value, int baseValue) : base(value, baseValue)
         {
         }
 
-        [JsonIgnore]
         public override int Value
         {
             get => base.Value;
             set => base.Value = Math.Max(0, value);
         }
 
-        [JsonIgnore]
         public override int BaseValue
         {
             get => base.BaseValue;

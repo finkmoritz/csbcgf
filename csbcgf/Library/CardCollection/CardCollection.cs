@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
-    [Serializable]
     public abstract class CardCollection : ICardCollection
     {
         /// <summary>

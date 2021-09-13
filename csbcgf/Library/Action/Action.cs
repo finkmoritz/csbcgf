@@ -1,14 +1,11 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public abstract class Action : IAction
     {
         public bool IsAborted { get; set; }
 
-        [JsonConstructor]
         public Action(bool isAborted = false)
         {
             IsAborted = isAborted;

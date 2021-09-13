@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class Player : IPlayer
     {
-        [JsonProperty]
         protected ManaPoolStat manaPoolStat;
 
-        [JsonProperty]
         protected AttackStat attackStat;
 
-        [JsonProperty]
         protected LifeStat lifeStat;
 
         public List<IReaction> Reactions { get; }
@@ -41,7 +36,6 @@ namespace csbcgf
         {
         }
 
-        [JsonConstructor]
         protected Player(IDeck deck, IHand hand, IBoard board, IDeck graveyard,
             ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat,
             List<IReaction> reactions)
@@ -57,10 +51,8 @@ namespace csbcgf
             Reactions = reactions;
         }
 
-        [JsonIgnore]
         public bool IsAlive => lifeStat.Value > 0;
 
-        [JsonIgnore]
         public List<ICard> AllCards
         {
             get
@@ -74,49 +66,42 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public int AttackValue
         {
             get => attackStat.Value;
             set => attackStat.Value = Math.Max(0, value);
         }
 
-        [JsonIgnore]
         public int AttackBaseValue
         {
             get => attackStat.BaseValue;
             set => attackStat.BaseValue = Math.Max(0, value);
         }
 
-        [JsonIgnore]
         public int LifeValue
         {
             get => lifeStat.Value;
             set => lifeStat.Value = Math.Max(0, value);
         }
 
-        [JsonIgnore]
         public int LifeBaseValue
         {
             get => lifeStat.BaseValue;
             set => lifeStat.BaseValue = Math.Max(0, value);
         }
 
-        [JsonIgnore]
         public int ManaValue
         {
             get => manaPoolStat.Value;
             set => manaPoolStat.Value = Math.Max(0, value);
         }
 
-        [JsonIgnore]
         public int ManaBaseValue
         {
             get => manaPoolStat.BaseValue;
             set => manaPoolStat.BaseValue = Math.Max(0, value);
         }
 
-        [JsonIgnore]
         public List<ICharacter> Characters
         {
             get

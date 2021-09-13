@@ -2,7 +2,6 @@
 
 namespace csbcgf
 {
-    [Serializable]
     public class ModifyManaOnStartOfTurnEventReaction : Reaction
     {
         public override object Clone()

@@ -1,15 +1,11 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class DieAction : Action
     {
-        [JsonProperty]
         public IMonsterCard MonsterCard;
 
-        [JsonConstructor]
         public DieAction(IMonsterCard monsterCard, bool isAborted = false)
             : base(isAborted)
         {

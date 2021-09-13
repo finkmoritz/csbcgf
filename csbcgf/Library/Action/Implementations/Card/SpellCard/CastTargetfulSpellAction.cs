@@ -1,15 +1,11 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class CastTargetfulSpellAction : CastSpellAction
     {
-        [JsonProperty]
         public ICharacter Target;
 
-        [JsonConstructor]
         public CastTargetfulSpellAction(
             IPlayer player,
             ITargetfulSpellCard spellCard,

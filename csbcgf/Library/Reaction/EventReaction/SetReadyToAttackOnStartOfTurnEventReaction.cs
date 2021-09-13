@@ -2,7 +2,6 @@
 
 namespace csbcgf
 {
-    [Serializable]
     public class SetReadyToAttackOnStartOfTurnEventReaction : Reaction
     {
         public override object Clone()

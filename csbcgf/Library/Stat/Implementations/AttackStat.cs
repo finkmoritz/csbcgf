@@ -1,9 +1,7 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class AttackStat : Stat
     {
         /// <summary>
@@ -13,7 +11,6 @@ namespace csbcgf
         {
         }
 
-        [JsonConstructor]
         public AttackStat(int value, int baseValue) : base(value, baseValue)
         {
         }

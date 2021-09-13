@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
     public class ModifyActivePlayerAction : Action
     {
-        [JsonProperty]
         public IPlayer NewActivePlayer;
 
-        [JsonConstructor]
         public ModifyActivePlayerAction(IPlayer newActivePlayer, bool isAborted = false)
             : base(isAborted)
         {

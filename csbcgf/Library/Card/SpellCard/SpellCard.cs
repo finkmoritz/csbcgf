@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public abstract class SpellCard : Card, ISpellCard
     {
         public SpellCard()
@@ -22,7 +20,6 @@ namespace csbcgf
         {
         }
 
-        [JsonConstructor]
         public SpellCard(List<ICardComponent> components, List<IReaction> reactions)
             : base(components, reactions)
         {

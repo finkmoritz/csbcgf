@@ -1,18 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class AttackAction : Action
     {
-        [JsonProperty]
         public IMonsterCard Attacker;
 
-        [JsonProperty]
         public ICharacter Target;
 
-        [JsonConstructor]
         public AttackAction(IMonsterCard attacker, ICharacter target, bool isAborted = false)
             : base(isAborted)
         {

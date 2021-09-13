@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public abstract class ReactiveCompound : Compound, IReactive
     {
         public List<IReaction> Reactions { get; }
@@ -14,7 +12,6 @@ namespace csbcgf
         {
         }
 
-        [JsonConstructor]
         protected ReactiveCompound(List<ICardComponent> components, List<IReaction> reactions)
             : base(components)
         {

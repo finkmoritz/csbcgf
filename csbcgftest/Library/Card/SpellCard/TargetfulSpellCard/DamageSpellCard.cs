@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using csbcgf;
-using Newtonsoft.Json;
 
 namespace csbcgftest
 {
-    [Serializable]
+    
     public class DamageSpellCard : TargetfulSpellCard
     {
-        [JsonProperty]
         protected uint damage;
 
         public DamageSpellCard(uint damage)
@@ -17,7 +15,6 @@ namespace csbcgftest
             Components.Add(new DamageSpellCardComponent((int)damage, damage));
         }
 
-        [JsonConstructor]
         protected DamageSpellCard(
             uint damage,
             List<ICardComponent> components,
@@ -42,10 +39,8 @@ namespace csbcgftest
             );
         }
 
-        [Serializable]
         public class DamageSpellCardComponent : TargetfulSpellCardComponent
         {
-            [JsonProperty]
             private readonly uint damage;
 
             public DamageSpellCardComponent(int mana, uint damage)
@@ -53,7 +48,6 @@ namespace csbcgftest
             {
             }
 
-            [JsonConstructor]
             public DamageSpellCardComponent(
                 uint damage,
                 ManaCostStat manaCostStat,

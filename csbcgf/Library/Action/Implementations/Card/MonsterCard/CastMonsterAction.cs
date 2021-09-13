@@ -1,21 +1,15 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class CastMonsterAction : Action
     {
-        [JsonProperty]
         public IPlayer Player;
 
-        [JsonProperty]
         public IMonsterCard MonsterCard;
 
-        [JsonProperty]
         public int BoardIndex;
 
-        [JsonConstructor]
         public CastMonsterAction(IPlayer player, IMonsterCard monsterCard,
             int boardIndex, bool isAborted = false
             ) : base(isAborted)

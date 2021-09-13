@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class TargetlessSpellCard : SpellCard, ITargetlessSpellCard
     {
         public TargetlessSpellCard()
@@ -22,7 +20,6 @@ namespace csbcgf
         {
         }
 
-        [JsonConstructor]
         public TargetlessSpellCard(List<ICardComponent> components, List<IReaction> reactions)
             : base(components, reactions)
         {

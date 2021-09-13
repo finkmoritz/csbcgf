@@ -2,7 +2,6 @@
 
 namespace csbcgf
 {
-    [Serializable]
     public class DrawCardOnStartOfTurnEventReaction : Reaction
     {
         public override object Clone()

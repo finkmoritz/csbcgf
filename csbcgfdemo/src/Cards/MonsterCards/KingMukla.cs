@@ -1,13 +1,10 @@
 ﻿using System;
 using csbcgf;
-using Newtonsoft.Json;
 
 namespace csbcgfdemo
 {
-    [Serializable]
     public class KingMukla : MonsterCard
     {
-        [JsonConstructor]
         public KingMukla() : base(3, 5, 5)
         {
             Reactions.Add(new KingMuklaBattlecryReaction());
@@ -16,7 +13,6 @@ namespace csbcgfdemo
         /// <summary>
         /// Battlecry: Give your opponent 2 Bananas.
         /// </summary>
-        [Serializable]
         public class KingMuklaBattlecryReaction : Reaction
         {
             public override object Clone()

@@ -1,21 +1,15 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class AddCardToBoardAction : Action
     {
-        [JsonProperty]
         public readonly IBoard Board;
 
-        [JsonProperty]
         public ICard Card;
 
-        [JsonProperty]
         public int BoardIndex;
 
-        [JsonConstructor]
         public AddCardToBoardAction(IBoard board, ICard card, int boardIndex, bool isAborted = false)
             : base(isAborted)
         {

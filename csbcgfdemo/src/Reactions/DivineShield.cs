@@ -1,13 +1,11 @@
 ﻿using System;
 using csbcgf;
-using Newtonsoft.Json;
 
 namespace csbcgfdemo
 {
     /// <summary>
     /// Divine Shield blocks first damage.
     /// </summary>
-    [Serializable]
     public class DivineShield : Reaction
     {
         public override object Clone()

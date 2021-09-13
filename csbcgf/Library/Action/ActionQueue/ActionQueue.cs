@@ -1,12 +1,9 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class ActionQueue : IActionQueue
     {
-        [JsonProperty]
         protected bool isGameOver = false;
 
         public bool ExecuteReactions { get; set; }
@@ -16,7 +13,6 @@ namespace csbcgf
         {
         }
 
-        [JsonConstructor]
         protected ActionQueue(bool executeReactions, bool isGameOver)
         {
             ExecuteReactions = executeReactions;

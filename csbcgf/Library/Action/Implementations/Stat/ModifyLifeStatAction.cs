@@ -1,18 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class ModifyLifeStatAction : Action
     {
-        [JsonProperty]
         public ILiving Living;
 
-        [JsonProperty]
         public int Delta;
 
-        [JsonConstructor]
         public ModifyLifeStatAction(ILiving living, int delta, bool isAborted = false)
             : base(isAborted)
         {

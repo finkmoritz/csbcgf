@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class Board : CardCollection, IBoard
     {
         /// <summary>
         /// Data container.
         /// </summary>
-        [JsonProperty]
         protected ICard[] cards;
 
-        [JsonProperty]
         protected const int MaximumCapacity = 6;
 
         /// <summary>
@@ -27,16 +23,13 @@ namespace csbcgf
             }
         }
 
-        [JsonConstructor]
         protected Board(ICard[] cards)
         {
             this.cards = cards;
         }
 
-        [JsonIgnore]
         public int MaxSize { get => MaximumCapacity; }
 
-        [JsonIgnore]
         public override List<ICard> AllCards
         {
             get
@@ -53,7 +46,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public override bool IsEmpty
         {
             get
@@ -69,7 +61,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public override int Size
         {
             get
