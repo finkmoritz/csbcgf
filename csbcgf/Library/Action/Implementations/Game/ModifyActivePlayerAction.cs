@@ -1,27 +1,16 @@
 ﻿using System;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
     public class ModifyActivePlayerAction : Action
     {
-        [JsonProperty]
         public IPlayer NewActivePlayer;
 
-        [JsonConstructor]
         public ModifyActivePlayerAction(IPlayer newActivePlayer, bool isAborted = false)
             : base(isAborted)
         {
             NewActivePlayer = newActivePlayer;
-        }
-
-        public override object Clone()
-        {
-            return new ModifyActivePlayerAction(
-                null, // otherwise circular dependencies
-                IsAborted
-            );
         }
 
         public override void Execute(IGame game)

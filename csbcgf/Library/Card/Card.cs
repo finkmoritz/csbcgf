@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public abstract class Card : ReactiveCompound, ICard
     {
         public Card() : this(new List<ICardComponent>(), new List<IReaction>())
         {
         }
 
-        [JsonConstructor]
         protected Card(List<ICardComponent> components, List<IReaction> reactions)
             : base(components, reactions)
         {
         }
 
-        [JsonIgnore]
         public int ManaValue {
             get => Math.Max(0, Components.Sum(c => c.ManaValue));
             set
@@ -27,7 +23,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public int ManaBaseValue {
             get => Math.Max(0, Components.Sum(c => c.ManaBaseValue));
             set

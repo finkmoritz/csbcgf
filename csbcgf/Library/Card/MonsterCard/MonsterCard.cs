@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class MonsterCard : Card, IMonsterCard
     {
         public bool IsReadyToAttack { get; set; }
@@ -45,7 +43,6 @@ namespace csbcgf
             Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction());
         }
 
-        [JsonConstructor]
         public MonsterCard(
             List<ICardComponent> components,
             List<IReaction> reactions,
@@ -55,10 +52,8 @@ namespace csbcgf
             IsReadyToAttack = isReadyToAttack;
         }
 
-        [JsonIgnore]
         public bool IsAlive => LifeValue > 0;
 
-        [JsonIgnore]
         public int AttackValue
         {
             get => Math.Max(0, GetSum(c => c.AttackValue));
@@ -68,7 +63,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public int AttackBaseValue
         {
             get => Math.Max(0, GetSum(c => c.AttackBaseValue));
@@ -78,7 +72,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public int LifeValue
         {
             get => Math.Max(0, GetSum(c => c.LifeValue));
@@ -88,7 +81,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
         public int LifeBaseValue
         {
             get => Math.Max(0, GetSum(c => c.LifeBaseValue));
@@ -140,21 +132,6 @@ namespace csbcgf
             IBoard board = gameState.ActivePlayer.Board;
             return base.IsCastable(gameState)
                     && board.AllCards.Count < board.MaxSize;
-        }
-
-        public override object Clone()
-        {
-            List<ICardComponent> componentsClone = new List<ICardComponent>();
-            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
-
-            List<IReaction> reactionsClone = new List<IReaction>();
-            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
-
-            return new MonsterCard(
-                componentsClone,
-                reactionsClone,
-                IsReadyToAttack
-            );
         }
     }
 }

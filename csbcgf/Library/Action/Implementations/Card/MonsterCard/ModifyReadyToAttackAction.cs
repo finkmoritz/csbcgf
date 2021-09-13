@@ -1,18 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class ModifyReadyToAttackAction : Action
     {
-        [JsonProperty]
         public IMonsterCard MonsterCard;
 
-        [JsonProperty]
         public bool IsReadyToAttack;
 
-        [JsonConstructor]
         public ModifyReadyToAttackAction(
             IMonsterCard monsterCard,
             bool isReadyToAttack,
@@ -21,15 +16,6 @@ namespace csbcgf
         {
             MonsterCard = monsterCard;
             IsReadyToAttack = isReadyToAttack;
-        }
-
-        public override object Clone()
-        {
-            return new ModifyReadyToAttackAction(
-                (IMonsterCard)MonsterCard.Clone(),
-                IsReadyToAttack,
-                IsAborted
-            );
         }
 
         public override void Execute(IGame game)

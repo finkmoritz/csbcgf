@@ -159,28 +159,10 @@ namespace csbcgftest
         }
 
         [Test()]
-        public void TestGameSerialization()
-        {
-            string serializedJson = CsbcgfJsonConvert.Serialize(game);
-            Game deserializedGame = CsbcgfJsonConvert.Deserialize<Game>(serializedJson);
-            string deserializedJson = CsbcgfJsonConvert.Serialize(deserializedGame);
-            Assert.AreEqual(serializedJson, deserializedJson);
-        }
-
-        [Test()]
         public void TestGameCloning()
         {
-            try
-            {
-                Game gameClone = (Game)game.Clone();
-                string serializedGame = CsbcgfJsonConvert.Serialize(game);
-                string serializedGameClone = CsbcgfJsonConvert.Serialize(gameClone);
-                Assert.AreEqual(serializedGame, serializedGameClone);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail("Game.Clone() failed!\n(Check for circular dependencies)\n" + e.ToString());
-            }
+            IGame gameCopy = (IGame)game.Copy();
+            Assert.AreEqual(game.AllCards[0].ManaValue, gameCopy.AllCards[0].ManaValue);
         }
     }
 }

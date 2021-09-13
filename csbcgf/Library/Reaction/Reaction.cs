@@ -26,8 +26,6 @@
             return null;
         }
 
-        public abstract object Clone();
-
         public abstract void ReactTo(IGame game, IActionEvent actionEvent);
     }
 }

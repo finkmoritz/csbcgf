@@ -1,21 +1,15 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class ModifyManaStatAction : Action
     {
-        [JsonProperty]
         public IManaful Manaful;
 
-        [JsonProperty]
         public int DeltaValue;
 
-        [JsonProperty]
         public int DeltaBaseValue;
 
-        [JsonConstructor]
         public ModifyManaStatAction(
             IManaful manaful,
             int deltaValue,
@@ -26,16 +20,6 @@ namespace csbcgf
             Manaful = manaful;
             DeltaValue = deltaValue;
             DeltaBaseValue = deltaBaseValue;
-        }
-
-        public override object Clone()
-        {
-            return new ModifyManaStatAction(
-                (IManaful)Manaful.Clone(),
-                DeltaValue,
-                DeltaBaseValue,
-                IsAborted
-            );
         }
 
         public override void Execute(IGame game)

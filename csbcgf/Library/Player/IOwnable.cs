@@ -2,7 +2,7 @@
 
 namespace csbcgf {
 
-    public interface IOwnable : ICloneable
+    public interface IOwnable
     {
         /// <summary>
         /// Find the owner of this IOwnable.

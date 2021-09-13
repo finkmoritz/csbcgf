@@ -1,13 +1,10 @@
 ﻿using System;
 using csbcgf;
-using Newtonsoft.Json;
 
 namespace csbcgfdemo
 {
-    [Serializable]
     public class ManaWyrm : MonsterCard
     {
-        [JsonConstructor]
         public ManaWyrm() : base(2, 1, 3)
         {
             Reactions.Add(new ManaWyrmReaction());
@@ -16,14 +13,8 @@ namespace csbcgfdemo
         /// <summary>
         /// Whenever you cast a spell, gain +1 Attack.
         /// </summary>
-        [Serializable]
         public class ManaWyrmReaction : Reaction
         {
-            public override object Clone()
-            {
-                return new ManaWyrmReaction();
-            }
-
             public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
                 if (actionEvent.IsAfter(typeof(CastSpellAction)))

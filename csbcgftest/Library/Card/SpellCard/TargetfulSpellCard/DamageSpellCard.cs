@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using csbcgf;
-using Newtonsoft.Json;
 
 namespace csbcgftest
 {
-    [Serializable]
+    
     public class DamageSpellCard : TargetfulSpellCard
     {
-        [JsonProperty]
         protected uint damage;
 
         public DamageSpellCard(uint damage)
@@ -17,7 +15,6 @@ namespace csbcgftest
             Components.Add(new DamageSpellCardComponent((int)damage, damage));
         }
 
-        [JsonConstructor]
         protected DamageSpellCard(
             uint damage,
             List<ICardComponent> components,
@@ -27,25 +24,8 @@ namespace csbcgftest
             this.damage = damage;
         }
 
-        public override object Clone()
-        {
-            List<ICardComponent> componentsClone = new List<ICardComponent>();
-            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
-
-            List<IReaction> reactionsClone = new List<IReaction>();
-            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
-
-            return new DamageSpellCard(
-                damage,
-                componentsClone,
-                reactionsClone
-            );
-        }
-
-        [Serializable]
         public class DamageSpellCardComponent : TargetfulSpellCardComponent
         {
-            [JsonProperty]
             private readonly uint damage;
 
             public DamageSpellCardComponent(int mana, uint damage)
@@ -53,7 +33,6 @@ namespace csbcgftest
             {
             }
 
-            [JsonConstructor]
             public DamageSpellCardComponent(
                 uint damage,
                 ManaCostStat manaCostStat,
@@ -77,21 +56,6 @@ namespace csbcgftest
                     player.Board.AllCards.ForEach(c => targets.Add((ICharacter)c));
                 }
                 return targets;
-            }
-
-            public override object Clone()
-            {
-                List<IReaction> reactionsClone = new List<IReaction>();
-                foreach (IReaction reaction in Reactions)
-                {
-                    reactionsClone.Add((IReaction)reaction.Clone());
-                }
-
-                return new DamageSpellCardComponent(
-                    damage,
-                    (ManaCostStat)manaCostStat.Clone(),
-                    reactionsClone
-                );
             }
         }
     }

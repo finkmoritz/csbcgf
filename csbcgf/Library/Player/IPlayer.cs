@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface IPlayer : IManaful, ICharacter, IReactive, ICloneable
+    public interface IPlayer : IManaful, ICharacter, IReactive
     {
         /// <summary>
         /// The Player's Deck of Cards.

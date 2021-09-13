@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface ITargetful : ICloneable
+    public interface ITargetful
     {
         /// <summary>
         /// Get a set of potential target Characters based on the current

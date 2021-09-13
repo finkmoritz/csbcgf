@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface ICardCollection : ICloneable
+    public interface ICardCollection
     {
         /// <summary>
         /// Get all cards in this Deck.

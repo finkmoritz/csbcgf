@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public interface IReaction : ICloneable
+    public interface IReaction
     {
         /// <summary>
         /// React on a given ActionEvent.

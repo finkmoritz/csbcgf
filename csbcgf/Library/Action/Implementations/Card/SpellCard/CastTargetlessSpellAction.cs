@@ -1,27 +1,15 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class CastTargetlessSpellAction : CastSpellAction
     {
-        [JsonConstructor]
         public CastTargetlessSpellAction(
             IPlayer player,
             ITargetlessSpellCard spellCard,
             bool isAborted = false
             ) : base(player, spellCard, isAborted)
         {
-        }
-
-        public override object Clone()
-        {
-            return new CastTargetlessSpellAction(
-                null, // otherwise circular dependencies
-                (ITargetlessSpellCard)SpellCard.Clone(),
-                IsAborted
-            );
         }
 
         public override void Execute(IGame game)

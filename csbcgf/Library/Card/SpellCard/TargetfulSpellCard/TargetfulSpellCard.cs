@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
         public TargetfulSpellCard()
@@ -22,7 +20,6 @@ namespace csbcgf
         {
         }
 
-        [JsonConstructor]
         public TargetfulSpellCard(List<ICardComponent> components, List<IReaction> reactions)
             : base(components, reactions)
         {
@@ -65,20 +62,6 @@ namespace csbcgf
                     targetfulComponent.Cast(game, target);
                 }
             }
-        }
-
-        public override object Clone()
-        {
-            List<ICardComponent> componentsClone = new List<ICardComponent>();
-            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
-
-            List<IReaction> reactionsClone = new List<IReaction>();
-            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
-
-            return new TargetfulSpellCard(
-                componentsClone,
-                reactionsClone
-            );
         }
     }
 }

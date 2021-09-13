@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public interface IAction : ICloneable
+    public interface IAction
     {
         /// <summary>
         /// Aborted Actions will not be executed.

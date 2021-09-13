@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    [Serializable]
     public class MonsterCardComponent : CardComponent, IMonsterCardComponent
     {
-        [JsonProperty]
         protected AttackStat attackStat;
 
-        [JsonProperty]
         protected LifeStat lifeStat;
 
         public MonsterCardComponent(int mana, int attack, int life)
@@ -33,7 +29,6 @@ namespace csbcgf
             this.lifeStat = lifeStat;
         }
 
-        [JsonConstructor]
         protected MonsterCardComponent(
             ManaCostStat manaCostStat,
             AttackStat attackStat,
@@ -45,48 +40,28 @@ namespace csbcgf
             this.lifeStat = lifeStat;
         }
 
-        [JsonIgnore]
         public int AttackValue
         {
             get => attackStat.Value;
             set => attackStat.Value = value;
         }
 
-        [JsonIgnore]
         public int AttackBaseValue
         {
             get => attackStat.BaseValue;
             set => attackStat.BaseValue = value;
         }
 
-        [JsonIgnore]
         public int LifeValue
         {
             get => lifeStat.Value;
             set => lifeStat.Value = value;
         }
 
-        [JsonIgnore]
         public int LifeBaseValue
         {
             get => lifeStat.BaseValue;
             set => lifeStat.BaseValue = value;
-        }
-
-        public override object Clone()
-        {
-            List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in Reactions)
-            {
-                reactionsClone.Add((IReaction)reaction.Clone());
-            }
-
-            return new MonsterCardComponent(
-                (ManaCostStat)manaCostStat.Clone(),
-                (AttackStat)attackStat.Clone(),
-                (LifeStat)lifeStat.Clone(),
-                reactionsClone
-            );
         }
 
         public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
