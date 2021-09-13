@@ -162,7 +162,7 @@ namespace csbcgftest
         public void TestGameCloning()
         {
             IGame gameCopy = (IGame)game.Copy();
-            Assert.AreEqual(game.AllCards.Count, gameCopy.AllCards.Count);
+            Assert.AreEqual(game.AllCards[0].ManaValue, gameCopy.AllCards[0].ManaValue);
         }
     }
 }
