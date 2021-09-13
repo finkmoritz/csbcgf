@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public interface ITargetless : ICloneable
+    public interface ITargetless
     {
     }
 }

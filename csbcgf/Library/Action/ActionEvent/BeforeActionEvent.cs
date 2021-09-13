@@ -8,11 +8,6 @@ namespace csbcgf
         {
         }
 
-        public override object Clone()
-        {
-            return new BeforeActionEvent((IAction)Action.Clone());
-        }
-
         public override bool IsAfter(Type type)
         {
             return false;

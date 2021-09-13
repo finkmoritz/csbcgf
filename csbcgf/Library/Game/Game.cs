@@ -142,28 +142,6 @@ namespace csbcgf
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
-        public object Clone()
-        {
-            List<IPlayer> playersClone = new List<IPlayer>();
-            foreach (IPlayer player in Players)
-            {
-                playersClone.Add((IPlayer)player.Clone());
-            }
-
-            List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in Reactions)
-            {
-                reactionsClone.Add((IReaction)reaction.Clone());
-            }
-
-            return new Game(
-                playersClone,
-                activePlayerIndex,
-                (ActionQueue)actionQueue.Clone(),
-                reactionsClone
-            );
-        }
-
         public ICard FindParentCard(IGameState gameState)
         {
             throw new CsbcgfException("Cannot use method 'FindParentCard' on " +

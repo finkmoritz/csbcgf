@@ -24,21 +24,6 @@ namespace csbcgftest
             this.damage = damage;
         }
 
-        public override object Clone()
-        {
-            List<ICardComponent> componentsClone = new List<ICardComponent>();
-            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
-
-            List<IReaction> reactionsClone = new List<IReaction>();
-            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
-
-            return new DamageSpellCard(
-                damage,
-                componentsClone,
-                reactionsClone
-            );
-        }
-
         public class DamageSpellCardComponent : TargetfulSpellCardComponent
         {
             private readonly uint damage;
@@ -71,21 +56,6 @@ namespace csbcgftest
                     player.Board.AllCards.ForEach(c => targets.Add((ICharacter)c));
                 }
                 return targets;
-            }
-
-            public override object Clone()
-            {
-                List<IReaction> reactionsClone = new List<IReaction>();
-                foreach (IReaction reaction in Reactions)
-                {
-                    reactionsClone.Add((IReaction)reaction.Clone());
-                }
-
-                return new DamageSpellCardComponent(
-                    damage,
-                    (ManaCostStat)manaCostStat.Clone(),
-                    reactionsClone
-                );
             }
         }
     }

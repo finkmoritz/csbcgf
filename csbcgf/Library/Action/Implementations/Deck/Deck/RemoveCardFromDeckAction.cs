@@ -24,14 +24,5 @@ namespace csbcgf
         {
             return !Deck.IsEmpty;
         }
-
-        public override object Clone()
-        {
-            return new RemoveCardFromDeckAction(
-                (IDeck)Deck.Clone(),
-                (ICard)Card.Clone(),
-                IsAborted
-            );
-        }
     }
 }

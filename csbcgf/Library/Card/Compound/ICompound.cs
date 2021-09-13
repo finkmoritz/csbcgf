@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface ICompound : ICloneable
+    public interface ICompound
     {
         /// <summary>
         /// List of components that this Compound is made of.

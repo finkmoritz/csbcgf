@@ -4,11 +4,6 @@ namespace csbcgf
 {
     public class SetReadyToAttackOnStartOfTurnEventReaction : Reaction
     {
-        public override object Clone()
-        {
-            return new SetReadyToAttackOnStartOfTurnEventReaction();
-        }
-
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))

@@ -18,16 +18,6 @@ namespace csbcgf
             BoardIndex = boardIndex;
         }
 
-        public override object Clone()
-        {
-            return new AddCardToBoardAction(
-                (IBoard)Board.Clone(),
-                (ICard)Card.Clone(),
-                BoardIndex,
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             Board.AddAt(BoardIndex, Card);

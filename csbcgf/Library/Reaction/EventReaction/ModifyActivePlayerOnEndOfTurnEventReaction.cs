@@ -5,11 +5,6 @@ namespace csbcgf
 {
     public class ModifyActivePlayerOnEndOfTurnEventReaction : Reaction
     {
-        public override object Clone()
-        {
-            return new ModifyActivePlayerOnEndOfTurnEventReaction();
-        }
-
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             if (actionEvent.IsAfter(typeof(EndOfTurnEvent)))

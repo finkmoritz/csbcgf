@@ -12,11 +12,6 @@ namespace csbcgf
             MonsterCard = monsterCard;
         }
 
-        public override object Clone()
-        {
-            return new DieAction((IMonsterCard)MonsterCard.Clone(), IsAborted);
-        }
-
         public override void Execute(IGame game)
         {
             IPlayer owner = MonsterCard.FindParentPlayer(game);

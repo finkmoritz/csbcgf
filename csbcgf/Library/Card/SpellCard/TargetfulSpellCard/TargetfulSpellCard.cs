@@ -63,19 +63,5 @@ namespace csbcgf
                 }
             }
         }
-
-        public override object Clone()
-        {
-            List<ICardComponent> componentsClone = new List<ICardComponent>();
-            Components.ForEach(c => componentsClone.Add((ICardComponent)c.Clone()));
-
-            List<IReaction> reactionsClone = new List<IReaction>();
-            Reactions.ForEach(r => reactionsClone.Add((IReaction)r.Clone()));
-
-            return new TargetfulSpellCard(
-                componentsClone,
-                reactionsClone
-            );
-        }
     }
 }

@@ -7,10 +7,5 @@ namespace csbcgf
         public StartOfGameEvent()
         {
         }
-
-        public override object Clone()
-        {
-            return new StartOfGameEvent();
-        }
     }
 }

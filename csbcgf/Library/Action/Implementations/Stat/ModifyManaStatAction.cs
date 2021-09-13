@@ -22,16 +22,6 @@ namespace csbcgf
             DeltaBaseValue = deltaBaseValue;
         }
 
-        public override object Clone()
-        {
-            return new ModifyManaStatAction(
-                (IManaful)Manaful.Clone(),
-                DeltaValue,
-                DeltaBaseValue,
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             Manaful.ManaBaseValue += DeltaBaseValue;

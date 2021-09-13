@@ -161,15 +161,8 @@ namespace csbcgftest
         [Test()]
         public void TestGameCloning()
         {
-            try
-            {
-                IGame gameCopy = (IGame)game.Copy();
-                Assert.AreEqual(game.AllCards.Count, gameCopy.AllCards.Count);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail("Game.Clone() failed!\n(Check for circular dependencies)\n" + e.ToString());
-            }
+            IGame gameCopy = (IGame)game.Copy();
+            Assert.AreEqual(game.AllCards.Count, gameCopy.AllCards.Count);
         }
     }
 }

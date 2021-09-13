@@ -18,15 +18,6 @@ namespace csbcgf
             IsReadyToAttack = isReadyToAttack;
         }
 
-        public override object Clone()
-        {
-            return new ModifyReadyToAttackAction(
-                (IMonsterCard)MonsterCard.Clone(),
-                IsReadyToAttack,
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             MonsterCard.IsReadyToAttack = IsReadyToAttack;

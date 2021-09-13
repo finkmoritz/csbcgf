@@ -13,14 +13,6 @@ namespace csbcgf
             NewActivePlayer = newActivePlayer;
         }
 
-        public override object Clone()
-        {
-            return new ModifyActivePlayerAction(
-                null, // otherwise circular dependencies
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             game.ActivePlayer = NewActivePlayer;

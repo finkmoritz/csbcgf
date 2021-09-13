@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace csbcgf
 {
-    public interface IActionQueue : ICloneable
+    public interface IActionQueue
     {
         /// <summary>
         /// Marks if the ActionQueue also executes IReactions to the

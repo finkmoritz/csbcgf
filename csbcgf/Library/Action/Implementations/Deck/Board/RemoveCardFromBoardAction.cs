@@ -15,15 +15,6 @@ namespace csbcgf
             Card = card;
         }
 
-        public override object Clone()
-        {
-            return new RemoveCardFromBoardAction(
-                (IBoard)Board.Clone(),
-                (ICard)Card.Clone(),
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             Board.Remove(Card);

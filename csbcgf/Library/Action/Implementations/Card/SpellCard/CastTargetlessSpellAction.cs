@@ -12,15 +12,6 @@ namespace csbcgf
         {
         }
 
-        public override object Clone()
-        {
-            return new CastTargetlessSpellAction(
-                null, // otherwise circular dependencies
-                (ITargetlessSpellCard)SpellCard.Clone(),
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             game.Execute(new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0));

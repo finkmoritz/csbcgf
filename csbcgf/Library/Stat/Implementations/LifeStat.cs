@@ -14,10 +14,5 @@ namespace csbcgf
         public LifeStat(int value, int baseValue) : base(value, baseValue)
         {
         }
-
-        public override object Clone()
-        {
-            return new LifeStat(Value, BaseValue);
-        }
     }
 }

@@ -15,15 +15,6 @@ namespace csbcgf
             Target = target;
         }
 
-        public override object Clone()
-        {
-            return new AttackAction(
-                (IMonsterCard)Attacker.Clone(),
-                (ICharacter)Target.Clone(),
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             game.Execute(new ModifyLifeStatAction(Target, -Attacker.AttackValue));

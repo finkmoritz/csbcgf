@@ -45,20 +45,6 @@ namespace csbcgf
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
-        public override object Clone()
-        {
-            List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in Reactions)
-            {
-                reactionsClone.Add((IReaction)reaction.Clone());
-            }
-
-            return new CardComponent(
-                (ManaCostStat)manaCostStat.Clone(),
-                reactionsClone
-            );
-        }
-
         public ICard FindCard(IGameState gameState)
         {
             foreach (ICard card in gameState.AllCards)

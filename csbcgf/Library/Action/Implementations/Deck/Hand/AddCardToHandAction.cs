@@ -15,15 +15,6 @@ namespace csbcgf
             Card = card;
         }
 
-        public override object Clone()
-        {
-            return new AddCardToHandAction(
-                (IHand)Hand.Clone(),
-                (ICard)Card.Clone(),
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             Hand.Add(Card);

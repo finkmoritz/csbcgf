@@ -11,7 +11,5 @@ namespace csbcgf
         {
             Components = components;
         }
-
-        public abstract object Clone();
     }
 }

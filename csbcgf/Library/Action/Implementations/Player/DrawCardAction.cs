@@ -14,14 +14,6 @@ namespace csbcgf
             Player = player;
         }
 
-        public override object Clone()
-        {
-            return new DrawCardAction(
-                null, // otherwise circular dependencies
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Player.Deck);

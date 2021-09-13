@@ -15,11 +15,6 @@ namespace csbcgfdemo
         /// </summary>
         public class ManaWyrmReaction : Reaction
         {
-            public override object Clone()
-            {
-                return new ManaWyrmReaction();
-            }
-
             public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
                 if (actionEvent.IsAfter(typeof(CastSpellAction)))

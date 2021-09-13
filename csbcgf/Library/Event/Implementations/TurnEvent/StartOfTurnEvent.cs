@@ -7,10 +7,5 @@ namespace csbcgf
         public StartOfTurnEvent()
         {
         }
-
-        public override object Clone()
-        {
-            return new StartOfTurnEvent();
-        }
     }
 }

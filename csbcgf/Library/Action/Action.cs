@@ -13,6 +13,5 @@ namespace csbcgf
 
         public abstract void Execute(IGame game);
         public abstract bool IsExecutable(IGameState gameState);
-        public abstract object Clone();
     }
 }

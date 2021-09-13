@@ -7,10 +7,5 @@ namespace csbcgf
         public EndOfGameEvent()
         {
         }
-
-        public override object Clone()
-        {
-            return new EndOfGameEvent();
-        }
     }
 }

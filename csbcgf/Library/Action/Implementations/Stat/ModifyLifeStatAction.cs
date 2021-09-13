@@ -15,11 +15,6 @@ namespace csbcgf
             Delta = delta;
         }
 
-        public override object Clone()
-        {
-            return new ModifyLifeStatAction((ILiving)Living.Clone(), Delta, IsAborted);
-        }
-
         public override void Execute(IGame game)
         {
             Living.LifeValue += Delta;

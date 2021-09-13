@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public interface IManaful : ICloneable
+    public interface IManaful
     {
         int ManaValue { get; set; }
         int ManaBaseValue { get; set; }

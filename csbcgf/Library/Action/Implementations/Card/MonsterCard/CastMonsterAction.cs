@@ -19,16 +19,6 @@ namespace csbcgf
             BoardIndex = boardIndex;
         }
 
-        public override object Clone()
-        {
-            return new CastMonsterAction(
-                null, // otherwise circular dependencies
-                (IMonsterCard)MonsterCard.Clone(),
-                BoardIndex,
-                IsAborted
-                );
-        }
-
         public override void Execute(IGame game)
         {
             game.Execute(new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0));

@@ -22,11 +22,6 @@ namespace csbcgfdemo
 
             public class FarSightAction : csbcgf.Action
             {
-                public override object Clone()
-                {
-                    return new FarSightAction();
-                }
-
                 public override void Execute(IGame game)
                 {
                     DrawCardAction drawCardAction = new DrawCardAction(game.ActivePlayer);

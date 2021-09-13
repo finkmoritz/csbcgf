@@ -64,22 +64,6 @@ namespace csbcgf
             set => lifeStat.BaseValue = value;
         }
 
-        public override object Clone()
-        {
-            List<IReaction> reactionsClone = new List<IReaction>();
-            foreach (IReaction reaction in Reactions)
-            {
-                reactionsClone.Add((IReaction)reaction.Clone());
-            }
-
-            return new MonsterCardComponent(
-                (ManaCostStat)manaCostStat.Clone(),
-                (AttackStat)attackStat.Clone(),
-                (LifeStat)lifeStat.Clone(),
-                reactionsClone
-            );
-        }
-
         public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();

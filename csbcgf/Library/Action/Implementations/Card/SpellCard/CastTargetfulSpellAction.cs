@@ -17,16 +17,6 @@ namespace csbcgf
             Target = target;
         }
 
-        public override object Clone()
-        {
-            return new CastTargetfulSpellAction(
-                null, // otherwise circular dependencies
-                (ITargetfulSpellCard)SpellCard.Clone(),
-                (ICharacter)Target.Clone(),
-                IsAborted
-            );
-        }
-
         public override void Execute(IGame game)
         {
             game.Execute(new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0));

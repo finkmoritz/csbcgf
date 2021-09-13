@@ -15,11 +15,6 @@ namespace csbcgfdemo
         /// </summary>
         public class KingMuklaBattlecryReaction : Reaction
         {
-            public override object Clone()
-            {
-                return new KingMuklaBattlecryReaction();
-            }
-
             public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
                 if (actionEvent.IsAfter(typeof(CastMonsterAction)))
