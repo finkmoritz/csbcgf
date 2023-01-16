@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public class SetReadyToAttackOnStartOfTurnEventReaction : Reaction
     {
@@ -8,12 +6,14 @@ namespace csbcgf
         {
             if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
-                IMonsterCard monsterCard = (IMonsterCard)FindParentCard(game);
-                IPlayer owner = monsterCard.FindParentPlayer(game);
-                bool isReadyToAttack = owner == game.ActivePlayer
-                    && game.ActivePlayer.Board.Contains(monsterCard);
+                IMonsterCard? monsterCard = (IMonsterCard?)FindParentCard(game);
+                if (monsterCard != null) {
+                    IPlayer? owner = monsterCard?.FindParentPlayer(game);
+                    bool isReadyToAttack = owner == game.ActivePlayer
+                        && game.ActivePlayer.Board.Contains(monsterCard!);
 
-                game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
+                    game.Execute(new ModifyReadyToAttackAction(monsterCard!, isReadyToAttack));
+                }
             }
         }
     }

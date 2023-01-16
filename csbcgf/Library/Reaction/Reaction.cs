@@ -2,7 +2,7 @@
 {
     public abstract class Reaction : IReaction
     {
-        public ICard FindParentCard(IGameState gameState)
+        public ICard? FindParentCard(IGameState gameState)
         {
             foreach (ICard card in gameState.AllCards)
             {
@@ -14,7 +14,7 @@
             return null;
         }
 
-        public IPlayer FindParentPlayer(IGameState gameState)
+        public IPlayer? FindParentPlayer(IGameState gameState)
         {
             foreach (IPlayer player in gameState.Players)
             {

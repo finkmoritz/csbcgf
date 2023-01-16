@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using csbcgf;
+﻿using csbcgf;
 
 namespace csbcgfdemo
 {
@@ -25,7 +23,7 @@ namespace csbcgfdemo
                 Console.WriteLine(info + "\n");
                 ConsoleUtil.PrintGame(game);
                 Console.WriteLine(GetOptions());
-                input = Console.ReadLine();
+                input = Console.ReadLine() ?? "";
                 info = ProcessInput(game, input);
             } while (input.ToUpper() != CommandQuit);
         }
@@ -121,9 +119,9 @@ namespace csbcgfdemo
                 case 1:
                     return game.NonActivePlayers[0].Hand[int.Parse(id.Substring(1, 1))];
                 case 2:
-                    return game.NonActivePlayers[0].Board[int.Parse(id.Substring(1, 1))];
+                    return game.NonActivePlayers[0].Board[int.Parse(id.Substring(1, 1))]!;
                 case 3:
-                    return game.ActivePlayer.Board[int.Parse(id.Substring(1, 1))];
+                    return game.ActivePlayer.Board[int.Parse(id.Substring(1, 1))]!;
                 case 4:
                     return game.ActivePlayer.Hand[int.Parse(id.Substring(1, 1))];
                 case 5:

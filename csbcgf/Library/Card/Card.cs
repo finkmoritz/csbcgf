@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public abstract class Card : ReactiveCompound, ICard
     {
@@ -33,7 +29,7 @@ namespace csbcgf
 
         public virtual bool IsCastable(IGameState gameState)
         {
-            IPlayer owner = FindParentPlayer(gameState);
+            IPlayer? owner = FindParentPlayer(gameState);
             return owner != null
                 && owner == gameState.ActivePlayer
                 && owner.Hand.Contains(this)
@@ -45,7 +41,7 @@ namespace csbcgf
             return this;
         }
 
-        public override IPlayer FindParentPlayer(IGameState gameState)
+        public override IPlayer? FindParentPlayer(IGameState gameState)
         {
             foreach (IPlayer player in gameState.Players)
             {

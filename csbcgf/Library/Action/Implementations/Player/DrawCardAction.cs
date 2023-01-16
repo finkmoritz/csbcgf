@@ -6,7 +6,7 @@ namespace csbcgf
     {
         public IPlayer Player;
 
-        public ICard DrawnCard;
+        public ICard? DrawnCard;
 
         public DrawCardAction(IPlayer player, bool isAborted = false)
             : base(isAborted)
@@ -19,7 +19,7 @@ namespace csbcgf
             RemoveCardFromDeckAction removeAction = new RemoveCardFromDeckAction(Player.Deck);
             game.Execute(removeAction);
             DrawnCard = removeAction.Card;
-            game.Execute(new AddCardToHandAction(Player.Hand, DrawnCard));
+            game.Execute(new AddCardToHandAction(Player.Hand, DrawnCard!));
         }
 
         public override bool IsExecutable(IGameState gameState)

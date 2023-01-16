@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
@@ -28,7 +25,7 @@ namespace csbcgf
         public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             //Compute the intersection of all potential targets
-            HashSet<ICharacter> potentialTargets = null;
+            HashSet<ICharacter>? potentialTargets = null;
             foreach (ICardComponent component in Components.FindAll(c => c is ITargetful))
             {
                 if (potentialTargets == null)

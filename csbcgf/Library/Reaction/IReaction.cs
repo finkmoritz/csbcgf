@@ -17,7 +17,7 @@ namespace csbcgf
         /// <param name="gameState"></param>
         /// <returns>The card that this IReaction is attached to or null
         /// if it is not attached.</returns>
-        ICard FindParentCard(IGameState gameState);
+        ICard? FindParentCard(IGameState gameState);
 
         /// <summary>
         /// Find the player that this IReaction is attached to.
@@ -25,6 +25,6 @@ namespace csbcgf
         /// <param name="gameState"></param>
         /// <returns>The player that this IReaction is attached to or null
         /// if it is not attached.</returns>
-        IPlayer FindParentPlayer(IGameState gameState);
+        IPlayer? FindParentPlayer(IGameState gameState);
     }
 }

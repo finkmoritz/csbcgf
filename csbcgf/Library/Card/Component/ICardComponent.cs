@@ -10,6 +10,6 @@ namespace csbcgf
         /// <param name="gameState"></param>
         /// <returns>The ICard this ICardComponent is attached to or null
         /// if it is not attached.</returns>
-        ICard FindCard(IGameState gameState);
+        ICard? FindCard(IGameState gameState);
     }
 }

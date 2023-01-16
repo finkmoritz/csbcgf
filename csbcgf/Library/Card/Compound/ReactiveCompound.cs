@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public abstract class ReactiveCompound : Compound, IReactive
     {
@@ -30,8 +27,8 @@ namespace csbcgf
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
-        public abstract ICard FindParentCard(IGameState gameState);
+        public abstract ICard? FindParentCard(IGameState gameState);
 
-        public abstract IPlayer FindParentPlayer(IGameState gameState);
+        public abstract IPlayer? FindParentPlayer(IGameState gameState);
     }
 }

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public class Board : CardCollection, IBoard
     {
         /// <summary>
         /// Data container.
         /// </summary>
-        protected ICard[] cards;
+        protected ICard?[] cards;
 
         protected const int MaximumCapacity = 6;
 
@@ -35,7 +32,7 @@ namespace csbcgf
             get
             {
                 List<ICard> allCards = new List<ICard>();
-                foreach (ICard card in cards)
+                foreach (ICard? card in cards)
                 {
                     if (card != null)
                     {
@@ -50,7 +47,7 @@ namespace csbcgf
         {
             get
             {
-                foreach (ICard card in cards)
+                foreach (ICard? card in cards)
                 {
                     if (card != null)
                     {
@@ -66,7 +63,7 @@ namespace csbcgf
             get
             {
                 int size = 0;
-                foreach (ICard card in cards)
+                foreach (ICard? card in cards)
                 {
                     if (card != null)
                     {
@@ -77,14 +74,14 @@ namespace csbcgf
             }
         }
 
-        public ICard this[int index]
+        public ICard? this[int index]
         {
             get => cards[index];
         }
 
         public override bool Contains(ICard card)
         {
-            foreach (ICard c in cards)
+            foreach (ICard? c in cards)
             {
                 if (c == card)
                 {
