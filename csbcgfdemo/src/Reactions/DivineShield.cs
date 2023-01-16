@@ -12,7 +12,7 @@ namespace csbcgfdemo
             if (actionEvent.IsBefore(typeof(ModifyLifeStatAction)))
             {
                 ModifyLifeStatAction a = (ModifyLifeStatAction)actionEvent.Action;
-                ICard parentCard = FindParentCard(game);
+                ICard? parentCard = FindParentCard(game);
 
                 if (a.Living == parentCard && a.Delta < 0)
                 {

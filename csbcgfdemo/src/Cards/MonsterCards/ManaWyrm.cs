@@ -19,11 +19,13 @@ namespace csbcgfdemo
                 if (actionEvent.IsAfter(typeof(CastSpellAction)))
                 {
                     CastSpellAction a = (CastSpellAction)actionEvent.Action;
-                    ICard parentCard = FindParentCard(game);
-                    IPlayer spellCardOwner = a.SpellCard.FindParentPlayer(game);
-                    IPlayer manaWyrmOwner = parentCard.FindParentPlayer(game);
+                    ICard? parentCard = FindParentCard(game);
+                    IPlayer? spellCardOwner = a.SpellCard.FindParentPlayer(game);
+                    IPlayer? manaWyrmOwner = parentCard?.FindParentPlayer(game);
 
-                    if (spellCardOwner == manaWyrmOwner
+                    if (manaWyrmOwner != null 
+                        && parentCard != null 
+                        && spellCardOwner == manaWyrmOwner
                         && manaWyrmOwner.Board.Contains(parentCard))
                     {
                         game.Execute(new ModifyAttackStatAction((IAttacking)parentCard, 1));

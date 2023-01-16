@@ -110,7 +110,7 @@ namespace csbcgfdemo
             Console.ForegroundColor = ColorMana;
             for (int i = 0; i < board.MaxSize; ++i)
             {
-                ICard card = board[i];
+                ICard? card = board[i];
                 if (card != null)
                 {
                     Console.Write(string.Format(
@@ -126,7 +126,7 @@ namespace csbcgfdemo
             Console.ForegroundColor = ColorAttack;
             for (int i = 0; i < board.MaxSize; ++i)
             {
-                ICard card = board[i];
+                ICard? card = board[i];
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
@@ -143,7 +143,7 @@ namespace csbcgfdemo
             Console.ForegroundColor = ColorLife;
             for (int i = 0; i < board.MaxSize; ++i)
             {
-                ICard card = board[i];
+                ICard? card = board[i];
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
@@ -160,7 +160,7 @@ namespace csbcgfdemo
             Console.ForegroundColor = ColorDefault;
             for (int i = 0; i < board.MaxSize; ++i)
             {
-                IMonsterCard monsterCard = (IMonsterCard)board[i];
+                IMonsterCard? monsterCard = (IMonsterCard?)board[i];
                 Console.ForegroundColor = monsterCard != null && monsterCard.IsReadyToAttack
                         ? ColorSelectable
                         : ColorDefault;
