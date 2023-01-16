@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
     <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include=".\**\*.cs"/>
-    <EmbeddedResource Include=".\**\*.resx"/>
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\csbcgf\csbcgf.csproj">
       <Project>{3FF09BE9-E494-4D60-B87B-DFB4F91209A4}</Project>
@@ -15,8 +12,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.13.2"/>
-    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="NUnit" Version="3.13.3"/>
   </ItemGroup>
 </Project>
