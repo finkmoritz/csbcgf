@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public class CardComponent : Reaction, ICardComponent
     {
@@ -45,7 +42,7 @@ namespace csbcgf
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
-        public ICard FindCard(IGameState gameState)
+        public ICard? FindCard(IGameState gameState)
         {
             foreach (ICard card in gameState.AllCards)
             {

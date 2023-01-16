@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public interface IPlayer : IManaful, ICharacter, IReactive
     {

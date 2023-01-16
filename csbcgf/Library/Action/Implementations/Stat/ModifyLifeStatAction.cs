@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public class ModifyLifeStatAction : Action
     {

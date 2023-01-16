@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using csbcgf;
+﻿using csbcgf;
 
 namespace csbcgftest
 {

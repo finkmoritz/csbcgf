@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public interface IGame : IGameState, IReactive
     {

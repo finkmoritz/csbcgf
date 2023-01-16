@@ -1,8 +1,4 @@
-﻿
-
-using System;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public interface ICharacter : IManaful, IAttacking, ILiving
     {

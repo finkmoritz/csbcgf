@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace csbcgf
+﻿namespace csbcgf
 {
     public abstract class Event : Action
     {
