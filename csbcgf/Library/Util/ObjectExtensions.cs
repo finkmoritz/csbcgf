@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Reflection;
 using System.ArrayExtensions;
 
@@ -51,7 +50,7 @@ namespace System
             }
         }
 
-        private static void CopyFields(object originalObject, IDictionary<object, object> visited, object cloneObject, Type typeToReflect, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy, Func<FieldInfo, bool> filter = null)
+        private static void CopyFields(object originalObject, IDictionary<object, object> visited, object cloneObject, Type typeToReflect, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy, Func<FieldInfo, bool>? filter = null)
         {
             foreach (FieldInfo fieldInfo in typeToReflect.GetFields(bindingFlags))
             {
@@ -70,7 +69,7 @@ namespace System
 
     public class ReferenceEqualityComparer : EqualityComparer<Object>
     {
-        public override bool Equals(object x, object y)
+        public override bool Equals(object? x, object? y)
         {
             return ReferenceEquals(x, y);
         }
