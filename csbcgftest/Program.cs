@@ -161,6 +161,7 @@ namespace csbcgftest
         {
             IGame gameCopy = (IGame)game.Copy();
             Assert.AreEqual(game.AllCards[0].ManaValue, gameCopy.AllCards[0].ManaValue);
+            Assert.AreNotSame(game.AllCards[0], gameCopy.AllCards[0]);
         }
     }
 }
