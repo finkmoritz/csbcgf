@@ -15,7 +15,7 @@
             get => Math.Max(0, Components.Sum(c => c.ManaValue));
             set
             {
-                Components.Add(new CardComponent(value - Components.Sum(c => c.ManaValue), 0));
+                Components.Add(new CardComponent(this, value - Components.Sum(c => c.ManaValue), 0));
             }
         }
 
@@ -23,7 +23,7 @@
             get => Math.Max(0, Components.Sum(c => c.ManaBaseValue));
             set
             {
-                Components.Add(new CardComponent(0, value - Components.Sum(c => c.ManaBaseValue)));
+                Components.Add(new CardComponent(this, 0, value - Components.Sum(c => c.ManaBaseValue)));
             }
         }
 

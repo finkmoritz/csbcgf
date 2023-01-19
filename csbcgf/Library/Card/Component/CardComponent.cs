@@ -4,20 +4,23 @@
     {
         protected ManaCostStat manaCostStat;
 
+        public ICard Card { get; }
+
         public List<IReaction> Reactions { get; }
 
-        public CardComponent(int mana)
-            : this(new ManaCostStat(mana, mana), new List<IReaction>())
+        public CardComponent(ICard card, int mana)
+            : this(card, new ManaCostStat(mana, mana), new List<IReaction>())
         {
         }
 
-        public CardComponent(int manaValue, int manaBaseValue)
-            : this(new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>())
+        public CardComponent(ICard card, int manaValue, int manaBaseValue)
+            : this(card, new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>())
         {
         }
 
-        protected CardComponent(ManaCostStat manaCostStat, List<IReaction> reactions)
+        protected CardComponent(ICard card, ManaCostStat manaCostStat, List<IReaction> reactions)
         {
+            Card = card;
             this.manaCostStat = manaCostStat;
             Reactions = reactions;
         }
@@ -40,21 +43,6 @@
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
-        }
-
-        public ICard? FindCard(IGameState gameState)
-        {
-            foreach (ICard card in gameState.AllCards)
-            {
-                foreach (ICardComponent cardComponent in card.Components)
-                {
-                    if (cardComponent == this)
-                    {
-                        return card;
-                    }
-                }
-            }
-            return null;
         }
     }
 }

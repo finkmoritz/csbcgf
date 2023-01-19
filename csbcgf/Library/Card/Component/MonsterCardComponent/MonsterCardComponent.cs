@@ -6,32 +6,33 @@
 
         protected LifeStat lifeStat;
 
-        public MonsterCardComponent(int mana, int attack, int life)
-            : this(mana, new AttackStat(attack), new LifeStat(life))
+        public MonsterCardComponent(ICard card, int mana, int attack, int life)
+            : this(card, mana, new AttackStat(attack), new LifeStat(life))
         {
         }
 
-        public MonsterCardComponent(int manaValue, int manaBaseValue,
+        public MonsterCardComponent(ICard card, int manaValue, int manaBaseValue,
             int attackValue, int attackBaseValue, int lifeValue, int lifeBaseValue)
-            : base(manaValue, manaBaseValue)
+            : base(card, manaValue, manaBaseValue)
         {
             attackStat = new AttackStat(attackValue, attackBaseValue);
             lifeStat = new LifeStat(lifeValue, lifeBaseValue);
         }
 
-        public MonsterCardComponent(int mana, AttackStat attackStat, LifeStat lifeStat)
-            : base(mana)
+        public MonsterCardComponent(ICard card, int mana, AttackStat attackStat, LifeStat lifeStat)
+            : base(card, mana)
         {
             this.attackStat = attackStat;
             this.lifeStat = lifeStat;
         }
 
         protected MonsterCardComponent(
+            ICard card,
             ManaCostStat manaCostStat,
             AttackStat attackStat,
             LifeStat lifeStat,
             List<IReaction> reactions
-            ) : base(manaCostStat, reactions)
+            ) : base(card, manaCostStat, reactions)
         {
             this.attackStat = attackStat;
             this.lifeStat = lifeStat;

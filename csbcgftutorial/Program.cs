@@ -62,7 +62,7 @@ namespace csbcgftutorial
             Console.WriteLine("First player is still alive: " + game.Players[0].IsAlive);
 
             Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 1
-            ICardComponent extraLifeComponent = new MonsterCardComponent(0, 0, 1);
+            ICardComponent extraLifeComponent = new MonsterCardComponent(goblin, 0, 0, 1);
             goblin.Components.Add(extraLifeComponent);
             Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 2
             goblin.Components.Remove(extraLifeComponent);

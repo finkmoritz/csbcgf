@@ -17,8 +17,9 @@
         /// <param name="attack"></param>
         /// <param name="life"></param>
         public MonsterCard(int mana, int attack, int life)
-            : this(new List<IMonsterCardComponent> { new MonsterCardComponent(mana, attack, life) })
+            : this(new List<IMonsterCardComponent> {})
         {
+            Components.Add(new MonsterCardComponent(this, mana, attack, life));
         }
 
         /// <summary>
@@ -55,7 +56,7 @@
             get => Math.Max(0, GetSum(c => c.AttackValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, value - GetSum(c => c.AttackValue), 0, 0, 0));
+                Components.Add(new MonsterCardComponent(this, 0, 0, value - GetSum(c => c.AttackValue), 0, 0, 0));
             }
         }
 
@@ -64,7 +65,7 @@
             get => Math.Max(0, GetSum(c => c.AttackBaseValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, value - GetSum(c => c.AttackBaseValue), 0, 0));
+                Components.Add(new MonsterCardComponent(this, 0, 0, 0, value - GetSum(c => c.AttackBaseValue), 0, 0));
             }
         }
 
@@ -73,7 +74,7 @@
             get => Math.Max(0, GetSum(c => c.LifeValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, 0, value - GetSum(c => c.LifeValue), 0));
+                Components.Add(new MonsterCardComponent(this, 0, 0, 0, 0, value - GetSum(c => c.LifeValue), 0));
             }
         }
 
@@ -82,7 +83,7 @@
             get => Math.Max(0, GetSum(c => c.LifeBaseValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, 0, 0, value - GetSum(c => c.LifeBaseValue)));
+                Components.Add(new MonsterCardComponent(this, 0, 0, 0, 0, 0, value - GetSum(c => c.LifeBaseValue)));
             }
         }
 

@@ -2,13 +2,13 @@
 {
     public abstract class TargetfulSpellCardComponent : CardComponent, ITargetfulSpellCardComponent
     {
-        public TargetfulSpellCardComponent(int mana) : base(mana)
+        public TargetfulSpellCardComponent(ICard card, int mana) : base(card, mana)
         {
         }
 
-        protected TargetfulSpellCardComponent(ManaCostStat manaCostStat,
+        protected TargetfulSpellCardComponent(ICard card, ManaCostStat manaCostStat,
             List<IReaction> reactions)
-            : base(manaCostStat, reactions)
+            : base(card, manaCostStat, reactions)
         {
         }
 
