@@ -1,26 +1,42 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class RemoveCardFromDeckAction : Action
     {
-        public ICard? Card;
+        [JsonProperty]
+        protected ICard? card;
 
-        public readonly IDeck Deck;
+        [JsonProperty]
+        protected IDeck deck = null!;
+
+        protected RemoveCardFromDeckAction() {}
 
         public RemoveCardFromDeckAction(IDeck deck, ICard? card = null, bool isAborted = false)
             : base(isAborted)
         {
-            Deck = deck;
-            Card = card;
+            this.deck = deck;
+            this.card = card;
+        }
+
+        [JsonIgnore]
+        public ICard? Card {
+            get => card;
+        }
+
+        [JsonIgnore]
+        public IDeck Deck {
+            get => deck;
         }
 
         public override void Execute(IGame game)
         {
-            Card = Deck.Pop();
+            card = Deck.Pop();
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return !Deck.IsEmpty;
+            return !deck.IsEmpty;
         }
     }
 }

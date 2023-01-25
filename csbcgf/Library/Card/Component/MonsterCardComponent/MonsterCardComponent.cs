@@ -1,10 +1,16 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class MonsterCardComponent : CardComponent, IMonsterCardComponent
     {
-        protected AttackStat attackStat;
+        [JsonProperty]
+        protected AttackStat attackStat = null!;
 
-        protected LifeStat lifeStat;
+        [JsonProperty]
+        protected LifeStat lifeStat = null!;
+
+        protected MonsterCardComponent() {}
 
         public MonsterCardComponent(int mana, int attack, int life)
             : this(mana, new AttackStat(attack), new LifeStat(life))
@@ -37,24 +43,28 @@
             this.lifeStat = lifeStat;
         }
 
+        [JsonIgnore]
         public int AttackValue
         {
             get => attackStat.Value;
             set => attackStat.Value = value;
         }
 
+        [JsonIgnore]
         public int AttackBaseValue
         {
             get => attackStat.BaseValue;
             set => attackStat.BaseValue = value;
         }
 
+        [JsonIgnore]
         public int LifeValue
         {
             get => lifeStat.Value;
             set => lifeStat.Value = value;
         }
 
+        [JsonIgnore]
         public int LifeBaseValue
         {
             get => lifeStat.BaseValue;

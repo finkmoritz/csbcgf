@@ -1,10 +1,15 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class ActionQueue : IActionQueue
     {
+        [JsonProperty]
         protected bool isGameOver = false;
 
         public bool ExecuteReactions { get; set; }
+
+        protected ActionQueue() {}
 
         public ActionQueue(bool executeReactions = true)
             : this(executeReactions, false)

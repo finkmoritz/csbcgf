@@ -1,12 +1,19 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class ModifyManaStatAction : Action
     {
-        public IManaful Manaful;
+        [JsonProperty]
+        protected IManaful manaful = null!;
 
-        public int DeltaValue;
+        [JsonProperty]
+        protected int deltaValue;
 
-        public int DeltaBaseValue;
+        [JsonProperty]
+        protected int deltaBaseValue;
+
+        protected ModifyManaStatAction() {}
 
         public ModifyManaStatAction(
             IManaful manaful,
@@ -15,9 +22,26 @@
             bool isAborted = false
             ) : base(isAborted)
         {
-            Manaful = manaful;
-            DeltaValue = deltaValue;
-            DeltaBaseValue = deltaBaseValue;
+            this.manaful = manaful;
+            this.deltaValue = deltaValue;
+            this.deltaBaseValue = deltaBaseValue;
+        }
+
+        [JsonIgnore]
+        public IManaful Manaful {
+            get => manaful;
+        }
+
+        [JsonIgnore]
+        public int DeltaValue {
+            get => deltaValue;
+            set => deltaValue = value;
+        }
+
+        [JsonIgnore]
+        public int DeltaBaseValue {
+            get => deltaBaseValue;
+            set => deltaBaseValue = value;
         }
 
         public override void Execute(IGame game)

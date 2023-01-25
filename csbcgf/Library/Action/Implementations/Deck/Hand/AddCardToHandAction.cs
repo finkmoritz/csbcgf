@@ -1,16 +1,32 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class AddCardToHandAction : Action
     {
-        public readonly IHand Hand;
+        [JsonProperty]
+        protected IHand hand = null!;
 
-        public ICard Card;
+        [JsonProperty]
+        protected ICard card = null!;
+
+        protected AddCardToHandAction() {}
 
         public AddCardToHandAction(IHand hand, ICard card, bool isAborted = false)
             : base(isAborted)
         {
-            Hand = hand;
-            Card = card;
+            this.hand = hand;
+            this.card = card;
+        }
+
+        [JsonIgnore]
+        public IHand Hand {
+            get => hand;
+        }
+
+        [JsonIgnore]
+        public ICard Card {
+            get => card;
         }
 
         public override void Execute(IGame game)

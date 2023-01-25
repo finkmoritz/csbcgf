@@ -1,12 +1,23 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public abstract class Action : IAction
     {
-        public bool IsAborted { get; set; }
+        [JsonProperty]
+        protected bool isAborted;
+
+        protected Action() {}
 
         public Action(bool isAborted = false)
         {
-            IsAborted = isAborted;
+            this.isAborted = isAborted;
+        }
+
+        [JsonIgnore]
+        public bool IsAborted {
+            get => isAborted;
+            set => isAborted = value;
         }
 
         public abstract void Execute(IGame game);

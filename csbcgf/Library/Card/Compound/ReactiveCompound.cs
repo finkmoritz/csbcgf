@@ -1,8 +1,13 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public abstract class ReactiveCompound : Compound, IReactive
     {
-        public List<IReaction> Reactions { get; }
+        [JsonProperty]
+        protected List<IReaction> reactions = null!;
+
+        protected ReactiveCompound() {}
 
         public ReactiveCompound(List<ICardComponent> components)
             : this(components, new List<IReaction>())
@@ -12,7 +17,12 @@
         protected ReactiveCompound(List<ICardComponent> components, List<IReaction> reactions)
             : base(components)
         {
-            Reactions = reactions;
+            this.reactions = reactions;
+        }
+
+        [JsonIgnore]
+        public List<IReaction> Reactions {
+            get => reactions;
         }
 
         public List<IReaction> AllReactions()

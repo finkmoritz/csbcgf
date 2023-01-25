@@ -6,7 +6,7 @@
         /// Remove and return the top Card from this Deck.
         /// </summary>
         /// <returns>The top Card from this Deck.</returns>
-        ICard Pop();
+        ICard? Pop();
 
         /// <summary>
         /// Push the given Card to this Deck.

@@ -1,11 +1,15 @@
 ﻿using csbcgf;
+using Newtonsoft.Json;
 
 namespace csbcgftest
 {
     
     public class DamageSpellCard : TargetfulSpellCard
     {
+        [JsonProperty]
         protected uint damage;
+
+        protected DamageSpellCard() {}
 
         public DamageSpellCard(uint damage)
             : this(damage, new List<ICardComponent>(), new List<IReaction>())
@@ -24,7 +28,10 @@ namespace csbcgftest
 
         public class DamageSpellCardComponent : TargetfulSpellCardComponent
         {
-            private readonly uint damage;
+            [JsonProperty]
+            protected uint damage;
+
+            protected DamageSpellCardComponent() {}
 
             public DamageSpellCardComponent(int mana, uint damage)
                 : this(damage, new ManaCostStat(mana, mana), new List<IReaction>())

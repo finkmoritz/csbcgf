@@ -2,6 +2,8 @@
 {
     public abstract class TargetlessSpellCardComponent : CardComponent, ITargetlessSpellCardComponent
     {
+        protected TargetlessSpellCardComponent() {}
+        
         public TargetlessSpellCardComponent(int mana) : base(mana)
         {
         }

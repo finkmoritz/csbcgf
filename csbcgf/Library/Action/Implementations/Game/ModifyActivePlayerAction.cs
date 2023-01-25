@@ -1,13 +1,23 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class ModifyActivePlayerAction : Action
     {
-        public IPlayer NewActivePlayer;
+        [JsonProperty]
+        protected IPlayer newActivePlayer = null!;
+
+        protected ModifyActivePlayerAction() {}
 
         public ModifyActivePlayerAction(IPlayer newActivePlayer, bool isAborted = false)
             : base(isAborted)
         {
-            NewActivePlayer = newActivePlayer;
+            this.newActivePlayer = newActivePlayer;
+        }
+
+        [JsonIgnore]
+        public IPlayer NewActivePlayer {
+            get => newActivePlayer;
         }
 
         public override void Execute(IGame game)

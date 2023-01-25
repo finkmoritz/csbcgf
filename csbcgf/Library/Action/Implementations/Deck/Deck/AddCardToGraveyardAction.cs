@@ -1,16 +1,32 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class AddCardToGraveyardAction : Action
     {
-        public readonly IDeck Graveyard;
+        [JsonProperty]
+        protected IDeck graveyard = null!;
 
-        public ICard Card;
+        [JsonProperty]
+        public ICard card = null!;
+
+        protected AddCardToGraveyardAction() {}
 
         public AddCardToGraveyardAction(IDeck graveyard, ICard card, bool isAborted = false)
             : base(isAborted)
         {
-            Graveyard = graveyard;
-            Card = card;
+            this.graveyard = graveyard;
+            this.card = card;
+        }
+
+        [JsonIgnore]
+        public IDeck Graveyard {
+            get => graveyard;
+        }
+
+        [JsonIgnore]
+        public ICard Card {
+            get => card;
         }
 
         public override void Execute(IGame game)

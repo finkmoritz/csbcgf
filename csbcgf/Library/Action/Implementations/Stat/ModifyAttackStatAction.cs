@@ -1,16 +1,33 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class ModifyAttackStatAction : Action
     {
-        public IAttacking Attacking;
+        [JsonProperty]
+        protected IAttacking attacking = null!;
 
-        public int Delta;
+        [JsonProperty]
+        protected int delta;
+
+        protected ModifyAttackStatAction() {}
 
         public ModifyAttackStatAction(IAttacking attacking, int delta, bool isAborted = false)
             : base(isAborted)
         {
-            Attacking = attacking;
-            Delta = delta;
+            this.attacking = attacking;
+            this.delta = delta;
+        }
+
+        [JsonIgnore]
+        public IAttacking Attacking {
+            get => attacking;
+        }
+
+        [JsonIgnore]
+        public int Delta {
+            get => delta;
+            set => delta = value;
         }
 
         public override void Execute(IGame game)

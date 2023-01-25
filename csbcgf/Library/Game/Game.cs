@@ -1,4 +1,6 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class Game : IGame
     {
@@ -6,19 +8,19 @@
         /// Index of the active Player. Refers to the Players array.
         /// Also see the ActivePlayer accessor.
         /// </summary>
+        [JsonProperty]
         protected int activePlayerIndex;
 
-        protected ActionQueue actionQueue;
+        [JsonProperty]
+        protected ActionQueue actionQueue = null!;
 
-        public List<IReaction> Reactions { get; }
+        [JsonProperty]
+        protected List<IReaction> reactions = null!;
 
-        public List<IPlayer> Players { get; protected set; }
+        [JsonProperty]
+        protected List<IPlayer> players = null!;
 
-        /// <summary>
-        /// Represent the current Game state and provides methods to alter
-        /// this Game state.
-        /// </summary>
-        public Game() : this(new List<IPlayer>())
+        protected Game()
         {
         }
 
@@ -37,12 +39,25 @@
 
         public Game(List<IPlayer> players, int activePlayerIndex, ActionQueue actionQueue, List<IReaction> reactions)
         {
-            Players = players;
+            this.players = players;
             this.activePlayerIndex = activePlayerIndex;
             this.actionQueue = actionQueue;
-            Reactions = reactions;
+            this.reactions = reactions;
         }
 
+        [JsonIgnore]
+        public List<IReaction> Reactions
+        {
+            get => reactions;
+        }
+
+        [JsonIgnore]
+        public List<IPlayer> Players
+        {
+            get => players;
+        }
+
+        [JsonIgnore]
         public IPlayer ActivePlayer
         {
             get => Players[activePlayerIndex];
@@ -52,6 +67,7 @@
             }
         }
 
+        [JsonIgnore]
         public List<IPlayer> NonActivePlayers
         {
             get
@@ -60,6 +76,7 @@
             }
         }
 
+        [JsonIgnore]
         public List<ICard> AllCards
         {
             get
@@ -73,6 +90,7 @@
             }
         }
 
+        [JsonIgnore]
         public List<ICard> AllCardsOnTheBoard
         {
             get

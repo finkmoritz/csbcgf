@@ -1,10 +1,13 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class Hand : CardCollection, IHand
     {
         /// <summary>
         /// Data container.
         /// </summary>
+        [JsonProperty]
         protected List<ICard> cards;
 
         public Hand() : this(new List<ICard>())
@@ -16,15 +19,16 @@
             this.cards = cards;
         }
 
-        public int MaxSize { get => 10; }
+        [JsonIgnore]
+        public int MaxSize => 10;
 
+        [JsonIgnore]
         public override List<ICard> AllCards => new List<ICard>(cards);
 
-        public override bool IsEmpty
-        {
-            get => cards.Count == 0;
-        }
+        [JsonIgnore]
+        public override bool IsEmpty => cards.Count == 0;
 
+        [JsonIgnore]
         public override int Size => cards.Count;
 
         public override bool Contains(ICard card)

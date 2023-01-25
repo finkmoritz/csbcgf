@@ -1,26 +1,29 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class Deck : CardCollection, IDeck
     {
-        protected Stack<ICard> cards;
+        [JsonProperty]
+        protected List<ICard> cards;
 
-        public Deck() : this(new Stack<ICard>())
+        public Deck() : this(new List<ICard>())
         {
         }
 
-        protected Deck(Stack<ICard> cards)
+        protected Deck(List<ICard> cards)
         {
             this.cards = cards;
         }
 
+        [JsonIgnore]
         public override List<ICard> AllCards => new List<ICard>(cards);
 
+        [JsonIgnore]
         public override int Size => cards.Count;
 
-        public override bool IsEmpty
-        {
-            get => cards.Count == 0;
-        }
+        [JsonIgnore]
+        public override bool IsEmpty => cards.Count == 0;
 
         public override bool Contains(ICard card)
         {
@@ -28,14 +31,19 @@
         }
         
 
-        public ICard Pop()
+        public ICard? Pop()
         {
-            return cards.Pop();
+            if (cards.Count == 0) {
+                return null;
+            }
+            ICard card = cards.Last<ICard>();
+            cards.Remove(card);
+            return card;
         }
 
         public void Push(ICard card)
         {
-            cards.Push(card);
+            cards.Add(card);
         }
 
         public void Shuffle()
@@ -44,7 +52,7 @@
             cards.Clear();
             foreach (ICard card in tmp.OrderBy(x => new Random().Next()))
             {
-                cards.Push(card);
+                Push(card);
             }
         }
     }

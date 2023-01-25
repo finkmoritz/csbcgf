@@ -1,16 +1,32 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class AttackAction : Action
     {
-        public IMonsterCard Attacker;
+        [JsonProperty]
+        protected IMonsterCard attacker = null!;
 
-        public ICharacter Target;
+        [JsonProperty]
+        protected ICharacter target = null!;
+
+        protected AttackAction() {}
 
         public AttackAction(IMonsterCard attacker, ICharacter target, bool isAborted = false)
             : base(isAborted)
         {
-            Attacker = attacker;
-            Target = target;
+            this.attacker = attacker;
+            this.target = target;
+        }
+
+        [JsonIgnore]
+        public IMonsterCard Attacker {
+            get => attacker;
+        }
+
+        [JsonIgnore]
+        public ICharacter Target {
+            get => target;
         }
 
         public override void Execute(IGame game)

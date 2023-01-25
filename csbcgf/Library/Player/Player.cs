@@ -1,19 +1,32 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class Player : IPlayer
     {
-        protected ManaPoolStat manaPoolStat;
+        [JsonProperty]
+        protected ManaPoolStat manaPoolStat = null!;
 
-        protected AttackStat attackStat;
+        [JsonProperty]
+        protected AttackStat attackStat = null!;
 
-        protected LifeStat lifeStat;
+        [JsonProperty]
+        protected LifeStat lifeStat = null!;
 
-        public List<IReaction> Reactions { get; }
+        [JsonProperty]
+        protected List<IReaction> reactions = null!;
 
-        public IDeck Deck { get; protected set; }
-        public IHand Hand { get; protected set; }
-        public IBoard Board { get; protected set; }
-        public IDeck Graveyard { get; protected set; }
+        [JsonProperty]
+        protected IDeck deck = null!;
+
+        [JsonProperty]
+        protected IHand hand = null!;
+
+        [JsonProperty]
+        protected IBoard board = null!;
+
+        [JsonProperty]
+        protected IDeck graveyard = null!;
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
@@ -37,19 +50,21 @@
             ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat,
             List<IReaction> reactions)
         {
-            Deck = deck;
-            Hand = hand;
-            Board = board;
-            Graveyard = graveyard;
+            this.deck = deck;
+            this.hand = hand;
+            this.board = board;
+            this.graveyard = graveyard;
 
             this.manaPoolStat = manaPoolStat;
             this.attackStat = attackStat;
             this.lifeStat = lifeStat;
-            Reactions = reactions;
+            this.reactions = reactions;
         }
 
+        [JsonIgnore]
         public bool IsAlive => lifeStat.Value > 0;
 
+        [JsonIgnore]
         public List<ICard> AllCards
         {
             get
@@ -63,42 +78,49 @@
             }
         }
 
+        [JsonIgnore]
         public int AttackValue
         {
             get => attackStat.Value;
             set => attackStat.Value = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public int AttackBaseValue
         {
             get => attackStat.BaseValue;
             set => attackStat.BaseValue = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public int LifeValue
         {
             get => lifeStat.Value;
             set => lifeStat.Value = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public int LifeBaseValue
         {
             get => lifeStat.BaseValue;
             set => lifeStat.BaseValue = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public int ManaValue
         {
             get => manaPoolStat.Value;
             set => manaPoolStat.Value = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public int ManaBaseValue
         {
             get => manaPoolStat.BaseValue;
             set => manaPoolStat.BaseValue = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public List<ICharacter> Characters
         {
             get
@@ -110,6 +132,31 @@
                 Board.AllCards.ForEach(c => characters.Add((ICharacter)c));
                 return characters;
             }
+        }
+
+        [JsonIgnore]
+        public List<IReaction> Reactions {
+            get => reactions;
+        }
+
+        [JsonIgnore]
+        public IDeck Deck {
+            get => deck;
+        }
+
+        [JsonIgnore]
+        public IHand Hand {
+            get => hand;
+        }
+
+        [JsonIgnore]
+        public IBoard Board {
+            get => board;
+        }
+
+        [JsonIgnore]
+        public IDeck Graveyard {
+            get => graveyard;
         }
 
         public List<IReaction> AllReactions()

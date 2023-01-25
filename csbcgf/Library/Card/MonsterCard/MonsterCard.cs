@@ -1,11 +1,13 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class MonsterCard : Card, IMonsterCard
     {
-        public bool IsReadyToAttack { get; set; }
+        [JsonProperty]
+        protected bool isReadyToAttack;
 
-        public MonsterCard()
-            : this(new List<IMonsterCardComponent>())
+        protected MonsterCard()
         {
         }
 
@@ -45,11 +47,19 @@
             bool isReadyToAttack
             ) : base(components, reactions)
         {
-            IsReadyToAttack = isReadyToAttack;
+            this.isReadyToAttack = isReadyToAttack;
         }
 
+        [JsonIgnore]
+        public bool IsReadyToAttack {
+            get => isReadyToAttack;
+            set => isReadyToAttack = value;
+        }
+
+        [JsonIgnore]
         public bool IsAlive => LifeValue > 0;
 
+        [JsonIgnore]
         public int AttackValue
         {
             get => Math.Max(0, GetSum(c => c.AttackValue));
@@ -59,6 +69,7 @@
             }
         }
 
+        [JsonIgnore]
         public int AttackBaseValue
         {
             get => Math.Max(0, GetSum(c => c.AttackBaseValue));
@@ -68,6 +79,7 @@
             }
         }
 
+        [JsonIgnore]
         public int LifeValue
         {
             get => Math.Max(0, GetSum(c => c.LifeValue));
@@ -77,6 +89,7 @@
             }
         }
 
+        [JsonIgnore]
         public int LifeBaseValue
         {
             get => Math.Max(0, GetSum(c => c.LifeBaseValue));

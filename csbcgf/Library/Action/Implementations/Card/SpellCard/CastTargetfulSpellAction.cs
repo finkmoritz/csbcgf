@@ -1,8 +1,13 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class CastTargetfulSpellAction : CastSpellAction
     {
-        public ICharacter Target;
+        [JsonProperty]
+        public ICharacter target = null!;
+
+        protected CastTargetfulSpellAction() {}
 
         public CastTargetfulSpellAction(
             IPlayer player,
@@ -11,8 +16,13 @@
             bool isAborted = false
             ) : base(player, spellCard, isAborted)
         {
-            SpellCard = spellCard;
-            Target = target;
+            this.spellCard = spellCard;
+            this.target = target;
+        }
+
+        [JsonIgnore]
+        public ICharacter Target {
+            get => target;
         }
 
         public override void Execute(IGame game)

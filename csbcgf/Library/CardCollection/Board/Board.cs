@@ -1,10 +1,13 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class Board : CardCollection, IBoard
     {
         /// <summary>
         /// Data container.
         /// </summary>
+        [JsonProperty]
         protected ICard?[] cards;
 
         protected const int MaximumCapacity = 6;
@@ -25,8 +28,12 @@
             this.cards = cards;
         }
 
-        public int MaxSize { get => MaximumCapacity; }
+        [JsonIgnore]
+        public int MaxSize { 
+            get => MaximumCapacity; 
+        }
 
+        [JsonIgnore]
         public override List<ICard> AllCards
         {
             get
@@ -43,6 +50,7 @@
             }
         }
 
+        [JsonIgnore]
         public override bool IsEmpty
         {
             get
@@ -58,6 +66,7 @@
             }
         }
 
+        [JsonIgnore]
         public override int Size
         {
             get

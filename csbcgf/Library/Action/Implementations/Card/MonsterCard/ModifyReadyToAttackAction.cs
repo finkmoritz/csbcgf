@@ -1,10 +1,16 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class ModifyReadyToAttackAction : Action
     {
-        public IMonsterCard MonsterCard;
+        [JsonProperty]
+        protected IMonsterCard monsterCard = null!;
 
-        public bool IsReadyToAttack;
+        [JsonProperty]
+        protected bool isReadyToAttack;
+
+        protected ModifyReadyToAttackAction() {}
 
         public ModifyReadyToAttackAction(
             IMonsterCard monsterCard,
@@ -12,8 +18,18 @@
             bool isAborted = false
             ) : base(isAborted)
         {
-            MonsterCard = monsterCard;
-            IsReadyToAttack = isReadyToAttack;
+            this.monsterCard = monsterCard;
+            this.isReadyToAttack = isReadyToAttack;
+        }
+
+        [JsonIgnore]
+        public IMonsterCard MonsterCard {
+            get => monsterCard;
+        }
+
+        [JsonIgnore]
+        public bool IsReadyToAttack {
+            get => isReadyToAttack;
         }
 
         public override void Execute(IGame game)

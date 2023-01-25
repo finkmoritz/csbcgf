@@ -161,7 +161,11 @@ namespace csbcgftest
         {
             string serializedGame = JsonSerializer.ToJson(game);
             IGame? gameCopy = JsonSerializer.FromJson<Game>(serializedGame);
-            Assert.AreEqual(serializedGame, JsonSerializer.ToJson(gameCopy));
+            string serializedGameCopy = JsonSerializer.ToJson(gameCopy);
+            Assert.AreEqual(serializedGame, serializedGameCopy, "Expected:\n{0}\n\nActual:\n{1}\n", new object[] {serializedGame, serializedGameCopy});
+
+            Assert.AreEqual(2, gameCopy!.Players.Count);
+            Assert.AreEqual(5, gameCopy!.ActivePlayer.AllCards.Count);
         }
     }
 }

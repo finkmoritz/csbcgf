@@ -1,13 +1,23 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class DieAction : Action
     {
-        public IMonsterCard MonsterCard;
+        [JsonProperty]
+        protected IMonsterCard monsterCard = null!;
+
+        protected DieAction() {}
 
         public DieAction(IMonsterCard monsterCard, bool isAborted = false)
             : base(isAborted)
         {
-            MonsterCard = monsterCard;
+            this.monsterCard = monsterCard;
+        }
+
+        [JsonIgnore]
+        public IMonsterCard MonsterCard {
+            get => monsterCard;
         }
 
         public override void Execute(IGame game)

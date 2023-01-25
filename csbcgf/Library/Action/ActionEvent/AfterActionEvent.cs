@@ -2,6 +2,8 @@
 {
     public class AfterActionEvent : ActionEvent
     {
+        protected AfterActionEvent() {}
+
         public AfterActionEvent(IAction action) : base(action)
         {
         }

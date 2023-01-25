@@ -2,6 +2,8 @@
 
     public class ManaCostStat : Stat
     {
+        protected ManaCostStat() {}
+        
         /// <summary>
         /// Costs in Mana.
         /// </summary>

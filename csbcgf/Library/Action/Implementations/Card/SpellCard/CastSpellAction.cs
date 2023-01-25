@@ -1,16 +1,32 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public abstract class CastSpellAction : Action
     {
-        public IPlayer Player;
+        [JsonProperty]
+        protected IPlayer player = null!;
 
-        public ISpellCard SpellCard;
+        [JsonProperty]
+        protected ISpellCard spellCard = null!;
+
+        protected CastSpellAction() {}
 
         public CastSpellAction(IPlayer player, ISpellCard spellCard, bool isAborted = false)
             : base(isAborted)
         {
-            Player = player;
-            SpellCard = spellCard;
+            this.player = player;
+            this.spellCard = spellCard;
+        }
+
+        [JsonIgnore]
+        public IPlayer Player {
+            get => player;
+        }
+
+        [JsonIgnore]
+        public ISpellCard SpellCard {
+            get => spellCard;
         }
 
         public override abstract void Execute(IGame game);

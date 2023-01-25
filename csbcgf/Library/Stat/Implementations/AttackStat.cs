@@ -2,6 +2,8 @@
 {
     public class AttackStat : Stat
     {
+        protected AttackStat() {}
+
         /// <summary>
         /// Potential damage to be dealt.
         /// </summary>

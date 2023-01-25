@@ -1,7 +1,11 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class ManaPoolStat : Stat
     {
+        protected ManaPoolStat() {}
+
         /// <summary>
         /// Represents available mana.
         /// </summary>
@@ -11,12 +15,14 @@
         {
         }
 
+        [JsonIgnore]
         public override int Value
         {
             get => base.Value;
             set => base.Value = Math.Max(0, value);
         }
 
+        [JsonIgnore]
         public override int BaseValue
         {
             get => base.BaseValue;

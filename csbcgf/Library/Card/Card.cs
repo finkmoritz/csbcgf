@@ -1,4 +1,6 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public abstract class Card : ReactiveCompound, ICard
     {
@@ -11,6 +13,7 @@
         {
         }
 
+        [JsonIgnore]
         public int ManaValue {
             get => Math.Max(0, Components.Sum(c => c.ManaValue));
             set
@@ -19,6 +22,7 @@
             }
         }
 
+        [JsonIgnore]
         public int ManaBaseValue {
             get => Math.Max(0, Components.Sum(c => c.ManaBaseValue));
             set

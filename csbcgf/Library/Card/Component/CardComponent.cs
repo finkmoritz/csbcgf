@@ -1,10 +1,16 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class CardComponent : Reaction, ICardComponent
     {
-        protected ManaCostStat manaCostStat;
+        [JsonProperty]
+        protected ManaCostStat manaCostStat = null!;
 
-        public List<IReaction> Reactions { get; }
+        [JsonProperty]
+        protected List<IReaction> reactions = null!;
+
+        protected CardComponent() {}
 
         public CardComponent(int mana)
             : this(new ManaCostStat(mana, mana), new List<IReaction>())
@@ -19,14 +25,21 @@
         protected CardComponent(ManaCostStat manaCostStat, List<IReaction> reactions)
         {
             this.manaCostStat = manaCostStat;
-            Reactions = reactions;
+            this.reactions = reactions;
         }
 
+        [JsonIgnore]
+        public List<IReaction> Reactions {
+            get => reactions;
+        }
+
+        [JsonIgnore]
         public int ManaValue {
             get => manaCostStat.Value;
             set => manaCostStat.Value = value;
         }
 
+        [JsonIgnore]
         public int ManaBaseValue {
             get => manaCostStat.BaseValue;
             set => manaCostStat.BaseValue = value;

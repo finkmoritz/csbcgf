@@ -1,20 +1,42 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public class CastMonsterAction : Action
     {
-        public IPlayer Player;
+        [JsonProperty]
+        protected IPlayer player = null!;
 
-        public IMonsterCard MonsterCard;
+        [JsonProperty]
+        protected IMonsterCard monsterCard = null!;
 
-        public int BoardIndex;
+        [JsonProperty]
+        protected int boardIndex;
+
+        protected CastMonsterAction() {}
 
         public CastMonsterAction(IPlayer player, IMonsterCard monsterCard,
             int boardIndex, bool isAborted = false
             ) : base(isAborted)
         {
-            Player = player;
-            MonsterCard = monsterCard;
-            BoardIndex = boardIndex;
+            this.player = player;
+            this.monsterCard = monsterCard;
+            this.boardIndex = boardIndex;
+        }
+
+        [JsonIgnore]
+        public IPlayer Player {
+            get => player;
+        }
+
+        [JsonIgnore]
+        public IMonsterCard MonsterCard {
+            get => monsterCard;
+        }
+
+        [JsonIgnore]
+        public int BoardIndex {
+            get => boardIndex;
         }
 
         public override void Execute(IGame game)
