@@ -6,7 +6,7 @@ namespace csbcgftutorial
     {
         public static void Main(string[] args)
         {
-            IGame myGame = new Game(new List<IPlayer>());
+            IGame myGame = new Game();
 
             IPlayer myPlayer1 = new Player();
             IPlayer myPlayer2 = new Player();

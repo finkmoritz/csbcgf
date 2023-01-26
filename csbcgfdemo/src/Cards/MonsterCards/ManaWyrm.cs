@@ -4,7 +4,9 @@ namespace csbcgfdemo
 {
     public class ManaWyrm : MonsterCard
     {
-        public ManaWyrm() : base(2, 1, 3)
+        protected ManaWyrm() {}
+        
+        public ManaWyrm(bool initialize = true) : base(2, 1, 3)
         {
             Reactions.Add(new ManaWyrmReaction());
         }

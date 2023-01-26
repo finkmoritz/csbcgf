@@ -7,7 +7,9 @@ namespace csbcgfdemo
     /// </summary>
     public class Bananas : TargetfulSpellCard
     {
-        public Bananas() : base(new BananasComponent())
+        protected Bananas() {}
+        
+        public Bananas(bool initialize = true) : base(new BananasComponent())
         {
         }
 
@@ -19,7 +21,9 @@ namespace csbcgfdemo
 
         public class BananasComponent : TargetfulSpellCardComponent
         {
-            public BananasComponent() : base(1)
+            protected BananasComponent() {}
+
+            public BananasComponent(bool initialize = true) : base(1)
             {
             }
 

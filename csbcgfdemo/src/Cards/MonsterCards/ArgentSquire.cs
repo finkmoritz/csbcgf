@@ -4,7 +4,9 @@ namespace csbcgfdemo
 {
     public class ArgentSquire : MonsterCard
     {
-        public ArgentSquire() : base(1, 1, 1)
+        protected ArgentSquire() {}
+
+        public ArgentSquire(bool initialize = true) : base(1, 1, 1)
         {
             Reactions.Add(new DivineShield());
         }

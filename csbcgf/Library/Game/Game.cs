@@ -24,6 +24,10 @@ namespace csbcgf
         {
         }
 
+        public Game(bool initialize = true) : this(new List<IPlayer>()) {
+
+        }
+
         /// <summary>
         /// Represent the current Game state and provides methods to alter
         /// this Game state.

@@ -4,7 +4,9 @@ namespace csbcgfdemo
 {
     public class KingMukla : MonsterCard
     {
-        public KingMukla() : base(3, 5, 5)
+        protected KingMukla() {}
+        
+        public KingMukla(bool initialize = true) : base(3, 5, 5)
         {
             Reactions.Add(new KingMuklaBattlecryReaction());
         }

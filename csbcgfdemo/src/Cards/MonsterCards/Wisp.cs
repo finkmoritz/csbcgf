@@ -4,7 +4,9 @@ namespace csbcgfdemo
 {
     public class Wisp : MonsterCard
     {
-        public Wisp() : base(0, 1, 1)
+        protected Wisp() {}
+
+        public Wisp(bool initialize = true) : base(0, 1, 1)
         {
         }
     }

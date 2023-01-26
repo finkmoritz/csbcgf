@@ -4,13 +4,17 @@ namespace csbcgfdemo
 {
     public class FarSight : TargetlessSpellCard
     {
-        public FarSight() : base(new FarSightComponent())
+        protected FarSight() {}
+        
+        public FarSight(bool initialize = true) : base(new FarSightComponent())
         {
         }
 
         public class FarSightComponent : TargetlessSpellCardComponent
         {
-            public FarSightComponent() : base(3)
+            protected FarSightComponent() {}
+
+            public FarSightComponent(bool initialize = true) : base(3)
             {
             }
 

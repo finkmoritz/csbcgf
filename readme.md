@@ -12,6 +12,7 @@ It already provides a basic event-driven game loop and classes to derive from.
 
 - [Getting Started](#getting-started)
 - [Classes & Interfaces](#classes-and-interfaces)
+- [Serialization](#serialization)
 - [FAQ](#faq)
 - [Impressum](#impressum)
 
@@ -155,6 +156,73 @@ execution of each ``Action`` (via Game.Process method), this ``Action`` is fed i
 the ``ReactTo`` method of every ``Action`` in every ``Card`` and all ``Action``s
 returned from this method are in turn again fed into the action queue and
 subsequently processed.
+
+---
+
+# Serialization
+
+The whole game state is meant to be serializable so that it can be sent from server 
+to client and vice versa. Hence, the developer needs to ensure that their classes
+can be serialized and deserialized correctly. Here are some hints to achieve this:
+
+## Use ``Newtonsoft.Json`` library
+
+If you use below mentioned annotations, make sure to import ``Newtonsoft.Json``.
+
+Example:
+```
+using Newtonsoft.Json;
+```
+
+## Always provide a default constructor
+
+If you implemented one or more constructors, also add one ``protected`` default
+constructor without any implementation in its body.
+
+In case this conflicts with your own parameterless ``public`` constructor, add
+an optional dummy parameter to your constructor.
+
+Example:
+```
+public class FarSight : TargetlessSpellCard
+{
+    protected FarSight() {} // this is used for deserialization only
+    
+    public FarSight(bool initialize = true) : base(new FarSightComponent()) // this is used in your code
+    {
+    }
+...
+```
+
+## Keep the whole state in ``protected`` member variables
+
+Make sure that the whole state that needs to be serialized is either contained
+in ``protected``/``private`` member variables marked with ``JsonProperty`` or 
+``public`` member variables/properties.
+
+If you expose ``protected``/``private`` variables via ``public`` Getters / Setters,
+annotate them with ``JsonIgnore`` so that they are not (de)serialized.
+
+Example:
+```
+public abstract class Compound : ICompound
+{
+    [JsonProperty]
+    protected List<ICardComponent> components = null!;
+
+    protected Compound() {}
+
+    public Compound(List<ICardComponent> components)
+    {
+        this.components = components;
+    }
+
+    [JsonIgnore]
+    public List<ICardComponent> Components {
+            get => components;
+    }
+}
+```
 
 ---
 
