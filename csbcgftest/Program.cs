@@ -6,7 +6,7 @@ namespace csbcgftest
     [TestFixture()]
     public class Test
     {
-        private IGame game;
+        private IGame game = null!;
 
         [SetUp()]
         public void SetUp()
