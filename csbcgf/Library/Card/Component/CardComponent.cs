@@ -10,6 +10,9 @@ namespace csbcgf
         [JsonProperty]
         protected List<IReaction> reactions = null!;
 
+        [JsonProperty]
+        protected ICompound? parentCard;
+
         protected CardComponent() {}
 
         public CardComponent(int mana)
@@ -34,6 +37,16 @@ namespace csbcgf
         }
 
         [JsonIgnore]
+        public ICompound? ParentCard {
+            get {
+                return parentCard;
+            }
+            set {
+                parentCard = value;
+            }
+        }
+
+        [JsonIgnore]
         public int ManaValue {
             get => manaCostStat.Value;
             set => manaCostStat.Value = value;
@@ -53,21 +66,6 @@ namespace csbcgf
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
-        }
-
-        public ICard? FindCard(IGameState gameState)
-        {
-            foreach (ICard card in gameState.AllCards)
-            {
-                foreach (ICardComponent cardComponent in card.Components)
-                {
-                    if (cardComponent == this)
-                    {
-                        return card;
-                    }
-                }
-            }
-            return null;
         }
     }
 }

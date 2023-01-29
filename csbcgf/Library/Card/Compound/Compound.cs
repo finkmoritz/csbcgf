@@ -18,5 +18,20 @@ namespace csbcgf
         public List<ICardComponent> Components {
              get => components;
         }
+
+        void ICompound.AddComponent(ICardComponent cardComponent)
+        {
+            components.Add(cardComponent);
+            cardComponent.ParentCard = this;
+        }
+
+        bool ICompound.RemoveComponent(ICardComponent cardComponent)
+        {
+            bool wasRemoved = components.Remove(cardComponent);
+            if (wasRemoved) {
+                cardComponent.ParentCard = null;
+            }
+            return wasRemoved;
+        }
     }
 }
