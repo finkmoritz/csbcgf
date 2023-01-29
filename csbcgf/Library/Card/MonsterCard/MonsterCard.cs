@@ -38,7 +38,7 @@ namespace csbcgf
             bool isReadyToAttack
             ) : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>(), isReadyToAttack)
         {
-            Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction());
+            Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction(this));
         }
 
         public MonsterCard(

@@ -40,11 +40,6 @@ namespace csbcgf
                 && ManaValue <= gameState.ActivePlayer.ManaValue;
         }
 
-        public override ICard FindParentCard(IGameState gameState)
-        {
-            return this;
-        }
-
         public override IPlayer? FindParentPlayer(IGameState gameState)
         {
             foreach (IPlayer player in gameState.Players)

@@ -14,14 +14,13 @@ namespace csbcgfdemo
         /// <summary>
         /// Whenever you cast a spell, gain +1 Attack.
         /// </summary>
-        public class ManaWyrmReaction : Reaction
+        public class ManaWyrmReaction : CardReaction
         {
             public override void ReactTo(IGame game, IActionEvent actionEvent)
             {
                 if (actionEvent.IsAfter(typeof(CastSpellAction)))
                 {
                     CastSpellAction a = (CastSpellAction)actionEvent.Action;
-                    ICard? parentCard = FindParentCard(game);
                     IPlayer? spellCardOwner = a.SpellCard.FindParentPlayer(game);
                     IPlayer? manaWyrmOwner = parentCard?.FindParentPlayer(game);
 

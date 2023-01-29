@@ -5,15 +5,13 @@ namespace csbcgfdemo
     /// <summary>
     /// Divine Shield blocks first damage.
     /// </summary>
-    public class DivineShield : Reaction
+    public class DivineShield : CardReaction
     {
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             if (actionEvent.IsBefore(typeof(ModifyLifeStatAction)))
             {
                 ModifyLifeStatAction a = (ModifyLifeStatAction)actionEvent.Action;
-                ICard? parentCard = FindParentCard(game);
-
                 if (a.Living == parentCard && a.Delta < 0)
                 {
                     a.Delta = 0;

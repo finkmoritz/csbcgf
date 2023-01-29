@@ -37,8 +37,6 @@ namespace csbcgf
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
 
-        public abstract ICard? FindParentCard(IGameState gameState);
-
         public abstract IPlayer? FindParentPlayer(IGameState gameState);
     }
 }

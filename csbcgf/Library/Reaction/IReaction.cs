@@ -10,14 +10,6 @@
         void ReactTo(IGame game, IActionEvent actionEvent);
 
         /// <summary>
-        /// Find the card that this IReaction is attached to.
-        /// </summary>
-        /// <param name="gameState"></param>
-        /// <returns>The card that this IReaction is attached to or null
-        /// if it is not attached.</returns>
-        ICard? FindParentCard(IGameState gameState);
-
-        /// <summary>
         /// Find the player that this IReaction is attached to.
         /// </summary>
         /// <param name="gameState"></param>
