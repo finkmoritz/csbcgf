@@ -44,6 +44,7 @@ namespace csbcgf
         public void Push(ICard card)
         {
             cards.Add(card);
+            card.Owner = Owner;
         }
 
         public void Shuffle()

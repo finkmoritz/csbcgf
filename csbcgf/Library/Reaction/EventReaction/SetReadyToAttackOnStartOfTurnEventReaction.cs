@@ -11,7 +11,7 @@
             if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
                 IMonsterCard monsterCard = (IMonsterCard)parentCard;
-                IPlayer? owner = monsterCard.FindParentPlayer(game);
+                IPlayer? owner = monsterCard.Owner;
                 bool isReadyToAttack = owner == game.ActivePlayer
                     && game.ActivePlayer.Board.Contains(monsterCard);
 

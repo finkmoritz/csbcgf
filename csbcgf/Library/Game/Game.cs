@@ -159,17 +159,5 @@ namespace csbcgf
         {
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
-
-        public ICard FindParentCard(IGameState gameState)
-        {
-            throw new CsbcgfException("Cannot use method 'FindParentCard' on " +
-                "instance of type 'Game'");
-        }
-
-        public IPlayer FindParentPlayer(IGameState gameState)
-        {
-            throw new CsbcgfException("Cannot use method 'FindParentPlayer' on " +
-                "instance of type 'Game'");
-        }
     }
 }

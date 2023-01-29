@@ -1,6 +1,6 @@
 ﻿namespace csbcgf
 {
-    public interface ICardCollection
+    public interface ICardCollection : IOwnable
     {
         /// <summary>
         /// Get all cards in this Deck.

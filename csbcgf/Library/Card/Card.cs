@@ -4,13 +4,28 @@ namespace csbcgf
 {
     public abstract class Card : ReactiveCompound, ICard
     {
-        public Card() : this(new List<ICardComponent>(), new List<IReaction>())
+        [JsonProperty]
+        protected IPlayer? owner;
+
+        protected Card() {}
+
+        public Card(bool initialize = true) : this(new List<ICardComponent>(), new List<IReaction>())
         {
         }
 
         protected Card(List<ICardComponent> components, List<IReaction> reactions)
             : base(components, reactions)
         {
+        }
+
+        [JsonIgnore]
+        public IPlayer? Owner {
+            get {
+                return owner;
+            }
+            set {
+                owner = value;
+            }
         }
 
         [JsonIgnore]
@@ -33,23 +48,10 @@ namespace csbcgf
 
         public virtual bool IsCastable(IGameState gameState)
         {
-            IPlayer? owner = FindParentPlayer(gameState);
             return owner != null
                 && owner == gameState.ActivePlayer
                 && owner.Hand.Contains(this)
                 && ManaValue <= gameState.ActivePlayer.ManaValue;
-        }
-
-        public override IPlayer? FindParentPlayer(IGameState gameState)
-        {
-            foreach (IPlayer player in gameState.Players)
-            {
-                if (player.AllCards.Contains(this))
-                {
-                    return player;
-                }
-            }
-            return null;
         }
     }
 }

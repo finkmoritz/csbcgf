@@ -36,7 +36,5 @@ namespace csbcgf
         {
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
         }
-
-        public abstract IPlayer? FindParentPlayer(IGameState gameState);
     }
 }

@@ -28,10 +28,12 @@ namespace csbcgf
         [JsonProperty]
         protected IDeck graveyard = null!;
 
+        protected Player() {}
+
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
-        public Player() : this(new Deck())
+        public Player(bool initialize = true) : this(new Deck())
         {
         }
 
@@ -51,9 +53,16 @@ namespace csbcgf
             List<IReaction> reactions)
         {
             this.deck = deck;
+            this.deck.Owner = this;
+
             this.hand = hand;
+            this.hand.Owner = this;
+
             this.board = board;
+            this.board.Owner = this;
+
             this.graveyard = graveyard;
+            this.graveyard.Owner = this;
 
             this.manaPoolStat = manaPoolStat;
             this.attackStat = attackStat;
@@ -218,17 +227,6 @@ namespace csbcgf
         public void ReactTo(IGame game, IActionEvent actionEvent)
         {
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
-        }
-
-        public ICard FindParentCard(IGameState gameState)
-        {
-            throw new CsbcgfException("Cannot use method 'FindParentCard' on " +
-                "instance of type 'Player'");
-        }
-
-        public IPlayer FindParentPlayer(IGameState gameState)
-        {
-            return this;
         }
     }
 }

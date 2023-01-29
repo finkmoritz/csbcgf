@@ -21,8 +21,8 @@ namespace csbcgfdemo
                 if (actionEvent.IsAfter(typeof(CastSpellAction)))
                 {
                     CastSpellAction a = (CastSpellAction)actionEvent.Action;
-                    IPlayer? spellCardOwner = a.SpellCard.FindParentPlayer(game);
-                    IPlayer? manaWyrmOwner = parentCard?.FindParentPlayer(game);
+                    IPlayer? spellCardOwner = a.SpellCard.Owner;
+                    IPlayer? manaWyrmOwner = parentCard?.Owner;
 
                     if (manaWyrmOwner != null 
                         && parentCard != null 

@@ -108,6 +108,7 @@ namespace csbcgf
                     "position " + index + " is already occupied!");
             }
             cards[index] = card;
+            card.Owner = Owner;
         }
 
         public void Remove(ICard card)

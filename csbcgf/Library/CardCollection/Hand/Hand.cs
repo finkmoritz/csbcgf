@@ -41,6 +41,7 @@ namespace csbcgf
             if(cards.Count < MaxSize)
             {
                 cards.Add(card);
+                card.Owner = Owner;
             }
         }
 

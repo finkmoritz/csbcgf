@@ -1,12 +1,27 @@
-﻿namespace csbcgf
+﻿using Newtonsoft.Json;
+
+namespace csbcgf
 {
     public abstract class CardCollection : ICardCollection
     {
+        [JsonProperty]
+        protected IPlayer? owner;
+        
         /// <summary>
         /// Abstract representation of a collection of Cards.
         /// </summary>
         public CardCollection()
         {
+        }
+
+        [JsonIgnore]
+        public IPlayer? Owner {
+            get {
+                return owner;
+            }
+            set {
+                owner = value;
+            }
         }
 
         public abstract int Size { get; }
