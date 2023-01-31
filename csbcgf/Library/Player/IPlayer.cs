@@ -5,22 +5,22 @@
         /// <summary>
         /// The Player's Deck of Cards.
         /// </summary>
-        IDeck Deck { get; }
+        ICardCollection Deck { get; }
 
         /// <summary>
         /// The Player's Hand Cards.
         /// </summary>
-        IHand Hand { get; }
+        ICardCollection Hand { get; }
 
         /// <summary>
         /// The Player's Cards on the Board.
         /// </summary>
-        IBoard Board { get; }
+        ICardCollection Board { get; }
 
         /// <summary>
         /// The Player's Cards that have been removed from the Game.
         /// </summary>
-        IDeck Graveyard { get; }
+        ICardCollection Graveyard { get; }
 
         /// <summary>
         /// Get all Cards from the Player's Decks.
@@ -40,13 +40,11 @@
         void DrawCard(IGame game);
 
         /// <summary>
-        /// Cast a MonsterCard from the Player's Hand to the Board at
-        /// position boardIndex.
+        /// Cast a MonsterCard from the Player's Hand to the Board.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="monsterCard"></param>
-        /// <param name="boardIndex"></param>
-        void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex);
+        void CastMonster(IGame game, IMonsterCard monsterCard);
 
         /// <summary>
         /// Cast a SpellCard from the Player's Hand that needs no target.

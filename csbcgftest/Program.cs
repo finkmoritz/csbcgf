@@ -14,18 +14,18 @@ namespace csbcgftest
             List<IPlayer> players = new List<IPlayer>();
             for (int i=0; i<2; ++i)
             {
-                IDeck deck = new Deck();
+                ICardCollection deck = new CardCollection();
 
                 for (int j=0; j<3; ++j)
                 {
                     ICard fireball = new DamageSpellCard(3);
-                    deck.Push(fireball);
+                    deck.Add(fireball);
                 }
 
                 for (int j=0; j<2; ++j)
                 {
                     ICard goblin = new MonsterCard(2, 1, 2);
-                    deck.Push(goblin);
+                    deck.Add(goblin);
                 }
 
                 players.Add(new Player(deck));
@@ -90,9 +90,9 @@ namespace csbcgftest
             Assert.True(goblin.IsSummonable(game));
 
             //Play monster card
-            Assert.True(game.ActivePlayer.Board.IsFreeSlot(0));
-            game.ActivePlayer.CastMonster(game, goblin, 0);
-            Assert.False(game.ActivePlayer.Board.IsFreeSlot(0));
+            Assert.True(game.ActivePlayer.Board.IsEmpty);
+            game.ActivePlayer.CastMonster(game, goblin);
+            Assert.False(game.ActivePlayer.Board.IsEmpty);
             Assert.That(game.ActivePlayer.Board.AllCards.Count, Is.EqualTo(1));
 
             Assert.That(game.ActivePlayer.ManaValue, Is.EqualTo(0));
@@ -106,7 +106,7 @@ namespace csbcgftest
             Assert.That(game.NonActivePlayers[0].ManaBaseValue, Is.EqualTo(2));
 
             IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            game.ActivePlayer.CastMonster(game, otherGoblin, 0);
+            game.ActivePlayer.CastMonster(game, otherGoblin);
 
             Assert.False(goblin.IsReadyToAttack);
 

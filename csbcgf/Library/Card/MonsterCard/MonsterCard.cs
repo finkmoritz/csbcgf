@@ -138,9 +138,8 @@ namespace csbcgf
 
         public bool IsSummonable(IGameState gameState)
         {
-            IBoard board = gameState.ActivePlayer.Board;
             return base.IsCastable(gameState)
-                    && board.AllCards.Count < board.MaxSize;
+                    && !gameState.ActivePlayer.Board.IsFull;
         }
     }
 }

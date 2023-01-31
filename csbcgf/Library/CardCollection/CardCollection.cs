@@ -2,17 +2,36 @@
 
 namespace csbcgf
 {
-    public abstract class CardCollection : ICardCollection
+    public class CardCollection : ICardCollection
     {
         [JsonProperty]
         protected IPlayer? owner;
+
+        [JsonProperty]
+        protected int? maxSize;
+
+        [JsonProperty]
+        protected List<ICard> cards = null!;
+
+        protected CardCollection() {}
         
-        /// <summary>
-        /// Abstract representation of a collection of Cards.
-        /// </summary>
-        public CardCollection()
+        public CardCollection(int? maxSize = null)
         {
+            this.maxSize = maxSize;
+            cards = new List<ICard>();
         }
+
+        [JsonIgnore]
+        public List<ICard> AllCards => new List<ICard>(cards);
+
+        [JsonIgnore]
+        public bool IsEmpty => cards.Count == 0;
+
+        [JsonIgnore]
+        public bool IsFull => maxSize != null && cards.Count >= maxSize;
+
+        [JsonIgnore]
+        public int Size => cards.Count;
 
         [JsonIgnore]
         public IPlayer? Owner {
@@ -24,9 +43,61 @@ namespace csbcgf
             }
         }
 
-        public abstract int Size { get; }
-        public abstract List<ICard> AllCards { get; }
-        public abstract bool IsEmpty { get; }
-        public abstract bool Contains(ICard card);
+        [JsonIgnore]
+        public int? MaxSize {
+            get {
+                return maxSize;
+            }
+            set {
+                maxSize = value;
+            }
+        }
+
+        [JsonIgnore]
+        public ICard this[int index]
+        {
+            get => cards[index];
+        }
+
+        [JsonIgnore]
+        public ICard First {
+            get => cards[0];
+        }
+
+        [JsonIgnore]
+        public ICard Last {
+            get => cards[cards.Count - 1];
+        }
+
+        public bool Contains(ICard card)
+        {
+            return cards.Contains(card);
+        }
+
+        public void Add(ICard card)
+        {
+            if(MaxSize != null && cards.Count >= MaxSize)
+            {
+                throw new CsbcgfException("Cannot add ICard to CardCollection is its maximum size has been reached");
+            }
+            cards.Add(card);
+            card.Owner = Owner;
+        }
+
+        public void Remove(ICard card)
+        {
+            cards.Remove(card);
+            card.Owner = null;
+        }
+
+        public void Shuffle()
+        {
+            ICard[] cardsCopy = cards.ToArray();
+            cards.Clear();
+            foreach (ICard card in cardsCopy.OrderBy(x => new Random().Next()))
+            {
+                Add(card);
+            }
+        }
     }
 }

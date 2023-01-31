@@ -54,14 +54,10 @@ to interact with those cards:
 - PlaySpell: Play a spell card from the player's hand.
 - Attack: Initiate a fight between a befriended and an opposing monster card.
 
-## IDeck interface & Deck implementations
+## ICardCollection interface & CardCollection class
 
-The ``IDeck`` interface provides some useful methods to interact with a
-collection of cards. This framework includes the following implementations:
-- Board: Array of a fixed number of card slots that can either contain a card
-or be empty.
-- Hand: List of an arbitrary amount of cards (up to a defined maximum).
-- StackedDeck: Stack of cards (e.g. to be used as deck or graveyard).
+The ``ICardCollection`` interface provides some useful methods to interact with a
+collection of cards.
 
 ## ICard interface & Card class
 

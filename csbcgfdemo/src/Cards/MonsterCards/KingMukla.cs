@@ -25,8 +25,8 @@ namespace csbcgfdemo
                     {
                         game.NonActivePlayers.ForEach(p =>
                             {
-                                game.Execute(new AddCardToHandAction(p.Hand, new Bananas()));
-                                game.Execute(new AddCardToHandAction(p.Hand, new Bananas()));
+                                game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
+                                game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
                             }
                         );
                     }

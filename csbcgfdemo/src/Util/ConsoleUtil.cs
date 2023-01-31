@@ -4,6 +4,8 @@ namespace csbcgfdemo
 {
     public static class ConsoleUtil
     {
+        private const int columnWidth = 20;
+
         private const ConsoleColor BackgroundColorDefault = ConsoleColor.Black;
         private const ConsoleColor ColorDefault = ConsoleColor.White;
         private const ConsoleColor ColorMana = ConsoleColor.Blue;
@@ -40,14 +42,14 @@ namespace csbcgfdemo
             Console.Write(string.Format("Id: {0}", id));
         }
 
-        public static void PrintHand(IGameState gameState, IHand hand, int idPrefix)
+        public static void PrintHand(IGameState gameState, ICardCollection hand, int idPrefix)
         {
             Console.ForegroundColor = ColorMana;
             for (int i=0; i<hand.Size; ++i)
             {
                 ICard card = hand[i];
                 Console.Write(string.Format(
-                    "Mana: {0:D2}          ",
+                    "Mana: {0:D2}".PadRight(columnWidth),
                     card.ManaValue
                 ));
             }
@@ -59,12 +61,12 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Attack: {0:D2}        ",
+                        "Attack: {0:D2}".PadRight(columnWidth),
                         monsterCard.AttackValue
                     ));
                 } else
                 {
-                    Console.Write("                  ");
+                    Console.Write("".PadRight(columnWidth - 4));
                 }
             }
             Console.WriteLine();
@@ -75,13 +77,13 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Life: {0:D2}          ",
+                        "Life: {0:D2}".PadRight(columnWidth),
                         monsterCard.LifeValue
                     ));
                 }
                 else
                 {
-                    Console.Write("                  ");
+                    Console.Write("".PadRight(columnWidth - 4));
                 }
             }
             Console.WriteLine();
@@ -98,14 +100,14 @@ namespace csbcgfdemo
                     Console.ForegroundColor = ColorSelectable;
                 }
                 Console.Write(string.Format(
-                    "Id: {0}{1}            ",
+                    "Id: {0}{1}".PadRight(columnWidth),
                     idPrefix,
                     i
                 ));
             }
         }
 
-        public static void PrintBoard(IBoard board, int idPrefix)
+        public static void PrintBoard(ICardCollection board, int idPrefix)
         {
             Console.ForegroundColor = ColorMana;
             for (int i = 0; i < board.MaxSize; ++i)
@@ -114,12 +116,12 @@ namespace csbcgfdemo
                 if (card != null)
                 {
                     Console.Write(string.Format(
-                    "Mana: {0:D2}          ",
+                    "Mana: {0:D2}".PadRight(columnWidth),
                     card.ManaValue
                 ));
                 } else
                 {
-                    Console.Write("                  ");
+                    Console.Write("".PadRight(columnWidth));
                 }
             }
             Console.WriteLine();
@@ -130,13 +132,13 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Attack: {0:D2}        ",
+                        "Attack: {0:D2}".PadRight(columnWidth),
                         monsterCard.AttackValue
                     ));
                 }
                 else
                 {
-                    Console.Write("                  ");
+                    Console.Write("".PadRight(columnWidth));
                 }
             }
             Console.WriteLine();
@@ -147,13 +149,13 @@ namespace csbcgfdemo
                 if (card is IMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
-                        "Life: {0:D2}          ",
+                        "Life: {0:D2}".PadRight(columnWidth),
                         monsterCard.LifeValue
                     ));
                 }
                 else
                 {
-                    Console.Write("                  ");
+                    Console.Write("".PadRight(columnWidth));
                 }
             }
             Console.WriteLine();
@@ -167,7 +169,7 @@ namespace csbcgfdemo
                 if (monsterCard != null)
                 {
                     Console.Write(string.Format(
-                        "Id: {0}{1}            ",
+                        "Id: {0}{1}".PadRight(columnWidth),
                         idPrefix,
                         i
                     ));
@@ -175,7 +177,7 @@ namespace csbcgfdemo
                 else
                 {
                     Console.Write(string.Format(
-                        "Slot-Id: {0}        ",
+                        "".PadRight(columnWidth),
                         i
                     ));
                 }

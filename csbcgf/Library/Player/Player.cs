@@ -17,23 +17,23 @@ namespace csbcgf
         protected List<IReaction> reactions = null!;
 
         [JsonProperty]
-        protected IDeck deck = null!;
+        protected ICardCollection deck = null!;
 
         [JsonProperty]
-        protected IHand hand = null!;
+        protected ICardCollection hand = null!;
 
         [JsonProperty]
-        protected IBoard board = null!;
+        protected ICardCollection board = null!;
 
         [JsonProperty]
-        protected IDeck graveyard = null!;
+        protected ICardCollection graveyard = null!;
 
         protected Player() {}
 
         /// <summary>
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
-        public Player(bool initialize = true) : this(new Deck())
+        public Player(bool initialize = true) : this(new CardCollection())
         {
         }
 
@@ -41,14 +41,14 @@ namespace csbcgf
         /// Represents a Player and all his/her associated Cards.
         /// </summary>
         /// <param name="deck"></param>
-        public Player(IDeck deck)
-            : this(deck, new Hand(), new Board(), new Deck(),
+        public Player(ICardCollection deck)
+            : this(deck, new CardCollection(), new CardCollection(), new CardCollection(),
                   new ManaPoolStat(0, 0), new AttackStat(0), new LifeStat(0),
                   new List<IReaction>())
         {
         }
 
-        protected Player(IDeck deck, IHand hand, IBoard board, IDeck graveyard,
+        protected Player(ICardCollection deck, ICardCollection hand, ICardCollection board, ICardCollection graveyard,
             ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat,
             List<IReaction> reactions)
         {
@@ -149,22 +149,22 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IDeck Deck {
+        public ICardCollection Deck {
             get => deck;
         }
 
         [JsonIgnore]
-        public IHand Hand {
+        public ICardCollection Hand {
             get => hand;
         }
 
         [JsonIgnore]
-        public IBoard Board {
+        public ICardCollection Board {
             get => board;
         }
 
         [JsonIgnore]
-        public IDeck Graveyard {
+        public ICardCollection Graveyard {
             get => graveyard;
         }
 
@@ -180,7 +180,7 @@ namespace csbcgf
             game.Execute(new DrawCardAction(this));
         }
 
-        public void CastMonster(IGame game, IMonsterCard monsterCard, int boardIndex)
+        public void CastMonster(IGame game, IMonsterCard monsterCard)
         {
             if (!monsterCard.IsSummonable(game))
             {
@@ -188,13 +188,12 @@ namespace csbcgf
                     "not playable!");
             }
 
-            if (!Board.IsFreeSlot(boardIndex))
+            if (Board.IsFull)
             {
-                throw new CsbcgfException("Slot with index " + boardIndex +
-                    " is already occupied!");
+                throw new CsbcgfException("Board has reached its maximum size!");
             }
 
-            game.Execute(new CastMonsterAction(this, monsterCard, boardIndex));
+            game.Execute(new CastMonsterAction(this, monsterCard));
         }
 
         public void CastSpell(IGame game, ITargetlessSpellCard spellCard)

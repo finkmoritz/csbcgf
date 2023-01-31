@@ -23,12 +23,12 @@ namespace csbcgftutorial
             List<IPlayer> players = new List<IPlayer>();
             for (int i = 0; i < 2; ++i)
             {
-                IDeck deck = new Deck();
+                ICardCollection deck = new CardCollection();
 
                 for (int j = 0; j < 20; ++j)
                 {
                     IMonsterCard myMonsterCard = new MonsterCard(mana: 1, attack: 1, life: 1);
-                    deck.Push(myMonsterCard);
+                    deck.Add(myMonsterCard);
                 }
 
                 players.Add(new Player(deck));
@@ -42,7 +42,7 @@ namespace csbcgftutorial
             IMonsterCard goblin = (IMonsterCard)activePlayer.Hand[0];
             if(goblin.IsSummonable(game))
             {
-                activePlayer.CastMonster(game, goblin, 0);
+                activePlayer.CastMonster(game, goblin);
                 Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
             }
 
@@ -50,7 +50,7 @@ namespace csbcgftutorial
 
             activePlayer = game.ActivePlayer;
             IMonsterCard anotherGoblin = (IMonsterCard)activePlayer.Hand[0];
-            activePlayer.CastMonster(game, anotherGoblin, 0);
+            activePlayer.CastMonster(game, anotherGoblin);
 
             game.NextTurn();
 

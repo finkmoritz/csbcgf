@@ -33,15 +33,15 @@ namespace csbcgfdemo
             List<IPlayer> players = new List<IPlayer>();
             for (int i=0; i<2; ++i)
             {
-                IDeck deck = new Deck();
+                ICardCollection deck = new CardCollection();
                 for (int n=0; n<3; ++n)
                 {
-                    deck.Push(new Wisp());
-                    deck.Push(new ArgentSquire());
-                    deck.Push(new Bananas());
-                    deck.Push(new ManaWyrm());
-                    deck.Push(new FarSight());
-                    deck.Push(new KingMukla());
+                    deck.Add(new Wisp());
+                    deck.Add(new ArgentSquire());
+                    deck.Add(new Bananas());
+                    deck.Add(new ManaWyrm());
+                    deck.Add(new FarSight());
+                    deck.Add(new KingMukla());
                 }
                 deck.Shuffle();
                 players.Add(new Player(deck));
@@ -52,7 +52,7 @@ namespace csbcgfdemo
         private static string GetOptions()
         {
             string options = "Choose command:\n";
-            options += CommandSummon + " <id> <slot_index>: Summon monster card from hand (with <id>) to the board (at position <slot_index>, i.e. 0-5)\n";
+            options += CommandSummon + " <id>: Summon monster card from hand (with <id>) to the board\n";
             options += CommandCast + " <id> [<target_id>]: Cast spell card from hand (with <id>). Cast spell on target (with <target_id>) if the spell requires a target\n";
             options += CommandAttack + " <id> <target_id>: Attack monster card (with <target_id>) with monster card (with <id>)\n";
             options += CommandEndTurn + ": End Turn\n";
@@ -70,7 +70,7 @@ namespace csbcgfdemo
                 {
                     case CommandSummon:
                         IMonsterCard monsterCard = (IMonsterCard)GetObjectById(game, inputParams[1]);
-                        game.ActivePlayer.CastMonster(game, monsterCard, int.Parse(inputParams[2]));
+                        game.ActivePlayer.CastMonster(game, monsterCard);
                         output = "Cast monster card";
                         break;
                     case CommandCast:
