@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    public class CardComponent : Reaction, ICardComponent
+    public class CardComponent : ICardComponent
     {
         [JsonProperty]
         protected ManaCostStat manaCostStat = null!;
@@ -68,14 +68,6 @@ namespace csbcgf
         public IEnumerable<IReaction> AllReactions()
         {
             return Reactions;
-        }
-
-        public override void ReactTo(IGame game, IActionEvent actionEvent)
-        {
-            foreach(IReaction reaction in AllReactions())
-            {
-                reaction.ReactTo(game, actionEvent);
-            }
         }
 
         public void AddReaction(IReaction reaction)

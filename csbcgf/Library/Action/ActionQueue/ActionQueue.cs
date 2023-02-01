@@ -24,27 +24,27 @@ namespace csbcgf
 
         public void Execute(IGame game, IAction action)
         {
-            if (!isGameOver && !action.IsAborted && action.IsExecutable(game))
+            if (ExecuteReactions && !isGameOver && !action.IsAborted && action.IsExecutable(game))
             {
-                ExecReactions(game, new BeforeActionEvent(action));
+                foreach(IReaction reaction in game.AllReactions())
+                {
+                    reaction.ReactBefore(game, action);
+                }
+
                 if (!action.IsAborted)
                 {
                     action.Execute(game);
-                    ExecReactions(game, new AfterActionEvent(action));
+
+                    foreach(IReaction reaction in game.AllReactions())
+                    {
+                        reaction.ReactAfter(game, action);
+                    }
                 }
             }
 
             if (action is EndOfGameEvent)
             {
                 isGameOver = true;
-            }
-        }
-
-        private void ExecReactions(IGame game, IActionEvent actionEvent)
-        {
-            if (ExecuteReactions)
-            {
-                game.ReactTo(game, actionEvent);
             }
         }
     }

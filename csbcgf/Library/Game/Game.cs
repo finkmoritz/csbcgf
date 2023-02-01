@@ -155,13 +155,5 @@ namespace csbcgf
         {
             return players.Remove(player);
         }
-
-        public void ReactTo(IGame game, IActionEvent actionEvent)
-        {
-            foreach(IReaction reaction in AllReactions())
-            {
-                reaction.ReactTo(game, actionEvent);
-            }
-        }
     }
 }

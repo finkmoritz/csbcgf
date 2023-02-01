@@ -14,21 +14,16 @@ namespace csbcgfdemo
         /// <summary>
         /// Battlecry: Give your opponent 2 Bananas.
         /// </summary>
-        public class KingMuklaBattlecryReaction : CardReaction
+        public class KingMuklaBattlecryReaction : CardReaction<CastMonsterAction>
         {
-            public override void ReactTo(IGame game, IActionEvent actionEvent)
+            protected override void ReactAfterInternal(IGame game, CastMonsterAction action)
             {
-                if (actionEvent.IsAfter(typeof(CastMonsterAction)))
+                if (action.MonsterCard == parentCard)
                 {
-                    CastMonsterAction action = (CastMonsterAction)actionEvent.Action;
-                    if (action.MonsterCard == parentCard)
+                    foreach (IPlayer p in game.NonActivePlayers)
                     {
-                        foreach (IPlayer p in game.NonActivePlayers)
-                        {
-                            game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
-                            game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
-                        }
-                        ;
+                        game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
+                        game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
                     }
                 }
             }

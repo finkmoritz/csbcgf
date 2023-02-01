@@ -1,6 +1,6 @@
 ﻿namespace csbcgf
 {
-    public interface IReactive : IReaction
+    public interface IReactive
     {
         /// <summary>
         /// Reactions of this IReactive.

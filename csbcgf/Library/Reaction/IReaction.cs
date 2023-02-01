@@ -3,10 +3,17 @@
     public interface IReaction
     {
         /// <summary>
-        /// React on a given ActionEvent.
+        /// React before a given IAction.
         /// </summary>
         /// <param name="game"></param>
-        /// <param name="actionEvent"></param>
-        void ReactTo(IGame game, IActionEvent actionEvent);
+        /// <param name="action"></param>
+        void ReactBefore(IGame game, IAction action);
+
+        /// <summary>
+        /// React after a given IAction.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="action"></param>
+        void ReactAfter(IGame game, IAction action);
     }
 }

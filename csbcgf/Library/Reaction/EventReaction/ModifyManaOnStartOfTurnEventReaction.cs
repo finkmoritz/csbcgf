@@ -1,14 +1,11 @@
 ﻿namespace csbcgf
 {
-    public class ModifyManaOnStartOfTurnEventReaction : Reaction
+    public class ModifyManaOnStartOfTurnEventReaction : Reaction<StartOfTurnEvent>
     {
-        public override void ReactTo(IGame game, IActionEvent actionEvent)
+        protected override void ReactAfterInternal(IGame game, StartOfTurnEvent action)
         {
-            if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
-            {
-                int manaDelta = game.ActivePlayer.ManaBaseValue + 1 - game.ActivePlayer.ManaValue;
-                game.Execute(new ModifyManaStatAction(game.ActivePlayer, manaDelta, 1));
-            }
+            int manaDelta = game.ActivePlayer.ManaBaseValue + 1 - game.ActivePlayer.ManaValue;
+            game.Execute(new ModifyManaStatAction(game.ActivePlayer, manaDelta, 1));
         }
     }
 }

@@ -1,22 +1,19 @@
 ﻿namespace csbcgf
 {
-    public class SetReadyToAttackOnStartOfTurnEventReaction : CardReaction
+    public class SetReadyToAttackOnStartOfTurnEventReaction : CardReaction<StartOfTurnEvent>
     {
         protected SetReadyToAttackOnStartOfTurnEventReaction() { }
 
         public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard) : base(monsterCard) { }
 
-        public override void ReactTo(IGame game, IActionEvent actionEvent)
+        protected override void ReactAfterInternal(IGame game, StartOfTurnEvent action)
         {
-            if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
-            {
-                IMonsterCard monsterCard = (IMonsterCard)parentCard;
-                IPlayer? owner = monsterCard.Owner;
-                bool isReadyToAttack = owner == game.ActivePlayer
-                    && game.ActivePlayer.Board.Contains(monsterCard);
+            IMonsterCard monsterCard = (IMonsterCard)parentCard;
+            IPlayer? owner = monsterCard.Owner;
+            bool isReadyToAttack = owner == game.ActivePlayer
+                && game.ActivePlayer.Board.Contains(monsterCard);
 
-                game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
-            }
+            game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
         }
     }
 }

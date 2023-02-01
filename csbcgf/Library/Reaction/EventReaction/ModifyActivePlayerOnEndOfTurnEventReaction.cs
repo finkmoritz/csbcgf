@@ -1,15 +1,12 @@
 ﻿namespace csbcgf
 {
-    public class ModifyActivePlayerOnEndOfTurnEventReaction : Reaction
+    public class ModifyActivePlayerOnEndOfTurnEventReaction : Reaction<EndOfTurnEvent>
     {
-        public override void ReactTo(IGame game, IActionEvent actionEvent)
+        protected override void ReactAfterInternal(IGame game, EndOfTurnEvent action)
         {
-            if (actionEvent.IsAfter(typeof(EndOfTurnEvent)))
-            {
-                int playerIndex = game.Players.ToList().IndexOf(game.ActivePlayer);
-                playerIndex = (playerIndex + 1) % game.Players.Count();
-                game.Execute(new ModifyActivePlayerAction(game.Players.ElementAt(playerIndex)));
-            }
+            int playerIndex = game.Players.ToList().IndexOf(game.ActivePlayer);
+            playerIndex = (playerIndex + 1) % game.Players.Count();
+            game.Execute(new ModifyActivePlayerAction(game.Players.ElementAt(playerIndex)));
         }
     }
 }

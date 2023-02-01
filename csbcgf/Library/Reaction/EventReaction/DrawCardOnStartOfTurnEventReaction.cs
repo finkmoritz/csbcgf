@@ -1,13 +1,10 @@
 ﻿namespace csbcgf
 {
-    public class DrawCardOnStartOfTurnEventReaction : Reaction
+    public class DrawCardOnStartOfTurnEventReaction : Reaction<StartOfTurnEvent>
     {
-        public override void ReactTo(IGame game, IActionEvent actionEvent)
+        protected override void ReactAfterInternal(IGame game, StartOfTurnEvent action)
         {
-            if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
-            {
-                game.Execute(new DrawCardAction(game.ActivePlayer));
-            }
+            game.Execute(new DrawCardAction(game.ActivePlayer));
         }
     }
 }

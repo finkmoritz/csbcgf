@@ -16,9 +16,5 @@ namespace csbcgf
 
         [JsonIgnore]
         public IAction Action { get => action; }
-
-        public abstract bool IsBefore(Type type);
-
-        public abstract bool IsAfter(Type type);
     }
 }
