@@ -120,26 +120,8 @@ namespace csbcgf
             return reactions.Remove(reaction);
         }
 
-        public void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
+        public void Start()
         {
-            //Do not trigger any reactions during setup
-            actionQueue.ExecuteReactions = false;
-
-            foreach (IPlayer player in Players)
-            {
-                player.ManaValue = 0;
-                player.ManaBaseValue = 0;
-                player.LifeValue = initialPlayerLife;
-                player.LifeBaseValue = initialPlayerLife;
-
-                for (int i = 0; i < initialHandSize; ++i)
-                {
-                    player.DrawCard(this);
-                }
-            }
-
-            actionQueue.ExecuteReactions = true;
-
             Execute(new StartOfGameEvent());
             Execute(new StartOfTurnEvent());
         }
@@ -150,14 +132,18 @@ namespace csbcgf
             Execute(new StartOfTurnEvent());
         }
 
-        public void Execute(IAction action)
+        public void Execute(IAction action, bool withReactions = true)
         {
+            actionQueue.ExecuteReactions = withReactions;
             actionQueue.Execute(this, action);
+            actionQueue.ExecuteReactions = true;
         }
 
-        public void Execute(List<IAction> actions)
+        public void Execute(List<IAction> actions, bool withReactions = true)
         {
+            actionQueue.ExecuteReactions = withReactions;
             actions.ForEach(a => Execute(a));
+            actionQueue.ExecuteReactions = true;
         }
 
         public void AddPlayer(IPlayer player)

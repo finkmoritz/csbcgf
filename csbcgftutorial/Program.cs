@@ -8,20 +8,28 @@ namespace csbcgftutorial
         {
             IGame game = new Game();
 
-            game.AddPlayer(new Player());
-            game.AddPlayer(new Player());
-
             for (int i = 0; i < 2; ++i)
             {
-                ICardCollection deck = game.Players.ElementAt(i).Deck;
+                IPlayer player = new Player();
+                player.LifeValue = 2;
+                player.LifeBaseValue = 2;
+
+                ICardCollection deck = player.Deck;
                 for (int j = 0; j < 20; ++j)
                 {
                     IMonsterCard myMonsterCard = new MonsterCard(mana: 1, attack: 1, life: 1);
                     deck.Add(myMonsterCard);
                 }
+
+                game.AddPlayer(player);
             }
 
-            game.StartGame(initialHandSize: 1, initialPlayerLife: 2);
+            foreach (IPlayer player in game.Players)
+            {
+                player.DrawCard(game);
+            }
+
+            game.Start();
 
             IPlayer activePlayer = game.ActivePlayer;
             Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);

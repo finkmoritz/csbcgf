@@ -13,7 +13,7 @@ namespace csbcgfdemo
         public static void Main(string[] args)
         {
             IGame game = CreateGame();
-            game.StartGame(initialHandSize: 3, initialPlayerLife: 5);
+            game.Start();
 
             string info = string.Empty;
             string input;
@@ -34,8 +34,10 @@ namespace csbcgfdemo
             for (int i = 0; i < 2; ++i)
             {
                 IPlayer player = new Player();
-                ICardCollection deck = player.Deck;
+                player.LifeValue = 5;
+                player.LifeBaseValue = 5;
 
+                ICardCollection deck = player.Deck;
                 for (int n = 0; n < 3; ++n)
                 {
                     deck.Add(new Wisp());
@@ -49,6 +51,15 @@ namespace csbcgfdemo
 
                 game.AddPlayer(player);
             }
+
+            foreach (IPlayer player in game.Players)
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    player.DrawCard(game);
+                }
+            }
+
             return game;
         }
 

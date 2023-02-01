@@ -16,6 +16,9 @@ namespace csbcgftest
             for (int i = 0; i < 2; ++i)
             {
                 IPlayer player = new Player();
+                player.LifeValue = 2;
+                player.LifeBaseValue = 2;
+
                 ICardCollection deck = player.Deck;
 
                 for (int j = 0; j < 3; ++j)
@@ -33,7 +36,12 @@ namespace csbcgftest
                 game.AddPlayer(player);
             }
 
-            game.StartGame(initialHandSize: 1, initialPlayerLife: 2);
+            foreach (IPlayer player in game.Players)
+            {
+                player.DrawCard(game);
+            }
+
+            game.Start();
         }
 
         [Test()]

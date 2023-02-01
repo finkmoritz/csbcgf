@@ -5,7 +5,7 @@
         /// <summary>
         /// Start the game.
         /// </summary>
-        void StartGame(int initialHandSize, int initialPlayerLife);
+        void Start();
 
         /// <summary>
         /// Start the next turn.
@@ -17,7 +17,16 @@
         /// only be performed via Actions queued through this method!
         /// </summary>
         /// <param name="action"></param>
-        void Execute(IAction action);
+        /// <param name="withReactions"></param>
+        void Execute(IAction action, bool withReactions = true);
+
+        /// <summary>
+        /// Queue multiple Actions for execution. Changes on the Game state should
+        /// only be performed via Actions queued through this method!
+        /// </summary>
+        /// <param name="actions"></param>
+        /// <param name="withReactions"></param>
+        void Execute(List<IAction> actions, bool withReactions);
 
         /// <summary>
         /// Add an IPlayer.
