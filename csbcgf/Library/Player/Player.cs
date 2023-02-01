@@ -58,7 +58,7 @@ namespace csbcgf
         public bool IsAlive => lifeStat.Value > 0;
 
         [JsonIgnore]
-        public List<ICard> AllCards
+        public IEnumerable<ICard> AllCards
         {
             get
             {
@@ -67,7 +67,7 @@ namespace csbcgf
                 allCards.AddRange(Hand.Cards);
                 allCards.AddRange(Board.Cards);
                 allCards.AddRange(Graveyard.Cards);
-                return allCards;
+                return allCards.ToImmutableList();
             }
         }
 
@@ -114,7 +114,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public List<ICharacter> Characters
+        public IEnumerable<ICharacter> Characters
         {
             get
             {
@@ -122,7 +122,7 @@ namespace csbcgf
                 foreach(ICard card in Board.Cards) {
                     characters.Add((ICharacter)card);
                 }
-                return characters;
+                return characters.ToImmutableList();
             }
         }
 
@@ -154,7 +154,10 @@ namespace csbcgf
         public List<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
-            AllCards.ForEach(c => allReactions.AddRange(c.AllReactions()));
+            foreach(ICard card in AllCards)
+            {
+                allReactions.AddRange(card.AllReactions());
+            }
             return allReactions;
         }
 

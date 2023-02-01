@@ -25,13 +25,13 @@
         /// <summary>
         /// Get all Cards from the Player's Decks.
         /// </summary>
-        List<ICard> AllCards { get; }
+        IEnumerable<ICard> AllCards { get; }
 
         /// <summary>
         /// Convenience property to retrieve this player's characters, i.e.
         /// the player himself and all cards on his/her board.
         /// </summary>
-        List<ICharacter> Characters { get; }
+        IEnumerable<ICharacter> Characters { get; }
 
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.
