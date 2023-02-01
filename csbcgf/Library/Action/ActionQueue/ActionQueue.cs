@@ -26,7 +26,7 @@ namespace csbcgf
         {
             if (ExecuteReactions && !isGameOver && !action.IsAborted && action.IsExecutable(game))
             {
-                foreach(IReaction reaction in game.AllReactions())
+                foreach (IReaction reaction in game.AllReactions())
                 {
                     reaction.ReactBefore(game, action);
                 }
@@ -35,7 +35,7 @@ namespace csbcgf
                 {
                     action.Execute(game);
 
-                    foreach(IReaction reaction in game.AllReactions())
+                    foreach (IReaction reaction in game.AllReactions())
                     {
                         reaction.ReactAfter(game, action);
                     }

@@ -184,7 +184,7 @@ public class FarSight : TargetlessSpellCard
 {
     protected FarSight() {} // this is used for deserialization only
     
-    public FarSight(bool initialize = true) : base(new FarSightComponent()) // this is used in your code
+    public FarSight(bool _ = true) : base(new FarSightComponent()) // this is used in your code
     {
     }
 ...

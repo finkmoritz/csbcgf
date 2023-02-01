@@ -43,7 +43,7 @@ namespace csbcgf
 
         public virtual void ReactBefore(IGame game, IAction action)
         {
-            foreach(IReaction reaction in AllReactions())
+            foreach (IReaction reaction in AllReactions())
             {
                 reaction.ReactBefore(game, action);
             }
@@ -51,7 +51,7 @@ namespace csbcgf
 
         public virtual void ReactAfter(IGame game, IAction action)
         {
-            foreach(IReaction reaction in AllReactions())
+            foreach (IReaction reaction in AllReactions())
             {
                 reaction.ReactAfter(game, action);
             }
