@@ -9,9 +9,8 @@ namespace csbcgf
 
         protected Compound() {}
 
-        public Compound(List<ICardComponent> components)
-        {
-            this.components = components;
+        public Compound(bool initialize = true) {
+            this.components = new List<ICardComponent>();
         }
 
         [JsonIgnore]
@@ -19,13 +18,13 @@ namespace csbcgf
              get => components;
         }
 
-        void ICompound.AddComponent(ICardComponent cardComponent)
+        public void AddComponent(ICardComponent cardComponent)
         {
             components.Add(cardComponent);
             cardComponent.ParentCard = this;
         }
 
-        bool ICompound.RemoveComponent(ICardComponent cardComponent)
+        public bool RemoveComponent(ICardComponent cardComponent)
         {
             bool wasRemoved = components.Remove(cardComponent);
             if (wasRemoved) {

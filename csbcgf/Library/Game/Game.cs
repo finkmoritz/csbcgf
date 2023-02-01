@@ -24,29 +24,19 @@ namespace csbcgf
         {
         }
 
-        public Game(bool initialize = true) : this(new List<IPlayer>()) {
-
-        }
-
         /// <summary>
         /// Represent the current Game state and provides methods to alter
         /// this Game state.
         /// </summary>
-        /// <param name="players"></param>
-        public Game(List<IPlayer> players)
-            : this(players, new Random().Next(players.Count), new ActionQueue(false), new List<IReaction>())
-        {
+        public Game(bool initialize = true) {
+            this.players = new List<IPlayer>();
+            this.activePlayerIndex = 0;
+            this.actionQueue = new ActionQueue(false);
+            this.reactions = new List<IReaction>();
+
             Reactions.Add(new ModifyActivePlayerOnEndOfTurnEventReaction());
             Reactions.Add(new ModifyManaOnStartOfTurnEventReaction());
             Reactions.Add(new DrawCardOnStartOfTurnEventReaction());
-        }
-
-        public Game(List<IPlayer> players, int activePlayerIndex, ActionQueue actionQueue, List<IReaction> reactions)
-        {
-            this.players = players;
-            this.activePlayerIndex = activePlayerIndex;
-            this.actionQueue = actionQueue;
-            this.reactions = reactions;
         }
 
         [JsonIgnore]
@@ -115,6 +105,14 @@ namespace csbcgf
             return allReactions;
         }
 
+        public void AddReaction(IReaction reaction) {
+            reactions.Add(reaction);
+        }
+
+        public bool RemoveReaction(IReaction reaction) {
+            return reactions.Remove(reaction);
+        }
+
         public void StartGame(int initialHandSize = 4, int initialPlayerLife = 30)
         {
             //Do not trigger any reactions during setup
@@ -153,6 +151,14 @@ namespace csbcgf
         public void Execute(List<IAction> actions)
         {
             actions.ForEach(a => Execute(a));
+        }
+
+        public void AddPlayer(IPlayer player) {
+            players.Add(player);
+        }
+
+        public bool RemovePlayer(IPlayer player) {
+            return players.Remove(player);
         }
 
         public void ReactTo(IGame game, IActionEvent actionEvent)

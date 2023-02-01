@@ -6,35 +6,21 @@ namespace csbcgftutorial
     {
         public static void Main(string[] args)
         {
-            IGame myGame = new Game();
+            IGame game = new Game();
 
-            IPlayer myPlayer1 = new Player();
-            IPlayer myPlayer2 = new Player();
+            game.AddPlayer(new Player());
+            game.AddPlayer(new Player());
 
-            myGame.Players.Add(myPlayer1);
-            myGame.Players.Add(myPlayer2);
-
-            Console.WriteLine("Life stat of player 1 = " + myPlayer1.LifeValue
-                + " / " + myPlayer1.LifeBaseValue);
-            Console.WriteLine("Mana pool stat of player 1 = " + myPlayer1.ManaValue
-                + " / " + myPlayer1.ManaBaseValue);
-
-
-            List<IPlayer> players = new List<IPlayer>();
             for (int i = 0; i < 2; ++i)
             {
-                ICardCollection deck = new CardCollection();
-
+                ICardCollection deck = game.Players[i].Deck;
                 for (int j = 0; j < 20; ++j)
                 {
                     IMonsterCard myMonsterCard = new MonsterCard(mana: 1, attack: 1, life: 1);
                     deck.Add(myMonsterCard);
                 }
-
-                players.Add(new Player(deck));
             }
 
-            IGame game = new Game(players);
             game.StartGame(initialHandSize: 1, initialPlayerLife: 2);
 
             IPlayer activePlayer = game.ActivePlayer;

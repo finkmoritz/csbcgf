@@ -16,19 +16,19 @@ namespace csbcgf
         protected CardComponent() {}
 
         public CardComponent(int mana)
-            : this(new ManaCostStat(mana, mana), new List<IReaction>())
+            : this(new ManaCostStat(mana, mana))
         {
         }
 
         public CardComponent(int manaValue, int manaBaseValue)
-            : this(new ManaCostStat(manaValue, manaBaseValue), new List<IReaction>())
+            : this(new ManaCostStat(manaValue, manaBaseValue))
         {
         }
 
-        protected CardComponent(ManaCostStat manaCostStat, List<IReaction> reactions)
+        protected CardComponent(ManaCostStat manaCostStat)
         {
             this.manaCostStat = manaCostStat;
-            this.reactions = reactions;
+            this.reactions = new List<IReaction>();
         }
 
         [JsonIgnore]
@@ -66,6 +66,16 @@ namespace csbcgf
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
             AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
+        }
+
+        public void AddReaction(IReaction reaction)
+        {
+            reactions.Add(reaction);
+        }
+
+        public bool RemoveReaction(IReaction reaction)
+        {
+            return reactions.Remove(reaction);
         }
     }
 }

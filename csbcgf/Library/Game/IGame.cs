@@ -18,5 +18,15 @@
         /// </summary>
         /// <param name="action"></param>
         void Execute(IAction action);
+
+        /// <summary>
+        /// Add an IPlayer.
+        /// </summary>
+        public void AddPlayer(IPlayer player);
+
+        /// <summary>
+        /// Remove an IPlayer.
+        /// </summary>
+        public bool RemovePlayer(IPlayer player);
     }
 }

@@ -30,10 +30,12 @@ namespace csbcgfdemo
 
         private static IGame CreateGame()
         {
-            List<IPlayer> players = new List<IPlayer>();
+            IGame game = new Game();
             for (int i=0; i<2; ++i)
             {
-                ICardCollection deck = new CardCollection();
+                IPlayer player = new Player();
+                ICardCollection deck = player.Deck;
+
                 for (int n=0; n<3; ++n)
                 {
                     deck.Add(new Wisp());
@@ -44,9 +46,10 @@ namespace csbcgfdemo
                     deck.Add(new KingMukla());
                 }
                 deck.Shuffle();
-                players.Add(new Player(deck));
+
+                game.AddPlayer(player);
             }
-            return new Game(players);
+            return game;
         }
 
         private static string GetOptions()

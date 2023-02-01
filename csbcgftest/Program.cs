@@ -11,10 +11,12 @@ namespace csbcgftest
         [SetUp()]
         public void SetUp()
         {
-            List<IPlayer> players = new List<IPlayer>();
+            game = new Game();
+
             for (int i=0; i<2; ++i)
             {
-                ICardCollection deck = new CardCollection();
+                IPlayer player = new Player();
+                ICardCollection deck = player.Deck;
 
                 for (int j=0; j<3; ++j)
                 {
@@ -28,10 +30,9 @@ namespace csbcgftest
                     deck.Add(goblin);
                 }
 
-                players.Add(new Player(deck));
+                game.AddPlayer(player);
             }
 
-            game = new Game(players);
             game.StartGame(initialHandSize: 1, initialPlayerLife: 2);
         }
 

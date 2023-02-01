@@ -18,36 +18,12 @@ namespace csbcgf
         /// <param name="mana"></param>
         /// <param name="attack"></param>
         /// <param name="life"></param>
-        public MonsterCard(int mana, int attack, int life)
-            : this(new List<IMonsterCardComponent> { new MonsterCardComponent(mana, attack, life) })
+        public MonsterCard(int mana, int attack, int life) : base(true)
         {
-        }
+            this.isReadyToAttack = false;
 
-        /// <summary>
-        /// Represents a certain type of Card that is played
-        /// onto the Player's Board.
-        /// </summary>
-        /// <param name="components"></param>
-        public MonsterCard(List<IMonsterCardComponent> components)
-            : this(components, false)
-        {
-        }
-
-        public MonsterCard(
-            List<IMonsterCardComponent> components,
-            bool isReadyToAttack
-            ) : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>(), isReadyToAttack)
-        {
-            Reactions.Add(new SetReadyToAttackOnStartOfTurnEventReaction(this));
-        }
-
-        public MonsterCard(
-            List<ICardComponent> components,
-            List<IReaction> reactions,
-            bool isReadyToAttack
-            ) : base(components, reactions)
-        {
-            this.isReadyToAttack = isReadyToAttack;
+            AddComponent(new MonsterCardComponent(mana, attack, life));
+            AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
         }
 
         [JsonIgnore]
@@ -65,7 +41,7 @@ namespace csbcgf
             get => Math.Max(0, GetSum(c => c.AttackValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, value - GetSum(c => c.AttackValue), 0, 0, 0));
+                AddComponent(new MonsterCardComponent(0, 0, value - GetSum(c => c.AttackValue), 0, 0, 0));
             }
         }
 
@@ -75,7 +51,7 @@ namespace csbcgf
             get => Math.Max(0, GetSum(c => c.AttackBaseValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, value - GetSum(c => c.AttackBaseValue), 0, 0));
+                AddComponent(new MonsterCardComponent(0, 0, 0, value - GetSum(c => c.AttackBaseValue), 0, 0));
             }
         }
 
@@ -85,7 +61,7 @@ namespace csbcgf
             get => Math.Max(0, GetSum(c => c.LifeValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, 0, value - GetSum(c => c.LifeValue), 0));
+                AddComponent(new MonsterCardComponent(0, 0, 0, 0, value - GetSum(c => c.LifeValue), 0));
             }
         }
 
@@ -95,7 +71,7 @@ namespace csbcgf
             get => Math.Max(0, GetSum(c => c.LifeBaseValue));
             set
             {
-                Components.Add(new MonsterCardComponent(0, 0, 0, 0, 0, value - GetSum(c => c.LifeBaseValue)));
+                AddComponent(new MonsterCardComponent(0, 0, 0, 0, 0, value - GetSum(c => c.LifeBaseValue)));
             }
         }
 

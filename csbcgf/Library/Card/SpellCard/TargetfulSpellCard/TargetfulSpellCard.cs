@@ -2,25 +2,9 @@
 {
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
-        public TargetfulSpellCard()
-            : this(new List<ISpellCardComponent>())
-        {
-        }
+        protected TargetfulSpellCard() : base() {}
 
-        public TargetfulSpellCard(ISpellCardComponent component)
-            : this(new List<ISpellCardComponent> { component })
-        {
-        }
-
-        public TargetfulSpellCard(List<ISpellCardComponent> components)
-            : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>())
-        {
-        }
-
-        public TargetfulSpellCard(List<ICardComponent> components, List<IReaction> reactions)
-            : base(components, reactions)
-        {
-        }
+        public TargetfulSpellCard(bool initialize = true) : base(initialize) {}
 
         public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
         {

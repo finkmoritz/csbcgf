@@ -9,12 +9,7 @@ namespace csbcgf
 
         protected Card() {}
 
-        public Card(bool initialize = true) : this(new List<ICardComponent>(), new List<IReaction>())
-        {
-        }
-
-        protected Card(List<ICardComponent> components, List<IReaction> reactions)
-            : base(components, reactions)
+        public Card(bool initialize = true) : base(initialize)
         {
         }
 

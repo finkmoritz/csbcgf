@@ -12,18 +12,10 @@ namespace csbcgftest
         protected DamageSpellCard() {}
 
         public DamageSpellCard(uint damage)
-            : this(damage, new List<ICardComponent>(), new List<IReaction>())
-        {
-            Components.Add(new DamageSpellCardComponent((int)damage, damage));
-        }
-
-        protected DamageSpellCard(
-            uint damage,
-            List<ICardComponent> components,
-            List<IReaction> reactions
-            ) : base(components, reactions)
+            : base(true)
         {
             this.damage = damage;
+            AddComponent(new DamageSpellCardComponent((int)damage, damage));
         }
 
         public class DamageSpellCardComponent : TargetfulSpellCardComponent
@@ -34,15 +26,7 @@ namespace csbcgftest
             protected DamageSpellCardComponent() {}
 
             public DamageSpellCardComponent(int mana, uint damage)
-                : this(damage, new ManaCostStat(mana, mana), new List<IReaction>())
-            {
-            }
-
-            public DamageSpellCardComponent(
-                uint damage,
-                ManaCostStat manaCostStat,
-                List<IReaction> reactions
-                ) : base(manaCostStat, reactions)
+                : base(mana)
             {
                 this.damage = damage;
             }

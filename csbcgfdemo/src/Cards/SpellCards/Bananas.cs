@@ -9,8 +9,9 @@ namespace csbcgfdemo
     {
         protected Bananas() {}
         
-        public Bananas(bool initialize = true) : base(new BananasComponent())
+        public Bananas(bool initialize = true) : base(initialize)
         {
+            AddComponent(new BananasComponent());
         }
 
         public override bool IsCastable(IGameState gameState)

@@ -31,43 +31,26 @@ namespace csbcgf
         protected Player() {}
 
         /// <summary>
-        /// Represents a Player and all his/her associated Cards.
+        /// Represents a Player.
         /// </summary>
-        public Player(bool initialize = true) : this(new CardCollection())
+        public Player(bool initialize = true)
         {
-        }
-
-        /// <summary>
-        /// Represents a Player and all his/her associated Cards.
-        /// </summary>
-        /// <param name="deck"></param>
-        public Player(ICardCollection deck)
-            : this(deck, new CardCollection(), new CardCollection(), new CardCollection(),
-                  new ManaPoolStat(0, 0), new AttackStat(0), new LifeStat(0),
-                  new List<IReaction>())
-        {
-        }
-
-        protected Player(ICardCollection deck, ICardCollection hand, ICardCollection board, ICardCollection graveyard,
-            ManaPoolStat manaPoolStat, AttackStat attackStat, LifeStat lifeStat,
-            List<IReaction> reactions)
-        {
-            this.deck = deck;
+            this.deck = new CardCollection();
             this.deck.Owner = this;
 
-            this.hand = hand;
+            this.hand = new CardCollection();
             this.hand.Owner = this;
 
-            this.board = board;
+            this.board = new CardCollection();
             this.board.Owner = this;
 
-            this.graveyard = graveyard;
+            this.graveyard = new CardCollection();
             this.graveyard.Owner = this;
 
-            this.manaPoolStat = manaPoolStat;
-            this.attackStat = attackStat;
-            this.lifeStat = lifeStat;
-            this.reactions = reactions;
+            this.manaPoolStat = new ManaPoolStat(0, 0);
+            this.attackStat = new AttackStat(0);
+            this.lifeStat = new LifeStat(0);
+            this.reactions = new List<IReaction>();
         }
 
         [JsonIgnore]
@@ -173,6 +156,14 @@ namespace csbcgf
             List<IReaction> allReactions = new List<IReaction>(Reactions);
             AllCards.ForEach(c => allReactions.AddRange(c.AllReactions()));
             return allReactions;
+        }
+
+        public void AddReaction(IReaction reaction) {
+            reactions.Add(reaction);
+        }
+
+        public bool RemoveReaction(IReaction reaction) {
+            return reactions.Remove(reaction);
         }
 
         public void DrawCard(IGame game)

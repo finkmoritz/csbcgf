@@ -32,17 +32,6 @@ namespace csbcgf
             this.lifeStat = lifeStat;
         }
 
-        protected MonsterCardComponent(
-            ManaCostStat manaCostStat,
-            AttackStat attackStat,
-            LifeStat lifeStat,
-            List<IReaction> reactions
-            ) : base(manaCostStat, reactions)
-        {
-            this.attackStat = attackStat;
-            this.lifeStat = lifeStat;
-        }
-
         [JsonIgnore]
         public int AttackValue
         {

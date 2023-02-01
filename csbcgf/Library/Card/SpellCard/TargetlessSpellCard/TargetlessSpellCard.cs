@@ -2,25 +2,9 @@
 {
     public class TargetlessSpellCard : SpellCard, ITargetlessSpellCard
     {
-        public TargetlessSpellCard()
-            : this(new List<ITargetlessSpellCardComponent>())
-        {
-        }
+        protected TargetlessSpellCard() : base() {}
 
-        public TargetlessSpellCard(ITargetlessSpellCardComponent component)
-            : this(new List<ITargetlessSpellCardComponent> { component })
-        {
-        }
-
-        public TargetlessSpellCard(List<ITargetlessSpellCardComponent> components)
-            : this(components.ConvertAll(c => (ICardComponent)c), new List<IReaction>())
-        {
-        }
-
-        public TargetlessSpellCard(List<ICardComponent> components, List<IReaction> reactions)
-            : base(components, reactions)
-        {
-        }
+        public TargetlessSpellCard(bool initialize = true) : base(initialize) {}
 
         public void Cast(IGame game)
         {

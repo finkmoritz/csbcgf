@@ -9,15 +9,8 @@ namespace csbcgf
 
         protected ReactiveCompound() {}
 
-        public ReactiveCompound(List<ICardComponent> components)
-            : this(components, new List<IReaction>())
-        {
-        }
-
-        protected ReactiveCompound(List<ICardComponent> components, List<IReaction> reactions)
-            : base(components)
-        {
-            this.reactions = reactions;
+        public ReactiveCompound(bool initialize = true) : base(initialize) {
+            this.reactions = new List<IReaction>();
         }
 
         [JsonIgnore]
@@ -30,6 +23,14 @@ namespace csbcgf
             List<IReaction> allReactions = new List<IReaction>(Reactions);
             Components.ForEach(c => allReactions.AddRange(c.AllReactions()));
             return allReactions;
+        }
+
+        public void AddReaction(IReaction reaction) {
+            reactions.Add(reaction);
+        }
+
+        public bool RemoveReaction(IReaction reaction) {
+            return reactions.Remove(reaction);
         }
 
         public virtual void ReactTo(IGame game, IActionEvent actionEvent)
