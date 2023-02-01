@@ -65,14 +65,17 @@ namespace csbcgf
             set => manaCostStat.BaseValue = value;
         }
 
-        public List<IReaction> AllReactions()
+        public IEnumerable<IReaction> AllReactions()
         {
-            return new List<IReaction>(Reactions);
+            return Reactions;
         }
 
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
+            foreach(IReaction reaction in AllReactions())
+            {
+                reaction.ReactTo(game, actionEvent);
+            }
         }
 
         public void AddReaction(IReaction reaction)

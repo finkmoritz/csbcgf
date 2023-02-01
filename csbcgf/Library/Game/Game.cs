@@ -100,14 +100,14 @@ namespace csbcgf
             }
         }
 
-        public List<IReaction> AllReactions()
+        public IEnumerable<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
             foreach (IPlayer player in Players)
             {
                 allReactions.AddRange(player.AllReactions());
             }
-            return allReactions;
+            return allReactions.ToImmutableList();
         }
 
         public void AddReaction(IReaction reaction)
@@ -172,7 +172,10 @@ namespace csbcgf
 
         public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
+            foreach(IReaction reaction in AllReactions())
+            {
+                reaction.ReactTo(game, actionEvent);
+            }
         }
     }
 }

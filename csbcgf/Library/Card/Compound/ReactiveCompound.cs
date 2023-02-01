@@ -21,14 +21,14 @@ namespace csbcgf
             get => reactions.ToImmutableList();
         }
 
-        public List<IReaction> AllReactions()
+        public IEnumerable<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
             foreach (ICardComponent cardComponent in Components)
             {
                 allReactions.AddRange(cardComponent.AllReactions());
             }
-            return allReactions;
+            return allReactions.ToImmutableList();
         }
 
         public void AddReaction(IReaction reaction)
@@ -43,7 +43,10 @@ namespace csbcgf
 
         public virtual void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
+            foreach(IReaction reaction in AllReactions())
+            {
+                reaction.ReactTo(game, actionEvent);
+            }
         }
     }
 }

@@ -157,14 +157,14 @@ namespace csbcgf
             get => graveyard;
         }
 
-        public List<IReaction> AllReactions()
+        public IEnumerable<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
             foreach (ICard card in AllCards)
             {
                 allReactions.AddRange(card.AllReactions());
             }
-            return allReactions;
+            return allReactions.ToImmutableList();
         }
 
         public void AddReaction(IReaction reaction)
@@ -227,7 +227,10 @@ namespace csbcgf
 
         public void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            AllReactions().ForEach(r => r.ReactTo(game, actionEvent));
+            foreach(IReaction reaction in AllReactions())
+            {
+                reaction.ReactTo(game, actionEvent);
+            }
         }
     }
 }

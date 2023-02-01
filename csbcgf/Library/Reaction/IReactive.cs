@@ -11,7 +11,7 @@
         /// All reactions of this IReactive including its children.
         /// </summary>
         /// <returns>All reactions of this IReactive including its children.</returns>
-        List<IReaction> AllReactions();
+        IEnumerable<IReaction> AllReactions();
 
         /// <summary>
         /// Add an IReaction.
