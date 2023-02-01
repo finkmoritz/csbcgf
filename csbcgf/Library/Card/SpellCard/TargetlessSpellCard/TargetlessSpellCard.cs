@@ -4,7 +4,7 @@
     {
         protected TargetlessSpellCard() : base() { }
 
-        public TargetlessSpellCard(bool initialize = true) : base(initialize) { }
+        public TargetlessSpellCard(bool _ = true) : base(_) { }
 
         public void Cast(IGame game)
         {

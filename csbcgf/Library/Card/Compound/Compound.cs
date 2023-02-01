@@ -10,7 +10,7 @@ namespace csbcgf
 
         protected Compound() { }
 
-        public Compound(bool initialize = true)
+        public Compound(bool _ = true)
         {
             this.components = new List<ICardComponent>();
         }

@@ -9,7 +9,7 @@ namespace csbcgf
 
         protected Card() { }
 
-        public Card(bool initialize = true) : base(initialize)
+        public Card(bool _ = true) : base(_)
         {
         }
 

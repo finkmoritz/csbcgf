@@ -29,7 +29,7 @@ namespace csbcgf
         /// Represent the current Game state and provides methods to alter
         /// this Game state.
         /// </summary>
-        public Game(bool initialize = true)
+        public Game(bool _ = true)
         {
             this.players = new List<IPlayer>();
             this.activePlayerIndex = 0;

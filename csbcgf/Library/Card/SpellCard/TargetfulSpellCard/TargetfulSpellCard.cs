@@ -4,7 +4,7 @@
     {
         protected TargetfulSpellCard() : base() { }
 
-        public TargetfulSpellCard(bool initialize = true) : base(initialize) { }
+        public TargetfulSpellCard(bool _ = true) : base(_) { }
 
         public ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {

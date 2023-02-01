@@ -34,7 +34,7 @@ namespace csbcgf
         /// <summary>
         /// Represents a Player.
         /// </summary>
-        public Player(bool initialize = true)
+        public Player(bool _ = true)
         {
             this.deck = new CardCollection();
             this.deck.Owner = this;

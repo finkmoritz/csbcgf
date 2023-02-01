@@ -10,7 +10,7 @@ namespace csbcgf
 
         protected ReactiveCompound() { }
 
-        public ReactiveCompound(bool initialize = true) : base(initialize)
+        public ReactiveCompound(bool _ = true) : base(_)
         {
             this.reactions = new List<IReaction>();
         }
