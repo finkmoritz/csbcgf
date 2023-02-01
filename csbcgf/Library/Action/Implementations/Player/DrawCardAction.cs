@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected ICard? drawnCard;
 
-        protected DrawCardAction() {}
+        protected DrawCardAction() { }
 
         public DrawCardAction(IPlayer player, bool isAborted = false)
             : base(isAborted)
@@ -19,12 +19,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IPlayer Player {
+        public IPlayer Player
+        {
             get => player;
         }
 
         [JsonIgnore]
-        public ICard? DrawnCard {
+        public ICard? DrawnCard
+        {
             get => drawnCard;
         }
 

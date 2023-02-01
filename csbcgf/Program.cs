@@ -4,7 +4,7 @@ namespace csbcgf
     {
         public static void Main(string[] args)
         {
-            
+
         }
     }
 }

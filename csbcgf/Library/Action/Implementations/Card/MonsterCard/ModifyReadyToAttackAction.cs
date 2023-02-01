@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected bool isReadyToAttack;
 
-        protected ModifyReadyToAttackAction() {}
+        protected ModifyReadyToAttackAction() { }
 
         public ModifyReadyToAttackAction(
             IMonsterCard monsterCard,
@@ -23,12 +23,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IMonsterCard MonsterCard {
+        public IMonsterCard MonsterCard
+        {
             get => monsterCard;
         }
 
         [JsonIgnore]
-        public bool IsReadyToAttack {
+        public bool IsReadyToAttack
+        {
             get => isReadyToAttack;
         }
 

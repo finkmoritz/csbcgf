@@ -7,7 +7,7 @@ namespace csbcgf
         [JsonProperty]
         protected IPlayer newActivePlayer = null!;
 
-        protected ModifyActivePlayerAction() {}
+        protected ModifyActivePlayerAction() { }
 
         public ModifyActivePlayerAction(IPlayer newActivePlayer, bool isAborted = false)
             : base(isAborted)
@@ -16,7 +16,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IPlayer NewActivePlayer {
+        public IPlayer NewActivePlayer
+        {
             get => newActivePlayer;
         }
 
@@ -27,7 +28,7 @@ namespace csbcgf
 
         public override bool IsExecutable(IGameState gameState)
         {
-            if(!gameState.Players.Contains(NewActivePlayer))
+            if (!gameState.Players.Contains(NewActivePlayer))
             {
                 throw new CsbcgfException("Could not change the active " +
                     "player because the specified player is not involved " +

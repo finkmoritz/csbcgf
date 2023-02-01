@@ -2,9 +2,9 @@
 {
     public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
     {
-        protected TargetfulSpellCard() : base() {}
+        protected TargetfulSpellCard() : base() { }
 
-        public TargetfulSpellCard(bool initialize = true) : base(initialize) {}
+        public TargetfulSpellCard(bool initialize = true) : base(initialize) { }
 
         public ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {

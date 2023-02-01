@@ -2,7 +2,7 @@
 {
     public abstract class TargetfulSpellCardComponent : CardComponent, ITargetfulSpellCardComponent
     {
-        protected TargetfulSpellCardComponent () {}
+        protected TargetfulSpellCardComponent() { }
 
         public TargetfulSpellCardComponent(int mana) : base(mana)
         {

@@ -13,18 +13,18 @@ namespace csbcgftest
         {
             game = new Game();
 
-            for (int i=0; i<2; ++i)
+            for (int i = 0; i < 2; ++i)
             {
                 IPlayer player = new Player();
                 ICardCollection deck = player.Deck;
 
-                for (int j=0; j<3; ++j)
+                for (int j = 0; j < 3; ++j)
                 {
                     ICard fireball = new DamageSpellCard(3);
                     deck.Add(fireball);
                 }
 
-                for (int j=0; j<2; ++j)
+                for (int j = 0; j < 2; ++j)
                 {
                     ICard goblin = new MonsterCard(2, 1, 2);
                     deck.Add(goblin);
@@ -163,7 +163,7 @@ namespace csbcgftest
             string serializedGame = JsonSerializer.ToJson(game);
             IGame? gameCopy = JsonSerializer.FromJson<Game>(serializedGame);
             string serializedGameCopy = JsonSerializer.ToJson(gameCopy);
-            Assert.That(serializedGameCopy, Is.EqualTo(serializedGame), "Expected:\n{0}\n\nActual:\n{1}\n", new object[] {serializedGame, serializedGameCopy});
+            Assert.That(serializedGameCopy, Is.EqualTo(serializedGame), "Expected:\n{0}\n\nActual:\n{1}\n", new object[] { serializedGame, serializedGameCopy });
 
             Assert.That(gameCopy!.Players.Count, Is.EqualTo(2));
             Assert.That(gameCopy!.ActivePlayer.AllCards.Count, Is.EqualTo(5));

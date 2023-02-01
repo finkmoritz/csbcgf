@@ -29,7 +29,8 @@ namespace csbcgf
         /// Represent the current Game state and provides methods to alter
         /// this Game state.
         /// </summary>
-        public Game(bool initialize = true) {
+        public Game(bool initialize = true)
+        {
             this.players = new List<IPlayer>();
             this.activePlayerIndex = 0;
             this.actionQueue = new ActionQueue(false);
@@ -102,17 +103,20 @@ namespace csbcgf
         public List<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
-            foreach(IPlayer player in Players) {
+            foreach (IPlayer player in Players)
+            {
                 allReactions.AddRange(player.AllReactions());
             }
             return allReactions;
         }
 
-        public void AddReaction(IReaction reaction) {
+        public void AddReaction(IReaction reaction)
+        {
             reactions.Add(reaction);
         }
 
-        public bool RemoveReaction(IReaction reaction) {
+        public bool RemoveReaction(IReaction reaction)
+        {
             return reactions.Remove(reaction);
         }
 
@@ -156,11 +160,13 @@ namespace csbcgf
             actions.ForEach(a => Execute(a));
         }
 
-        public void AddPlayer(IPlayer player) {
+        public void AddPlayer(IPlayer player)
+        {
             players.Add(player);
         }
 
-        public bool RemovePlayer(IPlayer player) {
+        public bool RemovePlayer(IPlayer player)
+        {
             return players.Remove(player);
         }
 

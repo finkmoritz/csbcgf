@@ -7,8 +7,8 @@ namespace csbcgfdemo
     /// </summary>
     public class Bananas : TargetfulSpellCard
     {
-        protected Bananas() {}
-        
+        protected Bananas() { }
+
         public Bananas(bool initialize = true) : base(initialize)
         {
             AddComponent(new BananasComponent());
@@ -22,7 +22,7 @@ namespace csbcgfdemo
 
         public class BananasComponent : TargetfulSpellCardComponent
         {
-            protected BananasComponent() {}
+            protected BananasComponent() { }
 
             public BananasComponent(bool initialize = true) : base(1)
             {
@@ -37,7 +37,8 @@ namespace csbcgfdemo
             public override HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
             {
                 HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-                foreach(ICard card in gameState.CardsOnTheBoard) {
+                foreach (ICard card in gameState.CardsOnTheBoard)
+                {
                     potentialTargets.Add((ICharacter)card);
                 }
                 return potentialTargets;

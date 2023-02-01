@@ -2,13 +2,13 @@
 {
     public class SetReadyToAttackOnStartOfTurnEventReaction : CardReaction
     {
-        protected SetReadyToAttackOnStartOfTurnEventReaction() {}
+        protected SetReadyToAttackOnStartOfTurnEventReaction() { }
 
-        public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard) : base(monsterCard) {}
+        public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard) : base(monsterCard) { }
 
         public override void ReactTo(IGame game, IActionEvent actionEvent)
         {
-            if(actionEvent.IsAfter(typeof(StartOfTurnEvent)))
+            if (actionEvent.IsAfter(typeof(StartOfTurnEvent)))
             {
                 IMonsterCard monsterCard = (IMonsterCard)parentCard;
                 IPlayer? owner = monsterCard.Owner;

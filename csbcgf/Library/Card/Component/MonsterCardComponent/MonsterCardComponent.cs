@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected LifeStat lifeStat = null!;
 
-        protected MonsterCardComponent() {}
+        protected MonsterCardComponent() { }
 
         public MonsterCardComponent(int mana, int attack, int life)
             : this(mana, new AttackStat(attack), new LifeStat(life))
@@ -65,7 +65,7 @@ namespace csbcgf
             ISet<ICharacter> potentialTargets = new HashSet<ICharacter>();
             foreach (IPlayer player in gameState.NonActivePlayers)
             {
-                foreach(ICharacter character in player.Characters)
+                foreach (ICharacter character in player.Characters)
                 {
                     potentialTargets.Add(character);
                 }

@@ -7,15 +7,18 @@ namespace csbcgf
         [JsonProperty]
         protected ICard parentCard = null!;
 
-        protected CardReaction() {}
+        protected CardReaction() { }
 
-        public CardReaction(ICard parentCard) {
+        public CardReaction(ICard parentCard)
+        {
             this.parentCard = parentCard;
         }
 
         [JsonIgnore]
-        public ICard ParentCard {
-            get {
+        public ICard ParentCard
+        {
+            get
+            {
                 return parentCard;
             }
         }

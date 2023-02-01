@@ -7,7 +7,7 @@ namespace csbcgf
         [JsonProperty]
         protected IMonsterCard monsterCard = null!;
 
-        protected DieAction() {}
+        protected DieAction() { }
 
         public DieAction(IMonsterCard monsterCard, bool isAborted = false)
             : base(isAborted)
@@ -16,7 +16,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IMonsterCard MonsterCard {
+        public IMonsterCard MonsterCard
+        {
             get => monsterCard;
         }
 

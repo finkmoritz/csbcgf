@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected IMonsterCard monsterCard = null!;
 
-        protected CastMonsterAction() {}
+        protected CastMonsterAction() { }
 
         public CastMonsterAction(IPlayer player, IMonsterCard monsterCard, bool isAborted = false
             ) : base(isAborted)
@@ -20,12 +20,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IPlayer Player {
+        public IPlayer Player
+        {
             get => player;
         }
 
         [JsonIgnore]
-        public IMonsterCard MonsterCard {
+        public IMonsterCard MonsterCard
+        {
             get => monsterCard;
         }
 

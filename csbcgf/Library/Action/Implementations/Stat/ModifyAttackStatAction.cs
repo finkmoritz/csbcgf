@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected int delta;
 
-        protected ModifyAttackStatAction() {}
+        protected ModifyAttackStatAction() { }
 
         public ModifyAttackStatAction(IAttacking attacking, int delta, bool isAborted = false)
             : base(isAborted)
@@ -20,12 +20,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IAttacking Attacking {
+        public IAttacking Attacking
+        {
             get => attacking;
         }
 
         [JsonIgnore]
-        public int Delta {
+        public int Delta
+        {
             get => delta;
             set => delta = value;
         }

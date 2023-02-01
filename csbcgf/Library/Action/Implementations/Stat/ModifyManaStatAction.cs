@@ -13,7 +13,7 @@ namespace csbcgf
         [JsonProperty]
         protected int deltaBaseValue;
 
-        protected ModifyManaStatAction() {}
+        protected ModifyManaStatAction() { }
 
         public ModifyManaStatAction(
             IManaful manaful,
@@ -28,18 +28,21 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IManaful Manaful {
+        public IManaful Manaful
+        {
             get => manaful;
         }
 
         [JsonIgnore]
-        public int DeltaValue {
+        public int DeltaValue
+        {
             get => deltaValue;
             set => deltaValue = value;
         }
 
         [JsonIgnore]
-        public int DeltaBaseValue {
+        public int DeltaBaseValue
+        {
             get => deltaBaseValue;
             set => deltaBaseValue = value;
         }

@@ -4,8 +4,8 @@ namespace csbcgfdemo
 {
     public class FarSight : TargetlessSpellCard
     {
-        protected FarSight() {}
-        
+        protected FarSight() { }
+
         public FarSight(bool initialize = true) : base(initialize)
         {
             AddComponent(new FarSightComponent());
@@ -13,7 +13,7 @@ namespace csbcgfdemo
 
         public class FarSightComponent : TargetlessSpellCardComponent
         {
-            protected FarSightComponent() {}
+            protected FarSightComponent() { }
 
             public FarSightComponent(bool initialize = true) : base(3)
             {

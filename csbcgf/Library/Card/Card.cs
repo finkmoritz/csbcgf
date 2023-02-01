@@ -7,24 +7,28 @@ namespace csbcgf
         [JsonProperty]
         protected IPlayer? owner;
 
-        protected Card() {}
+        protected Card() { }
 
         public Card(bool initialize = true) : base(initialize)
         {
         }
 
         [JsonIgnore]
-        public IPlayer? Owner {
-            get {
+        public IPlayer? Owner
+        {
+            get
+            {
                 return owner;
             }
-            set {
+            set
+            {
                 owner = value;
             }
         }
 
         [JsonIgnore]
-        public int ManaValue {
+        public int ManaValue
+        {
             get => Math.Max(0, Components.Sum(c => c.ManaValue));
             set
             {
@@ -33,7 +37,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public int ManaBaseValue {
+        public int ManaBaseValue
+        {
             get => Math.Max(0, Components.Sum(c => c.ManaBaseValue));
             set
             {

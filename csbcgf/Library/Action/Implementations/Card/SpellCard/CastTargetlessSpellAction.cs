@@ -2,8 +2,8 @@
 {
     public class CastTargetlessSpellAction : CastSpellAction
     {
-        protected CastTargetlessSpellAction() {}
-        
+        protected CastTargetlessSpellAction() { }
+
         public CastTargetlessSpellAction(
             IPlayer player,
             ITargetlessSpellCard spellCard,

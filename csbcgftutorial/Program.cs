@@ -26,7 +26,7 @@ namespace csbcgftutorial
             IPlayer activePlayer = game.ActivePlayer;
             Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
             IMonsterCard goblin = (IMonsterCard)activePlayer.Hand[0];
-            if(goblin.IsSummonable(game))
+            if (goblin.IsSummonable(game))
             {
                 activePlayer.CastMonster(game, goblin);
                 Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
@@ -40,11 +40,11 @@ namespace csbcgftutorial
 
             game.NextTurn();
 
-            if(goblin.IsReadyToAttack)
+            if (goblin.IsReadyToAttack)
             {
                 goblin.Attack(game, game.NonActivePlayers.First());
             }
-            
+
             Console.WriteLine("First player is still alive: " + game.Players.First().IsAlive);
 
             Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 1

@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace csbcgftest
 {
-    
+
     public class DamageSpellCard : TargetfulSpellCard
     {
         [JsonProperty]
         protected uint damage;
 
-        protected DamageSpellCard() {}
+        protected DamageSpellCard() { }
 
         public DamageSpellCard(uint damage)
             : base(true)
@@ -23,7 +23,7 @@ namespace csbcgftest
             [JsonProperty]
             protected uint damage;
 
-            protected DamageSpellCardComponent() {}
+            protected DamageSpellCardComponent() { }
 
             public DamageSpellCardComponent(int mana, uint damage)
                 : base(mana)
@@ -42,7 +42,8 @@ namespace csbcgftest
                 foreach (IPlayer player in gameState.Players)
                 {
                     targets.Add(player);
-                    foreach(ICard card in player.Board.Cards) {
+                    foreach (ICard card in player.Board.Cards)
+                    {
                         targets.Add((ICharacter)card);
                     }
                 }

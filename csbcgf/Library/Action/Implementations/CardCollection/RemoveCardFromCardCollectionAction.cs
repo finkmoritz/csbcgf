@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected ICard card = null!;
 
-        protected RemoveCardFromCardCollectionAction() {}
+        protected RemoveCardFromCardCollectionAction() { }
 
         public RemoveCardFromCardCollectionAction(ICardCollection cardCollection, ICard card, bool isAborted = false)
             : base(isAborted)
@@ -20,12 +20,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public ICardCollection CardCollection {
+        public ICardCollection CardCollection
+        {
             get => cardCollection;
         }
 
         [JsonIgnore]
-        public ICard Card {
+        public ICard Card
+        {
             get => card;
         }
 

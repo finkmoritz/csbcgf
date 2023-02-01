@@ -2,9 +2,9 @@
 {
     public class TargetlessSpellCard : SpellCard, ITargetlessSpellCard
     {
-        protected TargetlessSpellCard() : base() {}
+        protected TargetlessSpellCard() : base() { }
 
-        public TargetlessSpellCard(bool initialize = true) : base(initialize) {}
+        public TargetlessSpellCard(bool initialize = true) : base(initialize) { }
 
         public void Cast(IGame game)
         {

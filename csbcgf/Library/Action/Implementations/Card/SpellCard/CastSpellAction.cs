@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected ISpellCard spellCard = null!;
 
-        protected CastSpellAction() {}
+        protected CastSpellAction() { }
 
         public CastSpellAction(IPlayer player, ISpellCard spellCard, bool isAborted = false)
             : base(isAborted)
@@ -20,12 +20,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IPlayer Player {
+        public IPlayer Player
+        {
             get => player;
         }
 
         [JsonIgnore]
-        public ISpellCard SpellCard {
+        public ISpellCard SpellCard
+        {
             get => spellCard;
         }
 

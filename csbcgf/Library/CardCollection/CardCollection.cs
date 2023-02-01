@@ -14,8 +14,8 @@ namespace csbcgf
         [JsonProperty]
         protected List<ICard> cards = null!;
 
-        protected CardCollection() {}
-        
+        protected CardCollection() { }
+
         public CardCollection(int? maxSize = null)
         {
             this.maxSize = maxSize;
@@ -35,21 +35,27 @@ namespace csbcgf
         public int Size => cards.Count;
 
         [JsonIgnore]
-        public IPlayer? Owner {
-            get {
+        public IPlayer? Owner
+        {
+            get
+            {
                 return owner;
             }
-            set {
+            set
+            {
                 owner = value;
             }
         }
 
         [JsonIgnore]
-        public int? MaxSize {
-            get {
+        public int? MaxSize
+        {
+            get
+            {
                 return maxSize;
             }
-            set {
+            set
+            {
                 maxSize = value;
             }
         }
@@ -61,12 +67,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public ICard First {
+        public ICard First
+        {
             get => cards[0];
         }
 
         [JsonIgnore]
-        public ICard Last {
+        public ICard Last
+        {
             get => cards[cards.Count - 1];
         }
 
@@ -77,7 +85,7 @@ namespace csbcgf
 
         public void Add(ICard card)
         {
-            if(MaxSize != null && cards.Count >= MaxSize)
+            if (MaxSize != null && cards.Count >= MaxSize)
             {
                 throw new CsbcgfException("Cannot add ICard to CardCollection is its maximum size has been reached");
             }

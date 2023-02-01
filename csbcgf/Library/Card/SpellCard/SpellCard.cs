@@ -2,7 +2,7 @@
 {
     public abstract class SpellCard : Card, ISpellCard
     {
-        protected SpellCard() : base() {}
+        protected SpellCard() : base() { }
 
         /// <summary>
         /// Represents a certain type of Card that has an

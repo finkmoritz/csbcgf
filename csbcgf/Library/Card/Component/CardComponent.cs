@@ -14,7 +14,7 @@ namespace csbcgf
         [JsonProperty]
         protected ICompound? parentCard;
 
-        protected CardComponent() {}
+        protected CardComponent() { }
 
         public CardComponent(int mana)
             : this(new ManaCostStat(mana, mana))
@@ -33,28 +33,34 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IEnumerable<IReaction> Reactions {
+        public IEnumerable<IReaction> Reactions
+        {
             get => reactions.ToImmutableList();
         }
 
         [JsonIgnore]
-        public ICompound? ParentCard {
-            get {
+        public ICompound? ParentCard
+        {
+            get
+            {
                 return parentCard;
             }
-            set {
+            set
+            {
                 parentCard = value;
             }
         }
 
         [JsonIgnore]
-        public int ManaValue {
+        public int ManaValue
+        {
             get => manaCostStat.Value;
             set => manaCostStat.Value = value;
         }
 
         [JsonIgnore]
-        public int ManaBaseValue {
+        public int ManaBaseValue
+        {
             get => manaCostStat.BaseValue;
             set => manaCostStat.BaseValue = value;
         }

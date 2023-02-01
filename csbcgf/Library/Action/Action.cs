@@ -7,7 +7,7 @@ namespace csbcgf
         [JsonProperty]
         protected bool isAborted;
 
-        protected Action() {}
+        protected Action() { }
 
         public Action(bool isAborted = false)
         {
@@ -15,7 +15,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public bool IsAborted {
+        public bool IsAborted
+        {
             get => isAborted;
             set => isAborted = value;
         }

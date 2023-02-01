@@ -4,8 +4,8 @@ namespace csbcgfdemo
 {
     public class KingMukla : MonsterCard
     {
-        protected KingMukla() {}
-        
+        protected KingMukla() { }
+
         public KingMukla(bool initialize = true) : base(3, 5, 5)
         {
             AddReaction(new KingMuklaBattlecryReaction());
@@ -23,7 +23,7 @@ namespace csbcgfdemo
                     CastMonsterAction action = (CastMonsterAction)actionEvent.Action;
                     if (action.MonsterCard == parentCard)
                     {
-                        foreach(IPlayer p in game.NonActivePlayers)
+                        foreach (IPlayer p in game.NonActivePlayers)
                         {
                             game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
                             game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));

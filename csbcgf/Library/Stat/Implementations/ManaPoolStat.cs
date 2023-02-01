@@ -4,7 +4,7 @@ namespace csbcgf
 {
     public class ManaPoolStat : Stat
     {
-        protected ManaPoolStat() {}
+        protected ManaPoolStat() { }
 
         /// <summary>
         /// Represents available mana.

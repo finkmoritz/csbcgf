@@ -1,4 +1,5 @@
-﻿namespace csbcgf {
+﻿namespace csbcgf
+{
 
     public interface IOwnable
     {

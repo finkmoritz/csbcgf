@@ -8,15 +8,17 @@ namespace csbcgf
         [JsonProperty]
         protected List<ICardComponent> components = null!;
 
-        protected Compound() {}
+        protected Compound() { }
 
-        public Compound(bool initialize = true) {
+        public Compound(bool initialize = true)
+        {
             this.components = new List<ICardComponent>();
         }
 
         [JsonIgnore]
-        public IEnumerable<ICardComponent> Components {
-             get => components.ToImmutableList();
+        public IEnumerable<ICardComponent> Components
+        {
+            get => components.ToImmutableList();
         }
 
         public void AddComponent(ICardComponent cardComponent)
@@ -28,7 +30,8 @@ namespace csbcgf
         public bool RemoveComponent(ICardComponent cardComponent)
         {
             bool wasRemoved = components.Remove(cardComponent);
-            if (wasRemoved) {
+            if (wasRemoved)
+            {
                 cardComponent.ParentCard = null;
             }
             return wasRemoved;

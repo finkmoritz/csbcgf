@@ -9,7 +9,7 @@ namespace csbcgf
 
         public bool ExecuteReactions { get; set; }
 
-        protected ActionQueue() {}
+        protected ActionQueue() { }
 
         public ActionQueue(bool executeReactions = true)
             : this(executeReactions, false)

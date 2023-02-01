@@ -2,8 +2,8 @@
 {
     public class LifeStat : Stat
     {
-        protected LifeStat() {}
-        
+        protected LifeStat() { }
+
         /// <summary>
         /// Maximum number of damage that can be taken.
         /// </summary>

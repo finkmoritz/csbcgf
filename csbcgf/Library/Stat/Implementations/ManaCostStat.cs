@@ -1,9 +1,10 @@
-﻿namespace csbcgf {
+﻿namespace csbcgf
+{
 
     public class ManaCostStat : Stat
     {
-        protected ManaCostStat() {}
-        
+        protected ManaCostStat() { }
+
         /// <summary>
         /// Costs in Mana.
         /// </summary>

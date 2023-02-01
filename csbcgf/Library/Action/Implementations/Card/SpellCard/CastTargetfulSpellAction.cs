@@ -7,7 +7,7 @@ namespace csbcgf
         [JsonProperty]
         public ICharacter target = null!;
 
-        protected CastTargetfulSpellAction() {}
+        protected CastTargetfulSpellAction() { }
 
         public CastTargetfulSpellAction(
             IPlayer player,
@@ -21,7 +21,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public ICharacter Target {
+        public ICharacter Target
+        {
             get => target;
         }
 

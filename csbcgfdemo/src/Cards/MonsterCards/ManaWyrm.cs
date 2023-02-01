@@ -4,8 +4,8 @@ namespace csbcgfdemo
 {
     public class ManaWyrm : MonsterCard
     {
-        protected ManaWyrm() {}
-        
+        protected ManaWyrm() { }
+
         public ManaWyrm(bool initialize = true) : base(2, 1, 3)
         {
             AddReaction(new ManaWyrmReaction());
@@ -24,8 +24,8 @@ namespace csbcgfdemo
                     IPlayer? spellCardOwner = a.SpellCard.Owner;
                     IPlayer? manaWyrmOwner = parentCard?.Owner;
 
-                    if (manaWyrmOwner != null 
-                        && parentCard != null 
+                    if (manaWyrmOwner != null
+                        && parentCard != null
                         && spellCardOwner == manaWyrmOwner
                         && manaWyrmOwner.Board.Contains(parentCard))
                     {

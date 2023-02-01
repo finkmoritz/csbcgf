@@ -13,7 +13,7 @@ namespace csbcgf
         [JsonProperty]
         protected int baseValue;
 
-        protected Stat() {}
+        protected Stat() { }
 
         /// <summary>
         /// Represents a Card's property.
@@ -27,7 +27,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public virtual int Value {
+        public virtual int Value
+        {
             get => value;
             set => this.value = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
         }

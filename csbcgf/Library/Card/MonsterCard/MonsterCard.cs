@@ -27,7 +27,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public bool IsReadyToAttack {
+        public bool IsReadyToAttack
+        {
             get => isReadyToAttack;
             set => isReadyToAttack = value;
         }
@@ -82,12 +83,12 @@ namespace csbcgf
 
         public void Attack(IGame game, ICharacter target)
         {
-            if(!IsReadyToAttack)
+            if (!IsReadyToAttack)
             {
                 throw new CsbcgfException("Failed to attack with a MonsterCard " +
                     "that is not ready to attack!");
             }
-            if(!GetPotentialTargets(game).Contains(target))
+            if (!GetPotentialTargets(game).Contains(target))
             {
                 throw new CsbcgfException("Cannot attack a target character " +
                     "that is not specified in the list of potential targets!");

@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected ICharacter target = null!;
 
-        protected AttackAction() {}
+        protected AttackAction() { }
 
         public AttackAction(IMonsterCard attacker, ICharacter target, bool isAborted = false)
             : base(isAborted)
@@ -20,12 +20,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IMonsterCard Attacker {
+        public IMonsterCard Attacker
+        {
             get => attacker;
         }
 
         [JsonIgnore]
-        public ICharacter Target {
+        public ICharacter Target
+        {
             get => target;
         }
 

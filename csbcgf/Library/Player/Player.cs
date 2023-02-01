@@ -29,7 +29,7 @@ namespace csbcgf
         [JsonProperty]
         protected ICardCollection graveyard = null!;
 
-        protected Player() {}
+        protected Player() { }
 
         /// <summary>
         /// Represents a Player.
@@ -118,8 +118,9 @@ namespace csbcgf
         {
             get
             {
-                List<ICharacter> characters = new List<ICharacter>{ this };
-                foreach(ICard card in Board.Cards) {
+                List<ICharacter> characters = new List<ICharacter> { this };
+                foreach (ICard card in Board.Cards)
+                {
                     characters.Add((ICharacter)card);
                 }
                 return characters.ToImmutableList();
@@ -127,45 +128,52 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IEnumerable<IReaction> Reactions {
+        public IEnumerable<IReaction> Reactions
+        {
             get => reactions.ToImmutableList();
         }
 
         [JsonIgnore]
-        public ICardCollection Deck {
+        public ICardCollection Deck
+        {
             get => deck;
         }
 
         [JsonIgnore]
-        public ICardCollection Hand {
+        public ICardCollection Hand
+        {
             get => hand;
         }
 
         [JsonIgnore]
-        public ICardCollection Board {
+        public ICardCollection Board
+        {
             get => board;
         }
 
         [JsonIgnore]
-        public ICardCollection Graveyard {
+        public ICardCollection Graveyard
+        {
             get => graveyard;
         }
 
         public List<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
-            foreach(ICard card in AllCards)
+            foreach (ICard card in AllCards)
             {
                 allReactions.AddRange(card.AllReactions());
             }
             return allReactions;
         }
 
-        public void AddReaction(IReaction reaction) {
+        public void AddReaction(IReaction reaction)
+        {
             reactions.Add(reaction);
         }
 
-        public bool RemoveReaction(IReaction reaction) {
+        public bool RemoveReaction(IReaction reaction)
+        {
             return reactions.Remove(reaction);
         }
 

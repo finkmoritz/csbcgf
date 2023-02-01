@@ -2,7 +2,7 @@
 {
     public class AttackStat : Stat
     {
-        protected AttackStat() {}
+        protected AttackStat() { }
 
         /// <summary>
         /// Potential damage to be dealt.

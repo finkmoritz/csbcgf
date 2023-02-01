@@ -7,7 +7,7 @@ namespace csbcgf
         [JsonProperty]
         protected IAction action = null!;
 
-        protected ActionEvent() {}
+        protected ActionEvent() { }
 
         public ActionEvent(IAction action)
         {

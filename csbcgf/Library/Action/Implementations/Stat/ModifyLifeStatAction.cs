@@ -10,7 +10,7 @@ namespace csbcgf
         [JsonProperty]
         protected int delta;
 
-        protected ModifyLifeStatAction() {}
+        protected ModifyLifeStatAction() { }
 
         public ModifyLifeStatAction(ILiving living, int delta, bool isAborted = false)
             : base(isAborted)
@@ -20,12 +20,14 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public ILiving Living {
+        public ILiving Living
+        {
             get => living;
         }
 
         [JsonIgnore]
-        public int Delta {
+        public int Delta
+        {
             get => delta;
             set => delta = value;
         }
@@ -33,7 +35,7 @@ namespace csbcgf
         public override void Execute(IGame game)
         {
             Living.LifeValue += Delta;
-            if(Living.LifeValue <= 0)
+            if (Living.LifeValue <= 0)
             {
                 if (Living is IMonsterCard monsterCard)
                 {
@@ -44,7 +46,7 @@ namespace csbcgf
                     game.Execute(new EndOfGameEvent());
                 }
             }
-            
+
         }
 
         public override bool IsExecutable(IGameState gameState)

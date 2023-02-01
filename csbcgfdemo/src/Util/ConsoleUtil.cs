@@ -45,7 +45,7 @@ namespace csbcgfdemo
         public static void PrintHand(IGameState gameState, ICardCollection hand, int idPrefix)
         {
             Console.ForegroundColor = ColorMana;
-            for (int i=0; i<hand.Size; ++i)
+            for (int i = 0; i < hand.Size; ++i)
             {
                 ICard card = hand[i];
                 Console.Write(string.Format(
@@ -64,7 +64,8 @@ namespace csbcgfdemo
                         "Attack: {0:D2}".PadRight(columnWidth),
                         monsterCard.AttackValue
                     ));
-                } else
+                }
+                else
                 {
                     Console.Write("".PadRight(columnWidth - 4));
                 }
@@ -119,7 +120,8 @@ namespace csbcgfdemo
                     "Mana: {0:D2}".PadRight(columnWidth),
                     card.ManaValue
                 ));
-                } else
+                }
+                else
                 {
                     Console.Write("".PadRight(columnWidth));
                 }
