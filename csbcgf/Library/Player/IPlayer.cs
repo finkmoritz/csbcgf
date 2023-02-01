@@ -44,7 +44,7 @@
         /// </summary>
         /// <param name="game"></param>
         /// <param name="monsterCard"></param>
-        void CastMonster(IGame game, IMonsterCard monsterCard);
+        void SummonMonster(IGame game, IMonsterCard monsterCard);
 
         /// <summary>
         /// Cast a SpellCard from the Player's Hand that needs no target.

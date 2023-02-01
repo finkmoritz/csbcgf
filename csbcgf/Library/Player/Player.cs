@@ -182,7 +182,7 @@ namespace csbcgf
             game.Execute(new DrawCardAction(this));
         }
 
-        public void CastMonster(IGame game, IMonsterCard monsterCard)
+        public void SummonMonster(IGame game, IMonsterCard monsterCard)
         {
             if (!monsterCard.IsSummonable(game))
             {

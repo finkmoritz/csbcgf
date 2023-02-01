@@ -33,18 +33,18 @@ namespace csbcgftutorial
 
             IPlayer activePlayer = game.ActivePlayer;
             Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
-            IMonsterCard goblin = (IMonsterCard)activePlayer.Hand[0];
+            IMonsterCard goblin = (IMonsterCard)activePlayer.Hand.First;
             if (goblin.IsSummonable(game))
             {
-                activePlayer.CastMonster(game, goblin);
+                activePlayer.SummonMonster(game, goblin);
                 Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
             }
 
             game.NextTurn();
 
             activePlayer = game.ActivePlayer;
-            IMonsterCard anotherGoblin = (IMonsterCard)activePlayer.Hand[0];
-            activePlayer.CastMonster(game, anotherGoblin);
+            IMonsterCard anotherGoblin = (IMonsterCard)activePlayer.Hand.First;
+            activePlayer.SummonMonster(game, anotherGoblin);
 
             game.NextTurn();
 

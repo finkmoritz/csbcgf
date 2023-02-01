@@ -100,7 +100,7 @@ namespace csbcgftest
 
             //Play monster card
             Assert.True(game.ActivePlayer.Board.IsEmpty);
-            game.ActivePlayer.CastMonster(game, goblin);
+            game.ActivePlayer.SummonMonster(game, goblin);
             Assert.False(game.ActivePlayer.Board.IsEmpty);
             Assert.That(game.ActivePlayer.Board.Cards.Count, Is.EqualTo(1));
 
@@ -115,7 +115,7 @@ namespace csbcgftest
             Assert.That(game.NonActivePlayers.First().ManaBaseValue, Is.EqualTo(2));
 
             IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.Hand[0];
-            game.ActivePlayer.CastMonster(game, otherGoblin);
+            game.ActivePlayer.SummonMonster(game, otherGoblin);
 
             Assert.False(goblin.IsReadyToAttack);
 

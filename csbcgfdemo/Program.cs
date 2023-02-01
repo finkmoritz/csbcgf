@@ -84,7 +84,7 @@ namespace csbcgfdemo
                 {
                     case CommandSummon:
                         IMonsterCard monsterCard = (IMonsterCard)GetObjectById(game, inputParams[1]);
-                        game.ActivePlayer.CastMonster(game, monsterCard);
+                        game.ActivePlayer.SummonMonster(game, monsterCard);
                         output = "Cast monster card";
                         break;
                     case CommandCast:
