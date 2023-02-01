@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Immutable;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -22,7 +23,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public List<ICard> AllCards => new List<ICard>(cards);
+        public IEnumerable<ICard> Cards => cards.ToImmutableList();
 
         [JsonIgnore]
         public bool IsEmpty => cards.Count == 0;

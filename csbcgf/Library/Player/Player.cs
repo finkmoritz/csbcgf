@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Immutable;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -62,10 +63,10 @@ namespace csbcgf
             get
             {
                 List<ICard> allCards = new List<ICard>();
-                allCards.AddRange(Deck.AllCards);
-                allCards.AddRange(Hand.AllCards);
-                allCards.AddRange(Board.AllCards);
-                allCards.AddRange(Graveyard.AllCards);
+                allCards.AddRange(Deck.Cards);
+                allCards.AddRange(Hand.Cards);
+                allCards.AddRange(Board.Cards);
+                allCards.AddRange(Graveyard.Cards);
                 return allCards;
             }
         }
@@ -117,18 +118,17 @@ namespace csbcgf
         {
             get
             {
-                List<ICharacter> characters = new List<ICharacter>
-                {
-                    this
-                };
-                Board.AllCards.ForEach(c => characters.Add((ICharacter)c));
+                List<ICharacter> characters = new List<ICharacter>{ this };
+                foreach(ICard card in Board.Cards) {
+                    characters.Add((ICharacter)card);
+                }
                 return characters;
             }
         }
 
         [JsonIgnore]
-        public List<IReaction> Reactions {
-            get => reactions;
+        public IEnumerable<IReaction> Reactions {
+            get => reactions.ToImmutableList();
         }
 
         [JsonIgnore]
@@ -209,7 +209,7 @@ namespace csbcgf
             game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
         }
 
-        public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             return new HashSet<ICharacter>();
         }

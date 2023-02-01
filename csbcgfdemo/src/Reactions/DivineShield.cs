@@ -15,7 +15,7 @@ namespace csbcgfdemo
                 if (a.Living == parentCard && a.Delta < 0)
                 {
                     a.Delta = 0;
-                    parentCard.Reactions.Remove(this);
+                    parentCard.RemoveReaction(this);
                 }
             }
         }

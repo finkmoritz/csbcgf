@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Immutable;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -34,44 +35,44 @@ namespace csbcgf
             this.actionQueue = new ActionQueue(false);
             this.reactions = new List<IReaction>();
 
-            Reactions.Add(new ModifyActivePlayerOnEndOfTurnEventReaction());
-            Reactions.Add(new ModifyManaOnStartOfTurnEventReaction());
-            Reactions.Add(new DrawCardOnStartOfTurnEventReaction());
+            AddReaction(new ModifyActivePlayerOnEndOfTurnEventReaction());
+            AddReaction(new ModifyManaOnStartOfTurnEventReaction());
+            AddReaction(new DrawCardOnStartOfTurnEventReaction());
         }
 
         [JsonIgnore]
-        public List<IReaction> Reactions
+        public IEnumerable<IReaction> Reactions
         {
-            get => reactions;
+            get => reactions.ToImmutableList();
         }
 
         [JsonIgnore]
-        public List<IPlayer> Players
+        public IEnumerable<IPlayer> Players
         {
-            get => players;
+            get => players.ToImmutableList();
         }
 
         [JsonIgnore]
         public IPlayer ActivePlayer
         {
-            get => Players[activePlayerIndex];
+            get => Players.ElementAt(activePlayerIndex);
             set
             {
-                activePlayerIndex = Players.IndexOf(value);
+                activePlayerIndex = players.IndexOf(value);
             }
         }
 
         [JsonIgnore]
-        public List<IPlayer> NonActivePlayers
+        public IEnumerable<IPlayer> NonActivePlayers
         {
             get
             {
-                return Players.Where(p => p != ActivePlayer).ToList();
+                return Players.Where(p => p != ActivePlayer).ToImmutableList();
             }
         }
 
         [JsonIgnore]
-        public List<ICard> AllCards
+        public IEnumerable<ICard> Cards
         {
             get
             {
@@ -80,28 +81,30 @@ namespace csbcgf
                 {
                     allCards.AddRange(player.AllCards);
                 }
-                return allCards;
+                return allCards.ToImmutableList();
             }
         }
 
         [JsonIgnore]
-        public List<ICard> AllCardsOnTheBoard
+        public IEnumerable<ICard> CardsOnTheBoard
         {
             get
             {
                 List<ICard> allCards = new List<ICard>();
                 foreach (IPlayer player in Players)
                 {
-                    allCards.AddRange(player.Board.AllCards);
+                    allCards.AddRange(player.Board.Cards);
                 }
-                return allCards;
+                return allCards.ToImmutableList();
             }
         }
 
         public List<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
-            Players.ForEach(p => allReactions.AddRange(p.AllReactions()));
+            foreach(IPlayer player in Players) {
+                allReactions.AddRange(player.AllReactions());
+            }
             return allReactions;
         }
 

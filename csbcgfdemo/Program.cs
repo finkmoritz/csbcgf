@@ -118,11 +118,11 @@ namespace csbcgfdemo
             switch(int.Parse(id.Substring(0, 1)))
             {
                 case 0:
-                    return game.NonActivePlayers[0];
+                    return game.NonActivePlayers.First();
                 case 1:
-                    return game.NonActivePlayers[0].Hand[int.Parse(id.Substring(1, 1))];
+                    return game.NonActivePlayers.First().Hand[int.Parse(id.Substring(1, 1))];
                 case 2:
-                    return game.NonActivePlayers[0].Board[int.Parse(id.Substring(1, 1))]!;
+                    return game.NonActivePlayers.First().Board[int.Parse(id.Substring(1, 1))]!;
                 case 3:
                     return game.ActivePlayer.Board[int.Parse(id.Substring(1, 1))]!;
                 case 4:

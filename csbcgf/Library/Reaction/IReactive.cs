@@ -5,7 +5,7 @@
         /// <summary>
         /// Reactions of this IReactive.
         /// </summary>
-        List<IReaction> Reactions { get; }
+        IEnumerable<IReaction> Reactions { get; }
 
         /// <summary>
         /// All reactions of this IReactive including its children.

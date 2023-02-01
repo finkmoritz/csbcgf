@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Immutable;
 
 namespace csbcgf
 {
@@ -14,8 +15,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public List<ICardComponent> Components {
-             get => components;
+        public IEnumerable<ICardComponent> Components {
+             get => components.ToImmutableList();
         }
 
         public void AddComponent(ICardComponent cardComponent)

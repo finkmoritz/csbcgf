@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Immutable;
 
 namespace csbcgf
 {
@@ -14,14 +15,16 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public List<IReaction> Reactions {
-            get => reactions;
+        public IEnumerable<IReaction> Reactions {
+            get => reactions.ToImmutableList();
         }
 
         public List<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);
-            Components.ForEach(c => allReactions.AddRange(c.AllReactions()));
+            foreach(ICardComponent cardComponent in Components) {
+                allReactions.AddRange(cardComponent.AllReactions());
+            }
             return allReactions;
         }
 

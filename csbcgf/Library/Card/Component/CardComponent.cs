@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Immutable;
+using Newtonsoft.Json;
 
 namespace csbcgf
 {
@@ -32,8 +33,8 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public List<IReaction> Reactions {
-            get => reactions;
+        public IEnumerable<IReaction> Reactions {
+            get => reactions.ToImmutableList();
         }
 
         [JsonIgnore]

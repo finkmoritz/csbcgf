@@ -96,15 +96,15 @@ namespace csbcgf
             game.Execute(new AttackAction(this, target));
         }
 
-        public virtual HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public virtual ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
-            if (Components.Count == 0)
+            if (Components.Count() == 0)
             {
                 return new HashSet<ICharacter>();
             }
 
             //Compute the intersection of all potential targets
-            HashSet<ICharacter> potentialTargets = ((ITargetful)Components[0]).GetPotentialTargets(gameState);
+            ISet<ICharacter> potentialTargets = ((ITargetful)Components.First()).GetPotentialTargets(gameState);
             foreach (ICardComponent component in Components)
             {
                 potentialTargets.IntersectWith(((ITargetful)component).GetPotentialTargets(gameState));

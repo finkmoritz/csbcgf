@@ -12,21 +12,21 @@
         /// <summary>
         /// Convenience method to retrieve the non-active Players.
         /// </summary>
-        List<IPlayer> NonActivePlayers { get; }
+        IEnumerable<IPlayer> NonActivePlayers { get; }
 
         /// <summary>
         /// List of Players involved in the Game.
         /// </summary>
-        List<IPlayer> Players { get; }
+        IEnumerable<IPlayer> Players { get; }
 
         /// <summary>
         /// Get all Cards involved in the Game.
         /// </summary>
-        List<ICard> AllCards { get; }
+        IEnumerable<ICard> Cards { get; }
 
         /// <summary>
         /// Convenience method to retrieve all Cards on the Boards of all players.
         /// </summary>
-        List<ICard> AllCardsOnTheBoard { get; }
+        IEnumerable<ICard> CardsOnTheBoard { get; }
     }
 }

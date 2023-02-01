@@ -16,11 +16,11 @@ namespace csbcgfdemo
         public static void PrintGame(IGameState gameState)
         {
             Console.BackgroundColor = BackgroundColorDefault;
-            PrintPlayer(gameState, gameState.NonActivePlayers[0], 0);
+            PrintPlayer(gameState, gameState.NonActivePlayers.First(), 0);
             Console.Write("\n\n");
-            PrintHand(gameState, gameState.NonActivePlayers[0].Hand, 1);
+            PrintHand(gameState, gameState.NonActivePlayers.First().Hand, 1);
             Console.Write("\n\n");
-            PrintBoard(gameState.NonActivePlayers[0].Board, 2);
+            PrintBoard(gameState.NonActivePlayers.First().Board, 2);
             Console.Write("\n\n");
             PrintBoard(gameState.ActivePlayer.Board, 3);
             Console.Write("\n\n");
@@ -33,7 +33,7 @@ namespace csbcgfdemo
         public static void PrintPlayer(IGameState gameState, IPlayer player, int id)
         {
             Console.ForegroundColor = ColorDefault;
-            Console.Write(string.Format("Player #{0}\n", gameState.Players.IndexOf(player)));
+            Console.Write(string.Format("Player #{0}\n", gameState.Players.ToList().IndexOf(player)));
             Console.ForegroundColor = ColorMana;
             Console.Write(string.Format("Mana: {0:D2}/{1:D2}\n", player.ManaValue, player.ManaBaseValue));
             Console.ForegroundColor = ColorLife;

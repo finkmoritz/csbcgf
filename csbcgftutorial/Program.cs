@@ -13,7 +13,7 @@ namespace csbcgftutorial
 
             for (int i = 0; i < 2; ++i)
             {
-                ICardCollection deck = game.Players[i].Deck;
+                ICardCollection deck = game.Players.ElementAt(i).Deck;
                 for (int j = 0; j < 20; ++j)
                 {
                     IMonsterCard myMonsterCard = new MonsterCard(mana: 1, attack: 1, life: 1);
@@ -42,16 +42,16 @@ namespace csbcgftutorial
 
             if(goblin.IsReadyToAttack)
             {
-                goblin.Attack(game, game.NonActivePlayers[0]);
+                goblin.Attack(game, game.NonActivePlayers.First());
             }
             
-            Console.WriteLine("First player is still alive: " + game.Players[0].IsAlive);
+            Console.WriteLine("First player is still alive: " + game.Players.First().IsAlive);
 
             Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 1
             ICardComponent extraLifeComponent = new MonsterCardComponent(0, 0, 1);
-            goblin.Components.Add(extraLifeComponent);
+            goblin.AddComponent(extraLifeComponent);
             Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 2
-            goblin.Components.Remove(extraLifeComponent);
+            goblin.RemoveComponent(extraLifeComponent);
             Console.WriteLine("Goblin's life = " + goblin.LifeValue); // 1
         }
     }

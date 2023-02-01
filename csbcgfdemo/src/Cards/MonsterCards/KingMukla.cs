@@ -8,7 +8,7 @@ namespace csbcgfdemo
         
         public KingMukla(bool initialize = true) : base(3, 5, 5)
         {
-            Reactions.Add(new KingMuklaBattlecryReaction());
+            AddReaction(new KingMuklaBattlecryReaction());
         }
 
         /// <summary>
@@ -23,12 +23,12 @@ namespace csbcgfdemo
                     CastMonsterAction action = (CastMonsterAction)actionEvent.Action;
                     if (action.MonsterCard == parentCard)
                     {
-                        game.NonActivePlayers.ForEach(p =>
-                            {
-                                game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
-                                game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
-                            }
-                        );
+                        foreach(IPlayer p in game.NonActivePlayers)
+                        {
+                            game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
+                            game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
+                        }
+                        ;
                     }
                 }
             }

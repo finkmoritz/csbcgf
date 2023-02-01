@@ -6,11 +6,11 @@
 
         public TargetfulSpellCard(bool initialize = true) : base(initialize) {}
 
-        public HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             //Compute the intersection of all potential targets
-            HashSet<ICharacter>? potentialTargets = null;
-            foreach (ICardComponent component in Components.FindAll(c => c is ITargetful))
+            ISet<ICharacter>? potentialTargets = null;
+            foreach (ICardComponent component in Components.Where(c => c is ITargetful))
             {
                 if (potentialTargets == null)
                 {

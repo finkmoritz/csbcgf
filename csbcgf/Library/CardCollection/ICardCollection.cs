@@ -5,7 +5,7 @@
         /// <summary>
         /// Get all cards in this Deck.
         /// </summary>
-        List<ICard> AllCards { get; }
+        IEnumerable<ICard> Cards { get; }
 
         /// <summary>
         /// Number of Cards currently in this Deck.

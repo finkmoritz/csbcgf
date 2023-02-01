@@ -7,8 +7,8 @@
             if (actionEvent.IsAfter(typeof(EndOfTurnEvent)))
             {
                 int playerIndex = game.Players.ToList().IndexOf(game.ActivePlayer);
-                playerIndex = (playerIndex + 1) % game.Players.Count;
-                game.Execute(new ModifyActivePlayerAction(game.Players[playerIndex]));
+                playerIndex = (playerIndex + 1) % game.Players.Count();
+                game.Execute(new ModifyActivePlayerAction(game.Players.ElementAt(playerIndex)));
             }
         }
     }

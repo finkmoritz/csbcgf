@@ -17,7 +17,7 @@ namespace csbcgfdemo
         public override bool IsCastable(IGameState gameState)
         {
             return base.IsCastable(gameState)
-                && gameState.AllCardsOnTheBoard.Count > 0;
+                && gameState.CardsOnTheBoard.Count() > 0;
         }
 
         public class BananasComponent : TargetfulSpellCardComponent
@@ -37,7 +37,9 @@ namespace csbcgfdemo
             public override HashSet<ICharacter> GetPotentialTargets(IGameState gameState)
             {
                 HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-                gameState.AllCardsOnTheBoard.ForEach(c => potentialTargets.Add((ICharacter)c));
+                foreach(ICard card in gameState.CardsOnTheBoard) {
+                    potentialTargets.Add((ICharacter)card);
+                }
                 return potentialTargets;
             }
         }

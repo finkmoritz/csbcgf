@@ -10,6 +10,6 @@
 
         public abstract void Cast(IGame game, ICharacter target);
 
-        public abstract HashSet<ICharacter> GetPotentialTargets(IGameState gameState);
+        public abstract ISet<ICharacter> GetPotentialTargets(IGameState gameState);
     }
 }

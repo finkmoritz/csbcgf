@@ -8,6 +8,6 @@
         /// </summary>
         /// <param name="gameState"></param>
         /// <returns>All valid target Characters.</returns>
-        HashSet<ICharacter> GetPotentialTargets(IGameState gameState);
+        ISet<ICharacter> GetPotentialTargets(IGameState gameState);
     }
 }

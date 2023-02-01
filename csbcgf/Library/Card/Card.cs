@@ -28,7 +28,7 @@ namespace csbcgf
             get => Math.Max(0, Components.Sum(c => c.ManaValue));
             set
             {
-                Components.Add(new CardComponent(value - Components.Sum(c => c.ManaValue), 0));
+                AddComponent(new CardComponent(value - Components.Sum(c => c.ManaValue), 0));
             }
         }
 
@@ -37,7 +37,7 @@ namespace csbcgf
             get => Math.Max(0, Components.Sum(c => c.ManaBaseValue));
             set
             {
-                Components.Add(new CardComponent(0, value - Components.Sum(c => c.ManaBaseValue)));
+                AddComponent(new CardComponent(0, value - Components.Sum(c => c.ManaBaseValue)));
             }
         }
 

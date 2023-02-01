@@ -8,7 +8,7 @@ namespace csbcgfdemo
 
         public ArgentSquire(bool initialize = true) : base(1, 1, 1)
         {
-            Reactions.Add(new DivineShield());
+            AddReaction(new DivineShield());
         }
     }
 }

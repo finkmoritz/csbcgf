@@ -5,7 +5,7 @@
         /// <summary>
         /// List of components that this ICompound is made of.
         /// </summary>
-        List<ICardComponent> Components { get; }
+        IEnumerable<ICardComponent> Components { get; }
 
         /// <summary>
         /// Add a component to this ICompound.

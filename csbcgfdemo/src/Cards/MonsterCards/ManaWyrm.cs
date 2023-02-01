@@ -8,7 +8,7 @@ namespace csbcgfdemo
         
         public ManaWyrm(bool initialize = true) : base(2, 1, 3)
         {
-            Reactions.Add(new ManaWyrmReaction());
+            AddReaction(new ManaWyrmReaction());
         }
 
         /// <summary>
