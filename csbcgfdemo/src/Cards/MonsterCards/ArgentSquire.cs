@@ -6,7 +6,7 @@ namespace csbcgfdemo
     {
         protected ArgentSquire() { }
 
-        public ArgentSquire(bool initialize = true) : base(1, 1, 1)
+        public ArgentSquire(bool _ = true) : base(1, 1, 1)
         {
             AddReaction(new DivineShield());
         }

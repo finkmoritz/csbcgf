@@ -6,7 +6,7 @@ namespace csbcgfdemo
     {
         protected KingMukla() { }
 
-        public KingMukla(bool initialize = true) : base(3, 5, 5)
+        public KingMukla(bool _ = true) : base(3, 5, 5)
         {
             AddReaction(new KingMuklaBattlecryReaction());
         }

@@ -9,7 +9,7 @@ namespace csbcgfdemo
     {
         protected Bananas() { }
 
-        public Bananas(bool initialize = true) : base(initialize)
+        public Bananas(bool _ = true) : base(_)
         {
             AddComponent(new BananasComponent());
         }
@@ -24,7 +24,7 @@ namespace csbcgfdemo
         {
             protected BananasComponent() { }
 
-            public BananasComponent(bool initialize = true) : base(1)
+            public BananasComponent(bool _ = true) : base(1)
             {
             }
 

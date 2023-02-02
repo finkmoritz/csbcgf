@@ -6,7 +6,7 @@ namespace csbcgfdemo
     {
         protected ManaWyrm() { }
 
-        public ManaWyrm(bool initialize = true) : base(2, 1, 3)
+        public ManaWyrm(bool _ = true) : base(2, 1, 3)
         {
             AddReaction(new ManaWyrmReaction());
         }

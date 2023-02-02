@@ -6,7 +6,7 @@ namespace csbcgfdemo
     {
         protected FarSight() { }
 
-        public FarSight(bool initialize = true) : base(initialize)
+        public FarSight(bool _ = true) : base(_)
         {
             AddComponent(new FarSightComponent());
         }
@@ -15,7 +15,7 @@ namespace csbcgfdemo
         {
             protected FarSightComponent() { }
 
-            public FarSightComponent(bool initialize = true) : base(3)
+            public FarSightComponent(bool _ = true) : base(3)
             {
             }
 

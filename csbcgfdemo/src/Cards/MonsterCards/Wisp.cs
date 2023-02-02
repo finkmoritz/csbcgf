@@ -6,7 +6,7 @@ namespace csbcgfdemo
     {
         protected Wisp() { }
 
-        public Wisp(bool initialize = true) : base(0, 1, 1)
+        public Wisp(bool _ = true) : base(0, 1, 1)
         {
         }
     }
