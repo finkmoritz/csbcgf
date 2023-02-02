@@ -16,15 +16,5 @@
         /// Start the next turn.
         /// </summary>
         void NextTurn();
-
-        /// <summary>
-        /// Add an IPlayer.
-        /// </summary>
-        public void AddPlayer(IPlayer player);
-
-        /// <summary>
-        /// Remove an IPlayer.
-        /// </summary>
-        public bool RemovePlayer(IPlayer player);
     }
 }
