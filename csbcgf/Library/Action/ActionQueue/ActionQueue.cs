@@ -22,54 +22,58 @@ namespace csbcgf
             this.isGameOver = isGameOver;
         }
 
-        public void Execute(IGame game, List<IAction> actions)
+        public List<IAction> Execute(IGame game, List<IAction> actions)
         {
-            if(ExecuteReactions)
+            if(!ExecuteReactions)
             {
-                List<IAction> executableActions = new List<IAction>(actions);
+                return new List<IAction>();
+            }
+            
+            List<IAction> executedActions = new List<IAction>(actions);
 
-                CallActionsOrDiscard(executableActions, game, 
+            CallActionsOrDiscard(executedActions, game, true,
+                (IAction action, IGame game) => {
+                    if (action is EndOfGameEvent)
+                    {
+                        isGameOver = true;
+                    }
+                }
+            );
+
+            if(!isGameOver)
+            {
+                CallActionsOrDiscard(executedActions, game, true,
                     (IAction action, IGame game) => {
-                        if (action is EndOfGameEvent)
+                        foreach (IReaction reaction in game.AllReactions())
                         {
-                            isGameOver = true;
+                            reaction.ReactBefore(game, action);
                         }
                     }
                 );
 
-                if(!isGameOver)
-                {
-                    CallActionsOrDiscard(executableActions, game, 
-                        (IAction action, IGame game) => {
-                            foreach (IReaction reaction in game.AllReactions())
-                            {
-                                reaction.ReactBefore(game, action);
-                            }
-                        }
-                    );
+                CallActionsOrDiscard(executedActions, game, false,
+                    (IAction action, IGame game) => action.Execute(game)
+                );
 
-                    CallActionsOrDiscard(executableActions, game, 
-                        (IAction action, IGame game) => action.Execute(game)
-                    );
-
-                    CallActionsOrDiscard(executableActions, game, 
-                        (IAction action, IGame game) => {
-                            foreach (IReaction reaction in game.AllReactions())
-                            {
-                                reaction.ReactAfter(game, action);
-                            }
+                CallActionsOrDiscard(executedActions, game, false,
+                    (IAction action, IGame game) => {
+                        foreach (IReaction reaction in game.AllReactions())
+                        {
+                            reaction.ReactAfter(game, action);
                         }
-                    );
-                }
+                    }
+                );
             }
+            
+            return executedActions;
         }
 
-        private void CallActionsOrDiscard(List<IAction> actions, IGame game, Action<IAction, IGame> func)
+        private void CallActionsOrDiscard(List<IAction> actions, IGame game, bool checkIfExecutable, Action<IAction, IGame> func)
         {
             List<IAction> actionsToBeRemoved = new List<IAction>();
             foreach (IAction action in actions) 
             {
-                if (!action.IsAborted && action.IsExecutable(game))
+                if (!action.IsAborted && (!checkIfExecutable || action.IsExecutable(game)))
                 {
                     func(action, game);
                 }

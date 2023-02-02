@@ -14,9 +14,9 @@ namespace csbcgfdemo
         /// <summary>
         /// Battlecry: Give your opponent 2 Bananas.
         /// </summary>
-        public class KingMuklaBattlecryReaction : CardReaction<CastMonsterAction>
+        public class KingMuklaBattlecryReaction : CardReaction<SummonMonsterAction>
         {
-            protected override void ReactAfterInternal(IGame game, CastMonsterAction action)
+            protected override void ReactAfterInternal(IGame game, SummonMonsterAction action)
             {
                 if (action.MonsterCard == parentCard)
                 {

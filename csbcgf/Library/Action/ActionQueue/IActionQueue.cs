@@ -16,6 +16,7 @@
         /// </summary>
         /// <param name="game"></param>
         /// <param name="actions"></param>
-        void Execute(IGame game, List<IAction> actions);
+        /// <returns>The list of actually executed IActions.</returns>
+        List<IAction> Execute(IGame game, List<IAction> actions);
     }
 }

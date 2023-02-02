@@ -132,16 +132,35 @@ namespace csbcgf
             Execute(new StartOfTurnEvent());
         }
 
-        public void Execute(IAction action, bool withReactions = true)
+        public List<IAction> Execute(IAction action, bool withReactions = true)
         {
-            Execute(new List<IAction> { action }, withReactions);
+            return ExecuteSimultaneously(new List<IAction> { action }, withReactions);
         }
 
-        public void Execute(List<IAction> actions, bool withReactions = true)
+        public List<IAction> ExecuteSimultaneously(List<IAction> actions, bool withReactions = true)
         {
             actionQueue.ExecuteReactions = withReactions;
-            actionQueue.Execute(this, actions);
+            List<IAction> executedActions = actionQueue.Execute(this, actions);
             actionQueue.ExecuteReactions = true;
+            return executedActions;
+        }
+
+        public List<IAction> ExecuteSequentially(List<IAction> actions, bool withReactions = true)
+        {
+            List<IAction> executedActions = new List<IAction>();
+            foreach(IAction action in actions)
+            {
+                IAction? executedAction = Execute(action, withReactions).FirstOrDefault(defaultValue: null);
+                if(executedAction != null)
+                {
+                    executedActions.Add(executedAction);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return executedActions;
         }
 
         public void AddPlayer(IPlayer player)

@@ -33,8 +33,10 @@ namespace csbcgf
         public override void Execute(IGame game)
         {
             drawnCard = player.Deck.Last;
-            game.Execute(new RemoveCardFromCardCollectionAction(player.Deck, drawnCard));
-            game.Execute(new AddCardToCardCollectionAction(player.Hand, drawnCard));
+            game.ExecuteSequentially(new List<IAction> {
+                new RemoveCardFromCardCollectionAction(player.Deck, drawnCard),
+                new AddCardToCardCollectionAction(player.Hand, drawnCard)
+            });
         }
 
         public override bool IsExecutable(IGameState gameState)

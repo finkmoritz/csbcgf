@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public class CastMonsterAction : Action
+    public class SummonMonsterAction : Action
     {
         [JsonProperty]
         protected IPlayer player = null!;
@@ -10,9 +10,9 @@ namespace csbcgf
         [JsonProperty]
         protected IMonsterCard monsterCard = null!;
 
-        protected CastMonsterAction() { }
+        protected SummonMonsterAction() { }
 
-        public CastMonsterAction(IPlayer player, IMonsterCard monsterCard, bool isAborted = false
+        public SummonMonsterAction(IPlayer player, IMonsterCard monsterCard, bool isAborted = false
             ) : base(isAborted)
         {
             this.player = player;
@@ -33,9 +33,11 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            game.Execute(new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0));
-            game.Execute(new RemoveCardFromCardCollectionAction(Player.Hand, MonsterCard));
-            game.Execute(new AddCardToCardCollectionAction(Player.Board, MonsterCard));
+            game.ExecuteSequentially(new List<IAction> {
+                new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0),
+                new RemoveCardFromCardCollectionAction(Player.Hand, MonsterCard),
+                new AddCardToCardCollectionAction(Player.Board, MonsterCard)
+            });
         }
 
         public override bool IsExecutable(IGameState gameState)

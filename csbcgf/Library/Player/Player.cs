@@ -195,7 +195,7 @@ namespace csbcgf
                 throw new CsbcgfException("Board has reached its maximum size!");
             }
 
-            game.Execute(new CastMonsterAction(this, monsterCard));
+            game.Execute(new SummonMonsterAction(this, monsterCard));
         }
 
         public void CastSpell(IGame game, ITargetlessSpellCard spellCard)

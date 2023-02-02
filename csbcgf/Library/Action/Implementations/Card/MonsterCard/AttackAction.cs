@@ -33,8 +33,10 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            game.Execute(new ModifyLifeStatAction(Target, -Attacker.AttackValue));
-            game.Execute(new ModifyLifeStatAction(Attacker, -Target.AttackValue));
+            game.ExecuteSimultaneously(new List<IAction> {
+                new ModifyLifeStatAction(Target, -Attacker.AttackValue),
+                new ModifyLifeStatAction(Attacker, -Target.AttackValue)
+            });
             game.Execute(new ModifyReadyToAttackAction(Attacker, false));
         }
 
