@@ -33,11 +33,11 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            game.ExecuteSimultaneously(new List<IAction> {
+            game.ActionQueue.ExecuteSimultaneously(new List<IAction> {
                 new ModifyLifeStatAction(Target, -Attacker.AttackValue),
                 new ModifyLifeStatAction(Attacker, -Target.AttackValue)
             });
-            game.Execute(new ModifyReadyToAttackAction(Attacker, false));
+            game.ActionQueue.Execute(new ModifyReadyToAttackAction(Attacker, false));
         }
 
         public override bool IsExecutable(IGameState gameState)

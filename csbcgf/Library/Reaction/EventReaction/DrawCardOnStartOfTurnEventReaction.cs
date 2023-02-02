@@ -4,7 +4,7 @@
     {
         protected override void ReactAfterInternal(IGame game, StartOfTurnEvent action)
         {
-            game.Execute(new DrawCardAction(game.ActivePlayer));
+            game.ActionQueue.Execute(new DrawCardAction(game.ActivePlayer));
         }
     }
 }

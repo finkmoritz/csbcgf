@@ -33,7 +33,7 @@ namespace csbcgf
         public override void Execute(IGame game)
         {
             drawnCard = player.Deck.Last;
-            game.ExecuteSequentially(new List<IAction> {
+            game.ActionQueue.ExecuteSequentially(new List<IAction> {
                 new RemoveCardFromCardCollectionAction(player.Deck, drawnCard),
                 new AddCardToCardCollectionAction(player.Hand, drawnCard)
             });

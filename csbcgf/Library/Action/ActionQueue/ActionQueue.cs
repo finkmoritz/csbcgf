@@ -5,26 +5,57 @@ namespace csbcgf
     public class ActionQueue : IActionQueue
     {
         [JsonProperty]
+        protected IGame game = null!;
+
+        [JsonProperty]
         protected bool isGameOver = false;
 
-        public bool ExecuteReactions { get; set; }
+        [JsonProperty]
+        protected bool executeReactions { get; set; }
 
         protected ActionQueue() { }
 
-        public ActionQueue(bool executeReactions = true)
-            : this(executeReactions, false)
+        public ActionQueue(IGame game, bool executeReactions = true, bool isGameOver = false)
         {
-        }
-
-        protected ActionQueue(bool executeReactions, bool isGameOver)
-        {
-            ExecuteReactions = executeReactions;
+            this.game = game;
+            this.executeReactions = executeReactions;
             this.isGameOver = isGameOver;
         }
 
-        public List<IAction> Execute(IGame game, List<IAction> actions)
+        public List<IAction> Execute(IAction action, bool withReactions = true)
         {
-            if(!ExecuteReactions)
+            return ExecuteSimultaneously(new List<IAction> { action }, withReactions);
+        }
+
+        public List<IAction> ExecuteSimultaneously(List<IAction> actions, bool withReactions = true)
+        {
+            executeReactions = withReactions;
+            List<IAction> executedActions = Execute(game, actions);
+            executeReactions = true;
+            return executedActions;
+        }
+
+        public List<IAction> ExecuteSequentially(List<IAction> actions, bool withReactions = true)
+        {
+            List<IAction> executedActions = new List<IAction>();
+            foreach(IAction action in actions)
+            {
+                IAction? executedAction = Execute(action, withReactions).FirstOrDefault(defaultValue: null);
+                if(executedAction != null)
+                {
+                    executedActions.Add(executedAction);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return executedActions;
+        }
+
+        protected List<IAction> Execute(IGame game, List<IAction> actions)
+        {
+            if(!executeReactions)
             {
                 return new List<IAction>();
             }

@@ -24,7 +24,7 @@ namespace csbcgf
         public override void Execute(IGame game)
         {
             IPlayer owner = MonsterCard.Owner!;
-            game.ExecuteSequentially(new List<IAction> {
+            game.ActionQueue.ExecuteSequentially(new List<IAction> {
                 new RemoveCardFromCardCollectionAction(owner.Board, MonsterCard),
                 new AddCardToCardCollectionAction(owner.Graveyard, MonsterCard)
             });

@@ -22,8 +22,8 @@ namespace csbcgfdemo
                 {
                     foreach (IPlayer p in game.NonActivePlayers)
                     {
-                        game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
-                        game.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
+                        game.ActionQueue.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
+                        game.ActionQueue.Execute(new AddCardToCardCollectionAction(p.Hand, new Bananas()));
                     }
                 }
             }

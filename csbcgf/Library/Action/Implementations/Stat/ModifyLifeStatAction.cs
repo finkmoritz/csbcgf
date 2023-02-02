@@ -39,11 +39,11 @@ namespace csbcgf
             {
                 if (Living is IMonsterCard monsterCard)
                 {
-                    game.Execute(new DieAction(monsterCard));
+                    game.ActionQueue.Execute(new DieAction(monsterCard));
                 }
                 else if (Living is IPlayer)
                 {
-                    game.Execute(new EndOfGameEvent());
+                    game.ActionQueue.Execute(new EndOfGameEvent());
                 }
             }
 

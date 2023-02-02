@@ -13,7 +13,7 @@
             bool isReadyToAttack = owner == game.ActivePlayer
                 && game.ActivePlayer.Board.Contains(monsterCard);
 
-            game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
+            game.ActionQueue.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
         }
     }
 }

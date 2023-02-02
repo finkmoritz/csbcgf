@@ -94,7 +94,7 @@ namespace csbcgf
                     "that is not specified in the list of potential targets!");
             }
 
-            game.Execute(new AttackAction(this, target));
+            game.ActionQueue.Execute(new AttackAction(this, target));
         }
 
         public virtual ISet<ICharacter> GetPotentialTargets(IGameState gameState)

@@ -33,7 +33,7 @@ namespace csbcgftest
 
             public override void Cast(IGame game, ICharacter target)
             {
-                game.Execute(new ModifyLifeStatAction(target, -(int)damage));
+                game.ActionQueue.Execute(new ModifyLifeStatAction(target, -(int)damage));
             }
 
             public override HashSet<ICharacter> GetPotentialTargets(IGameState gameState)

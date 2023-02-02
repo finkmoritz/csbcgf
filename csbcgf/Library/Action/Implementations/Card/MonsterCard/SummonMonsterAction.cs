@@ -33,7 +33,7 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            game.ExecuteSequentially(new List<IAction> {
+            game.ActionQueue.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0),
                 new RemoveCardFromCardCollectionAction(Player.Hand, MonsterCard),
                 new AddCardToCardCollectionAction(Player.Board, MonsterCard)

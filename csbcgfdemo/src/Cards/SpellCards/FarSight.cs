@@ -21,7 +21,7 @@ namespace csbcgfdemo
 
             public override void Cast(IGame game)
             {
-                game.Execute(new FarSightAction());
+                game.ActionQueue.Execute(new FarSightAction());
             }
 
             public class FarSightAction : csbcgf.Action
@@ -29,8 +29,8 @@ namespace csbcgfdemo
                 public override void Execute(IGame game)
                 {
                     DrawCardAction drawCardAction = new DrawCardAction(game.ActivePlayer);
-                    game.Execute(drawCardAction);
-                    game.Execute(new ModifyManaStatAction(drawCardAction.DrawnCard!, -3, 0));
+                    game.ActionQueue.Execute(drawCardAction);
+                    game.ActionQueue.Execute(new ModifyManaStatAction(drawCardAction.DrawnCard!, -3, 0));
                 }
 
                 public override bool IsExecutable(IGameState gameState)

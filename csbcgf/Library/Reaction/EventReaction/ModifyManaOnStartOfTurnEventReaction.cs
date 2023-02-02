@@ -5,7 +5,7 @@
         protected override void ReactAfterInternal(IGame game, StartOfTurnEvent action)
         {
             int manaDelta = game.ActivePlayer.ManaBaseValue + 1 - game.ActivePlayer.ManaValue;
-            game.Execute(new ModifyManaStatAction(game.ActivePlayer, manaDelta, 1));
+            game.ActionQueue.Execute(new ModifyManaStatAction(game.ActivePlayer, manaDelta, 1));
         }
     }
 }

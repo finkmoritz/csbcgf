@@ -3,20 +3,30 @@
     public interface IActionQueue
     {
         /// <summary>
-        /// Marks if the ActionQueue also executes IReactions to the
-        /// executed IActions.
-        /// Can be e.g. set to false during Game initialization.
+        /// Queue an Action for execution. Changes on the Game state should
+        /// only be performed via Actions queued through this method!
         /// </summary>
-        bool ExecuteReactions { get; set; }
+        /// <param name="action"></param>
+        /// <param name="withReactions"></param>
+        /// <returns>The list of actually executed IActions.</returns>
+        List<IAction> Execute(IAction action, bool withReactions = true);
 
         /// <summary>
-        /// Execute all specified Actions if they are executable
-        /// (see IAction.IsExecutable). Actions that are not executable
-        /// at this time will be discarded.
+        /// Queue multiple Actions for execution. Changes on the Game state should
+        /// only be performed via Actions queued through this method!
         /// </summary>
-        /// <param name="game"></param>
         /// <param name="actions"></param>
+        /// <param name="withReactions"></param>
         /// <returns>The list of actually executed IActions.</returns>
-        List<IAction> Execute(IGame game, List<IAction> actions);
+        List<IAction> ExecuteSimultaneously(List<IAction> actions, bool withReactions = true);
+
+        /// <summary>
+        /// Queue multiple Actions for execution. Changes on the Game state should
+        /// only be performed via Actions queued through this method!
+        /// </summary>
+        /// <param name="actions"></param>
+        /// <param name="withReactions"></param>
+        /// <returns>The list of actually executed IActions.</returns>
+        List<IAction> ExecuteSequentially(List<IAction> actions, bool withReactions = true);
     }
 }

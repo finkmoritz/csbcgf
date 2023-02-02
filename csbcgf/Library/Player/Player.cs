@@ -179,7 +179,7 @@ namespace csbcgf
 
         public void DrawCard(IGame game)
         {
-            game.Execute(new DrawCardAction(this));
+            game.ActionQueue.Execute(new DrawCardAction(this));
         }
 
         public void SummonMonster(IGame game, IMonsterCard monsterCard)
@@ -195,7 +195,7 @@ namespace csbcgf
                 throw new CsbcgfException("Board has reached its maximum size!");
             }
 
-            game.Execute(new SummonMonsterAction(this, monsterCard));
+            game.ActionQueue.Execute(new SummonMonsterAction(this, monsterCard));
         }
 
         public void CastSpell(IGame game, ITargetlessSpellCard spellCard)
@@ -206,7 +206,7 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Execute(new CastTargetlessSpellAction(this, spellCard));
+            game.ActionQueue.Execute(new CastTargetlessSpellAction(this, spellCard));
         }
 
         public void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
@@ -217,7 +217,7 @@ namespace csbcgf
                     "not playable!");
             }
 
-            game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
+            game.ActionQueue.Execute(new CastTargetfulSpellAction(this, spellCard, target));
         }
 
         public ISet<ICharacter> GetPotentialTargets(IGameState gameState)

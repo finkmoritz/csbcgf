@@ -33,12 +33,18 @@ namespace csbcgf
         {
             this.players = new List<IPlayer>();
             this.activePlayerIndex = 0;
-            this.actionQueue = new ActionQueue(false);
+            this.actionQueue = new ActionQueue(this);
             this.reactions = new List<IReaction>();
 
             AddReaction(new ModifyActivePlayerOnEndOfTurnEventReaction());
             AddReaction(new ModifyManaOnStartOfTurnEventReaction());
             AddReaction(new DrawCardOnStartOfTurnEventReaction());
+        }
+
+        [JsonIgnore]
+        public IActionQueue ActionQueue
+        {
+            get => actionQueue;
         }
 
         [JsonIgnore]
@@ -122,45 +128,18 @@ namespace csbcgf
 
         public void Start()
         {
-            Execute(new StartOfGameEvent());
-            Execute(new StartOfTurnEvent());
+            ActionQueue.ExecuteSequentially(new List<IAction> {
+                new StartOfGameEvent(),
+                new StartOfTurnEvent()
+            });
         }
 
         public void NextTurn()
         {
-            Execute(new EndOfTurnEvent());
-            Execute(new StartOfTurnEvent());
-        }
-
-        public List<IAction> Execute(IAction action, bool withReactions = true)
-        {
-            return ExecuteSimultaneously(new List<IAction> { action }, withReactions);
-        }
-
-        public List<IAction> ExecuteSimultaneously(List<IAction> actions, bool withReactions = true)
-        {
-            actionQueue.ExecuteReactions = withReactions;
-            List<IAction> executedActions = actionQueue.Execute(this, actions);
-            actionQueue.ExecuteReactions = true;
-            return executedActions;
-        }
-
-        public List<IAction> ExecuteSequentially(List<IAction> actions, bool withReactions = true)
-        {
-            List<IAction> executedActions = new List<IAction>();
-            foreach(IAction action in actions)
-            {
-                IAction? executedAction = Execute(action, withReactions).FirstOrDefault(defaultValue: null);
-                if(executedAction != null)
-                {
-                    executedActions.Add(executedAction);
-                }
-                else
-                {
-                    break;
-                }
-            }
-            return executedActions;
+            ActionQueue.ExecuteSequentially(new List<IAction> {
+                new EndOfTurnEvent(),
+                new StartOfTurnEvent()
+            });
         }
 
         public void AddPlayer(IPlayer player)

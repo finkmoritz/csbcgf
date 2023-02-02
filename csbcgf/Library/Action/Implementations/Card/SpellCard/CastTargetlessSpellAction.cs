@@ -14,13 +14,13 @@
 
         public override void Execute(IGame game)
         {
-            if(game.ExecuteSequentially(new List<IAction> {
+            if(game.ActionQueue.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0),
                 new RemoveCardFromCardCollectionAction(Player.Hand, SpellCard)
             }).Count == 2)
             {
                 ((ITargetlessSpellCard)SpellCard).Cast(game);
-                game.Execute(new AddCardToCardCollectionAction(Player.Graveyard, SpellCard));
+                game.ActionQueue.Execute(new AddCardToCardCollectionAction(Player.Graveyard, SpellCard));
             }
         }
 
