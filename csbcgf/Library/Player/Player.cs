@@ -224,21 +224,5 @@ namespace csbcgf
         {
             return new HashSet<ICharacter>();
         }
-
-        public void ReactBefore(IGame game, IAction action)
-        {
-            foreach (IReaction reaction in AllReactions())
-            {
-                reaction.ReactBefore(game, action);
-            }
-        }
-
-        public void ReactAfter(IGame game, IAction action)
-        {
-            foreach (IReaction reaction in AllReactions())
-            {
-                reaction.ReactAfter(game, action);
-            }
-        }
     }
 }

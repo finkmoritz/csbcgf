@@ -134,15 +134,13 @@ namespace csbcgf
 
         public void Execute(IAction action, bool withReactions = true)
         {
-            actionQueue.ExecuteReactions = withReactions;
-            actionQueue.Execute(this, action);
-            actionQueue.ExecuteReactions = true;
+            Execute(new List<IAction> { action }, withReactions);
         }
 
         public void Execute(List<IAction> actions, bool withReactions = true)
         {
             actionQueue.ExecuteReactions = withReactions;
-            actions.ForEach(a => Execute(a));
+            actionQueue.Execute(this, actions);
             actionQueue.ExecuteReactions = true;
         }
 
