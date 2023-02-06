@@ -1,16 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\csbcgf\csbcgf.csproj">
+    <ProjectReference Include="..\..\..\csbcgf\csbcgf.csproj">
       <Project>{3FF09BE9-E494-4D60-B87B-DFB4F91209A4}</Project>
       <Name>csbcgf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\implementation\hearthstone.csproj">
+      <Name>hearthstone</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -20,5 +21,4 @@
     <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
-
 </Project>

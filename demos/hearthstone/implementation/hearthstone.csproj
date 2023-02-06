@@ -7,9 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\csbcgf\csbcgf.csproj">
+    <ProjectReference Include="..\..\..\csbcgf\csbcgf.csproj">
       <Project>{3FF09BE9-E494-4D60-B87B-DFB4F91209A4}</Project>
       <Name>csbcgf</Name>
     </ProjectReference>
   </ItemGroup>
+
 </Project>
