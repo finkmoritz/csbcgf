@@ -14,7 +14,7 @@ namespace csbcgftutorial
                 player.LifeValue = 2;
                 player.LifeBaseValue = 2;
 
-                ICardCollection deck = player.Deck;
+                ICardCollection deck = player.GetCardCollection(CardCollectionKeys.Deck);
                 for (int j = 0; j < 20; ++j)
                 {
                     IMonsterCard myMonsterCard = new MonsterCard(mana: 1, attack: 1, life: 1);
@@ -33,7 +33,7 @@ namespace csbcgftutorial
 
             IPlayer activePlayer = game.ActivePlayer;
             Console.WriteLine("Active player's mana = " + activePlayer.ManaValue);
-            IMonsterCard goblin = (IMonsterCard)activePlayer.Hand.First;
+            IMonsterCard goblin = (IMonsterCard)activePlayer.GetCardCollection(CardCollectionKeys.Hand).First;
             if (goblin.IsSummonable(game))
             {
                 activePlayer.SummonMonster(game, goblin);
@@ -43,7 +43,7 @@ namespace csbcgftutorial
             game.NextTurn();
 
             activePlayer = game.ActivePlayer;
-            IMonsterCard anotherGoblin = (IMonsterCard)activePlayer.Hand.First;
+            IMonsterCard anotherGoblin = (IMonsterCard)activePlayer.GetCardCollection(CardCollectionKeys.Hand).First;
             activePlayer.SummonMonster(game, anotherGoblin);
 
             game.NextTurn();

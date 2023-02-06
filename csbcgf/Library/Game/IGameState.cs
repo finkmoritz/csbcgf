@@ -25,11 +25,6 @@
         IEnumerable<ICard> Cards { get; }
 
         /// <summary>
-        /// Convenience method to retrieve all Cards on the Boards of all players.
-        /// </summary>
-        IEnumerable<ICard> CardsOnTheBoard { get; }
-
-        /// <summary>
         /// Add an IPlayer.
         /// </summary>
         void AddPlayer(IPlayer player);

@@ -18,16 +18,7 @@ namespace csbcgf
         protected List<IReaction> reactions = null!;
 
         [JsonProperty]
-        protected ICardCollection deck = null!;
-
-        [JsonProperty]
-        protected ICardCollection hand = null!;
-
-        [JsonProperty]
-        protected ICardCollection board = null!;
-
-        [JsonProperty]
-        protected ICardCollection graveyard = null!;
+        protected IDictionary<string, ICardCollection> cardCollections = null!;
 
         protected Player() { }
 
@@ -36,17 +27,7 @@ namespace csbcgf
         /// </summary>
         public Player(bool _ = true)
         {
-            this.deck = new CardCollection();
-            this.deck.Owner = this;
-
-            this.hand = new CardCollection();
-            this.hand.Owner = this;
-
-            this.board = new CardCollection();
-            this.board.Owner = this;
-
-            this.graveyard = new CardCollection();
-            this.graveyard.Owner = this;
+            this.cardCollections = new Dictionary<string, ICardCollection>();
 
             this.manaPoolStat = new ManaPoolStat(0, 0);
             this.attackStat = new AttackStat(0);
@@ -63,10 +44,10 @@ namespace csbcgf
             get
             {
                 List<ICard> allCards = new List<ICard>();
-                allCards.AddRange(Deck.Cards);
-                allCards.AddRange(Hand.Cards);
-                allCards.AddRange(Board.Cards);
-                allCards.AddRange(Graveyard.Cards);
+                foreach(ICardCollection cardCollection in cardCollections.Values)
+                {
+                    allCards.AddRange(cardCollection.Cards);
+                }
                 return allCards.ToImmutableList();
             }
         }
@@ -114,47 +95,30 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IEnumerable<ICharacter> Characters
-        {
-            get
-            {
-                List<ICharacter> characters = new List<ICharacter> { this };
-                foreach (ICard card in Board.Cards)
-                {
-                    characters.Add((ICharacter)card);
-                }
-                return characters.ToImmutableList();
-            }
-        }
-
-        [JsonIgnore]
         public IEnumerable<IReaction> Reactions
         {
             get => reactions.ToImmutableList();
         }
 
-        [JsonIgnore]
-        public ICardCollection Deck
+        public ICardCollection GetCardCollection(string key)
         {
-            get => deck;
+            return cardCollections[key];
         }
 
-        [JsonIgnore]
-        public ICardCollection Hand
+        public void AddCardCollection(string key, ICardCollection cardCollection)
         {
-            get => hand;
+            cardCollections.Add(key, cardCollection);
+            cardCollection.Owner = this;
         }
 
-        [JsonIgnore]
-        public ICardCollection Board
+        public bool RemoveCardCollection(string key)
         {
-            get => board;
-        }
-
-        [JsonIgnore]
-        public ICardCollection Graveyard
-        {
-            get => graveyard;
+            if(!cardCollections.ContainsKey(key))
+            {
+                return false;
+            }
+            cardCollections[key].Owner = null;
+            return cardCollections.Remove(key);
         }
 
         public IEnumerable<IReaction> AllReactions()
@@ -188,11 +152,6 @@ namespace csbcgf
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
-            }
-
-            if (Board.IsFull)
-            {
-                throw new CsbcgfException("Board has reached its maximum size!");
             }
 
             game.ActionQueue.Execute(new SummonMonsterAction(this, monsterCard));

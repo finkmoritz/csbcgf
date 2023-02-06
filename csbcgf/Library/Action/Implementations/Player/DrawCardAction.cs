@@ -32,16 +32,16 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            drawnCard = player.Deck.Last;
+            drawnCard = player.GetCardCollection(CardCollectionKeys.Deck).Last;
             game.ActionQueue.ExecuteSequentially(new List<IAction> {
-                new RemoveCardFromCardCollectionAction(player.Deck, drawnCard),
-                new AddCardToCardCollectionAction(player.Hand, drawnCard)
+                new RemoveCardFromCardCollectionAction(player.GetCardCollection(CardCollectionKeys.Deck), drawnCard),
+                new AddCardToCardCollectionAction(player.GetCardCollection(CardCollectionKeys.Hand), drawnCard)
             });
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
-            return !player.Deck.IsEmpty;
+            return !player.GetCardCollection(CardCollectionKeys.Deck).IsEmpty;
         }
     }
 }

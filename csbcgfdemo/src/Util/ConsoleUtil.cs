@@ -18,13 +18,13 @@ namespace csbcgfdemo
             Console.BackgroundColor = BackgroundColorDefault;
             PrintPlayer(gameState, gameState.NonActivePlayers.First(), 0);
             Console.Write("\n\n");
-            PrintHand(gameState, gameState.NonActivePlayers.First().Hand, 1);
+            PrintHand(gameState, gameState.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Hand), 1);
             Console.Write("\n\n");
-            PrintBoard(gameState.NonActivePlayers.First().Board, 2);
+            PrintBoard(gameState.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Board), 2);
             Console.Write("\n\n");
-            PrintBoard(gameState.ActivePlayer.Board, 3);
+            PrintBoard(gameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Board), 3);
             Console.Write("\n\n");
-            PrintHand(gameState, gameState.ActivePlayer.Hand, 4);
+            PrintHand(gameState, gameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand), 4);
             Console.Write("\n\n");
             PrintPlayer(gameState, gameState.ActivePlayer, 5);
             Console.Write("\n\n");

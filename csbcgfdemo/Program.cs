@@ -37,7 +37,7 @@ namespace csbcgfdemo
                 player.LifeValue = 5;
                 player.LifeBaseValue = 5;
 
-                ICardCollection deck = player.Deck;
+                ICardCollection deck = player.GetCardCollection(CardCollectionKeys.Deck);
                 for (int n = 0; n < 3; ++n)
                 {
                     deck.Add(new Wisp());
@@ -132,13 +132,13 @@ namespace csbcgfdemo
                 case 0:
                     return game.NonActivePlayers.First();
                 case 1:
-                    return game.NonActivePlayers.First().Hand[int.Parse(id.Substring(1, 1))];
+                    return game.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Hand)[int.Parse(id.Substring(1, 1))];
                 case 2:
-                    return game.NonActivePlayers.First().Board[int.Parse(id.Substring(1, 1))]!;
+                    return game.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Board)[int.Parse(id.Substring(1, 1))]!;
                 case 3:
-                    return game.ActivePlayer.Board[int.Parse(id.Substring(1, 1))]!;
+                    return game.ActivePlayer.GetCardCollection(CardCollectionKeys.Board)[int.Parse(id.Substring(1, 1))]!;
                 case 4:
-                    return game.ActivePlayer.Hand[int.Parse(id.Substring(1, 1))];
+                    return game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[int.Parse(id.Substring(1, 1))];
                 case 5:
                     return game.ActivePlayer;
                 default:

@@ -25,8 +25,8 @@ namespace csbcgf
         {
             IPlayer owner = MonsterCard.Owner!;
             game.ActionQueue.ExecuteSequentially(new List<IAction> {
-                new RemoveCardFromCardCollectionAction(owner.Board, MonsterCard),
-                new AddCardToCardCollectionAction(owner.Graveyard, MonsterCard)
+                new RemoveCardFromCardCollectionAction(owner.GetCardCollection(CardCollectionKeys.Board), MonsterCard),
+                new AddCardToCardCollectionAction(owner.GetCardCollection(CardCollectionKeys.Graveyard), MonsterCard)
             });
         }
 
@@ -34,7 +34,7 @@ namespace csbcgf
         {
             IPlayer? owner = MonsterCard.Owner;
             return owner != null
-                && owner.Board.Contains(MonsterCard);
+                && owner.GetCardCollection(CardCollectionKeys.Board).Contains(MonsterCard);
         }
     }
 }

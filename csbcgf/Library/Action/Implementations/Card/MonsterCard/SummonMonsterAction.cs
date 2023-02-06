@@ -35,15 +35,15 @@ namespace csbcgf
         {
             game.ActionQueue.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0),
-                new RemoveCardFromCardCollectionAction(Player.Hand, MonsterCard),
-                new AddCardToCardCollectionAction(Player.Board, MonsterCard)
+                new RemoveCardFromCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Hand), MonsterCard),
+                new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Board), MonsterCard)
             });
         }
 
         public override bool IsExecutable(IGameState gameState)
         {
             return MonsterCard.IsSummonable(gameState)
-                && !Player.Board.IsFull;
+                && !Player.GetCardCollection(CardCollectionKeys.Board).IsFull;
         }
     }
 }

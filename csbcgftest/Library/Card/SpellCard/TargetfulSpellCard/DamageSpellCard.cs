@@ -42,7 +42,7 @@ namespace csbcgftest
                 foreach (IPlayer player in gameState.Players)
                 {
                     targets.Add(player);
-                    foreach (ICard card in player.Board.Cards)
+                    foreach (ICard card in player.GetCardCollection(CardCollectionKeys.Board).Cards)
                     {
                         targets.Add((ICharacter)card);
                     }

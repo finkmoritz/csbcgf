@@ -92,20 +92,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
-        public IEnumerable<ICard> CardsOnTheBoard
-        {
-            get
-            {
-                List<ICard> allCards = new List<ICard>();
-                foreach (IPlayer player in Players)
-                {
-                    allCards.AddRange(player.Board.Cards);
-                }
-                return allCards.ToImmutableList();
-            }
-        }
-
         public IEnumerable<IReaction> AllReactions()
         {
             List<IReaction> allReactions = new List<IReaction>(Reactions);

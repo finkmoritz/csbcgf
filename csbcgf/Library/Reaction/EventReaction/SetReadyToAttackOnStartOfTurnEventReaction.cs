@@ -11,7 +11,7 @@
             IMonsterCard monsterCard = (IMonsterCard)parentCard;
             IPlayer? owner = monsterCard.Owner;
             bool isReadyToAttack = owner == game.ActivePlayer
-                && game.ActivePlayer.Board.Contains(monsterCard);
+                && game.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).Contains(monsterCard);
 
             game.ActionQueue.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
         }

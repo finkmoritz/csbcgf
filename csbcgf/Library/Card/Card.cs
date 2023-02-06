@@ -50,7 +50,7 @@ namespace csbcgf
         {
             return owner != null
                 && owner == gameState.ActivePlayer
-                && owner.Hand.Contains(this)
+                && owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this)
                 && ManaValue <= gameState.ActivePlayer.ManaValue;
         }
     }

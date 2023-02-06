@@ -65,7 +65,8 @@ namespace csbcgf
             ISet<ICharacter> potentialTargets = new HashSet<ICharacter>();
             foreach (IPlayer player in gameState.NonActivePlayers)
             {
-                foreach (ICharacter character in player.Characters)
+                potentialTargets.Add(player);
+                foreach (ICharacter character in player.GetCardCollection(CardCollectionKeys.Board).Cards)
                 {
                     potentialTargets.Add(character);
                 }

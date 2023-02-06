@@ -3,35 +3,15 @@
     public interface IPlayer : IManaful, ICharacter, IReactive
     {
         /// <summary>
-        /// The Player's Deck of Cards.
-        /// </summary>
-        ICardCollection Deck { get; }
-
-        /// <summary>
-        /// The Player's Hand Cards.
-        /// </summary>
-        ICardCollection Hand { get; }
-
-        /// <summary>
-        /// The Player's Cards on the Board.
-        /// </summary>
-        ICardCollection Board { get; }
-
-        /// <summary>
-        /// The Player's Cards that have been removed from the Game.
-        /// </summary>
-        ICardCollection Graveyard { get; }
-
-        /// <summary>
         /// Get all Cards from the Player's Decks.
         /// </summary>
         IEnumerable<ICard> AllCards { get; }
 
-        /// <summary>
-        /// Convenience property to retrieve this player's characters, i.e.
-        /// the player himself and all cards on his/her board.
-        /// </summary>
-        IEnumerable<ICharacter> Characters { get; }
+        ICardCollection GetCardCollection(string key);
+
+        void AddCardCollection(string key, ICardCollection cardCollection);
+
+        bool RemoveCardCollection(string key);
 
         /// <summary>
         /// Draw a Card from the Deck and add it to the Hand.

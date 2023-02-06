@@ -16,11 +16,11 @@
         {
             if(game.ActionQueue.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0),
-                new RemoveCardFromCardCollectionAction(Player.Hand, SpellCard)
+                new RemoveCardFromCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Hand), SpellCard)
             }).Count == 2)
             {
                 ((ITargetlessSpellCard)SpellCard).Cast(game);
-                game.ActionQueue.Execute(new AddCardToCardCollectionAction(Player.Graveyard, SpellCard));
+                game.ActionQueue.Execute(new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Graveyard), SpellCard));
             }
         }
 

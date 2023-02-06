@@ -24,7 +24,7 @@ namespace csbcgfdemo
                 if (manaWyrmOwner != null
                     && parentCard != null
                     && spellCardOwner == manaWyrmOwner
-                    && manaWyrmOwner.Board.Contains(parentCard))
+                    && manaWyrmOwner.GetCardCollection(CardCollectionKeys.Board).Contains(parentCard))
                 {
                     game.ActionQueue.Execute(new ModifyAttackStatAction((IAttacking)parentCard, 1));
                 }

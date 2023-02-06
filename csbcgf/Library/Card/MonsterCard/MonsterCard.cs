@@ -116,7 +116,7 @@ namespace csbcgf
         public bool IsSummonable(IGameState gameState)
         {
             return base.IsCastable(gameState)
-                    && !gameState.ActivePlayer.Board.IsFull;
+                    && !gameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsFull;
         }
     }
 }
