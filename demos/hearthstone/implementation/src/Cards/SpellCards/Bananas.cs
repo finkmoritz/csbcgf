@@ -1,6 +1,6 @@
 ﻿using csbcgf;
 
-namespace csbcgfdemo
+namespace hearthstone
 {
     /// <summary>
     /// Bananas give a minion +1/+1.

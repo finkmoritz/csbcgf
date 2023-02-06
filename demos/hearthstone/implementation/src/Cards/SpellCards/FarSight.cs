@@ -1,6 +1,6 @@
 ﻿using csbcgf;
 
-namespace csbcgfdemo
+namespace hearthstone
 {
     public class FarSight : TargetlessSpellCard
     {

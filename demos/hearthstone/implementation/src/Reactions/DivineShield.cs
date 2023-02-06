@@ -1,6 +1,6 @@
 ﻿using csbcgf;
 
-namespace csbcgfdemo
+namespace hearthstone
 {
     /// <summary>
     /// Divine Shield blocks first damage.
