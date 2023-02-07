@@ -35,18 +35,6 @@ namespace csbcgf
         public override void Execute(IGame game)
         {
             Living.LifeValue += Delta;
-            if (Living.LifeValue <= 0)
-            {
-                if (Living is IMonsterCard monsterCard)
-                {
-                    game.ActionQueue.Execute(new DieAction(monsterCard));
-                }
-                else if (Living is IPlayer)
-                {
-                    game.ActionQueue.Execute(new EndOfGameEvent());
-                }
-            }
-
         }
 
         public override bool IsExecutable(IGameState gameState)

@@ -4,9 +4,6 @@ namespace csbcgf
 {
     public class MonsterCard : Card, IMonsterCard
     {
-        [JsonProperty]
-        protected bool isReadyToAttack;
-
         protected MonsterCard()
         {
         }
@@ -20,17 +17,7 @@ namespace csbcgf
         /// <param name="life"></param>
         public MonsterCard(int mana, int attack, int life) : base(true)
         {
-            this.isReadyToAttack = false;
-
             AddComponent(new MonsterCardComponent(mana, attack, life));
-            AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
-        }
-
-        [JsonIgnore]
-        public bool IsReadyToAttack
-        {
-            get => isReadyToAttack;
-            set => isReadyToAttack = value;
         }
 
         [JsonIgnore]
@@ -81,22 +68,6 @@ namespace csbcgf
             return Components.Where(c => c is IMonsterCardComponent).Sum(c => GetValue((IMonsterCardComponent)c));
         }
 
-        public void Attack(IGame game, ICharacter target)
-        {
-            if (!IsReadyToAttack)
-            {
-                throw new CsbcgfException("Failed to attack with a MonsterCard " +
-                    "that is not ready to attack!");
-            }
-            if (!GetPotentialTargets(game).Contains(target))
-            {
-                throw new CsbcgfException("Cannot attack a target character " +
-                    "that is not specified in the list of potential targets!");
-            }
-
-            game.ActionQueue.Execute(new AttackAction(this, target));
-        }
-
         public virtual ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             if (Components.Count() == 0)
@@ -113,10 +84,9 @@ namespace csbcgf
             return potentialTargets;
         }
 
-        public bool IsSummonable(IGameState gameState)
+        public virtual bool IsSummonable(IGameState gameState)
         {
-            return base.IsCastable(gameState)
-                    && !gameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsFull;
+            return base.IsCastable(gameState);
         }
     }
 }

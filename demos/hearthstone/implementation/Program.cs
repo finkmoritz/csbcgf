@@ -12,7 +12,7 @@ namespace hearthstone
 
         public static void Main(string[] args)
         {
-            IGame game = CreateGame();
+            HearthstoneGame game = CreateGame();
             game.Start();
 
             string info = string.Empty;
@@ -28,9 +28,9 @@ namespace hearthstone
             } while (input.ToUpper() != CommandQuit);
         }
 
-        private static IGame CreateGame()
+        private static HearthstoneGame CreateGame()
         {
-            IGame game = new Game();
+            HearthstoneGame game = new HearthstoneGame();
             for (int i = 0; i < 2; ++i)
             {
                 IPlayer player = new Player();
@@ -52,7 +52,7 @@ namespace hearthstone
                 game.AddPlayer(player);
             }
 
-            foreach (IPlayer player in game.Players)
+            foreach (HearthstonePlayer player in game.Players)
             {
                 for (int i = 0; i < 3; ++i)
                 {
@@ -74,35 +74,38 @@ namespace hearthstone
             return options;
         }
 
-        private static string ProcessInput(IGame game, string input)
+        private static string ProcessInput(HearthstoneGame game, string input)
         {
             string output = string.Empty;
             try
             {
+                HearthstonePlayer activePlayer = (HearthstonePlayer)game.ActivePlayer;
+
                 string[] inputParams = input.Split(' ');
                 switch (inputParams[0].ToUpper())
                 {
                     case CommandSummon:
                         IMonsterCard monsterCard = (IMonsterCard)GetObjectById(game, inputParams[1]);
-                        game.ActivePlayer.SummonMonster(game, monsterCard);
+                        activePlayer.SummonMonster(game, monsterCard);
                         output = "Cast monster card";
                         break;
                     case CommandCast:
                         ISpellCard spellCard = (ISpellCard)GetObjectById(game, inputParams[1]);
+                        activePlayer = (HearthstonePlayer)game.ActivePlayer;
                         if (spellCard is TargetlessSpellCard targetlessSpellCard)
                         {
-                            game.ActivePlayer.CastSpell(game, targetlessSpellCard);
+                            activePlayer.CastSpell(game, targetlessSpellCard);
                             output = "Cast spell";
                         }
                         else if (spellCard is TargetfulSpellCard targetfulSpellCard)
                         {
                             ICharacter target = (ICharacter)GetObjectById(game, inputParams[2]);
-                            game.ActivePlayer.CastSpell(game, targetfulSpellCard, target);
+                            activePlayer.CastSpell(game, targetfulSpellCard, target);
                             output = "Cast spell onto target";
                         }
                         break;
                     case CommandAttack:
-                        IMonsterCard monster = (IMonsterCard)GetObjectById(game, inputParams[1]);
+                        IHearthstoneMonsterCard monster = (IHearthstoneMonsterCard)GetObjectById(game, inputParams[1]);
                         ICharacter targetCard = (ICharacter)GetObjectById(game, inputParams[2]);
                         monster.Attack(game, targetCard);
                         output = "Attacked";

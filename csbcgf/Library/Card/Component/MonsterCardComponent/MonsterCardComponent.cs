@@ -60,18 +60,9 @@ namespace csbcgf
             set => lifeStat.BaseValue = value;
         }
 
-        public ISet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public virtual ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
-            ISet<ICharacter> potentialTargets = new HashSet<ICharacter>();
-            foreach (IPlayer player in gameState.NonActivePlayers)
-            {
-                potentialTargets.Add(player);
-                foreach (ICharacter character in player.GetCardCollection(CardCollectionKeys.Board).Cards)
-                {
-                    potentialTargets.Add(character);
-                }
-            }
-            return potentialTargets;
+            return new HashSet<ICharacter>();
         }
     }
 }

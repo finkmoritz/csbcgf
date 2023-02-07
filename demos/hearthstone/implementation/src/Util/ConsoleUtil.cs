@@ -164,7 +164,7 @@ namespace hearthstone
             Console.ForegroundColor = ColorDefault;
             for (int i = 0; i < board.MaxSize; ++i)
             {
-                IMonsterCard? monsterCard = (IMonsterCard?)board[i];
+                IHearthstoneMonsterCard? monsterCard = (IHearthstoneMonsterCard?)board[i];
                 Console.ForegroundColor = monsterCard != null && monsterCard.IsReadyToAttack
                         ? ColorSelectable
                         : ColorDefault;

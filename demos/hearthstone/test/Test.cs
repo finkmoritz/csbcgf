@@ -1,21 +1,21 @@
 using NUnit.Framework;
 using csbcgf;
 
-namespace csbcgftest
+namespace hearthstone
 {
     [TestFixture()]
     public class Test
     {
-        private IGame game = null!;
+        private HearthstoneGame game = null!;
 
         [SetUp()]
         public void SetUp()
         {
-            game = new Game();
+            game = new HearthstoneGame();
 
             for (int i = 0; i < 2; ++i)
             {
-                IPlayer player = new Player();
+                HearthstonePlayer player = new HearthstonePlayer();
                 player.LifeValue = 2;
                 player.LifeBaseValue = 2;
 
@@ -29,14 +29,14 @@ namespace csbcgftest
 
                 for (int j = 0; j < 2; ++j)
                 {
-                    ICard goblin = new MonsterCard(2, 1, 2);
+                    ICard goblin = new HearthstoneMonsterCard(2, 1, 2);
                     deck.Add(goblin);
                 }
 
                 game.AddPlayer(player);
             }
 
-            foreach (IPlayer player in game.Players)
+            foreach (HearthstonePlayer player in game.Players)
             {
                 player.DrawCard(game);
             }
@@ -68,7 +68,7 @@ namespace csbcgftest
         [Test()]
         public void TestGame()
         {
-            IMonsterCard goblin = (IMonsterCard)game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
+            IHearthstoneMonsterCard goblin = (IHearthstoneMonsterCard)game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
             Assert.False(goblin.IsSummonable(game));
 
             game.NextTurn(); //Second player's turn
@@ -95,12 +95,12 @@ namespace csbcgftest
             Assert.That(game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand).Size, Is.EqualTo(3));
             Assert.That(game.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Hand).Size, Is.EqualTo(2));
 
-            goblin = (IMonsterCard)game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
+            goblin = (IHearthstoneMonsterCard)game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
             Assert.True(goblin.IsSummonable(game));
 
             //Play monster card
             Assert.True(game.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsEmpty);
-            game.ActivePlayer.SummonMonster(game, goblin);
+            ((HearthstonePlayer)game.ActivePlayer).SummonMonster(game, goblin);
             Assert.False(game.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsEmpty);
             Assert.That(game.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).Cards.Count, Is.EqualTo(1));
 
@@ -114,8 +114,8 @@ namespace csbcgftest
             Assert.That(game.ActivePlayer.ManaBaseValue, Is.EqualTo(2));
             Assert.That(game.NonActivePlayers.First().ManaBaseValue, Is.EqualTo(2));
 
-            IMonsterCard otherGoblin = (IMonsterCard)game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
-            game.ActivePlayer.SummonMonster(game, otherGoblin);
+            IHearthstoneMonsterCard otherGoblin = (IHearthstoneMonsterCard)game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
+            ((HearthstonePlayer)game.ActivePlayer).SummonMonster(game, otherGoblin);
 
             Assert.False(goblin.IsReadyToAttack);
 
@@ -159,7 +159,7 @@ namespace csbcgftest
             Assert.True(game.NonActivePlayers.First().IsAlive);
 
             ITargetfulSpellCard fireball = (ITargetfulSpellCard)game.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[2];
-            game.ActivePlayer.CastSpell(game, fireball, game.NonActivePlayers.First());
+            ((HearthstonePlayer)game.ActivePlayer).CastSpell(game, fireball, game.NonActivePlayers.First());
 
             Assert.That(game.NonActivePlayers.First().LifeValue, Is.EqualTo(0));
             Assert.False(game.NonActivePlayers.First().IsAlive);

@@ -35,10 +35,6 @@ namespace csbcgf
             this.activePlayerIndex = 0;
             this.actionQueue = new ActionQueue(this);
             this.reactions = new List<IReaction>();
-
-            AddReaction(new ModifyActivePlayerOnEndOfTurnEventReaction());
-            AddReaction(new ModifyManaOnStartOfTurnEventReaction());
-            AddReaction(new DrawCardOnStartOfTurnEventReaction());
         }
 
         [JsonIgnore]
@@ -110,22 +106,6 @@ namespace csbcgf
         public bool RemoveReaction(IReaction reaction)
         {
             return reactions.Remove(reaction);
-        }
-
-        public void Start()
-        {
-            ActionQueue.ExecuteSequentially(new List<IAction> {
-                new StartOfGameEvent(),
-                new StartOfTurnEvent()
-            });
-        }
-
-        public void NextTurn()
-        {
-            ActionQueue.ExecuteSequentially(new List<IAction> {
-                new EndOfTurnEvent(),
-                new StartOfTurnEvent()
-            });
         }
 
         public void AddPlayer(IPlayer player)

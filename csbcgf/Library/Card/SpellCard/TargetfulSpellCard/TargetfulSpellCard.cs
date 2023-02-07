@@ -6,7 +6,7 @@
 
         public TargetfulSpellCard(bool _ = true) : base(_) { }
 
-        public ISet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public virtual ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
             //Compute the intersection of all potential targets
             ISet<ICharacter>? potentialTargets = null;
@@ -24,7 +24,7 @@
             return potentialTargets ?? new HashSet<ICharacter>();
         }
 
-        public void Cast(IGame game, ICharacter target)
+        public virtual void Cast(IGame game, ICharacter target)
         {
             if (!GetPotentialTargets(game).Contains(target))
             {
