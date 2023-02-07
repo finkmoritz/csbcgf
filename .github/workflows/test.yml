@@ -9,7 +9,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: ./csbcgftest
+        working-directory: ./demos/hearthstone/test
 
     steps:
     - uses: actions/checkout@v3
