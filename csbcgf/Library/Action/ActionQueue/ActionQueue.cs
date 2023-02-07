@@ -64,7 +64,7 @@ namespace csbcgf
 
             CallActionsOrDiscard(executedActions, game, true,
                 (IAction action, IGame game) => {
-                    if (action is EndOfGameEvent)
+                    if (action is GameOverEvent)
                     {
                         isGameOver = true;
                     }

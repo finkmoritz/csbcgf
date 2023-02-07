@@ -41,7 +41,7 @@ namespace hearthstone
                 player.DrawCard(game);
             }
 
-            game.Start();
+            game.NextTurn();
         }
 
         [Test()]

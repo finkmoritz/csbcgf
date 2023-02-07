@@ -13,7 +13,7 @@ namespace hearthstone
         public static void Main(string[] args)
         {
             HearthstoneGame game = CreateGame();
-            game.Start();
+            game.NextTurn();
 
             string info = string.Empty;
             string input;
