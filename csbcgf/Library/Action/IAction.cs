@@ -24,5 +24,7 @@
     public interface IAction<T> : IAction where T : IGameState
     {
         bool IsExecutable(T gameState);
+
+        void Execute(IGame<T> game);
     }
 }

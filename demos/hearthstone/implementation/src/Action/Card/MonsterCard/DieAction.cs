@@ -22,7 +22,7 @@ namespace hearthstone
             get => monsterCard;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
             IPlayer owner = MonsterCard.Owner!;
             game.ExecuteSequentially(new List<IAction> {

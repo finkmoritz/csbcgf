@@ -11,9 +11,9 @@ namespace hearthstone
         {
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
-            HearthstoneGameState state = (HearthstoneGameState)game.State;
+            HearthstoneGameState state = game.State;
             int newActivePlayerIndex = state.Players.ToList().IndexOf(state.ActivePlayer);
             newActivePlayerIndex = (newActivePlayerIndex + 1) % state.Players.Count();
             IPlayer newActivePlayer = state.Players.ElementAt(newActivePlayerIndex);

@@ -46,5 +46,15 @@ namespace csbcgf
                 return false;
             }
         }
+
+        public abstract void Execute(IGame<T> game);
+
+        public override void Execute(IGame game)
+        {
+            if (game is IGame<T> g)
+            {
+                Execute(g);
+            }
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace hearthstone
             get => spellCard;
         }
 
-        public override abstract void Execute(IGame game);
+        public override abstract void Execute(IGame<HearthstoneGameState> game);
 
         public override abstract bool IsExecutable(HearthstoneGameState gameState);
     }

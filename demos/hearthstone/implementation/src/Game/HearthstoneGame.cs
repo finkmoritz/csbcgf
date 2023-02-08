@@ -2,7 +2,7 @@
 
 namespace hearthstone
 {
-    public class HearthstoneGame : Game
+    public class HearthstoneGame : Game<HearthstoneGameState>
     {
         protected HearthstoneGame()
         {

@@ -27,7 +27,7 @@ namespace hearthstone
             get => target;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
             if(game.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0),

@@ -32,7 +32,7 @@ namespace hearthstone
             get => target;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
             game.ExecuteSimultaneously(new List<IAction> {
                 new ModifyLifeStatAction(Target, -Attacker.AttackValue),

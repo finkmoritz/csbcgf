@@ -2,10 +2,10 @@
 
 namespace csbcgf
 {
-    public class Game : IGame
+    public class Game<T> : IGame<T> where T : IGameState
     {
         [JsonProperty]
-        protected IGameState state = null!;
+        protected T state = default(T)!;
 
         [JsonProperty]
         protected bool isGameOver = false;
@@ -17,7 +17,7 @@ namespace csbcgf
         {
         }
 
-        public Game(IGameState state, bool executeReactions = true, bool isGameOver = false)
+        public Game(T state, bool executeReactions = true, bool isGameOver = false)
         {
             this.state = state;
             this.executeReactions = executeReactions;
@@ -25,7 +25,13 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IGameState State
+        public T State
+        {
+            get => state;
+        }
+
+        [JsonIgnore]
+        IGameState IGame.State
         {
             get => state;
         }

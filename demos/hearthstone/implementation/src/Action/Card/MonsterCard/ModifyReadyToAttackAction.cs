@@ -35,7 +35,7 @@ namespace hearthstone
             get => isReadyToAttack;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
             MonsterCard.IsReadyToAttack = IsReadyToAttack;
         }

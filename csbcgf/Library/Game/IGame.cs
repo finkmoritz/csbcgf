@@ -34,4 +34,9 @@
         /// <returns>The list of actually executed IActions.</returns>
         List<IAction> ExecuteSequentially(List<IAction> actions, bool withReactions = true);
     }
+
+    public interface IGame<T> : IGame where T : IGameState
+    {
+        new T State { get; }
+    }
 }

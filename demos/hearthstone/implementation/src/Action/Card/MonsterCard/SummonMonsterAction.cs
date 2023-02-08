@@ -32,7 +32,7 @@ namespace hearthstone
             get => monsterCard;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
             game.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0),

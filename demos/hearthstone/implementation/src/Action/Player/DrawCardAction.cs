@@ -31,7 +31,7 @@ namespace hearthstone
             get => drawnCard;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
             drawnCard = player.GetCardCollection(CardCollectionKeys.Deck).Last;
             game.ExecuteSequentially(new List<IAction> {

@@ -11,9 +11,9 @@ namespace hearthstone
         {
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
-            HearthstoneGameState state = (HearthstoneGameState)game.State;
+            HearthstoneGameState state = game.State;
 
             bool wasExecuted = game.Execute(new NextPlayerAction()).Count == 1;
             if (wasExecuted)

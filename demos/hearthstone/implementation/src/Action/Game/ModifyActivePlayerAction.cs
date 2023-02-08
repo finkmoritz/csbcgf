@@ -22,10 +22,9 @@ namespace hearthstone
             get => newActivePlayer;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<HearthstoneGameState> game)
         {
-            HearthstoneGameState state = (HearthstoneGameState)game.State;
-            state.ActivePlayer = NewActivePlayer;
+            game.State.ActivePlayer = NewActivePlayer;
         }
 
         public override bool IsExecutable(HearthstoneGameState state)
