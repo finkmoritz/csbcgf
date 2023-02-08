@@ -8,7 +8,7 @@ namespace hearthstone
 
         public CastTargetlessSpellAction(
             IPlayer player,
-            ITargetlessSpellCard spellCard,
+            HearthstoneTargetlessSpellCard spellCard,
             bool isAborted = false
             ) : base(player, spellCard, isAborted)
         {
@@ -21,7 +21,7 @@ namespace hearthstone
                 new RemoveCardFromCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Hand), SpellCard)
             }).Count == 2)
             {
-                ((ITargetlessSpellCard)SpellCard).Cast(game);
+                ((HearthstoneTargetlessSpellCard)SpellCard).Cast(game);
                 game.Execute(new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Graveyard), SpellCard));
             }
         }

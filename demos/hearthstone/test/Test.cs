@@ -164,7 +164,7 @@ namespace hearthstone
             Assert.That(state.NonActivePlayers.First().LifeValue, Is.EqualTo(1));
             Assert.True(state.NonActivePlayers.First().IsAlive);
 
-            ITargetfulSpellCard fireball = (ITargetfulSpellCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[2];
+            HearthstoneTargetfulSpellCard fireball = (HearthstoneTargetfulSpellCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[2];
             ((HearthstonePlayer)state.ActivePlayer).CastSpell(game, fireball, state.NonActivePlayers.First());
 
             Assert.That(state.NonActivePlayers.First().LifeValue, Is.EqualTo(0));

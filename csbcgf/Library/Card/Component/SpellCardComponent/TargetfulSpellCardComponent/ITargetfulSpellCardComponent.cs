@@ -9,4 +9,9 @@
         /// <param name="target"></param>
         void Cast(IGame game, ICharacter target);
     }
+
+    public interface ITargetfulSpellCardComponent<T> : ITargetfulSpellCardComponent, ISpellCardComponent, ITargetful<T> where T : IGameState
+    {
+        void Cast(IGame<T> game, ICharacter target);
+    }
 }

@@ -95,12 +95,12 @@ namespace hearthstone
                     case CommandCast:
                         ISpellCard spellCard = (ISpellCard)GetObjectById(game, inputParams[1]);
                         activePlayer = (HearthstonePlayer)state.ActivePlayer;
-                        if (spellCard is TargetlessSpellCard targetlessSpellCard)
+                        if (spellCard is HearthstoneTargetlessSpellCard targetlessSpellCard)
                         {
                             activePlayer.CastSpell(game, targetlessSpellCard);
                             output = "Cast spell";
                         }
-                        else if (spellCard is TargetfulSpellCard targetfulSpellCard)
+                        else if (spellCard is HearthstoneTargetfulSpellCard targetfulSpellCard)
                         {
                             ICharacter target = (ICharacter)GetObjectById(game, inputParams[2]);
                             activePlayer.CastSpell(game, targetfulSpellCard, target);

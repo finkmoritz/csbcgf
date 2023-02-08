@@ -1,12 +1,24 @@
 ﻿namespace csbcgf
 {
-    public class TargetfulSpellCard : SpellCard, ITargetfulSpellCard
+    public class TargetfulSpellCard<T> : SpellCard, ITargetfulSpellCard<T> where T : IGameState
     {
         protected TargetfulSpellCard() : base() { }
 
         public TargetfulSpellCard(bool _ = true) : base(_) { }
 
-        public virtual ISet<ICharacter> GetPotentialTargets(IGameState gameState)
+        ISet<ICharacter> ITargetful.GetPotentialTargets(IGameState gameState)
+        {
+            if (gameState is T s)
+            {
+                return GetPotentialTargets(s);
+            }
+            else
+            {
+                return new HashSet<ICharacter>();
+            }
+        }
+
+        public virtual ISet<ICharacter> GetPotentialTargets(T gameState)
         {
             //Compute the intersection of all potential targets
             ISet<ICharacter>? potentialTargets = null;
@@ -24,7 +36,7 @@
             return potentialTargets ?? new HashSet<ICharacter>();
         }
 
-        public virtual void Cast(IGame game, ICharacter target)
+        public virtual void Cast(IGame<T> game, ICharacter target)
         {
             if (!GetPotentialTargets(game.State).Contains(target))
             {
@@ -34,7 +46,7 @@
 
             foreach (ICardComponent component in Components)
             {
-                if (component is ITargetlessSpellCardComponent targetlessComponent)
+                if (component is ITargetlessSpellCardComponent<T> targetlessComponent)
                 {
                     targetlessComponent.Cast(game);
                 }

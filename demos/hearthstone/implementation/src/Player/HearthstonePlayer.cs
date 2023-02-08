@@ -32,7 +32,7 @@ namespace hearthstone
             game.Execute(new SummonMonsterAction(this, monsterCard));
         }
 
-        public void CastSpell(HearthstoneGame game, ITargetlessSpellCard spellCard)
+        public void CastSpell(HearthstoneGame game, HearthstoneTargetlessSpellCard spellCard)
         {
             if (!spellCard.IsCastable(game.State))
             {
@@ -43,7 +43,7 @@ namespace hearthstone
             game.Execute(new CastTargetlessSpellAction(this, spellCard));
         }
 
-        public void CastSpell(HearthstoneGame game, ITargetfulSpellCard spellCard, ICharacter target)
+        public void CastSpell(HearthstoneGame game, HearthstoneTargetfulSpellCard spellCard, ICharacter target)
         {
             if (!spellCard.IsCastable(game.State))
             {
