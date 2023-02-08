@@ -16,42 +16,42 @@ namespace hearthstone
             AddCardCollection(CardCollectionKeys.Graveyard, new CardCollection());
         }
 
-        public void DrawCard(IGame game)
+        public void DrawCard(HearthstoneGame game)
         {
-            game.ActionQueue.Execute(new DrawCardAction(this));
+            game.Execute(new DrawCardAction(this));
         }
 
-        public void SummonMonster(IGame game, IMonsterCard monsterCard)
+        public void SummonMonster(HearthstoneGame game, IMonsterCard monsterCard)
         {
-            if (!monsterCard.IsSummonable(game))
+            if (!monsterCard.IsSummonable(game.GameState))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            game.ActionQueue.Execute(new SummonMonsterAction(this, monsterCard));
+            game.Execute(new SummonMonsterAction(this, monsterCard));
         }
 
-        public void CastSpell(IGame game, ITargetlessSpellCard spellCard)
+        public void CastSpell(HearthstoneGame game, ITargetlessSpellCard spellCard)
         {
-            if (!spellCard.IsCastable(game))
+            if (!spellCard.IsCastable(game.GameState))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            game.ActionQueue.Execute(new CastTargetlessSpellAction(this, spellCard));
+            game.Execute(new CastTargetlessSpellAction(this, spellCard));
         }
 
-        public void CastSpell(IGame game, ITargetfulSpellCard spellCard, ICharacter target)
+        public void CastSpell(HearthstoneGame game, ITargetfulSpellCard spellCard, ICharacter target)
         {
-            if (!spellCard.IsCastable(game))
+            if (!spellCard.IsCastable(game.GameState))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
             }
 
-            game.ActionQueue.Execute(new CastTargetfulSpellAction(this, spellCard, target));
+            game.Execute(new CastTargetfulSpellAction(this, spellCard, target));
         }
     }
 }

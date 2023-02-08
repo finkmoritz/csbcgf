@@ -26,7 +26,7 @@
 
         public virtual void Cast(IGame game, ICharacter target)
         {
-            if (!GetPotentialTargets(game).Contains(target))
+            if (!GetPotentialTargets(game.GameState).Contains(target))
             {
                 throw new CsbcgfException("Tried to play a TargetfulSpellCard " +
                     "on an invalid target character!");

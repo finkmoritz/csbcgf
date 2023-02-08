@@ -13,13 +13,13 @@ namespace hearthstone
 
         public override void Execute(IGame game)
         {
-            bool wasExecuted = game.ActionQueue.Execute(new NextPlayerAction()).Count == 1;
+            bool wasExecuted = game.Execute(new NextPlayerAction()).Count == 1;
             if (wasExecuted)
             {
-                IPlayer activePlayer = game.ActivePlayer;
+                IPlayer activePlayer = game.GameState.ActivePlayer;
                 int manaDelta = activePlayer.ManaBaseValue + 1 - activePlayer.ManaValue;
-                game.ActionQueue.ExecuteSimultaneously(new List<IAction>{
-                    new ModifyManaStatAction(game.ActivePlayer, manaDelta, 1),
+                game.ExecuteSimultaneously(new List<IAction>{
+                    new ModifyManaStatAction(game.GameState.ActivePlayer, manaDelta, 1),
                     new DrawCardAction(activePlayer)
                 });
             }

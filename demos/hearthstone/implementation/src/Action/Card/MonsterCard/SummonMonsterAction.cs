@@ -34,7 +34,7 @@ namespace hearthstone
 
         public override void Execute(IGame game)
         {
-            game.ActionQueue.ExecuteSequentially(new List<IAction> {
+            game.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0),
                 new RemoveCardFromCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Hand), MonsterCard),
                 new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Board), MonsterCard)

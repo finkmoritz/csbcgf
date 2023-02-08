@@ -13,7 +13,7 @@ namespace hearthstone
         private const ConsoleColor ColorLife = ConsoleColor.Red;
         private const ConsoleColor ColorSelectable = ConsoleColor.Green;
 
-        public static void PrintGame(IGameState gameState)
+        public static void PrintGame(HearthstoneGameState gameState)
         {
             Console.BackgroundColor = BackgroundColorDefault;
             PrintPlayer(gameState, gameState.NonActivePlayers.First(), 0);
@@ -30,7 +30,7 @@ namespace hearthstone
             Console.Write("\n\n");
         }
 
-        public static void PrintPlayer(IGameState gameState, IPlayer player, int id)
+        public static void PrintPlayer(HearthstoneGameState gameState, IPlayer player, int id)
         {
             Console.ForegroundColor = ColorDefault;
             Console.Write(string.Format("Player #{0}\n", gameState.Players.ToList().IndexOf(player)));
@@ -42,7 +42,7 @@ namespace hearthstone
             Console.Write(string.Format("Id: {0}", id));
         }
 
-        public static void PrintHand(IGameState gameState, ICardCollection hand, int idPrefix)
+        public static void PrintHand(HearthstoneGameState gameState, ICardCollection hand, int idPrefix)
         {
             Console.ForegroundColor = ColorMana;
             for (int i = 0; i < hand.Size; ++i)
@@ -164,7 +164,7 @@ namespace hearthstone
             Console.ForegroundColor = ColorDefault;
             for (int i = 0; i < board.MaxSize; ++i)
             {
-                IHearthstoneMonsterCard? monsterCard = (IHearthstoneMonsterCard?)board[i];
+                HearthstoneMonsterCard? monsterCard = (HearthstoneMonsterCard?)board[i];
                 Console.ForegroundColor = monsterCard != null && monsterCard.IsReadyToAttack
                         ? ColorSelectable
                         : ColorDefault;

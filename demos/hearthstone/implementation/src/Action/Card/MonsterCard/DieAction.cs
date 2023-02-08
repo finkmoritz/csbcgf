@@ -25,7 +25,7 @@ namespace hearthstone
         public override void Execute(IGame game)
         {
             IPlayer owner = MonsterCard.Owner!;
-            game.ActionQueue.ExecuteSequentially(new List<IAction> {
+            game.ExecuteSequentially(new List<IAction> {
                 new RemoveCardFromCardCollectionAction(owner.GetCardCollection(CardCollectionKeys.Board), MonsterCard),
                 new AddCardToCardCollectionAction(owner.GetCardCollection(CardCollectionKeys.Graveyard), MonsterCard)
             });

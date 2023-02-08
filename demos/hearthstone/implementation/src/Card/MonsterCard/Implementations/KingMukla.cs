@@ -20,11 +20,11 @@ namespace hearthstone
             {
                 if (action.MonsterCard == parentCard)
                 {
-                    foreach (IPlayer p in game.NonActivePlayers)
+                    foreach (IPlayer p in game.GameState.NonActivePlayers)
                     {
                         ICardCollection hand = p.GetCardCollection(CardCollectionKeys.Hand);
-                        game.ActionQueue.Execute(new AddCardToCardCollectionAction(hand, new Bananas()));
-                        game.ActionQueue.Execute(new AddCardToCardCollectionAction(hand, new Bananas()));
+                        game.Execute(new AddCardToCardCollectionAction(hand, new Bananas()));
+                        game.Execute(new AddCardToCardCollectionAction(hand, new Bananas()));
                     }
                 }
             }

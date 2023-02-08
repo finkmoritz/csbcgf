@@ -32,7 +32,7 @@ namespace hearthstone
 
             public override void Cast(IGame game, ICharacter target)
             {
-                game.ActionQueue.Execute(new ModifyLifeStatAction(target, -(int)damage));
+                game.Execute(new ModifyLifeStatAction(target, -(int)damage));
             }
 
             public override HashSet<ICharacter> GetPotentialTargets(IGameState gameState)

@@ -29,13 +29,13 @@ namespace hearthstone
 
         public override void Execute(IGame game)
         {
-            if(game.ActionQueue.ExecuteSequentially(new List<IAction> {
+            if(game.ExecuteSequentially(new List<IAction> {
                 new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0),
                 new RemoveCardFromCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Hand), SpellCard)
             }).Count == 2)
             {
                 ((ITargetfulSpellCard)SpellCard).Cast(game, Target);
-                game.ActionQueue.Execute(new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Graveyard), SpellCard));
+                game.Execute(new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Graveyard), SpellCard));
             }
         }
 

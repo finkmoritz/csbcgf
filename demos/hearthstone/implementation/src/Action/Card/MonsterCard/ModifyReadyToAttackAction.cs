@@ -6,7 +6,7 @@ namespace hearthstone
     public class ModifyReadyToAttackAction : csbcgf.Action
     {
         [JsonProperty]
-        protected IHearthstoneMonsterCard monsterCard = null!;
+        protected HearthstoneMonsterCard monsterCard = null!;
 
         [JsonProperty]
         protected bool isReadyToAttack;
@@ -14,7 +14,7 @@ namespace hearthstone
         protected ModifyReadyToAttackAction() { }
 
         public ModifyReadyToAttackAction(
-            IHearthstoneMonsterCard monsterCard,
+            HearthstoneMonsterCard monsterCard,
             bool isReadyToAttack,
             bool isAborted = false
             ) : base(isAborted)
@@ -24,7 +24,7 @@ namespace hearthstone
         }
 
         [JsonIgnore]
-        public IHearthstoneMonsterCard MonsterCard
+        public HearthstoneMonsterCard MonsterCard
         {
             get => monsterCard;
         }

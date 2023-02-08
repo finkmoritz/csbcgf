@@ -34,7 +34,7 @@ namespace hearthstone
         public override void Execute(IGame game)
         {
             drawnCard = player.GetCardCollection(CardCollectionKeys.Deck).Last;
-            game.ActionQueue.ExecuteSequentially(new List<IAction> {
+            game.ExecuteSequentially(new List<IAction> {
                 new RemoveCardFromCardCollectionAction(player.GetCardCollection(CardCollectionKeys.Deck), drawnCard),
                 new AddCardToCardCollectionAction(player.GetCardCollection(CardCollectionKeys.Hand), drawnCard)
             });

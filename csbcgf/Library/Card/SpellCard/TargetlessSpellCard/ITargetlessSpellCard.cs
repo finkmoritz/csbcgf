@@ -5,7 +5,7 @@
         /// <summary>
         /// Called when the spell card is cast.
         /// </summary>
-        /// <param name="gameState"></param>
+        /// <param name="game"></param>
         void Cast(IGame game);
     }
 }

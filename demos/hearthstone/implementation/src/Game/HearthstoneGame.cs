@@ -8,13 +8,13 @@ namespace hearthstone
         {
         }
 
-        public HearthstoneGame(bool _ = true) : base(_)
+        public HearthstoneGame(HearthstoneGameState gameState) : base(gameState)
         {
         }
 
         public void NextTurn()
         {
-            ActionQueue.Execute(new NextTurnAction());
+            Execute(new NextTurnAction());
         }
     }
 }

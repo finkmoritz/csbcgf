@@ -1,121 +1,128 @@
-﻿using System.Collections.Immutable;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace csbcgf
 {
     public class Game : IGame
     {
-        /// <summary>
-        /// Index of the active Player. Refers to the Players array.
-        /// Also see the ActivePlayer accessor.
-        /// </summary>
         [JsonProperty]
-        protected int activePlayerIndex;
+        protected IGameState gameState = null!;
 
         [JsonProperty]
-        protected ActionQueue actionQueue = null!;
+        protected bool isGameOver = false;
 
         [JsonProperty]
-        protected List<IReaction> reactions = null!;
-
-        [JsonProperty]
-        protected List<IPlayer> players = null!;
+        protected bool executeReactions { get; set; }
 
         protected Game()
         {
         }
 
-        /// <summary>
-        /// Represent the current Game state and provides methods to alter
-        /// this Game state.
-        /// </summary>
-        public Game(bool _ = true)
+        public Game(IGameState gameState, bool executeReactions = true, bool isGameOver = false)
         {
-            this.players = new List<IPlayer>();
-            this.activePlayerIndex = 0;
-            this.actionQueue = new ActionQueue(this);
-            this.reactions = new List<IReaction>();
+            this.gameState = gameState;
+            this.executeReactions = executeReactions;
+            this.isGameOver = isGameOver;
         }
 
         [JsonIgnore]
-        public IActionQueue ActionQueue
+        public IGameState GameState
         {
-            get => actionQueue;
+            get => gameState;
         }
 
-        [JsonIgnore]
-        public IEnumerable<IReaction> Reactions
+        
+        public List<IAction> Execute(IAction action, bool withReactions = true)
         {
-            get => reactions.ToImmutableList();
+            return ExecuteSimultaneously(new List<IAction> { action }, withReactions);
         }
 
-        [JsonIgnore]
-        public IEnumerable<IPlayer> Players
+        public List<IAction> ExecuteSimultaneously(List<IAction> actions, bool withReactions = true)
         {
-            get => players.ToImmutableList();
+            executeReactions = withReactions;
+            List<IAction> executedActions = Execute(actions);
+            executeReactions = true;
+            return executedActions;
         }
 
-        [JsonIgnore]
-        public IPlayer ActivePlayer
+        public List<IAction> ExecuteSequentially(List<IAction> actions, bool withReactions = true)
         {
-            get => Players.ElementAt(activePlayerIndex);
-            set
+            List<IAction> executedActions = new List<IAction>();
+            foreach(IAction action in actions)
             {
-                activePlayerIndex = players.IndexOf(value);
-            }
-        }
-
-        [JsonIgnore]
-        public IEnumerable<IPlayer> NonActivePlayers
-        {
-            get
-            {
-                return Players.Where(p => p != ActivePlayer).ToImmutableList();
-            }
-        }
-
-        [JsonIgnore]
-        public IEnumerable<ICard> Cards
-        {
-            get
-            {
-                List<ICard> allCards = new List<ICard>();
-                foreach (IPlayer player in Players)
+                IAction? executedAction = Execute(action, withReactions).FirstOrDefault(defaultValue: null);
+                if(executedAction != null)
                 {
-                    allCards.AddRange(player.AllCards);
+                    executedActions.Add(executedAction);
                 }
-                return allCards.ToImmutableList();
+                else
+                {
+                    break;
+                }
             }
+            return executedActions;
         }
 
-        public IEnumerable<IReaction> AllReactions()
+        protected List<IAction> Execute(List<IAction> actions)
         {
-            List<IReaction> allReactions = new List<IReaction>(Reactions);
-            foreach (IPlayer player in Players)
+            if(!executeReactions)
             {
-                allReactions.AddRange(player.AllReactions());
+                return new List<IAction>();
             }
-            return allReactions.ToImmutableList();
+            
+            List<IAction> executedActions = new List<IAction>(actions);
+
+            CallActionsOrDiscard(executedActions, true,
+                (IAction action) => {
+                    if (action is GameOverEvent)
+                    {
+                        isGameOver = true;
+                    }
+                }
+            );
+
+            if(!isGameOver)
+            {
+                CallActionsOrDiscard(executedActions, true,
+                    (IAction action) => {
+                        foreach (IReaction reaction in GameState.AllReactions())
+                        {
+                            reaction.ReactBefore(this, action);
+                        }
+                    }
+                );
+
+                CallActionsOrDiscard(executedActions, false,
+                    (IAction action) => action.Execute(this)
+                );
+
+                CallActionsOrDiscard(executedActions, false,
+                    (IAction action) => {
+                        foreach (IReaction reaction in GameState.AllReactions())
+                        {
+                            reaction.ReactAfter(this, action);
+                        }
+                    }
+                );
+            }
+            
+            return executedActions;
         }
 
-        public void AddReaction(IReaction reaction)
+        private void CallActionsOrDiscard(List<IAction> actions, bool checkIfExecutable, Action<IAction> func)
         {
-            reactions.Add(reaction);
-        }
-
-        public bool RemoveReaction(IReaction reaction)
-        {
-            return reactions.Remove(reaction);
-        }
-
-        public void AddPlayer(IPlayer player)
-        {
-            players.Add(player);
-        }
-
-        public bool RemovePlayer(IPlayer player)
-        {
-            return players.Remove(player);
+            List<IAction> actionsToBeRemoved = new List<IAction>();
+            foreach (IAction action in actions) 
+            {
+                if (!action.IsAborted && (!checkIfExecutable || action.IsExecutable(GameState)))
+                {
+                    func(action);
+                }
+                else
+                {
+                    actionsToBeRemoved.Add(action);
+                }
+            }
+            actionsToBeRemoved.ForEach(action => actions.Remove(action));
         }
     }
 }

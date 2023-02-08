@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public class HearthstoneMonsterCard : MonsterCard, IHearthstoneMonsterCard
+    public class HearthstoneMonsterCard : MonsterCard
     {
         [JsonProperty]
         protected bool isReadyToAttack;
@@ -27,7 +27,7 @@ namespace hearthstone
             set => isReadyToAttack = value;
         }
 
-        public void Attack(IGame game, ICharacter target)
+        public void Attack(HearthstoneGame game, ICharacter target)
         {
             if (!IsReadyToAttack)
             {
@@ -35,13 +35,13 @@ namespace hearthstone
                     "that is not ready to attack!");
             }
 
-            if (!GetPotentialTargets(game).Contains(target))
+            if (!GetPotentialTargets(game.GameState).Contains(target))
             {
                 throw new CsbcgfException("Cannot attack a target character " +
                     "that is not specified in the list of potential targets!");
             }
 
-            game.ActionQueue.Execute(new AttackAction(this, target));
+            game.Execute(new AttackAction(this, target));
         }
 
         public override ISet<ICharacter> GetPotentialTargets(IGameState gameState)

@@ -10,12 +10,12 @@ namespace hearthstone
 
         protected override void ReactAfterInternal(IGame game, NextTurnAction action)
         {
-            IHearthstoneMonsterCard monsterCard = (IHearthstoneMonsterCard)parentCard;
+            HearthstoneMonsterCard monsterCard = (HearthstoneMonsterCard)parentCard;
             IPlayer? owner = monsterCard.Owner;
-            bool isReadyToAttack = owner == game.ActivePlayer
-                && game.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).Contains(monsterCard);
+            bool isReadyToAttack = owner == game.GameState.ActivePlayer
+                && game.GameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).Contains(monsterCard);
 
-            game.ActionQueue.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
+            game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
         }
     }
 }

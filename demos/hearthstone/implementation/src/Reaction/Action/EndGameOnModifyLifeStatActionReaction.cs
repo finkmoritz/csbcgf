@@ -13,7 +13,7 @@ namespace hearthstone
         {
             if (ParentPlayer is IPlayer && ParentPlayer.LifeValue <= 0)
             {
-                game.ActionQueue.Execute(new GameOverEvent());
+                game.Execute(new GameOverEvent());
             }
         }
     }

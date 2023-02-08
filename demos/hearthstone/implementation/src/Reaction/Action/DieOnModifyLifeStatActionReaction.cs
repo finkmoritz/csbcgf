@@ -6,14 +6,14 @@ namespace hearthstone
     {
         protected DieOnModifyLifeStatActionReaction() { }
 
-        public DieOnModifyLifeStatActionReaction(IHearthstoneMonsterCard parentCard)
+        public DieOnModifyLifeStatActionReaction(HearthstoneMonsterCard parentCard)
             : base(parentCard) { }
 
         protected override void ReactAfterInternal(IGame game, ModifyLifeStatAction action)
         {
             if (ParentCard is IMonsterCard monsterCard && monsterCard.LifeValue <= 0)
             {
-                game.ActionQueue.Execute(new DieAction(monsterCard));
+                game.Execute(new DieAction(monsterCard));
             }
         }
     }

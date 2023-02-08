@@ -13,11 +13,11 @@ namespace hearthstone
 
         public override void Execute(IGame game)
         {
-            int newActivePlayerIndex = game.Players.ToList().IndexOf(game.ActivePlayer);
-            newActivePlayerIndex = (newActivePlayerIndex + 1) % game.Players.Count();
-            IPlayer newActivePlayer = game.Players.ElementAt(newActivePlayerIndex);
+            int newActivePlayerIndex = game.GameState.Players.ToList().IndexOf(game.GameState.ActivePlayer);
+            newActivePlayerIndex = (newActivePlayerIndex + 1) % game.GameState.Players.Count();
+            IPlayer newActivePlayer = game.GameState.Players.ElementAt(newActivePlayerIndex);
 
-            game.ActionQueue.Execute(new ModifyActivePlayerAction(newActivePlayer));
+            game.Execute(new ModifyActivePlayerAction(newActivePlayer));
         }
 
         public override bool IsExecutable(IGameState gameState)

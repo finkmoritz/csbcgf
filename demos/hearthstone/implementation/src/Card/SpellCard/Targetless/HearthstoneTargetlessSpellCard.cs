@@ -2,7 +2,7 @@
 
 namespace hearthstone
 {
-    public class HearthstoneTargetlessSpellCard : TargetlessSpellCard, IHearthstoneTargetlessSpellCard
+    public class HearthstoneTargetlessSpellCard : TargetlessSpellCard
     {
         protected HearthstoneTargetlessSpellCard()
         {

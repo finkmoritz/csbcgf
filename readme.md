@@ -115,7 +115,7 @@ a character can either be a player or a monster card.
 ## IAction interface & how to properly change a Game's state
 
 Changes to the game state should only be performed via actions (i.e. classes
-implementing ``IAction``)! More specifically only in the ``game.ActionQueue.Execute`` method.
+implementing ``IAction``)! More specifically only in the ``game.Execute`` method.
 This method takes one or more ``IAction``s, adds them to the queue and
 executes them one by one. ``IReaction``s triggered by those ``IAction``s
 are being executed afterwards (which in turn can trigger further ``IReaction``s).
@@ -235,11 +235,11 @@ to unexpected side effects. It is good practice to always add/remove ``IReaction
 **How to properly execute multiple actions?**
 
 Apparently there are two ways to execute multiple ``IAction``s:
-1. Call ``game.ActionQueue.Execute(IAction)`` multiple times or 
-``game.ActionQueue.ExecuteSequentially(List<IAction>)``. At each call the ``IAction`` itself
+1. Call ``game.Execute(IAction)`` multiple times or 
+``game.ExecuteSequentially(List<IAction>)``. At each call the ``IAction`` itself
 plus all triggered ``IReaction``s are executed if not forbidden by ``IAction.IsExecutable``.
 Note that also the triggered ``IReaction``s could in turn trigger further ``IReaction``s.
-2. Call ``game.ActionQueue.ExecuteSimultaneously(List<IAction>)`` with all ``IAction``s. 
+2. Call ``game.ExecuteSimultaneously(List<IAction>)`` with all ``IAction``s. 
 Now all ``IAction``s in the list will be executed first (if not forbidden by 
 ``IAction.IsExecutable``). Only after that has happened, all ``IReaction``s triggered by 
 all those ``IAction``s will be executed. This goes on until no ``IReaction``s have been 
