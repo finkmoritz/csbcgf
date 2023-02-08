@@ -21,7 +21,7 @@ namespace hearthstone
             {
                 Console.Clear();
                 Console.WriteLine(info + "\n");
-                ConsoleUtil.PrintGame((HearthstoneGameState)game.GameState);
+                ConsoleUtil.PrintGame((HearthstoneGameState)game.State);
                 Console.WriteLine(GetOptions());
                 input = Console.ReadLine() ?? "";
                 info = ProcessInput(game, input);
@@ -81,7 +81,7 @@ namespace hearthstone
             string output = string.Empty;
             try
             {
-                HearthstonePlayer activePlayer = (HearthstonePlayer)game.GameState.ActivePlayer;
+                HearthstonePlayer activePlayer = (HearthstonePlayer)game.State.ActivePlayer;
 
                 string[] inputParams = input.Split(' ');
                 switch (inputParams[0].ToUpper())
@@ -93,7 +93,7 @@ namespace hearthstone
                         break;
                     case CommandCast:
                         ISpellCard spellCard = (ISpellCard)GetObjectById(game, inputParams[1]);
-                        activePlayer = (HearthstonePlayer)game.GameState.ActivePlayer;
+                        activePlayer = (HearthstonePlayer)game.State.ActivePlayer;
                         if (spellCard is TargetlessSpellCard targetlessSpellCard)
                         {
                             activePlayer.CastSpell(game, targetlessSpellCard);
@@ -135,17 +135,17 @@ namespace hearthstone
             switch (int.Parse(id.Substring(0, 1)))
             {
                 case 0:
-                    return game.GameState.NonActivePlayers.First();
+                    return game.State.NonActivePlayers.First();
                 case 1:
-                    return game.GameState.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Hand)[int.Parse(id.Substring(1, 1))];
+                    return game.State.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Hand)[int.Parse(id.Substring(1, 1))];
                 case 2:
-                    return game.GameState.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Board)[int.Parse(id.Substring(1, 1))]!;
+                    return game.State.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Board)[int.Parse(id.Substring(1, 1))]!;
                 case 3:
-                    return game.GameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Board)[int.Parse(id.Substring(1, 1))]!;
+                    return game.State.ActivePlayer.GetCardCollection(CardCollectionKeys.Board)[int.Parse(id.Substring(1, 1))]!;
                 case 4:
-                    return game.GameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[int.Parse(id.Substring(1, 1))];
+                    return game.State.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[int.Parse(id.Substring(1, 1))];
                 case 5:
-                    return game.GameState.ActivePlayer;
+                    return game.State.ActivePlayer;
                 default:
                     throw new Exception("Unparsable id: " + id);
             }

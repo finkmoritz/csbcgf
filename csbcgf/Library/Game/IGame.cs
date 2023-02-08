@@ -5,7 +5,7 @@
         /// <summary>
         /// Get the IGame's ActionQueue.
         /// </summary>
-        IGameState GameState { get; }
+        IGameState State { get; }
 
         /// <summary>
         /// Queue an Action for execution. Changes on the Game state should

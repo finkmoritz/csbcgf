@@ -5,7 +5,7 @@ namespace csbcgf
     public class Game : IGame
     {
         [JsonProperty]
-        protected IGameState gameState = null!;
+        protected IGameState state = null!;
 
         [JsonProperty]
         protected bool isGameOver = false;
@@ -17,17 +17,17 @@ namespace csbcgf
         {
         }
 
-        public Game(IGameState gameState, bool executeReactions = true, bool isGameOver = false)
+        public Game(IGameState state, bool executeReactions = true, bool isGameOver = false)
         {
-            this.gameState = gameState;
+            this.state = state;
             this.executeReactions = executeReactions;
             this.isGameOver = isGameOver;
         }
 
         [JsonIgnore]
-        public IGameState GameState
+        public IGameState State
         {
-            get => gameState;
+            get => state;
         }
 
         
@@ -84,7 +84,7 @@ namespace csbcgf
             {
                 CallActionsOrDiscard(executedActions, true,
                     (IAction action) => {
-                        foreach (IReaction reaction in GameState.AllReactions())
+                        foreach (IReaction reaction in State.AllReactions())
                         {
                             reaction.ReactBefore(this, action);
                         }
@@ -97,7 +97,7 @@ namespace csbcgf
 
                 CallActionsOrDiscard(executedActions, false,
                     (IAction action) => {
-                        foreach (IReaction reaction in GameState.AllReactions())
+                        foreach (IReaction reaction in State.AllReactions())
                         {
                             reaction.ReactAfter(this, action);
                         }
@@ -113,7 +113,7 @@ namespace csbcgf
             List<IAction> actionsToBeRemoved = new List<IAction>();
             foreach (IAction action in actions) 
             {
-                if (!action.IsAborted && (!checkIfExecutable || action.IsExecutable(GameState)))
+                if (!action.IsAborted && (!checkIfExecutable || action.IsExecutable(State)))
                 {
                     func(action);
                 }

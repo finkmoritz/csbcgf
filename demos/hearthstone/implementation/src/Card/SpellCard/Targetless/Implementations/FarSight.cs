@@ -28,7 +28,7 @@ namespace hearthstone
             {
                 public override void Execute(IGame game)
                 {
-                    DrawCardAction drawCardAction = new DrawCardAction(game.GameState.ActivePlayer);
+                    DrawCardAction drawCardAction = new DrawCardAction(game.State.ActivePlayer);
                     game.Execute(drawCardAction);
                     game.Execute(new ModifyManaStatAction(drawCardAction.DrawnCard!, -3, 0));
                 }

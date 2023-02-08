@@ -12,8 +12,8 @@ namespace hearthstone
         {
             HearthstoneMonsterCard monsterCard = (HearthstoneMonsterCard)parentCard;
             IPlayer? owner = monsterCard.Owner;
-            bool isReadyToAttack = owner == game.GameState.ActivePlayer
-                && game.GameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).Contains(monsterCard);
+            bool isReadyToAttack = owner == game.State.ActivePlayer
+                && game.State.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).Contains(monsterCard);
 
             game.Execute(new ModifyReadyToAttackAction(monsterCard, isReadyToAttack));
         }

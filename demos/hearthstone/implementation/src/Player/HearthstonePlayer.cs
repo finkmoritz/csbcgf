@@ -23,7 +23,7 @@ namespace hearthstone
 
         public void SummonMonster(HearthstoneGame game, IMonsterCard monsterCard)
         {
-            if (!monsterCard.IsSummonable(game.GameState))
+            if (!monsterCard.IsSummonable(game.State))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
@@ -34,7 +34,7 @@ namespace hearthstone
 
         public void CastSpell(HearthstoneGame game, ITargetlessSpellCard spellCard)
         {
-            if (!spellCard.IsCastable(game.GameState))
+            if (!spellCard.IsCastable(game.State))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");
@@ -45,7 +45,7 @@ namespace hearthstone
 
         public void CastSpell(HearthstoneGame game, ITargetfulSpellCard spellCard, ICharacter target)
         {
-            if (!spellCard.IsCastable(game.GameState))
+            if (!spellCard.IsCastable(game.State))
             {
                 throw new CsbcgfException("Tried to play a card that is " +
                     "not playable!");

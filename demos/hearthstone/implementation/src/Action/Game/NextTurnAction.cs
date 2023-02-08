@@ -16,10 +16,10 @@ namespace hearthstone
             bool wasExecuted = game.Execute(new NextPlayerAction()).Count == 1;
             if (wasExecuted)
             {
-                IPlayer activePlayer = game.GameState.ActivePlayer;
+                IPlayer activePlayer = game.State.ActivePlayer;
                 int manaDelta = activePlayer.ManaBaseValue + 1 - activePlayer.ManaValue;
                 game.ExecuteSimultaneously(new List<IAction>{
-                    new ModifyManaStatAction(game.GameState.ActivePlayer, manaDelta, 1),
+                    new ModifyManaStatAction(game.State.ActivePlayer, manaDelta, 1),
                     new DrawCardAction(activePlayer)
                 });
             }

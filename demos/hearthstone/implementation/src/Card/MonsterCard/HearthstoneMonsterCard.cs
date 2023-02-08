@@ -35,7 +35,7 @@ namespace hearthstone
                     "that is not ready to attack!");
             }
 
-            if (!GetPotentialTargets(game.GameState).Contains(target))
+            if (!GetPotentialTargets(game.State).Contains(target))
             {
                 throw new CsbcgfException("Cannot attack a target character " +
                     "that is not specified in the list of potential targets!");

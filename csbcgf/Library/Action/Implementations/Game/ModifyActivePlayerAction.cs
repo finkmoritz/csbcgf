@@ -23,7 +23,7 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            game.GameState.ActivePlayer = NewActivePlayer;
+            game.State.ActivePlayer = NewActivePlayer;
         }
 
         public override bool IsExecutable(IGameState gameState)
