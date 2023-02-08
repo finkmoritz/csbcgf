@@ -2,7 +2,7 @@
 
 namespace hearthstone
 {
-    public class NextPlayerAction : csbcgf.Action
+    public class NextPlayerAction : csbcgf.Action<HearthstoneGameState>
     {
         protected NextPlayerAction() { }
 
@@ -21,7 +21,7 @@ namespace hearthstone
             game.Execute(new ModifyActivePlayerAction(newActivePlayer));
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(HearthstoneGameState gameState)
         {
             return true;
         }

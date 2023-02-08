@@ -108,7 +108,7 @@ namespace csbcgf
             return executedActions;
         }
 
-        private void CallActionsOrDiscard(List<IAction> actions, bool checkIfExecutable, Action<IAction> func)
+        private void CallActionsOrDiscard(List<IAction> actions, bool checkIfExecutable, System.Action<IAction> func)
         {
             List<IAction> actionsToBeRemoved = new List<IAction>();
             foreach (IAction action in actions) 

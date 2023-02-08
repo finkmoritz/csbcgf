@@ -20,4 +20,9 @@
         /// <param name="game"></param>
         void Execute(IGame game);
     }
+
+    public interface IAction<T> : IAction where T : IGameState
+    {
+        bool IsExecutable(T gameState);
+    }
 }

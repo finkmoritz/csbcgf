@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public class ModifyReadyToAttackAction : csbcgf.Action
+    public class ModifyReadyToAttackAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
         protected HearthstoneMonsterCard monsterCard = null!;
@@ -40,7 +40,7 @@ namespace hearthstone
             MonsterCard.IsReadyToAttack = IsReadyToAttack;
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(HearthstoneGameState gameState)
         {
             return MonsterCard.IsReadyToAttack != IsReadyToAttack;
         }

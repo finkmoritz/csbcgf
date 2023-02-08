@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public abstract class CastSpellAction : csbcgf.Action
+    public abstract class CastSpellAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
         protected IPlayer player = null!;
@@ -34,6 +34,6 @@ namespace hearthstone
 
         public override abstract void Execute(IGame game);
 
-        public override abstract bool IsExecutable(IGameState gameState);
+        public override abstract bool IsExecutable(HearthstoneGameState gameState);
     }
 }

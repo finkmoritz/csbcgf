@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public class DieAction : csbcgf.Action
+    public class DieAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
         protected IMonsterCard monsterCard = null!;
@@ -31,7 +31,7 @@ namespace hearthstone
             });
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(HearthstoneGameState gameState)
         {
             IPlayer? owner = MonsterCard.Owner;
             return owner != null

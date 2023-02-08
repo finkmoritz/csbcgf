@@ -2,7 +2,7 @@
 
 namespace hearthstone
 {
-    public class NextTurnAction : csbcgf.Action
+    public class NextTurnAction : csbcgf.Action<HearthstoneGameState>
     {
         protected NextTurnAction() { }
 
@@ -27,7 +27,7 @@ namespace hearthstone
             }
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(HearthstoneGameState gameState)
         {
             return true;
         }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public class SummonMonsterAction : csbcgf.Action
+    public class SummonMonsterAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
         protected IPlayer player = null!;
@@ -41,7 +41,7 @@ namespace hearthstone
             });
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(HearthstoneGameState gameState)
         {
             return MonsterCard.IsSummonable(gameState)
                 && !Player.GetCardCollection(CardCollectionKeys.Board).IsFull;

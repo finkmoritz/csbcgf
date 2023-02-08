@@ -24,4 +24,27 @@ namespace csbcgf
         public abstract void Execute(IGame game);
         public abstract bool IsExecutable(IGameState gameState);
     }
+
+    public abstract class Action<T> : Action, IAction<T> where T : IGameState
+    {
+        protected Action() { }
+
+        public Action(bool isAborted = false) : base(isAborted)
+        {
+        }
+
+        public abstract bool IsExecutable(T gameState);
+
+        public override bool IsExecutable(IGameState gameState)
+        {
+            if (gameState is T s)
+            {
+                return IsExecutable(s);
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
 }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public class ModifyActivePlayerAction : csbcgf.Action
+    public class ModifyActivePlayerAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
         protected IPlayer newActivePlayer = null!;
@@ -28,9 +28,8 @@ namespace hearthstone
             state.ActivePlayer = NewActivePlayer;
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(HearthstoneGameState state)
         {
-            HearthstoneGameState state = (HearthstoneGameState)gameState;
             if (!state.Players.Contains(NewActivePlayer))
             {
                 throw new CsbcgfException("Could not change the active " +

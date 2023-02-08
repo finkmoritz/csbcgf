@@ -39,7 +39,7 @@ namespace hearthstone
             }
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(HearthstoneGameState gameState)
         {
             return SpellCard.IsCastable(gameState);
         }
