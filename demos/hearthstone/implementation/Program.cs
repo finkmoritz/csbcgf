@@ -21,7 +21,7 @@ namespace hearthstone
             {
                 Console.Clear();
                 Console.WriteLine(info + "\n");
-                ConsoleUtil.PrintGame((HearthstoneGameState)game.State);
+                ConsoleUtil.PrintGame(game.State);
                 Console.WriteLine(GetOptions());
                 input = Console.ReadLine() ?? "";
                 info = ProcessInput(game, input);
@@ -81,7 +81,7 @@ namespace hearthstone
             string output = string.Empty;
             try
             {
-                HearthstoneGameState state = (HearthstoneGameState)game.State;
+                HearthstoneGameState state = game.State;
                 HearthstonePlayer activePlayer = (HearthstonePlayer)state.ActivePlayer;
 
                 string[] inputParams = input.Split(' ');
@@ -133,7 +133,7 @@ namespace hearthstone
 
         private static Object GetObjectById(HearthstoneGame game, string id)
         {
-            HearthstoneGameState state = (HearthstoneGameState)game.State;
+            HearthstoneGameState state = game.State;
             switch (int.Parse(id.Substring(0, 1)))
             {
                 case 0:

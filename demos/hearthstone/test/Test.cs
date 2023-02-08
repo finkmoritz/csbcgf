@@ -49,7 +49,7 @@ namespace hearthstone
         [Test()]
         public void TestInitialConditions()
         {
-            HearthstoneGameState state = (HearthstoneGameState)game.State;
+            HearthstoneGameState state = game.State;
 
             Assert.That(state.ActivePlayer.ManaValue, Is.EqualTo(1));
             Assert.That(state.NonActivePlayers.First().ManaValue, Is.EqualTo(0));
@@ -72,7 +72,7 @@ namespace hearthstone
         [Test()]
         public void TestGame()
         {
-            HearthstoneGameState state = (HearthstoneGameState)game.State;
+            HearthstoneGameState state = game.State;
 
             HearthstoneMonsterCard goblin = (HearthstoneMonsterCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
             Assert.False(goblin.IsSummonable(state));
@@ -180,7 +180,7 @@ namespace hearthstone
             Assert.That(serializedGameCopy, Is.EqualTo(serializedGame), "Expected:\n{0}\n\nActual:\n{1}\n", new object[] { serializedGame, serializedGameCopy });
 
             Assert.That(gameCopy!.State.Players.Count, Is.EqualTo(2));
-            Assert.That(((HearthstoneGameState)gameCopy!.State).ActivePlayer.AllCards.Count, Is.EqualTo(5));
+            Assert.That((gameCopy!.State).ActivePlayer.AllCards.Count, Is.EqualTo(5));
         }
     }
 }
