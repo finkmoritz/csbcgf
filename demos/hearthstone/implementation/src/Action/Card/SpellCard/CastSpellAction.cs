@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using csbcgf;
+using Newtonsoft.Json;
 
-namespace csbcgf
+namespace hearthstone
 {
-    public abstract class CastSpellAction : Action
+    public abstract class CastSpellAction : csbcgf.Action
     {
         [JsonProperty]
         protected IPlayer player = null!;

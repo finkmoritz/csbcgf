@@ -48,9 +48,7 @@ namespace csbcgf
 
         public virtual bool IsCastable(IGameState gameState)
         {
-            return owner != null
-                && owner == gameState.ActivePlayer
-                && ManaValue <= gameState.ActivePlayer.ManaValue;
+            return true;
         }
     }
 }

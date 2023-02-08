@@ -5,13 +5,6 @@ namespace csbcgf
 {
     public class GameState : IGameState
     {
-        /// <summary>
-        /// Index of the active Player. Refers to the Players array.
-        /// Also see the ActivePlayer accessor.
-        /// </summary>
-        [JsonProperty]
-        protected int activePlayerIndex;
-
         [JsonProperty]
         protected List<IReaction> reactions = null!;
 
@@ -29,7 +22,6 @@ namespace csbcgf
         public GameState(bool _ = true)
         {
             this.players = new List<IPlayer>();
-            this.activePlayerIndex = 0;
             this.reactions = new List<IReaction>();
         }
 
@@ -43,25 +35,6 @@ namespace csbcgf
         public IEnumerable<IPlayer> Players
         {
             get => players.ToImmutableList();
-        }
-
-        [JsonIgnore]
-        public IPlayer ActivePlayer
-        {
-            get => Players.ElementAt(activePlayerIndex);
-            set
-            {
-                activePlayerIndex = players.IndexOf(value);
-            }
-        }
-
-        [JsonIgnore]
-        public IEnumerable<IPlayer> NonActivePlayers
-        {
-            get
-            {
-                return Players.Where(p => p != ActivePlayer).ToImmutableList();
-            }
         }
 
         [JsonIgnore]

@@ -3,18 +3,6 @@
     public interface IGameState : IReactive
     {
         /// <summary>
-        /// Convenience method to retrieve the active Player.
-        /// Equivalent to using
-        /// <code>Players[ActivePlayerIndex]</code>
-        /// </summary>
-        IPlayer ActivePlayer { get; set; }
-
-        /// <summary>
-        /// Convenience method to retrieve the non-active Players.
-        /// </summary>
-        IEnumerable<IPlayer> NonActivePlayers { get; }
-
-        /// <summary>
         /// List of Players involved in the Game.
         /// </summary>
         IEnumerable<IPlayer> Players { get; }

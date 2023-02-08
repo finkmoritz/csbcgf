@@ -46,8 +46,10 @@ namespace hearthstone
 
         public override ISet<ICharacter> GetPotentialTargets(IGameState gameState)
         {
+            HearthstoneGameState state = (HearthstoneGameState)gameState;
+
             ISet<ICharacter> potentialTargets = base.GetPotentialTargets(gameState);
-            foreach (IPlayer player in gameState.NonActivePlayers)
+            foreach (IPlayer player in state.NonActivePlayers)
             {
                 potentialTargets.Add(player);
                 foreach (ICharacter character in player.GetCardCollection(CardCollectionKeys.Board).Cards)
@@ -60,10 +62,13 @@ namespace hearthstone
 
         public override bool IsSummonable(IGameState gameState)
         {
+            HearthstoneGameState state = (HearthstoneGameState)gameState;
             return base.IsSummonable(gameState)
                     && Owner != null
                     && Owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this)
-                    && !gameState.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsFull;
+                    && Owner == state.ActivePlayer
+                    && ManaValue <= state.ActivePlayer.ManaValue
+                    && !state.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsFull;
         }
     }
 }

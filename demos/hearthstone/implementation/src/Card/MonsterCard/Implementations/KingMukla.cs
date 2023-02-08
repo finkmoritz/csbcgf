@@ -18,9 +18,10 @@ namespace hearthstone
         {
             public override void ReactAfter(IGame game, SummonMonsterAction action)
             {
+                HearthstoneGameState state = (HearthstoneGameState)game.State;
                 if (action.MonsterCard == parentCard)
                 {
-                    foreach (IPlayer p in game.State.NonActivePlayers)
+                    foreach (IPlayer p in state.NonActivePlayers)
                     {
                         ICardCollection hand = p.GetCardCollection(CardCollectionKeys.Hand);
                         game.Execute(new AddCardToCardCollectionAction(hand, new Bananas()));
