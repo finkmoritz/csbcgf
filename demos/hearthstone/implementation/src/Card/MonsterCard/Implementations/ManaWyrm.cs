@@ -16,7 +16,7 @@ namespace hearthstone
         /// </summary>
         public class ManaWyrmReaction : CardReaction<CastSpellAction>
         {
-            protected override void ReactAfterInternal(IGame game, CastSpellAction action)
+            public override void ReactAfter(IGame game, CastSpellAction action)
             {
                 IPlayer? spellCardOwner = action.SpellCard.Owner;
                 IPlayer? manaWyrmOwner = parentCard?.Owner;

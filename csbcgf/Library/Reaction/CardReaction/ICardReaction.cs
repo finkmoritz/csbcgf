@@ -1,6 +1,6 @@
 namespace csbcgf
 {
-    public interface ICardReaction : IReaction
+    public interface ICardReaction<T> : IReaction<T> where T : IAction
     {
         /// <summary>
         /// Returns the parent Card of this IReaction.

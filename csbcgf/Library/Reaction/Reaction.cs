@@ -1,27 +1,29 @@
 ﻿namespace csbcgf
 {
-    public abstract class Reaction<T> : IReaction where T : IAction
+    public abstract class Reaction<T> : IReaction<T> where T : IAction
     {
-        public void ReactBefore(IGame game, IAction action)
+        public virtual void ReactBefore(IGame game, T action)
         {
-            if (action is T)
+        }
+
+        public virtual void ReactAfter(IGame game, T action)
+        {
+        }
+
+        void IReaction.ReactBefore(IGame game, IAction action)
+        {
+            if (action is T a)
             {
-                T a = (T)action;
-                ReactBeforeInternal(game, a);
+                ReactBefore(game, a);
             }
         }
 
-        public void ReactAfter(IGame game, IAction action)
+        void IReaction.ReactAfter(IGame game, IAction action)
         {
-            if (action is T)
+            if (action is T a)
             {
-                T a = (T)action;
-                ReactAfterInternal(game, a);
+                ReactAfter(game, a);
             }
         }
-
-        protected virtual void ReactBeforeInternal(IGame game, T action) { }
-
-        protected virtual void ReactAfterInternal(IGame game, T action) { }
     }
 }

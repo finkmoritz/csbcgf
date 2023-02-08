@@ -7,7 +7,7 @@ namespace hearthstone
     /// </summary>
     public class DivineShield : CardReaction<ModifyLifeStatAction>
     {
-        protected override void ReactBeforeInternal(IGame game, ModifyLifeStatAction action)
+        public override void ReactBefore(IGame game, ModifyLifeStatAction action)
         {
             if (action.Living == parentCard && action.Delta < 0)
             {

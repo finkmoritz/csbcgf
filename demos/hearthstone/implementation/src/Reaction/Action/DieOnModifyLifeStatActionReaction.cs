@@ -9,7 +9,7 @@ namespace hearthstone
         public DieOnModifyLifeStatActionReaction(HearthstoneMonsterCard parentCard)
             : base(parentCard) { }
 
-        protected override void ReactAfterInternal(IGame game, ModifyLifeStatAction action)
+        public override void ReactAfter(IGame game, ModifyLifeStatAction action)
         {
             if (ParentCard is IMonsterCard monsterCard && monsterCard.LifeValue <= 0)
             {

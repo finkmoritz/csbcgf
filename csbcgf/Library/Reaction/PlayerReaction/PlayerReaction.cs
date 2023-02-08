@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    public abstract class PlayerReaction<T> : Reaction<T>, IPlayerReaction where T : IAction
+    public abstract class PlayerReaction<T> : Reaction<T>, IPlayerReaction<T> where T : IAction
     {
         [JsonProperty]
         protected IPlayer parentPlayer = null!;

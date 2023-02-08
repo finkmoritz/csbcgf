@@ -16,7 +16,7 @@ namespace hearthstone
         /// </summary>
         public class KingMuklaBattlecryReaction : CardReaction<SummonMonsterAction>
         {
-            protected override void ReactAfterInternal(IGame game, SummonMonsterAction action)
+            public override void ReactAfter(IGame game, SummonMonsterAction action)
             {
                 if (action.MonsterCard == parentCard)
                 {

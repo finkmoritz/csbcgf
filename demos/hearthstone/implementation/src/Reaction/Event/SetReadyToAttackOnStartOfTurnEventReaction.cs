@@ -8,7 +8,7 @@ namespace hearthstone
 
         public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard) : base(monsterCard) { }
 
-        protected override void ReactAfterInternal(IGame game, NextTurnAction action)
+        public override void ReactAfter(IGame game, NextTurnAction action)
         {
             HearthstoneMonsterCard monsterCard = (HearthstoneMonsterCard)parentCard;
             IPlayer? owner = monsterCard.Owner;
