@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public class ModifyLifeStatAction : Action
+    public class ModifyLifeStatAction<T> : Action<T> where T : IGameState
     {
         [JsonProperty]
         protected ILiving living = null!;
@@ -32,12 +32,12 @@ namespace csbcgf
             set => delta = value;
         }
 
-        public override void Execute(IGame game)
+        public override void Execute(IGame<T> game)
         {
             Living.LifeValue += Delta;
         }
 
-        public override bool IsExecutable(IGameState gameState)
+        public override bool IsExecutable(T gameState)
         {
             return !(Living is ICardComponent)
                 && Living.LifeValue > 0;

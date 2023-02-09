@@ -17,20 +17,23 @@
         void ReactAfter(IGame game, IAction action);
     }
 
-    public interface IReaction<T> : IReaction where T : IAction
+    public interface IReaction<T, TGame, TAction> : IReaction
+        where T : IGameState
+        where TGame : IGame<T>
+        where TAction : IAction<T>
     {
         /// <summary>
         /// React before a given IAction.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="action"></param>
-        void ReactBefore(IGame game, T action);
+        void ReactBefore(TGame game, TAction action);
 
         /// <summary>
         /// React after a given IAction.
         /// </summary>
         /// <param name="game"></param>
         /// <param name="action"></param>
-        void ReactAfter(IGame game, T action);
+        void ReactAfter(TGame game, TAction action);
     }
 }

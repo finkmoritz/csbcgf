@@ -14,14 +14,13 @@ namespace hearthstone
         /// <summary>
         /// Battlecry: Give your opponent 2 Bananas.
         /// </summary>
-        public class KingMuklaBattlecryReaction : CardReaction<SummonMonsterAction>
+        public class KingMuklaBattlecryReaction : CardReaction<HearthstoneGameState, HearthstoneGame, SummonMonsterAction>
         {
-            public override void ReactAfter(IGame game, SummonMonsterAction action)
+            public override void ReactAfter(HearthstoneGame game, SummonMonsterAction action)
             {
-                HearthstoneGameState state = (HearthstoneGameState)game.State;
                 if (action.MonsterCard == parentCard)
                 {
-                    foreach (IPlayer p in state.NonActivePlayers)
+                    foreach (IPlayer p in game.State.NonActivePlayers)
                     {
                         ICardCollection hand = p.GetCardCollection(CardCollectionKeys.Hand);
                         game.Execute(new AddCardToCardCollectionAction(hand, new Bananas()));

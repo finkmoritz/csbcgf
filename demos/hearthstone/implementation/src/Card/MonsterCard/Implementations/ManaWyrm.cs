@@ -14,9 +14,9 @@ namespace hearthstone
         /// <summary>
         /// Whenever you cast a spell, gain +1 Attack.
         /// </summary>
-        public class ManaWyrmReaction : CardReaction<CastSpellAction>
+        public class ManaWyrmReaction : CardReaction<HearthstoneGameState, HearthstoneGame, CastSpellAction>
         {
-            public override void ReactAfter(IGame game, CastSpellAction action)
+            public override void ReactAfter(HearthstoneGame game, CastSpellAction action)
             {
                 IPlayer? spellCardOwner = action.SpellCard.Owner;
                 IPlayer? manaWyrmOwner = parentCard?.Owner;
