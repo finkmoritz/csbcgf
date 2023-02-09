@@ -1,7 +1,7 @@
 ﻿namespace csbcgf
 {
-    public interface IMonsterCard : ICard, ICharacter, ITargetful
+    public interface IMonsterCard<T> : ICard, ICharacter, ITargetful<T> where T : IGameState
     {
-        bool IsSummonable(IGameState gameState);
+        bool IsSummonable(T gameState);
     }
 }

@@ -6,18 +6,18 @@ namespace hearthstone
     public class DieAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
-        protected IMonsterCard monsterCard = null!;
+        protected HearthstoneMonsterCard monsterCard = null!;
 
         protected DieAction() { }
 
-        public DieAction(IMonsterCard monsterCard, bool isAborted = false)
+        public DieAction(HearthstoneMonsterCard monsterCard, bool isAborted = false)
             : base(isAborted)
         {
             this.monsterCard = monsterCard;
         }
 
         [JsonIgnore]
-        public IMonsterCard MonsterCard
+        public HearthstoneMonsterCard MonsterCard
         {
             get => monsterCard;
         }

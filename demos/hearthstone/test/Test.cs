@@ -61,7 +61,7 @@ namespace hearthstone
             Assert.That(state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand).Size, Is.EqualTo(2));
             Assert.That(state.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Hand).Size, Is.EqualTo(1));
 
-            IMonsterCard goblin = (IMonsterCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
+            HearthstoneMonsterCard goblin = (HearthstoneMonsterCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
             Assert.That(goblin.ManaValue, Is.EqualTo(2));
             Assert.That(goblin.AttackValue, Is.EqualTo(1));
             Assert.That(goblin.LifeValue, Is.EqualTo(2));

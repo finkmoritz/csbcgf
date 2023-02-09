@@ -11,7 +11,7 @@ namespace hearthstone
 
         public override void ReactAfter(IGame game, ModifyLifeStatAction action)
         {
-            if (ParentCard is IMonsterCard monsterCard && monsterCard.LifeValue <= 0)
+            if (ParentCard is HearthstoneMonsterCard monsterCard && monsterCard.LifeValue <= 0)
             {
                 game.Execute(new DieAction(monsterCard));
             }

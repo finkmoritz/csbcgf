@@ -6,7 +6,7 @@ namespace hearthstone
     {
         protected SetReadyToAttackOnStartOfTurnEventReaction() { }
 
-        public SetReadyToAttackOnStartOfTurnEventReaction(IMonsterCard monsterCard) : base(monsterCard) { }
+        public SetReadyToAttackOnStartOfTurnEventReaction(HearthstoneMonsterCard monsterCard) : base(monsterCard) { }
 
         public override void ReactAfter(IGame game, NextTurnAction action)
         {

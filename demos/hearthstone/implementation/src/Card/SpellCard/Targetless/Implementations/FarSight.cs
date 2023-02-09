@@ -24,17 +24,16 @@ namespace hearthstone
                 game.Execute(new FarSightAction());
             }
 
-            public class FarSightAction : csbcgf.Action
+            public class FarSightAction : csbcgf.Action<HearthstoneGameState>
             {
-                public override void Execute(IGame game)
+                public override void Execute(IGame<HearthstoneGameState> game)
                 {
-                    HearthstoneGameState state = (HearthstoneGameState)game.State;
-                    DrawCardAction drawCardAction = new DrawCardAction(state.ActivePlayer);
+                    DrawCardAction drawCardAction = new DrawCardAction(game.State.ActivePlayer);
                     game.Execute(drawCardAction);
                     game.Execute(new ModifyManaStatAction(drawCardAction.DrawnCard!, -3, 0));
                 }
 
-                public override bool IsExecutable(IGameState gameState)
+                public override bool IsExecutable(HearthstoneGameState gameState)
                 {
                     return true;
                 }

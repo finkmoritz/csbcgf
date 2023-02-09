@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public class HearthstoneMonsterCard : MonsterCard
+    public class HearthstoneMonsterCard : MonsterCard<HearthstoneGameState>
     {
         [JsonProperty]
         protected bool isReadyToAttack;
@@ -44,12 +44,10 @@ namespace hearthstone
             game.Execute(new AttackAction(this, target));
         }
 
-        public override ISet<ICharacter> GetPotentialTargets(IGameState gameState)
+        public override ISet<ICharacter> GetPotentialTargets(HearthstoneGameState gameState)
         {
-            HearthstoneGameState state = (HearthstoneGameState)gameState;
-
             ISet<ICharacter> potentialTargets = base.GetPotentialTargets(gameState);
-            foreach (IPlayer player in state.NonActivePlayers)
+            foreach (IPlayer player in gameState.NonActivePlayers)
             {
                 potentialTargets.Add(player);
                 foreach (ICharacter character in player.GetCardCollection(CardCollectionKeys.Board).Cards)
@@ -60,9 +58,9 @@ namespace hearthstone
             return potentialTargets;
         }
 
-        public override bool IsSummonable(IGameState gameState)
+        public override bool IsSummonable(HearthstoneGameState gameState)
         {
-            HearthstoneGameState state = (HearthstoneGameState)gameState;
+            HearthstoneGameState state = gameState;
             return base.IsSummonable(gameState)
                     && Owner != null
                     && Owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this)

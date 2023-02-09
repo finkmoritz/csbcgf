@@ -9,11 +9,11 @@ namespace hearthstone
         protected IPlayer player = null!;
 
         [JsonProperty]
-        protected IMonsterCard monsterCard = null!;
+        protected HearthstoneMonsterCard monsterCard = null!;
 
         protected SummonMonsterAction() { }
 
-        public SummonMonsterAction(IPlayer player, IMonsterCard monsterCard, bool isAborted = false
+        public SummonMonsterAction(IPlayer player, HearthstoneMonsterCard monsterCard, bool isAborted = false
             ) : base(isAborted)
         {
             this.player = player;
@@ -27,7 +27,7 @@ namespace hearthstone
         }
 
         [JsonIgnore]
-        public IMonsterCard MonsterCard
+        public HearthstoneMonsterCard MonsterCard
         {
             get => monsterCard;
         }

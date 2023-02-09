@@ -2,7 +2,7 @@
 
 namespace csbcgf
 {
-    public class MonsterCard : Card, IMonsterCard
+    public class MonsterCard<T> : Card, IMonsterCard<T> where T : IGameState
     {
         protected MonsterCard()
         {
@@ -68,7 +68,19 @@ namespace csbcgf
             return Components.Where(c => c is IMonsterCardComponent).Sum(c => GetValue((IMonsterCardComponent)c));
         }
 
-        public virtual ISet<ICharacter> GetPotentialTargets(IGameState gameState)
+        ISet<ICharacter> ITargetful.GetPotentialTargets(IGameState gameState)
+        {
+            if (gameState is T s)
+            {
+                return GetPotentialTargets(s);
+            }
+            else
+            {
+                return new HashSet<ICharacter>();
+            }
+        }
+
+        public virtual ISet<ICharacter> GetPotentialTargets(T gameState)
         {
             if (Components.Count() == 0)
             {
@@ -84,7 +96,7 @@ namespace csbcgf
             return potentialTargets;
         }
 
-        public virtual bool IsSummonable(IGameState gameState)
+        public virtual bool IsSummonable(T gameState)
         {
             return base.IsCastable(gameState);
         }

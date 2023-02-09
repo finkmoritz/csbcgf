@@ -88,7 +88,7 @@ namespace hearthstone
                 switch (inputParams[0].ToUpper())
                 {
                     case CommandSummon:
-                        IMonsterCard monsterCard = (IMonsterCard)GetObjectById(game, inputParams[1]);
+                        HearthstoneMonsterCard monsterCard = (HearthstoneMonsterCard)GetObjectById(game, inputParams[1]);
                         activePlayer.SummonMonster(game, monsterCard);
                         output = "Cast monster card";
                         break;

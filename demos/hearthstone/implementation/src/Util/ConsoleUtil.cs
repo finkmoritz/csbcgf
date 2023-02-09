@@ -58,7 +58,7 @@ namespace hearthstone
             for (int i = 0; i < hand.Size; ++i)
             {
                 ICard card = hand[i];
-                if (card is IMonsterCard monsterCard)
+                if (card is HearthstoneMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
                         "Attack: {0:D2}".PadRight(columnWidth),
@@ -75,7 +75,7 @@ namespace hearthstone
             for (int i = 0; i < hand.Size; ++i)
             {
                 ICard card = hand[i];
-                if (card is IMonsterCard monsterCard)
+                if (card is HearthstoneMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
                         "Life: {0:D2}".PadRight(columnWidth),
@@ -92,7 +92,7 @@ namespace hearthstone
             {
                 ICard card = hand[i];
                 Console.ForegroundColor = ColorDefault;
-                if (card is IMonsterCard c0 && c0.IsSummonable(gameState))
+                if (card is HearthstoneMonsterCard c0 && c0.IsSummonable(gameState))
                 {
                     Console.ForegroundColor = ColorSelectable;
                 }
@@ -131,7 +131,7 @@ namespace hearthstone
             for (int i = 0; i < board.MaxSize; ++i)
             {
                 ICard? card = board[i];
-                if (card is IMonsterCard monsterCard)
+                if (card is HearthstoneMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
                         "Attack: {0:D2}".PadRight(columnWidth),
@@ -148,7 +148,7 @@ namespace hearthstone
             for (int i = 0; i < board.MaxSize; ++i)
             {
                 ICard? card = board[i];
-                if (card is IMonsterCard monsterCard)
+                if (card is HearthstoneMonsterCard monsterCard)
                 {
                     Console.Write(string.Format(
                         "Life: {0:D2}".PadRight(columnWidth),

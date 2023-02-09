@@ -21,7 +21,7 @@ namespace hearthstone
             game.Execute(new DrawCardAction(this));
         }
 
-        public void SummonMonster(HearthstoneGame game, IMonsterCard monsterCard)
+        public void SummonMonster(HearthstoneGame game, HearthstoneMonsterCard monsterCard)
         {
             if (!monsterCard.IsSummonable(game.State))
             {
