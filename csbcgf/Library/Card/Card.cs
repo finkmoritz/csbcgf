@@ -30,5 +30,11 @@ namespace csbcgf
         {
             return true;
         }
+
+        public override void AddComponent(ICardComponent cardComponent)
+        {
+            base.AddComponent(cardComponent);
+            cardComponent.ParentCard = this;
+        }
     }
 }

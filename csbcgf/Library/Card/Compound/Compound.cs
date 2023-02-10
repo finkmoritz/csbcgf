@@ -21,13 +21,12 @@ namespace csbcgf
             get => components.ToImmutableList();
         }
 
-        public void AddComponent(ICardComponent cardComponent)
+        public virtual void AddComponent(ICardComponent cardComponent)
         {
             components.Add(cardComponent);
-            cardComponent.ParentCard = this;
         }
 
-        public bool RemoveComponent(ICardComponent cardComponent)
+        public virtual bool RemoveComponent(ICardComponent cardComponent)
         {
             bool wasRemoved = components.Remove(cardComponent);
             if (wasRemoved)
