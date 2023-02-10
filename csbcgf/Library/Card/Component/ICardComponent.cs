@@ -1,6 +1,6 @@
 ﻿namespace csbcgf
 {
-    public interface ICardComponent : IManaful, IReactive
+    public interface ICardComponent : IStatContainer, IReactive
     {
         /// <summary>
         /// The ICard this ICardComponent is attached to.

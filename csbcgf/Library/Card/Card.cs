@@ -26,26 +26,6 @@ namespace csbcgf
             }
         }
 
-        [JsonIgnore]
-        public int ManaValue
-        {
-            get => Math.Max(0, Components.Sum(c => c.ManaValue));
-            set
-            {
-                AddComponent(new CardComponent(value - Components.Sum(c => c.ManaValue), 0));
-            }
-        }
-
-        [JsonIgnore]
-        public int ManaBaseValue
-        {
-            get => Math.Max(0, Components.Sum(c => c.ManaBaseValue));
-            set
-            {
-                AddComponent(new CardComponent(0, value - Components.Sum(c => c.ManaBaseValue)));
-            }
-        }
-
         public virtual bool IsCastable(IGameState gameState)
         {
             return true;

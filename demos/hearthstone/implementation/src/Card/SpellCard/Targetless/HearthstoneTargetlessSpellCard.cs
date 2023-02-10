@@ -2,7 +2,7 @@
 
 namespace hearthstone
 {
-    public class HearthstoneTargetlessSpellCard : TargetlessSpellCard<HearthstoneGameState>
+    public class HearthstoneTargetlessSpellCard : HearthstoneSpellCard
     {
         protected HearthstoneTargetlessSpellCard()
         {
@@ -12,11 +12,12 @@ namespace hearthstone
         {
         }
 
-        public override bool IsCastable(IGameState gameState)
+        public void Cast(HearthstoneGame game)
         {
-            return base.IsCastable(gameState)
-                && Owner != null
-                && Owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this);
+            foreach (HearthstoneTargetlessSpellCardComponent component in Components)
+            {
+                component.Cast(game);
+            }
         }
     }
 }

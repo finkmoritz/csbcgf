@@ -17,7 +17,7 @@ namespace hearthstone
             AddComponent(new DamageSpellCardComponent((int)damage, damage));
         }
 
-        public class DamageSpellCardComponent : TargetfulSpellCardComponent<HearthstoneGameState>
+        public class DamageSpellCardComponent : HearthstoneTargetfulSpellCardComponent
         {
             [JsonProperty]
             protected uint damage;
@@ -30,20 +30,20 @@ namespace hearthstone
                 this.damage = damage;
             }
 
-            public override void Cast(IGame<HearthstoneGameState> game, ICharacter target)
+            public override void Cast(HearthstoneGame game, IStatContainer target)
             {
                 game.Execute(new ModifyLifeStatAction<HearthstoneGameState>(target, -(int)damage));
             }
 
-            public override HashSet<ICharacter> GetPotentialTargets(HearthstoneGameState gameState)
+            public override HashSet<IStatContainer> GetPotentialTargets(HearthstoneGameState gameState)
             {
-                HashSet<ICharacter> targets = new HashSet<ICharacter>();
-                foreach (IPlayer player in gameState.Players)
+                HashSet<IStatContainer> targets = new HashSet<IStatContainer>();
+                foreach (HearthstonePlayer player in gameState.Players)
                 {
                     targets.Add(player);
                     foreach (ICard card in player.GetCardCollection(CardCollectionKeys.Board).Cards)
                     {
-                        targets.Add((ICharacter)card);
+                        targets.Add((IStatContainer)card);
                     }
                 }
                 return targets;

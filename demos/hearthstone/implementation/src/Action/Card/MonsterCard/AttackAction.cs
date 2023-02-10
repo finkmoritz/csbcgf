@@ -9,11 +9,11 @@ namespace hearthstone
         protected HearthstoneMonsterCard attacker = null!;
 
         [JsonProperty]
-        protected ICharacter target = null!;
+        protected IStatContainer target = null!;
 
         protected AttackAction() { }
 
-        public AttackAction(HearthstoneMonsterCard attacker, ICharacter target, bool isAborted = false)
+        public AttackAction(HearthstoneMonsterCard attacker, IStatContainer target, bool isAborted = false)
             : base(isAborted)
         {
             this.attacker = attacker;
@@ -27,7 +27,7 @@ namespace hearthstone
         }
 
         [JsonIgnore]
-        public ICharacter Target
+        public IStatContainer Target
         {
             get => target;
         }
@@ -35,8 +35,8 @@ namespace hearthstone
         public override void Execute(IGame<HearthstoneGameState> game)
         {
             game.ExecuteSimultaneously(new List<IAction> {
-                new ModifyLifeStatAction<HearthstoneGameState>(Target, -Attacker.AttackValue),
-                new ModifyLifeStatAction<HearthstoneGameState>(Attacker, -Target.AttackValue)
+                new ModifyLifeStatAction<HearthstoneGameState>(Target, -Attacker.GetValue(StatKeys.Attack)),
+                new ModifyLifeStatAction<HearthstoneGameState>(Attacker, -Target.GetValue(StatKeys.Attack))
             });
             game.Execute(new ModifyReadyToAttackAction(Attacker, false));
         }

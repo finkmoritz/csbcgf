@@ -2,7 +2,7 @@
 
 namespace hearthstone
 {
-    public class HearthstoneTargetfulSpellCard : TargetfulSpellCard<HearthstoneGameState>
+    public class HearthstoneTargetfulSpellCard : HearthstoneSpellCard
     {
         protected HearthstoneTargetfulSpellCard()
         {
@@ -12,11 +12,30 @@ namespace hearthstone
         {
         }
 
-        public override bool IsCastable(IGameState gameState)
+        public ISet<IStatContainer> GetPotentialTargets(HearthstoneGameState gameState)
         {
-            return base.IsCastable(gameState)
-                && Owner != null
-                && Owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this);
+            //Compute the intersection of all potential targets
+            ISet<IStatContainer>? potentialTargets = null;
+            foreach (HearthstoneTargetfulSpellCardComponent component in Components)
+            {
+                if (potentialTargets == null)
+                {
+                    potentialTargets = component.GetPotentialTargets(gameState);
+                }
+                else
+                {
+                    potentialTargets.IntersectWith(component.GetPotentialTargets(gameState));
+                }
+            }
+            return potentialTargets ?? new HashSet<IStatContainer>();
+        }
+
+        public void Cast(HearthstoneGame game, IStatContainer target)
+        {
+            foreach (HearthstoneTargetfulSpellCardComponent component in Components)
+            {
+                component.Cast(game, target);
+            }
         }
     }
 }

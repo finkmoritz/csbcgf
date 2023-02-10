@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace hearthstone
 {
-    public class HearthstoneMonsterCard : MonsterCard<HearthstoneGameState>
+    public class HearthstoneMonsterCard : Card
     {
         [JsonProperty]
         protected bool isReadyToAttack;
@@ -12,9 +12,11 @@ namespace hearthstone
         {
         }
 
-        public HearthstoneMonsterCard(int mana, int attack, int life) : base(mana, attack, life)
+        public HearthstoneMonsterCard(int mana, int attack, int life) : base(true)
         {
             this.isReadyToAttack = false;
+
+            AddComponent(new HearthstoneMonsterCardComponent(mana, attack, life));
 
             AddReaction(new SetReadyToAttackOnStartOfTurnEventReaction(this));
             AddReaction(new DieOnModifyLifeStatActionReaction(this));
@@ -27,7 +29,7 @@ namespace hearthstone
             set => isReadyToAttack = value;
         }
 
-        public void Attack(HearthstoneGame game, ICharacter target)
+        public void Attack(HearthstoneGame game, IStatContainer target)
         {
             if (!IsReadyToAttack)
             {
@@ -44,28 +46,28 @@ namespace hearthstone
             game.Execute(new AttackAction(this, target));
         }
 
-        public override ISet<ICharacter> GetPotentialTargets(HearthstoneGameState gameState)
+        public virtual ISet<IStatContainer> GetPotentialTargets(HearthstoneGameState gameState)
         {
-            ISet<ICharacter> potentialTargets = base.GetPotentialTargets(gameState);
-            foreach (IPlayer player in gameState.NonActivePlayers)
+            ISet<IStatContainer> potentialTargets = new HashSet<IStatContainer>();
+            foreach (HearthstonePlayer player in gameState.NonActivePlayers)
             {
                 potentialTargets.Add(player);
-                foreach (ICharacter character in player.GetCardCollection(CardCollectionKeys.Board).Cards)
+                foreach (HearthstoneMonsterCard card in player.GetCardCollection(CardCollectionKeys.Board).Cards)
                 {
-                    potentialTargets.Add(character);
+                    potentialTargets.Add(card);
                 }
             }
             return potentialTargets;
         }
 
-        public override bool IsSummonable(HearthstoneGameState gameState)
+        public virtual bool IsSummonable(HearthstoneGameState gameState)
         {
             HearthstoneGameState state = gameState;
-            return base.IsSummonable(gameState)
+            return base.IsCastable(gameState)
                     && Owner != null
                     && Owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this)
                     && Owner == state.ActivePlayer
-                    && ManaValue <= state.ActivePlayer.ManaValue
+                    && GetValue(StatKeys.Mana) <= state.ActivePlayer.GetValue(StatKeys.Mana)
                     && !state.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsFull;
         }
     }

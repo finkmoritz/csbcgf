@@ -6,14 +6,14 @@ namespace hearthstone
     public abstract class CastSpellAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
-        protected IPlayer player = null!;
+        protected HearthstonePlayer player = null!;
 
         [JsonProperty]
-        protected ISpellCard spellCard = null!;
+        protected HearthstoneSpellCard spellCard = null!;
 
         protected CastSpellAction() { }
 
-        public CastSpellAction(IPlayer player, ISpellCard spellCard, bool isAborted = false)
+        public CastSpellAction(HearthstonePlayer player, HearthstoneSpellCard spellCard, bool isAborted = false)
             : base(isAborted)
         {
             this.player = player;
@@ -21,13 +21,13 @@ namespace hearthstone
         }
 
         [JsonIgnore]
-        public IPlayer Player
+        public HearthstonePlayer Player
         {
             get => player;
         }
 
         [JsonIgnore]
-        public ISpellCard SpellCard
+        public HearthstoneSpellCard SpellCard
         {
             get => spellCard;
         }

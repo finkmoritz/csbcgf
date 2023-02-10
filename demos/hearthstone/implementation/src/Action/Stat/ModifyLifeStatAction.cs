@@ -5,14 +5,14 @@ namespace csbcgf
     public class ModifyLifeStatAction<T> : Action<T> where T : IGameState
     {
         [JsonProperty]
-        protected ILiving living = null!;
+        protected IStatContainer living = null!;
 
         [JsonProperty]
         protected int delta;
 
         protected ModifyLifeStatAction() { }
 
-        public ModifyLifeStatAction(ILiving living, int delta, bool isAborted = false)
+        public ModifyLifeStatAction(IStatContainer living, int delta, bool isAborted = false)
             : base(isAborted)
         {
             this.living = living;
@@ -20,7 +20,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public ILiving Living
+        public IStatContainer Living
         {
             get => living;
         }
@@ -34,13 +34,12 @@ namespace csbcgf
 
         public override void Execute(IGame<T> game)
         {
-            Living.LifeValue += Delta;
+            Living.AddStat(StatKeys.Life, new Stat(Delta, 0));
         }
 
         public override bool IsExecutable(T gameState)
         {
-            return !(Living is ICardComponent)
-                && Living.LifeValue > 0;
+            return Living.GetValue(StatKeys.Life) > 0;
         }
     }
 }

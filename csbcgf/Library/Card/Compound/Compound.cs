@@ -3,14 +3,14 @@ using System.Collections.Immutable;
 
 namespace csbcgf
 {
-    public abstract class Compound : ICompound
+    public abstract class Compound : StatContainer, ICompound
     {
         [JsonProperty]
         protected List<ICardComponent> components = null!;
 
         protected Compound() { }
 
-        public Compound(bool _ = true)
+        public Compound(bool _ = true) : base(_)
         {
             this.components = new List<ICardComponent>();
         }

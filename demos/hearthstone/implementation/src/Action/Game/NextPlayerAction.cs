@@ -16,7 +16,7 @@ namespace hearthstone
             HearthstoneGameState state = game.State;
             int newActivePlayerIndex = state.Players.ToList().IndexOf(state.ActivePlayer);
             newActivePlayerIndex = (newActivePlayerIndex + 1) % state.Players.Count();
-            IPlayer newActivePlayer = state.Players.ElementAt(newActivePlayerIndex);
+            HearthstonePlayer newActivePlayer = (HearthstonePlayer)state.Players.ElementAt(newActivePlayerIndex);
 
             game.Execute(new ModifyActivePlayerAction(newActivePlayer));
         }

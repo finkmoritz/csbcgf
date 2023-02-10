@@ -5,14 +5,14 @@ namespace csbcgf
     public class ModifyAttackStatAction : Action
     {
         [JsonProperty]
-        protected IAttacking attacking = null!;
+        protected IStatContainer attacking = null!;
 
         [JsonProperty]
         protected int delta;
 
         protected ModifyAttackStatAction() { }
 
-        public ModifyAttackStatAction(IAttacking attacking, int delta, bool isAborted = false)
+        public ModifyAttackStatAction(IStatContainer attacking, int delta, bool isAborted = false)
             : base(isAborted)
         {
             this.attacking = attacking;
@@ -20,7 +20,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IAttacking Attacking
+        public IStatContainer Attacking
         {
             get => attacking;
         }
@@ -34,7 +34,7 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            Attacking.AttackValue += Delta;
+            Attacking.AddStat(StatKeys.Attack, new Stat(Delta, 0));
         }
 
         public override bool IsExecutable(IGameState gameState)

@@ -3,17 +3,8 @@ using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    public class Player : IPlayer
+    public class Player : StatContainer, IPlayer
     {
-        [JsonProperty]
-        protected ManaPoolStat manaPoolStat = null!;
-
-        [JsonProperty]
-        protected AttackStat attackStat = null!;
-
-        [JsonProperty]
-        protected LifeStat lifeStat = null!;
-
         [JsonProperty]
         protected List<IReaction> reactions = null!;
 
@@ -25,18 +16,11 @@ namespace csbcgf
         /// <summary>
         /// Represents a Player.
         /// </summary>
-        public Player(bool _ = true)
+        public Player(bool _ = true) : base(_)
         {
             this.cardCollections = new Dictionary<string, ICardCollection>();
-
-            this.manaPoolStat = new ManaPoolStat(0, 0);
-            this.attackStat = new AttackStat(0);
-            this.lifeStat = new LifeStat(0);
             this.reactions = new List<IReaction>();
         }
-
-        [JsonIgnore]
-        public bool IsAlive => lifeStat.Value > 0;
 
         [JsonIgnore]
         public IEnumerable<ICard> AllCards
@@ -50,48 +34,6 @@ namespace csbcgf
                 }
                 return allCards.ToImmutableList();
             }
-        }
-
-        [JsonIgnore]
-        public int AttackValue
-        {
-            get => attackStat.Value;
-            set => attackStat.Value = Math.Max(0, value);
-        }
-
-        [JsonIgnore]
-        public int AttackBaseValue
-        {
-            get => attackStat.BaseValue;
-            set => attackStat.BaseValue = Math.Max(0, value);
-        }
-
-        [JsonIgnore]
-        public int LifeValue
-        {
-            get => lifeStat.Value;
-            set => lifeStat.Value = Math.Max(0, value);
-        }
-
-        [JsonIgnore]
-        public int LifeBaseValue
-        {
-            get => lifeStat.BaseValue;
-            set => lifeStat.BaseValue = Math.Max(0, value);
-        }
-
-        [JsonIgnore]
-        public int ManaValue
-        {
-            get => manaPoolStat.Value;
-            set => manaPoolStat.Value = Math.Max(0, value);
-        }
-
-        [JsonIgnore]
-        public int ManaBaseValue
-        {
-            get => manaPoolStat.BaseValue;
-            set => manaPoolStat.BaseValue = Math.Max(0, value);
         }
 
         [JsonIgnore]
@@ -139,11 +81,6 @@ namespace csbcgf
         public bool RemoveReaction(IReaction reaction)
         {
             return reactions.Remove(reaction);
-        }
-
-        public ISet<ICharacter> GetPotentialTargets(IGameState gameState)
-        {
-            return new HashSet<ICharacter>();
         }
     }
 }

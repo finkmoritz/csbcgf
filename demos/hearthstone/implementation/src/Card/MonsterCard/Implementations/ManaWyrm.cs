@@ -26,7 +26,7 @@ namespace hearthstone
                     && spellCardOwner == manaWyrmOwner
                     && manaWyrmOwner.GetCardCollection(CardCollectionKeys.Board).Contains(parentCard))
                 {
-                    game.Execute(new ModifyAttackStatAction((IAttacking)parentCard, 1));
+                    game.Execute(new ModifyAttackStatAction((IStatContainer)parentCard, 1));
                 }
             }
         }

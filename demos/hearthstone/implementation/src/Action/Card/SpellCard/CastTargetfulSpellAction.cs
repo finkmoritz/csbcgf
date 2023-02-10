@@ -6,14 +6,14 @@ namespace hearthstone
     public class CastTargetfulSpellAction : CastSpellAction
     {
         [JsonProperty]
-        public ICharacter target = null!;
+        public IStatContainer target = null!;
 
         protected CastTargetfulSpellAction() { }
 
         public CastTargetfulSpellAction(
-            IPlayer player,
+            HearthstonePlayer player,
             HearthstoneTargetfulSpellCard spellCard,
-            ICharacter target,
+            IStatContainer target,
             bool isAborted = false
             ) : base(player, spellCard, isAborted)
         {
@@ -22,7 +22,7 @@ namespace hearthstone
         }
 
         [JsonIgnore]
-        public ICharacter Target
+        public IStatContainer Target
         {
             get => target;
         }
@@ -30,11 +30,11 @@ namespace hearthstone
         public override void Execute(IGame<HearthstoneGameState> game)
         {
             if(game.ExecuteSequentially(new List<IAction> {
-                new ModifyManaStatAction(Player, -SpellCard.ManaValue, 0),
+                new ModifyManaStatAction(Player, -SpellCard.GetValue(StatKeys.Mana), 0),
                 new RemoveCardFromCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Hand), SpellCard)
             }).Count == 2)
             {
-                ((HearthstoneTargetfulSpellCard)SpellCard).Cast(game, Target);
+                ((HearthstoneTargetfulSpellCard)SpellCard).Cast((HearthstoneGame)game, Target);
                 game.Execute(new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Graveyard), SpellCard));
             }
         }

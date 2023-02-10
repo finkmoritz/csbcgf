@@ -56,5 +56,15 @@ namespace csbcgf
                 reaction.ReactAfter(game, action);
             }
         }
+
+        public override int GetValue(string key)
+        {
+            return base.GetValue(key) + Components.Select(c => c.GetValue(key)).Sum();
+        }
+
+        public override int GetBaseValue(string key)
+        {
+            return base.GetBaseValue(key) + Components.Select(c => c.GetBaseValue(key)).Sum();
+        }
     }
 }

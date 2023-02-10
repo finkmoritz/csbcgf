@@ -3,11 +3,8 @@ using Newtonsoft.Json;
 
 namespace csbcgf
 {
-    public class CardComponent : ICardComponent
+    public class CardComponent : StatContainer, ICardComponent
     {
-        [JsonProperty]
-        protected ManaCostStat manaCostStat = null!;
-
         [JsonProperty]
         protected List<IReaction> reactions = null!;
 
@@ -16,19 +13,8 @@ namespace csbcgf
 
         protected CardComponent() { }
 
-        public CardComponent(int mana)
-            : this(new ManaCostStat(mana, mana))
+        public CardComponent(bool _ = true) : base(_)
         {
-        }
-
-        public CardComponent(int manaValue, int manaBaseValue)
-            : this(new ManaCostStat(manaValue, manaBaseValue))
-        {
-        }
-
-        protected CardComponent(ManaCostStat manaCostStat)
-        {
-            this.manaCostStat = manaCostStat;
             this.reactions = new List<IReaction>();
         }
 
@@ -49,20 +35,6 @@ namespace csbcgf
             {
                 parentCard = value;
             }
-        }
-
-        [JsonIgnore]
-        public int ManaValue
-        {
-            get => manaCostStat.Value;
-            set => manaCostStat.Value = value;
-        }
-
-        [JsonIgnore]
-        public int ManaBaseValue
-        {
-            get => manaCostStat.BaseValue;
-            set => manaCostStat.BaseValue = value;
         }
 
         public IEnumerable<IReaction> AllReactions()

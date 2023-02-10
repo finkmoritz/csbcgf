@@ -1,6 +1,6 @@
 ﻿namespace csbcgf
 {
-    public interface ICompound
+    public interface ICompound : IStatContainer
     {
         /// <summary>
         /// List of components that this ICompound is made of.

@@ -19,9 +19,9 @@ namespace hearthstone
         }
 
         [JsonIgnore]
-        public IPlayer ActivePlayer
+        public HearthstonePlayer ActivePlayer
         {
-            get => Players.ElementAt(activePlayerIndex);
+            get => (HearthstonePlayer)Players.ElementAt(activePlayerIndex);
             set
             {
                 activePlayerIndex = Players.ToList().IndexOf(value);

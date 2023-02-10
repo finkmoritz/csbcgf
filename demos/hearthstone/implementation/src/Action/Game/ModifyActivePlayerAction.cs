@@ -6,18 +6,18 @@ namespace hearthstone
     public class ModifyActivePlayerAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
-        protected IPlayer newActivePlayer = null!;
+        protected HearthstonePlayer newActivePlayer = null!;
 
         protected ModifyActivePlayerAction() { }
 
-        public ModifyActivePlayerAction(IPlayer newActivePlayer, bool isAborted = false)
+        public ModifyActivePlayerAction(HearthstonePlayer newActivePlayer, bool isAborted = false)
             : base(isAborted)
         {
             this.newActivePlayer = newActivePlayer;
         }
 
         [JsonIgnore]
-        public IPlayer NewActivePlayer
+        public HearthstonePlayer NewActivePlayer
         {
             get => newActivePlayer;
         }

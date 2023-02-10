@@ -5,7 +5,7 @@ namespace csbcgf
     public class ModifyManaStatAction : Action
     {
         [JsonProperty]
-        protected IManaful manaful = null!;
+        protected IStatContainer manaful = null!;
 
         [JsonProperty]
         protected int deltaValue;
@@ -16,7 +16,7 @@ namespace csbcgf
         protected ModifyManaStatAction() { }
 
         public ModifyManaStatAction(
-            IManaful manaful,
+            IStatContainer manaful,
             int deltaValue,
             int deltaBaseValue,
             bool isAborted = false
@@ -28,7 +28,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public IManaful Manaful
+        public IStatContainer Manaful
         {
             get => manaful;
         }
@@ -49,8 +49,7 @@ namespace csbcgf
 
         public override void Execute(IGame game)
         {
-            Manaful.ManaBaseValue += DeltaBaseValue;
-            Manaful.ManaValue += DeltaValue;
+            Manaful.AddStat(StatKeys.Mana, new Stat(DeltaValue, DeltaBaseValue));
         }
 
         public override bool IsExecutable(IGameState gameState)

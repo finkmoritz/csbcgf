@@ -20,7 +20,7 @@ namespace hearthstone
                 && gameState.Players.Any(p => !p.GetCardCollection(CardCollectionKeys.Board).IsEmpty);
         }
 
-        public class BananasComponent : TargetfulSpellCardComponent<HearthstoneGameState>
+        public class BananasComponent : HearthstoneTargetfulSpellCardComponent
         {
             protected BananasComponent() { }
 
@@ -28,21 +28,21 @@ namespace hearthstone
             {
             }
 
-            public override void Cast(IGame<HearthstoneGameState> game, ICharacter target)
+            public override void Cast(HearthstoneGame game, IStatContainer target)
             {
                 game.Execute(new ModifyAttackStatAction(target, 1));
                 game.Execute(new ModifyLifeStatAction<HearthstoneGameState>(target, 1));
             }
 
-            public override HashSet<ICharacter> GetPotentialTargets(HearthstoneGameState gameState)
+            public override HashSet<IStatContainer> GetPotentialTargets(HearthstoneGameState gameState)
             {
-                HashSet<ICharacter> potentialTargets = new HashSet<ICharacter>();
+                HashSet<IStatContainer> potentialTargets = new HashSet<IStatContainer>();
                 foreach (ICard card in gameState.Players.Aggregate(new List<ICard>(), (cards, player) => {
                     cards.AddRange(player.GetCardCollection(CardCollectionKeys.Board).Cards);
                     return cards;
                 }))
                 {
-                    potentialTargets.Add((ICharacter)card);
+                    potentialTargets.Add((IStatContainer)card);
                 }
                 return potentialTargets;
             }

@@ -35,9 +35,9 @@ namespace hearthstone
             Console.ForegroundColor = ColorDefault;
             Console.Write(string.Format("Player #{0}\n", gameState.Players.ToList().IndexOf(player)));
             Console.ForegroundColor = ColorMana;
-            Console.Write(string.Format("Mana: {0:D2}/{1:D2}\n", player.ManaValue, player.ManaBaseValue));
+            Console.Write(string.Format("Mana: {0:D2}/{1:D2}\n", player.GetValue(StatKeys.Mana), player.GetBaseValue(StatKeys.Mana)));
             Console.ForegroundColor = ColorLife;
-            Console.Write(string.Format("Life: {0:D2}/{1:D2}\n", player.LifeValue, player.LifeBaseValue));
+            Console.Write(string.Format("Life: {0:D2}/{1:D2}\n", player.GetValue(StatKeys.Life), player.GetBaseValue(StatKeys.Life)));
             Console.ForegroundColor = ColorDefault;
             Console.Write(string.Format("Id: {0}", id));
         }
@@ -50,7 +50,7 @@ namespace hearthstone
                 ICard card = hand[i];
                 Console.Write(string.Format(
                     "Mana: {0:D2}".PadRight(columnWidth),
-                    card.ManaValue
+                    card.GetValue(StatKeys.Mana)
                 ));
             }
             Console.WriteLine();
@@ -62,7 +62,7 @@ namespace hearthstone
                 {
                     Console.Write(string.Format(
                         "Attack: {0:D2}".PadRight(columnWidth),
-                        monsterCard.AttackValue
+                        monsterCard.GetValue(StatKeys.Attack)
                     ));
                 }
                 else
@@ -79,7 +79,7 @@ namespace hearthstone
                 {
                     Console.Write(string.Format(
                         "Life: {0:D2}".PadRight(columnWidth),
-                        monsterCard.LifeValue
+                        monsterCard.GetValue(StatKeys.Life)
                     ));
                 }
                 else
@@ -96,7 +96,7 @@ namespace hearthstone
                 {
                     Console.ForegroundColor = ColorSelectable;
                 }
-                else if (card is ISpellCard c1 && c1.IsCastable(gameState))
+                else if (card is HearthstoneSpellCard c1 && c1.IsCastable(gameState))
                 {
                     Console.ForegroundColor = ColorSelectable;
                 }
@@ -118,7 +118,7 @@ namespace hearthstone
                 {
                     Console.Write(string.Format(
                     "Mana: {0:D2}".PadRight(columnWidth),
-                    card.ManaValue
+                    card.GetValue(StatKeys.Mana)
                 ));
                 }
                 else
@@ -135,7 +135,7 @@ namespace hearthstone
                 {
                     Console.Write(string.Format(
                         "Attack: {0:D2}".PadRight(columnWidth),
-                        monsterCard.AttackValue
+                        monsterCard.GetValue(StatKeys.Attack)
                     ));
                 }
                 else
@@ -152,7 +152,7 @@ namespace hearthstone
                 {
                     Console.Write(string.Format(
                         "Life: {0:D2}".PadRight(columnWidth),
-                        monsterCard.LifeValue
+                        monsterCard.GetValue(StatKeys.Life)
                     ));
                 }
                 else

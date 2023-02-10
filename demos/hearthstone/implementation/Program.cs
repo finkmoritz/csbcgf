@@ -34,8 +34,7 @@ namespace hearthstone
             for (int i = 0; i < 2; ++i)
             {
                 IPlayer player = new Player();
-                player.LifeValue = 5;
-                player.LifeBaseValue = 5;
+                player.AddStat(StatKeys.Life, new Stat(5, 5));
 
                 ICardCollection deck = player.GetCardCollection(CardCollectionKeys.Deck);
                 for (int n = 0; n < 3; ++n)
@@ -93,7 +92,7 @@ namespace hearthstone
                         output = "Cast monster card";
                         break;
                     case CommandCast:
-                        ISpellCard spellCard = (ISpellCard)GetObjectById(game, inputParams[1]);
+                        HearthstoneSpellCard spellCard = (HearthstoneSpellCard)GetObjectById(game, inputParams[1]);
                         activePlayer = (HearthstonePlayer)state.ActivePlayer;
                         if (spellCard is HearthstoneTargetlessSpellCard targetlessSpellCard)
                         {
@@ -102,14 +101,14 @@ namespace hearthstone
                         }
                         else if (spellCard is HearthstoneTargetfulSpellCard targetfulSpellCard)
                         {
-                            ICharacter target = (ICharacter)GetObjectById(game, inputParams[2]);
+                            IStatContainer target = (IStatContainer)GetObjectById(game, inputParams[2]);
                             activePlayer.CastSpell(game, targetfulSpellCard, target);
                             output = "Cast spell onto target";
                         }
                         break;
                     case CommandAttack:
                         HearthstoneMonsterCard monster = (HearthstoneMonsterCard)GetObjectById(game, inputParams[1]);
-                        ICharacter targetCard = (ICharacter)GetObjectById(game, inputParams[2]);
+                        IStatContainer targetCard = (IStatContainer)GetObjectById(game, inputParams[2]);
                         monster.Attack(game, targetCard);
                         output = "Attacked";
                         break;

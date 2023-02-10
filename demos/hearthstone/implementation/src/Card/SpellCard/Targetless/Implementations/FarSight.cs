@@ -11,7 +11,7 @@ namespace hearthstone
             AddComponent(new FarSightComponent());
         }
 
-        public class FarSightComponent : TargetlessSpellCardComponent<HearthstoneGameState>
+        public class FarSightComponent : HearthstoneTargetlessSpellCardComponent
         {
             protected FarSightComponent() { }
 
@@ -19,7 +19,7 @@ namespace hearthstone
             {
             }
 
-            public override void Cast(IGame<HearthstoneGameState> game)
+            public override void Cast(HearthstoneGame game)
             {
                 game.Execute(new FarSightAction());
             }

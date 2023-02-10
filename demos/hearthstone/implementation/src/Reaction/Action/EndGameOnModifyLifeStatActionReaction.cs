@@ -6,12 +6,12 @@ namespace hearthstone
     {
         protected EndGameOnModifyLifeStatActionReaction() { }
 
-        public EndGameOnModifyLifeStatActionReaction(IPlayer parentPlayer)
+        public EndGameOnModifyLifeStatActionReaction(HearthstonePlayer parentPlayer)
             : base(parentPlayer) { }
 
         public override void ReactAfter(HearthstoneGame game, ModifyLifeStatAction<HearthstoneGameState> action)
         {
-            if (ParentPlayer is IPlayer && ParentPlayer.LifeValue <= 0)
+            if (ParentPlayer == action.Living && ParentPlayer.GetValue(StatKeys.Life) <= 0)
             {
                 game.Execute(new GameOverEvent());
             }

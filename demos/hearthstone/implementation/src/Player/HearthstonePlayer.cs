@@ -43,7 +43,7 @@ namespace hearthstone
             game.Execute(new CastTargetlessSpellAction(this, spellCard));
         }
 
-        public void CastSpell(HearthstoneGame game, HearthstoneTargetfulSpellCard spellCard, ICharacter target)
+        public void CastSpell(HearthstoneGame game, HearthstoneTargetfulSpellCard spellCard, IStatContainer target)
         {
             if (!spellCard.IsCastable(game.State))
             {

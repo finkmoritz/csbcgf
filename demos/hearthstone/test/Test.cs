@@ -16,8 +16,7 @@ namespace hearthstone
             for (int i = 0; i < 2; ++i)
             {
                 HearthstonePlayer player = new HearthstonePlayer();
-                player.LifeValue = 2;
-                player.LifeBaseValue = 2;
+                player.AddStat(StatKeys.Life, new Stat(2, 2));
 
                 ICardCollection deck = player.GetCardCollection(CardCollectionKeys.Deck);
 
@@ -51,10 +50,10 @@ namespace hearthstone
         {
             HearthstoneGameState state = game.State;
 
-            Assert.That(state.ActivePlayer.ManaValue, Is.EqualTo(1));
-            Assert.That(state.NonActivePlayers.First().ManaValue, Is.EqualTo(0));
-            Assert.That(state.ActivePlayer.ManaBaseValue, Is.EqualTo(1));
-            Assert.That(state.NonActivePlayers.First().ManaBaseValue, Is.EqualTo(0));
+            Assert.That(state.ActivePlayer.GetValue(StatKeys.Mana), Is.EqualTo(1));
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Mana), Is.EqualTo(0));
+            Assert.That(state.ActivePlayer.GetBaseValue(StatKeys.Mana), Is.EqualTo(1));
+            Assert.That(state.NonActivePlayers.First().GetBaseValue(StatKeys.Mana), Is.EqualTo(0));
 
             Assert.That(state.ActivePlayer.GetCardCollection(CardCollectionKeys.Deck).Size, Is.EqualTo(3));
             Assert.That(state.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Deck).Size, Is.EqualTo(4));
@@ -62,9 +61,9 @@ namespace hearthstone
             Assert.That(state.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Hand).Size, Is.EqualTo(1));
 
             HearthstoneMonsterCard goblin = (HearthstoneMonsterCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
-            Assert.That(goblin.ManaValue, Is.EqualTo(2));
-            Assert.That(goblin.AttackValue, Is.EqualTo(1));
-            Assert.That(goblin.LifeValue, Is.EqualTo(2));
+            Assert.That(goblin.GetValue(StatKeys.Mana), Is.EqualTo(2));
+            Assert.That(goblin.GetValue(StatKeys.Attack), Is.EqualTo(1));
+            Assert.That(goblin.GetValue(StatKeys.Life), Is.EqualTo(2));
 
             Assert.False(goblin.IsSummonable(state));
         }
@@ -79,10 +78,10 @@ namespace hearthstone
 
             game.NextTurn(); //Second player's turn
 
-            Assert.That(state.ActivePlayer.ManaValue, Is.EqualTo(1));
-            Assert.That(state.NonActivePlayers.First().ManaValue, Is.EqualTo(1));
-            Assert.That(state.ActivePlayer.ManaBaseValue, Is.EqualTo(1));
-            Assert.That(state.NonActivePlayers.First().ManaBaseValue, Is.EqualTo(1));
+            Assert.That(state.ActivePlayer.GetValue(StatKeys.Mana), Is.EqualTo(1));
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Mana), Is.EqualTo(1));
+            Assert.That(state.ActivePlayer.GetBaseValue(StatKeys.Mana), Is.EqualTo(1));
+            Assert.That(state.NonActivePlayers.First().GetBaseValue(StatKeys.Mana), Is.EqualTo(1));
 
             Assert.That(state.ActivePlayer.GetCardCollection(CardCollectionKeys.Deck).Size, Is.EqualTo(3));
             Assert.That(state.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Deck).Size, Is.EqualTo(3));
@@ -91,10 +90,10 @@ namespace hearthstone
 
             game.NextTurn(); //First player's turn again
 
-            Assert.That(state.ActivePlayer.ManaValue, Is.EqualTo(2));
-            Assert.That(state.NonActivePlayers.First().ManaValue, Is.EqualTo(1));
-            Assert.That(state.ActivePlayer.ManaBaseValue, Is.EqualTo(2));
-            Assert.That(state.NonActivePlayers.First().ManaBaseValue, Is.EqualTo(1));
+            Assert.That(state.ActivePlayer.GetValue(StatKeys.Mana), Is.EqualTo(2));
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Mana), Is.EqualTo(1));
+            Assert.That(state.ActivePlayer.GetBaseValue(StatKeys.Mana), Is.EqualTo(2));
+            Assert.That(state.NonActivePlayers.First().GetBaseValue(StatKeys.Mana), Is.EqualTo(1));
 
             Assert.That(state.ActivePlayer.GetCardCollection(CardCollectionKeys.Deck).Size, Is.EqualTo(2));
             Assert.That(state.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Deck).Size, Is.EqualTo(3));
@@ -110,15 +109,15 @@ namespace hearthstone
             Assert.False(state.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).IsEmpty);
             Assert.That(state.ActivePlayer.GetCardCollection(CardCollectionKeys.Board).Cards.Count, Is.EqualTo(1));
 
-            Assert.That(state.ActivePlayer.ManaValue, Is.EqualTo(0));
+            Assert.That(state.ActivePlayer.GetValue(StatKeys.Mana), Is.EqualTo(0));
             Assert.False(goblin.IsReadyToAttack);
 
             game.NextTurn(); //Second player's turn again
 
-            Assert.That(state.ActivePlayer.ManaValue, Is.EqualTo(2));
-            Assert.That(state.NonActivePlayers.First().ManaValue, Is.EqualTo(0));
-            Assert.That(state.ActivePlayer.ManaBaseValue, Is.EqualTo(2));
-            Assert.That(state.NonActivePlayers.First().ManaBaseValue, Is.EqualTo(2));
+            Assert.That(state.ActivePlayer.GetValue(StatKeys.Mana), Is.EqualTo(2));
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Mana), Is.EqualTo(0));
+            Assert.That(state.ActivePlayer.GetBaseValue(StatKeys.Mana), Is.EqualTo(2));
+            Assert.That(state.NonActivePlayers.First().GetBaseValue(StatKeys.Mana), Is.EqualTo(2));
 
             HearthstoneMonsterCard otherGoblin = (HearthstoneMonsterCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[0];
             ((HearthstonePlayer)state.ActivePlayer).SummonMonster(game, otherGoblin);
@@ -127,25 +126,24 @@ namespace hearthstone
 
             game.NextTurn(); //First player's turn again
 
-            Assert.That(state.ActivePlayer.ManaValue, Is.EqualTo(3));
-            Assert.That(state.NonActivePlayers.First().ManaValue, Is.EqualTo(0));
-            Assert.That(state.ActivePlayer.ManaBaseValue, Is.EqualTo(3));
-            Assert.That(state.NonActivePlayers.First().ManaBaseValue, Is.EqualTo(2));
+            Assert.That(state.ActivePlayer.GetValue(StatKeys.Mana), Is.EqualTo(3));
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Mana), Is.EqualTo(0));
+            Assert.That(state.ActivePlayer.GetBaseValue(StatKeys.Mana), Is.EqualTo(3));
+            Assert.That(state.NonActivePlayers.First().GetBaseValue(StatKeys.Mana), Is.EqualTo(2));
 
-            //Attack player
+            //Attack second player
             Assert.True(goblin.IsReadyToAttack);
-            Assert.That(state.NonActivePlayers.First().LifeValue, Is.EqualTo(2));
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Life), Is.EqualTo(2));
             goblin.Attack(game, state.NonActivePlayers.First());
-            Assert.That(state.NonActivePlayers.First().LifeValue, Is.EqualTo(1));
-            Assert.True(state.NonActivePlayers.First().IsAlive);
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Life), Is.EqualTo(1));
             Assert.False(goblin.IsReadyToAttack);
 
             game.NextTurn(); //Second player's turn again
 
-            Assert.That(goblin.LifeValue, Is.EqualTo(2));
+            Assert.That(goblin.GetValue(StatKeys.Life), Is.EqualTo(2));
             otherGoblin.Attack(game, goblin);
-            Assert.That(goblin.LifeValue, Is.EqualTo(1));
-            Assert.That(otherGoblin.LifeValue, Is.EqualTo(1));
+            Assert.That(goblin.GetValue(StatKeys.Life), Is.EqualTo(1));
+            Assert.That(otherGoblin.GetValue(StatKeys.Life), Is.EqualTo(1));
 
             game.NextTurn(); //First player's turn again
 
@@ -161,14 +159,12 @@ namespace hearthstone
             Assert.True(state.NonActivePlayers.First().GetCardCollection(CardCollectionKeys.Board).IsEmpty);
 
             //Destroy second player
-            Assert.That(state.NonActivePlayers.First().LifeValue, Is.EqualTo(1));
-            Assert.True(state.NonActivePlayers.First().IsAlive);
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Life), Is.EqualTo(1));
 
             HearthstoneTargetfulSpellCard fireball = (HearthstoneTargetfulSpellCard)state.ActivePlayer.GetCardCollection(CardCollectionKeys.Hand)[2];
             ((HearthstonePlayer)state.ActivePlayer).CastSpell(game, fireball, state.NonActivePlayers.First());
 
-            Assert.That(state.NonActivePlayers.First().LifeValue, Is.EqualTo(0));
-            Assert.False(state.NonActivePlayers.First().IsAlive);
+            Assert.That(state.NonActivePlayers.First().GetValue(StatKeys.Life), Is.EqualTo(-2));
         }
 
         [Test()]

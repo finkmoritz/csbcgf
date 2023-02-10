@@ -6,14 +6,14 @@ namespace hearthstone
     public class SummonMonsterAction : csbcgf.Action<HearthstoneGameState>
     {
         [JsonProperty]
-        protected IPlayer player = null!;
+        protected HearthstonePlayer player = null!;
 
         [JsonProperty]
         protected HearthstoneMonsterCard monsterCard = null!;
 
         protected SummonMonsterAction() { }
 
-        public SummonMonsterAction(IPlayer player, HearthstoneMonsterCard monsterCard, bool isAborted = false
+        public SummonMonsterAction(HearthstonePlayer player, HearthstoneMonsterCard monsterCard, bool isAborted = false
             ) : base(isAborted)
         {
             this.player = player;
@@ -21,7 +21,7 @@ namespace hearthstone
         }
 
         [JsonIgnore]
-        public IPlayer Player
+        public HearthstonePlayer Player
         {
             get => player;
         }
@@ -35,7 +35,7 @@ namespace hearthstone
         public override void Execute(IGame<HearthstoneGameState> game)
         {
             game.ExecuteSequentially(new List<IAction> {
-                new ModifyManaStatAction(Player, -MonsterCard.ManaValue, 0),
+                new ModifyManaStatAction(Player, -MonsterCard.GetValue(StatKeys.Mana), 0),
                 new RemoveCardFromCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Hand), MonsterCard),
                 new AddCardToCardCollectionAction(Player.GetCardCollection(CardCollectionKeys.Board), MonsterCard)
             });

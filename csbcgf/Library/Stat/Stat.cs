@@ -2,10 +2,10 @@
 
 namespace csbcgf
 {
-    public abstract class Stat : IStat
+    public class Stat : IStat
     {
-        public const int GlobalMin = -99;
-        public const int GlobalMax = 99;
+        public const int GlobalMin = int.MinValue;
+        public const int GlobalMax = int.MaxValue;
 
         [JsonProperty]
         protected int value;

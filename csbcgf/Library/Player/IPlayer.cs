@@ -1,6 +1,6 @@
 ﻿namespace csbcgf
 {
-    public interface IPlayer : IManaful, ICharacter, IReactive
+    public interface IPlayer : IStatContainer, IReactive
     {
         /// <summary>
         /// Get all Cards from the Player's Decks.
