@@ -9,7 +9,7 @@ namespace csbcgf
         protected List<IReaction> reactions = null!;
 
         [JsonProperty]
-        protected ICompound? parentCard;
+        protected ICard? parentCard;
 
         protected CardComponent() { }
 
@@ -25,7 +25,7 @@ namespace csbcgf
         }
 
         [JsonIgnore]
-        public ICompound? ParentCard
+        public ICard? ParentCard
         {
             get
             {
