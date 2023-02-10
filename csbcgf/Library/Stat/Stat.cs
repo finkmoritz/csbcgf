@@ -4,14 +4,17 @@ namespace csbcgf
 {
     public class Stat : IStat
     {
-        public const int GlobalMin = int.MinValue;
-        public const int GlobalMax = int.MaxValue;
-
         [JsonProperty]
         protected int value;
 
         [JsonProperty]
         protected int baseValue;
+
+        [JsonProperty]
+        protected int minValue;
+
+        [JsonProperty]
+        protected int maxValue;
 
         protected Stat() { }
 
@@ -20,24 +23,42 @@ namespace csbcgf
         /// </summary>
         /// <param name="value"></param>
         /// <param name="baseValue"></param>
-        public Stat(int value, int baseValue)
+        /// <param name="minValue"></param>
+        /// <param name="maxValue"></param>
+        public Stat(int value, int baseValue, int minValue = int.MinValue, int maxValue = int.MaxValue)
         {
             this.baseValue = baseValue;
             this.value = value;
+            this.minValue = minValue;
+            this.maxValue = maxValue;
         }
 
         [JsonIgnore]
         public virtual int Value
         {
             get => value;
-            set => this.value = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
+            set => this.value = Math.Max(minValue, Math.Min(maxValue, value));
         }
 
         [JsonIgnore]
         public virtual int BaseValue
         {
             get => baseValue;
-            set => baseValue = Math.Max(GlobalMin, Math.Min(GlobalMax, value));
+            set => baseValue = Math.Max(minValue, Math.Min(maxValue, value));
+        }
+
+        [JsonIgnore]
+        public virtual int MinValue
+        {
+            get => minValue;
+            set => this.minValue = value;
+        }
+
+        [JsonIgnore]
+        public virtual int MaxValue
+        {
+            get => maxValue;
+            set => this.maxValue = value;
         }
     }
 }
