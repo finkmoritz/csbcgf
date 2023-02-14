@@ -26,11 +26,6 @@ namespace csbcgf
             }
         }
 
-        public virtual bool IsCastable(IGameState gameState)
-        {
-            return true;
-        }
-
         public override void AddComponent(ICardComponent cardComponent)
         {
             base.AddComponent(cardComponent);

@@ -63,8 +63,7 @@ namespace hearthstone
         public virtual bool IsSummonable(HearthstoneGameState gameState)
         {
             HearthstoneGameState state = gameState;
-            return base.IsCastable(gameState)
-                    && Owner != null
+            return Owner != null
                     && Owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this)
                     && Owner == state.ActivePlayer
                     && GetValue(StatKeys.Mana) <= state.ActivePlayer.GetValue(StatKeys.Mana)

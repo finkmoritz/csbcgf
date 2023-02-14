@@ -12,10 +12,9 @@ namespace hearthstone
         {
         }
 
-        public override bool IsCastable(IGameState gameState)
+        public virtual bool IsCastable(IGameState gameState)
         {
-            return base.IsCastable(gameState)
-                && Owner != null
+            return Owner != null
                 && Owner.GetCardCollection(CardCollectionKeys.Hand).Contains(this);
         }
     }
