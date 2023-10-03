@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "csbcgf", "csbcgf\csbcgf.csproj", "{54EDE254-A704-4F10-AECB-F03D45E85B8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{4170DB65-B3F0-4AFB-A6C2-29059E36E196}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hearthstone", "hearthstone", "{DFBF6BA2-B5E3-424D-9AC1-F83CAEA92614}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "demos\hearthstone\test\test.csproj", "{EB31CB29-CE6A-4100-8A07-A77527E73028}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hearthstone", "demos\hearthstone\implementation\hearthstone.csproj", "{27B304D4-9967-4B19-B735-4A50DF845E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HearthstoneStandalone", "HearthstoneStandalone\HearthstoneStandalone.csproj", "{C6ADD5CD-B356-4D60-B5DE-FA5A379C894E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54EDE254-A704-4F10-AECB-F03D45E85B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54EDE254-A704-4F10-AECB-F03D45E85B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54EDE254-A704-4F10-AECB-F03D45E85B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54EDE254-A704-4F10-AECB-F03D45E85B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB31CB29-CE6A-4100-8A07-A77527E73028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB31CB29-CE6A-4100-8A07-A77527E73028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB31CB29-CE6A-4100-8A07-A77527E73028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB31CB29-CE6A-4100-8A07-A77527E73028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27B304D4-9967-4B19-B735-4A50DF845E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27B304D4-9967-4B19-B735-4A50DF845E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27B304D4-9967-4B19-B735-4A50DF845E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27B304D4-9967-4B19-B735-4A50DF845E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6ADD5CD-B356-4D60-B5DE-FA5A379C894E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6ADD5CD-B356-4D60-B5DE-FA5A379C894E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6ADD5CD-B356-4D60-B5DE-FA5A379C894E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6ADD5CD-B356-4D60-B5DE-FA5A379C894E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DFBF6BA2-B5E3-424D-9AC1-F83CAEA92614} = {4170DB65-B3F0-4AFB-A6C2-29059E36E196}
+		{EB31CB29-CE6A-4100-8A07-A77527E73028} = {DFBF6BA2-B5E3-424D-9AC1-F83CAEA92614}
+		{27B304D4-9967-4B19-B735-4A50DF845E57} = {DFBF6BA2-B5E3-424D-9AC1-F83CAEA92614}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FBD10B9-5AF3-46E1-90F9-F9D917BF592D}
+	EndGlobalSection
+EndGlobal
