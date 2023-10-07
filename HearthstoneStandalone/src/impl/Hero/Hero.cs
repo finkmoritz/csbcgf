@@ -1,6 +1,6 @@
 namespace hearthstonestandalone
 {
-    public class HearthstoneHero
+    public class HearthstoneHero : StatefulGameObject
     {
         public int Life { get; set; }
         public int Diamonds { get; set; }
@@ -8,8 +8,11 @@ namespace hearthstonestandalone
         public List<HearthstoneCard> Deck { get; init; }
         public List<HearthstoneCard> Hand { get; init; }
 
-        public HearthstoneHero()
+        public HearthstoneHero(StateMachine stateMachine) : base(stateMachine)
         {
+            StateMachine.GameStarted += OnGameStarted;
+            StateMachine.TurnStarted += OnTurnStarted;
+
             Life = 20;
             Diamonds = 0;
 
@@ -24,20 +27,6 @@ namespace hearthstonestandalone
                 HearthstoneCard card = Deck[0];
                 Deck.Remove(card);
                 Hand.Add(card);
-            }
-        }
-
-        public void PlaySpellCard(HearthstoneSpellCard card, HearthstoneSpellCardPlayEventArgs args)
-        {
-            if (card.Cost <= Diamonds)
-            {
-                Diamonds -= card.Cost;
-                Hand.Remove(card);
-                card.Play(args);
-            }
-            else
-            {
-                Console.WriteLine("Card is too expensive!"); // TODO
             }
         }
 

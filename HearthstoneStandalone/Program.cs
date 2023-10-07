@@ -5,18 +5,18 @@ class Program
 
     public static void Main()
     {
-        HearthstoneGame game = new HearthstoneGame();
+        StateMachine stateMachine = new StateMachine();
+
+        HearthstoneGame game = new HearthstoneGame(stateMachine);
 
         for (int heroIndex = 0; heroIndex < 2; ++heroIndex)
         {
-            HearthstoneHero hero = new HearthstoneHero();
+            HearthstoneHero hero = new HearthstoneHero(stateMachine);
             game.Heros.Add(hero);
-            game.GameStarted += hero.OnGameStarted;
-            game.TurnStarted += hero.OnTurnStarted;
 
             for (int cardIndex = 0; cardIndex < 30; ++cardIndex)
             {
-                Fireball fb = new Fireball(1);
+                Fireball fb = new Fireball(stateMachine, 1);
                 hero.Deck.Add(fb);
             }
         }
@@ -29,9 +29,7 @@ class Program
         HearthstoneHero currentHero = game.Heros[game.CurrentHeroIndex];
 
         Fireball fireball = (Fireball)currentHero.Hand[0];
-        HearthstoneSpellCardPlayEventArgs args = new HearthstoneSpellCardPlayEventArgs();
-        args.Target = game.Heros[1 - game.CurrentHeroIndex];
-        currentHero.PlaySpellCard(fireball, args);
+        fireball.Play(currentHero, game.Heros[1 - game.CurrentHeroIndex]);
 
         PrintGameState(game);
     }
