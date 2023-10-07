@@ -30,14 +30,14 @@ namespace hearthstonestandalone
             }
         }
 
-        public void OnGameStarted(object? sender, EventArgs eventArgs)
+        public void OnGameStarted(object? _, HearthstoneGameStartedEvent __)
         {
             DrawCards(5);
         }
 
-        public void OnTurnStarted(object? sender, HearthstoneHero hero)
+        public void OnTurnStarted(object? _, HearthstoneTurnStartedEvent e)
         {
-            if (this.Equals(hero))
+            if (Equals(e.CurrentHero))
             {
                 Diamonds += 1;
                 DrawCards(1);

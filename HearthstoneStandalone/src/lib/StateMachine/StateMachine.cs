@@ -2,18 +2,18 @@ namespace hearthstonestandalone
 {
     public class StateMachine
     {
-        public event EventHandler? GameStarted;
-        public event EventHandler<HearthstoneHero>? TurnStarted;
+        public event EventHandler<HearthstoneGameStartedEvent>? GameStarted;
+        public event EventHandler<HearthstoneTurnStartedEvent>? TurnStarted;
         public event EventHandler<HearthstoneCardPlayedEvent>? CardPlayed;
 
-        public virtual void OnGameStarted()
+        public virtual void OnGameStarted(HearthstoneGameStartedEvent e)
         {
-            GameStarted?.Invoke(this, EventArgs.Empty);
+            GameStarted?.Invoke(this, e);
         }
 
-        public virtual void OnTurnStarted(HearthstoneHero hero)
+        public virtual void OnTurnStarted(HearthstoneTurnStartedEvent e)
         {
-            TurnStarted?.Invoke(this, hero);
+            TurnStarted?.Invoke(this, e);
         }
 
         public virtual void OnHearthstoneCardPlayed(HearthstoneCardPlayedEvent e)
