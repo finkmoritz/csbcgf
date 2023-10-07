@@ -1,36 +1,47 @@
 using csbcgf;
 
-namespace hearthstonestandalone
+namespace hearthstone
 {
     public class HearthstoneStateMachine : StateMachine
     {
-        public event EventHandler<HearthstoneGameStartedEvent>? HearthstoneGameStarted;
-        public event EventHandler<HearthstoneTurnStartedEvent>? HearthstoneTurnStarted;
-        public event EventHandler<HearthstoneCardPlayedEvent>? HearthstoneCardPlayed;
-        public event EventHandler<HearthstoneDamageReceivedEvent>? HearthstoneDamageReceived;
+        public event EventHandler<HearthstoneGameStartedEvent>? BeforeHearthstoneGameStarted;
+        public event EventHandler<HearthstoneGameStartedEvent>? AfterHearthstoneGameStarted;
 
-        public virtual void SendHearthstoneGameStarted(HearthstoneGameStartedEvent e)
+        public event EventHandler<HearthstoneTurnStartedEvent>? BeforeHearthstoneTurnStarted;
+        public event EventHandler<HearthstoneTurnStartedEvent>? AfterHearthstoneTurnStarted;
+
+        public event EventHandler<HearthstoneCardPlayedEvent>? BeforeHearthstoneCardPlayed;
+        public event EventHandler<HearthstoneCardPlayedEvent>? AfterHearthstoneCardPlayed;
+
+        public event EventHandler<HearthstoneDamageReceivedEvent>? BeforeHearthstoneDamageReceived;
+        public event EventHandler<HearthstoneDamageReceivedEvent>? AfterHearthstoneDamageReceived;
+
+        public void SendHearthstoneGameStarted(HearthstoneGameStartedEvent e)
         {
+            BeforeHearthstoneGameStarted?.Invoke(this, e);
             e.Execute(this);
-            HearthstoneGameStarted?.Invoke(this, e);
+            AfterHearthstoneGameStarted?.Invoke(this, e);
         }
 
-        public virtual void SendHearthstoneTurnStarted(HearthstoneTurnStartedEvent e)
+        public void SendHearthstoneTurnStarted(HearthstoneTurnStartedEvent e)
         {
+            BeforeHearthstoneTurnStarted?.Invoke(this, e);
             e.Execute(this);
-            HearthstoneTurnStarted?.Invoke(this, e);
+            AfterHearthstoneTurnStarted?.Invoke(this, e);
         }
 
-        public virtual void SendHearthstoneCardPlayed(HearthstoneCardPlayedEvent e)
+        public void SendHearthstoneCardPlayed(HearthstoneCardPlayedEvent e)
         {
+            BeforeHearthstoneCardPlayed?.Invoke(this, e);
             e.Execute(this);
-            HearthstoneCardPlayed?.Invoke(this, e);
+            AfterHearthstoneCardPlayed?.Invoke(this, e);
         }
 
-        public virtual void SendHearthstoneDamageReceived(HearthstoneDamageReceivedEvent e)
+        public void SendHearthstoneDamageReceived(HearthstoneDamageReceivedEvent e)
         {
+            BeforeHearthstoneDamageReceived?.Invoke(this, e);
             e.Execute(this);
-            HearthstoneDamageReceived?.Invoke(this, e);
+            AfterHearthstoneDamageReceived?.Invoke(this, e);
         }
     }
 }

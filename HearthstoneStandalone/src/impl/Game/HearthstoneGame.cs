@@ -1,8 +1,6 @@
-using csbcgf;
-
-namespace hearthstonestandalone
+namespace hearthstone
 {
-    public class HearthstoneGame : GameObject<HearthstoneStateMachine>
+    public class HearthstoneGame : HearthstoneGameObject
     {
         public List<HearthstoneHero> Heros { get; init; }
         public int CurrentHeroIndex { get; init; }
@@ -13,7 +11,7 @@ namespace hearthstonestandalone
             CurrentHeroIndex = 0;
         }
 
-        public void StartGame()
+        public void Start()
         {
             StateMachine.SendHearthstoneGameStarted(new HearthstoneGameStartedEvent());
         }

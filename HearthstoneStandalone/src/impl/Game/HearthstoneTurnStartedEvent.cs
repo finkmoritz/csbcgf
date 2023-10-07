@@ -1,8 +1,6 @@
-using csbcgf;
-
-namespace hearthstonestandalone
+namespace hearthstone
 {
-    public class HearthstoneTurnStartedEvent : Event<HearthstoneStateMachine>
+    public class HearthstoneTurnStartedEvent : HearthstoneEvent
     {
         public required HearthstoneHero CurrentHero { get; set; }
 

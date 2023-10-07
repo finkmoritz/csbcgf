@@ -1,4 +1,4 @@
-﻿using hearthstonestandalone;
+﻿using hearthstone;
 
 class Program
 {
@@ -21,15 +21,16 @@ class Program
             }
         }
 
-        game.StartGame();
+        game.Start();
         game.NextTurn();
 
         PrintGameState(game);
 
         HearthstoneHero currentHero = game.Heros[game.CurrentHeroIndex];
+        HearthstoneHero opponentHero = game.Heros[1 - game.CurrentHeroIndex];
 
         Fireball fireball = (Fireball)currentHero.Hand[0];
-        fireball.Play(currentHero, game.Heros[1 - game.CurrentHeroIndex]);
+        fireball.Play(currentHero, opponentHero);
 
         PrintGameState(game);
     }

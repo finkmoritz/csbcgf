@@ -1,8 +1,6 @@
-using csbcgf;
-
-namespace hearthstonestandalone
+namespace hearthstone
 {
-    public class HearthstoneCardPlayedEvent : Event<HearthstoneStateMachine>
+    public class HearthstoneCardPlayedEvent : HearthstoneEvent
     {
         public required HearthstoneCard Card { get; set; }
         public required HearthstoneHero Actor { get; set; }

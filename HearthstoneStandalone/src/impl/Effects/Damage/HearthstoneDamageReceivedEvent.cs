@@ -1,8 +1,6 @@
-using csbcgf;
-
-namespace hearthstonestandalone
+namespace hearthstone
 {
-    public class HearthstoneDamageReceivedEvent : Event<HearthstoneStateMachine>
+    public class HearthstoneDamageReceivedEvent : HearthstoneEvent
     {
         public required HearthstoneDamage Damage { get; set; }
         public required HearthstoneHero Target { get; set; }

@@ -1,4 +1,4 @@
-namespace hearthstonestandalone
+namespace hearthstone
 {
     /// <summary>
     /// Fireball deals damage equal to its cost to a hero.

@@ -1,8 +1,6 @@
-using csbcgf;
-
-namespace hearthstonestandalone
+namespace hearthstone
 {
-    public abstract class HearthstoneCard : GameObject<HearthstoneStateMachine>
+    public abstract class HearthstoneCard : HearthstoneGameObject
     {
         public int Cost { get; set; }
 

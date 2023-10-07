@@ -1,8 +1,6 @@
-using csbcgf;
-
-namespace hearthstonestandalone
+namespace hearthstone
 {
-    public class HearthstoneHero : GameObject<HearthstoneStateMachine>
+    public class HearthstoneHero : HearthstoneGameObject
     {
         public int Life { get; set; }
         public int Diamonds { get; set; }
@@ -12,8 +10,8 @@ namespace hearthstonestandalone
 
         public HearthstoneHero(HearthstoneStateMachine stateMachine) : base(stateMachine)
         {
-            StateMachine.HearthstoneGameStarted += OnGameStarted;
-            StateMachine.HearthstoneTurnStarted += OnTurnStarted;
+            StateMachine.AfterHearthstoneGameStarted += OnGameStarted;
+            StateMachine.AfterHearthstoneTurnStarted += OnTurnStarted;
 
             Life = 20;
             Diamonds = 0;

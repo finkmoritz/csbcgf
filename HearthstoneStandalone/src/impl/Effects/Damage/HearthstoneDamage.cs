@@ -1,4 +1,4 @@
-namespace hearthstonestandalone
+namespace hearthstone
 {
 
     public class HearthstoneDamage
