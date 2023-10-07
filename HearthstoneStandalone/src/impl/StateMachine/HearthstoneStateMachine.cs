@@ -4,33 +4,33 @@ namespace hearthstonestandalone
 {
     public class HearthstoneStateMachine : StateMachine
     {
-        public event EventHandler<HearthstoneGameStartedEvent>? GameStarted;
-        public event EventHandler<HearthstoneTurnStartedEvent>? TurnStarted;
-        public event EventHandler<HearthstoneCardPlayedEvent>? CardPlayed;
-        public event EventHandler<HearthstoneDamageReceivedEvent>? DamageReceived;
+        public event EventHandler<HearthstoneGameStartedEvent>? HearthstoneGameStarted;
+        public event EventHandler<HearthstoneTurnStartedEvent>? HearthstoneTurnStarted;
+        public event EventHandler<HearthstoneCardPlayedEvent>? HearthstoneCardPlayed;
+        public event EventHandler<HearthstoneDamageReceivedEvent>? HearthstoneDamageReceived;
 
-        public virtual void OnGameStarted(HearthstoneGameStartedEvent e)
+        public virtual void SendHearthstoneGameStarted(HearthstoneGameStartedEvent e)
         {
             e.Execute(this);
-            GameStarted?.Invoke(this, e);
+            HearthstoneGameStarted?.Invoke(this, e);
         }
 
-        public virtual void OnTurnStarted(HearthstoneTurnStartedEvent e)
+        public virtual void SendHearthstoneTurnStarted(HearthstoneTurnStartedEvent e)
         {
             e.Execute(this);
-            TurnStarted?.Invoke(this, e);
+            HearthstoneTurnStarted?.Invoke(this, e);
         }
 
-        public virtual void OnHearthstoneCardPlayed(HearthstoneCardPlayedEvent e)
+        public virtual void SendHearthstoneCardPlayed(HearthstoneCardPlayedEvent e)
         {
             e.Execute(this);
-            CardPlayed?.Invoke(this, e);
+            HearthstoneCardPlayed?.Invoke(this, e);
         }
 
-        public virtual void OnHearthstoneDamageReceived(HearthstoneDamageReceivedEvent e)
+        public virtual void SendHearthstoneDamageReceived(HearthstoneDamageReceivedEvent e)
         {
             e.Execute(this);
-            DamageReceived?.Invoke(this, e);
+            HearthstoneDamageReceived?.Invoke(this, e);
         }
     }
 }

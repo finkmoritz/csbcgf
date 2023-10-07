@@ -13,7 +13,7 @@ namespace hearthstonestandalone
 
         protected void Play(HearthstoneHero actor)
         {
-            StateMachine.OnHearthstoneCardPlayed(new HearthstoneCardPlayedEvent { Card = this, Actor = actor });
+            StateMachine.SendHearthstoneCardPlayed(new HearthstoneCardPlayedEvent { Card = this, Actor = actor });
         }
     }
 }

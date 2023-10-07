@@ -15,12 +15,12 @@ namespace hearthstonestandalone
 
         public void StartGame()
         {
-            StateMachine.OnGameStarted(new HearthstoneGameStartedEvent());
+            StateMachine.SendHearthstoneGameStarted(new HearthstoneGameStartedEvent());
         }
 
         public void NextTurn()
         {
-            StateMachine.OnTurnStarted(new HearthstoneTurnStartedEvent { CurrentHero = Heros[CurrentHeroIndex] });
+            StateMachine.SendHearthstoneTurnStarted(new HearthstoneTurnStartedEvent { CurrentHero = Heros[CurrentHeroIndex] });
         }
     }
 }

@@ -12,8 +12,8 @@ namespace hearthstonestandalone
 
         public HearthstoneHero(HearthstoneStateMachine stateMachine) : base(stateMachine)
         {
-            StateMachine.GameStarted += OnGameStarted;
-            StateMachine.TurnStarted += OnTurnStarted;
+            StateMachine.HearthstoneGameStarted += OnGameStarted;
+            StateMachine.HearthstoneTurnStarted += OnTurnStarted;
 
             Life = 20;
             Diamonds = 0;
@@ -48,7 +48,7 @@ namespace hearthstonestandalone
 
         public void ReceiveDamage(HearthstoneDamage damage)
         {
-            StateMachine.OnHearthstoneDamageReceived(new HearthstoneDamageReceivedEvent { Damage = damage, Target = this });
+            StateMachine.SendHearthstoneDamageReceived(new HearthstoneDamageReceivedEvent { Damage = damage, Target = this });
         }
     }
 }

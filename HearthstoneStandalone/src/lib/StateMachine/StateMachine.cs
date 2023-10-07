@@ -1,6 +1,6 @@
 namespace csbcgf
 {
-    public class StateMachine
+    public abstract class StateMachine
     {
 
     }
