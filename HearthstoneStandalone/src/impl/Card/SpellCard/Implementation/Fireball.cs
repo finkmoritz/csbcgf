@@ -15,7 +15,7 @@ namespace hearthstonestandalone
         public void Play(HearthstoneHero actor, HearthstoneHero target)
         {
             base.Play(actor);
-            target.ReceiveDamage(Cost);
+            target.ReceiveDamage(new HearthstoneDamage { Amount = Cost });
         }
     }
 }

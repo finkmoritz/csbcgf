@@ -44,9 +44,9 @@ namespace hearthstonestandalone
             }
         }
 
-        public void ReceiveDamage(int damage)
+        public void ReceiveDamage(HearthstoneDamage damage)
         {
-            Life -= damage;
+            StateMachine.OnHearthstoneDamageReceived(new HearthstoneDamageReceivedEvent { Damage = damage, Target = this });
         }
     }
 }
