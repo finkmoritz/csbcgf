@@ -5,7 +5,7 @@ class Program
 
     public static void Main()
     {
-        StateMachine stateMachine = new StateMachine();
+        HearthstoneStateMachine stateMachine = new HearthstoneStateMachine();
 
         HearthstoneGame game = new HearthstoneGame(stateMachine);
 

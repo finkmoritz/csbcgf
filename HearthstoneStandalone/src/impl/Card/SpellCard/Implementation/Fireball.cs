@@ -6,7 +6,7 @@ namespace hearthstonestandalone
     public class Fireball : HearthstoneSpellCard
     {
 
-        public Fireball(StateMachine stateMachine, int cost)
+        public Fireball(HearthstoneStateMachine stateMachine, int cost)
             : base(stateMachine, cost)
         {
 

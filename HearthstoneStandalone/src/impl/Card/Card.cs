@@ -1,10 +1,12 @@
+using csbcgf;
+
 namespace hearthstonestandalone
 {
-    public abstract class HearthstoneCard : StatefulGameObject
+    public abstract class HearthstoneCard : GameObject<HearthstoneStateMachine>
     {
         public int Cost { get; set; }
 
-        public HearthstoneCard(StateMachine stateMachine, int cost) : base(stateMachine)
+        public HearthstoneCard(HearthstoneStateMachine stateMachine, int cost) : base(stateMachine)
         {
             Cost = cost;
         }

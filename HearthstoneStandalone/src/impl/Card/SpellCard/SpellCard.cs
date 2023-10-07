@@ -2,7 +2,7 @@ namespace hearthstonestandalone
 {
     public abstract class HearthstoneSpellCard : HearthstoneCard
     {
-        public HearthstoneSpellCard(StateMachine stateMachine, int cost)
+        public HearthstoneSpellCard(HearthstoneStateMachine stateMachine, int cost)
             : base(stateMachine, cost)
         {
 

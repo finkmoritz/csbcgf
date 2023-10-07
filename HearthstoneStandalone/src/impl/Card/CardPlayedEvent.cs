@@ -1,11 +1,13 @@
+using csbcgf;
+
 namespace hearthstonestandalone
 {
-    public class HearthstoneCardPlayedEvent : Event
+    public class HearthstoneCardPlayedEvent : Event<HearthstoneStateMachine>
     {
         public required HearthstoneCard Card { get; set; }
         public required HearthstoneHero Actor { get; set; }
 
-        public override void Execute(StateMachine stateMachine)
+        public override void Execute(HearthstoneStateMachine stateMachine)
         {
             if (Card.Cost <= Actor.Diamonds)
             {

@@ -1,8 +1,10 @@
+using csbcgf;
+
 namespace hearthstonestandalone
 {
-    public class HearthstoneGameStartedEvent : Event
+    public class HearthstoneGameStartedEvent : Event<HearthstoneStateMachine>
     {
-        public override void Execute(StateMachine stateMachine)
+        public override void Execute(HearthstoneStateMachine stateMachine)
         {
 
         }
